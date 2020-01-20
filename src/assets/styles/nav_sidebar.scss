@@ -1,0 +1,293 @@
+// @import url('https://fonts.googleapis.com/css?family=Montserrat+Subrayada|Ubuntu:400,500,700&display=swap');
+$background: #01579b;
+$body_bg: #e8edf5;
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  background: #e8edf5;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper .top_navbar {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  position: fixed;
+  top: 0;
+}
+
+.wrapper .top_navbar .logo {
+  width: 250px;
+  height: 100%;
+  background: $background;
+  border-bottom: 1px solid #22119d;
+}
+
+.wrapper .top_navbar .logo a {
+  display: block;
+  text-align: center;
+  font-family: 'Montserrat Subrayada', sans-serif;
+  font-size: 20px;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.wrapper .top_navbar .top_menu {
+  width: calc(100% - 250px);
+  height: 100%;
+  background: #fff;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper .top_navbar .top_menu .home_link a {
+  display: block;
+  background: $background;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 3px;
+}
+
+.wrapper .top_navbar .top_menu .home_link a:hover,
+.wrapper .top_navbar .right_info .icon_wrap:hover {
+  background: #5343c7;
+}
+
+.wrapper .top_navbar .right_info {
+  display: flex;
+}
+
+.wrapper .top_navbar .right_info .icon_wrap {
+  padding: 8px 15px;
+  border-radius: 3px;
+  background: $background;
+  color: #fff;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.main_body {
+  background: $body_bg;
+}
+
+.main_body .sidebar_menu {
+  position: fixed;
+  top: 65px;
+  left: 0;
+  background: $background;
+  width: 250px;
+  height: 100%;
+  // transition: all 0.6s linear;
+}
+
+.main_body .sidebar_menu .inner__sidebar_menu {
+  position: relative;
+  padding-top: 60px;
+}
+
+.main_body .sidebar_menu ul {
+  padding-left: 0px;
+}
+
+.main_body .sidebar_menu ul li a {
+  color: #7467d3;
+  font-size: 18px;
+  padding: 20px 35px;
+  display: block;
+  white-space: nowrap;
+}
+
+.main_body .sidebar_menu ul li a .icon {
+  margin-right: 8px;
+}
+
+.main_body .sidebar_menu ul li a span {
+  display: inline-block;
+}
+
+.main_body .sidebar_menu ul li a:hover {
+  background: #5343c7;
+  color: #fff;
+}
+
+.main_body .sidebar_menu ul li a.active {
+  background: #22119d;
+  color: #fff;
+}
+
+.main_body .sidebar_menu .hamburger {
+  position: absolute;
+  top: 5px;
+  right: -25px;
+  width: 50px;
+  height: 50px;
+  background: #e8edf5;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.main_body .sidebar_menu .inner_hamburger,
+.main_body .sidebar_menu .hamburger .arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main_body .sidebar_menu .inner_hamburger {
+  width: 40px;
+  border-radius: 50%;
+  height: 40px;
+  background: $background;
+}
+
+.main_body .sidebar_menu .hamburger .arrow {
+  color: #fff;
+  font-size: 20px;
+}
+
+.main_body .sidebar_menu .hamburger .fa-long-arrow-alt-right {
+  color: #fff;
+  display: none;
+}
+
+.main_body .main_container {
+  width: calc(100% - 250px);
+  margin-top: 65px;
+  margin-left: 250px;
+  padding: 25px 40px;
+  // transition: all 0.6s linear;
+}
+
+.main_body .main_container .item_wrap {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.main_body .main_container .item_wrap .item {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 25px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.main_body .main_container .item_wrap .item:first-child {
+  margin-right: 20px;
+}
+
+/* after adding active class */
+.wrapper.active .sidebar_menu {
+  width: 100px;
+}
+
+// .wrapper.active .hamburger .fa-long-arrow-alt-right {
+//   display: block;
+// }
+
+// .wrapper.active .hamburger .fa-long-arrow-alt-left {
+//   display: none;
+// }
+
+.wrapper.active .sidebar_menu ul li a .list {
+  display: none;
+}
+
+.wrapper.active .main_body .main_container {
+  width: calc(100% - 100px);
+  margin-left: 100px;
+}
+
+.side-list-item {
+  // padding: 0 30px;
+  padding: 0 !important;
+}
+
+.side-list-item-icon {
+  margin-left: 30px;
+  // margin-right: 20px !important;
+}
+
+.side-list-item-content {
+}
+
+.side-list-group {
+}
+
+//列表头部
+
+.side-list-group-header-icon {
+  padding-left: 30px;
+}
+
+.side-list-group-header-content {
+}
+
+//列表子项
+.side-list-group-item {
+  padding: 0 !important;
+}
+
+.side-list-group-item-icon {
+  margin-right: 14px;
+  opacity: 0;
+}
+
+.side-list-group-item-content {
+  padding-left: 83px;
+}
+
+.v-list--nav {
+  padding-bottom: 0px;
+}
+
+.side-list-group.v-list-group--active {
+  margin-bottom: 8px;
+}
+
+.side-list-item-active {
+  @extend .side-list-item;
+  background: #b6d0ed;
+  color: transparent !important;
+}
+
+//设置侧边栏一级列表的图标
+.side-list-item.side-list-item-active .side-list-item-icon {
+  // 继承属性
+  @extend .side-list-item-icon;
+  color: #000000;
+}
+
+//设置侧边栏二级列表的图标
+.side-list-group-item.side-list-item-active .side-list-group-item-icon {
+  // 继承属性
+  @extend .side-list-group-item-icon;
+  color: #000000;
+}
+
+//设置侧边栏一级列表的内容
+.side-list-item.side-list-item-active .side-list-item-content {
+  @extend .side-list-item-content;
+  color: #000000;
+}
+
+//设置侧边栏二级列表的内容
+.side-list-group-item.side-list-item-active .side-list-group-item-content {
+  @extend .side-list-group-item-content;
+  color: #000000;
+}
+
+.test {
+  color: #000;
+}

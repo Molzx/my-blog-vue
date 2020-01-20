@@ -1,0 +1,89 @@
+[
+  {
+    "#isActive": "设置选中的列表展开",
+    "#isMain": "当前列表是否为一条，false 则有子列表",
+    "#hasSub": "当前项是否有子列表的子列表（当isMain为true时，该项无效）",
+    "#to": "当前项为一条时的地址路由（当isMain为false时，该项无效）",
+    "#icon": "当前项或列表头的图标",
+    "#text": "当前项或列表头的文字",
+    "#content": "当前有子列表时的列表内容（当isMain为true时，该项无效）",
+
+    "isActive": false,
+    "isMain": false,
+    "hasSub": true,
+    "to": "",
+    "icon": "fas fa-address-book",
+    "text": "用户管理",
+    "content": [
+      {
+        "to": "/system/user-management/display",
+        "icon": "mdi-view-dashboard",
+        "text": "展示用户"
+      },
+      {
+        "to": "/system/user-management/addition",
+        "icon": "mdi-view-dashboard",
+        "text": "添加用户"
+      },
+      {
+        "to": "/system/user-management/update",
+        "icon": "mdi-view-dashboard",
+        "text": "修改用户"
+      }
+    ]
+  },
+  {
+    "isActive": false,
+    "isMain": false,
+    "hasSub": true,
+    "to": "",
+    "icon": "fas fa-address-book",
+    "text": "角色管理",
+    "content": [
+      {
+        "to": "/system/role-management/display",
+        "icon": "mdi-view-dashboard",
+        "text": "展示角色"
+      },
+      {
+        "to": "/system/role-management/addition",
+        "icon": "mdi-view-dashboard",
+        "text": "添加角色"
+      },
+      {
+        "to": "/system/role-management/update",
+        "icon": "mdi-view-dashboard",
+        "text": "修改角色"
+      }
+    ]
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "icon": "mdi-view-dashboard",
+    "text": "测试",
+    "to": "/system/file",
+    "content": []
+  },
+  {
+    "isActive": true,
+    "isMain": false,
+    "hasSub": false,
+    "to": "",
+    "icon": "mdi-view-dashboard",
+    "text": "ADD",
+    "content": [
+      {
+        "to": "/system/temp3",
+        "icon": "mdi-view-dashboard",
+        "text": "temp3"
+      },
+      {
+        "to": "/system/temp4",
+        "icon": "mdi-view-dashboard",
+        "text": "DELETE"
+      }
+    ]
+  }
+]
