@@ -1,9 +1,9 @@
 <!--
  * @Author       : xuzhenghao
- * @Date         : 2020-03-18 18:01:40
+ * @Date         : 2020-03-18 18:01:46
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-18 18:01:41
- * @FilePath     : \VueProjects\my-blog\src\views\blog\users\Info\owner.vue
+ * @LastEditTime : 2020-03-26 21:55:24
+ * @FilePath     : \VueProjects\my-blog\src\views\blog\users\other\info.vue
  * @Description  : 这是一些注释
  -->
 <template>
@@ -12,8 +12,8 @@
 
 <script>
 export default {
-  title: '我的资料 - Naicha博客',
-  name: 'blog-user-info-owner',
+  title: '用户资料 - Naicha博客',
+  name: 'blog-user-other-info',
   props: {
     //
   },

@@ -8,59 +8,16 @@
               class="left-tab"
               v-for="(item, i) in tabItems"
               :key="i"
-              :to="item.to"
+              :to="isSelfUserInfo ? item.toOwner : item.toOther"
             >
               <v-icon left :size="item.iconSize">{{
                 item.to == tab ? item.iconSelected : item.iconNormal
               }}</v-icon>
               {{ isSelfUserInfo ? item.textOwner : item.textOther }}
             </v-tab>
-            <!-- <v-tab class="left-tab" to="/blog/users/info">
-              <v-icon left>mdi-account</v-icon>
-              {{ isSelfUserInfo ? '我的资料' : 'ta的资料' }}
-            </v-tab>
-            <v-tab class="left-tab" to="/blog/users/collects">
-              <v-icon size="20" left>mdi-heart-outline</v-icon>
-              {{ isSelfUserInfo ? '我的收藏' : 'ta的收藏' }}
-            </v-tab>
-            <v-tab class="left-tab">
-              <v-icon size="20" left>mdi-thumb-up-outline</v-icon>
-              {{ isSelfUserInfo ? '我的点赞' : 'ta的点赞' }}
-            </v-tab> -->
           </v-tabs>
         </v-container>
       </v-card>
-      <!-- <div>
-        <v-card class="shadow-1  b-card-title">
-          <v-row class=" mx-3 fill-height" justify="center" align="center">
-            <p class="mb-0">
-              <strong class="title headline blue-grey--text text--darken-4"
-                >用户信息</strong
-              >
-            </p>
-          </v-row>
-        </v-card>
-        <v-card class="shadow-1  mb-6 b-card-content">
-          <v-card-text class="px-0" style="">
-            <v-container style="height: 300px;">
-              <v-tabs vertical>
-                <v-tab>
-                  <v-icon left>mdi-account</v-icon>
-                  用户信息
-                </v-tab>
-                <v-tab>
-                  <v-icon left>mdi-lock</v-icon>
-                  Option 2
-                </v-tab>
-                <v-tab>
-                  <v-icon left>mdi-access-point</v-icon>
-                  Option 3
-                </v-tab>
-              </v-tabs>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </!-->
     </v-col>
     <v-col>
       <v-card style="border-radius:8px" class="shadow-1  mb-6">
@@ -82,7 +39,8 @@ export default {
       tab: '',
       tabItems: [
         {
-          to: '/blog/users/info',
+          toOwner: '/blog/users/owner/info',
+          toOther: '/blog/users/other/info',
           iconNormal: 'mdi-account-settings-outline',
           iconSelected: 'mdi-account-settings',
           iconSize: 20,
@@ -90,7 +48,8 @@ export default {
           textOther: 'ta的资料'
         },
         {
-          to: '/blog/users/likes',
+          toOwner: '/blog/users/owner/likes',
+          toOther: '/blog/users/other/likes',
           iconNormal: 'mdi-account-heart-outline',
           iconSelected: 'mdi-account-heart',
           iconSize: 20,
@@ -98,7 +57,8 @@ export default {
           textOther: 'ta的点赞'
         },
         {
-          to: '/blog/users/collects',
+          toOwner: '/blog/users/owner/collects',
+          toOther: '/blog/users/other/collects',
           iconNormal: 'mdi-account-star-outline',
           iconSelected: 'mdi-account-star',
           iconSize: 20,
@@ -140,9 +100,9 @@ export default {
   },
   watch: {
     //
-    tab(newVal) {
-      console.log(newVal)
-    }
+    // tab(newVal) {
+    //   console.log(newVal)
+    // }
   },
   components: {
     //
@@ -153,6 +113,7 @@ export default {
 <style lang="scss" scoped>
 /*  */
 .left-tab {
+  color: #5c634a;
   justify-content: start !important;
 }
 //未选中hover

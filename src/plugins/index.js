@@ -20,4 +20,4 @@ import './waypoint'
 // 几天前格式转换
 import './vue-timeago'
 //自定义全局方法
-import './blog'
+import './blog/index'

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 14:01:53
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-11 21:29:00
+ * @LastEditTime : 2020-03-26 21:00:56
  * @FilePath     : \VueProjects\my-blog\src\main.js
  * @Description  : 项目主要js文件
  */
@@ -34,11 +34,6 @@ import api from '@/api'
 // 将api挂载到vue的原型上
 //使用 this.$api.login.方法
 Vue.prototype.$api = api
-
-// 加载全局变量
-import global from './assets/js/global'
-// 挂载
-Vue.prototype.$global = global
 
 //加载全局样式
 import '@styles/main.scss'

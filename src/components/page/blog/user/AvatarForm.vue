@@ -23,12 +23,7 @@
         <!-- <div :style="previewAvatar"></div> -->
         <v-hover v-slot:default="{ hover }">
           <v-fade-transition mode="out-in" origin="center center">
-            <v-img
-              :key="`img-${avatarKey}`"
-              :src="previewAvatar"
-              lazy-src=""
-              :alt="info.nickName"
-            >
+            <v-img :key="`img-${avatarKey}`" :src="previewAvatar" lazy-src="">
               <v-row
                 v-if="avatarChange && avatarloading"
                 class="fill-height ma-0"
@@ -169,7 +164,7 @@ export default {
         //头像修改
         // console.log(newVal)
         if (newVal) {
-          this.previewAvatar = this.$global.preview + newVal
+          this.previewAvatar = this.$avatar(newVal)
         }
       },
       immediate: true

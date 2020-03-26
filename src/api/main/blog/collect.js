@@ -1,8 +1,16 @@
+/*
+ * @Author       : xuzhenghao
+ * @Date         : 2020-03-13 22:53:39
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-03-26 21:09:54
+ * @FilePath     : \VueProjects\my-blog\src\api\main\blog\collect.js
+ * @Description  : 这是一些注释
+ */
 // 导入接口域名列表
 import base from '../../base'
 
 // 导入axios.js中创建的axios实例
-import { getRequest, jsonPostRequest } from '@/utils/axios/http'
+import { getRequest, postRequest } from '@/utils/axios/http'
 const UrlPrefix = base.baseUrl + 'collects/'
 
 const collect = {
@@ -16,8 +24,8 @@ const collect = {
     //   //用户id，可不传
     //   userId: userId
     // }
-    let url = UrlPrefix + 'like'
-    return jsonPostRequest(url, params)
+    let url = UrlPrefix + 'collect'
+    return postRequest(url, params)
   },
 
   // 取消收藏
@@ -30,8 +38,8 @@ const collect = {
     //   //用户id
     //   userId: userId
     // }
-    let url = UrlPrefix + 'unlike'
-    return jsonPostRequest(url, params)
+    let url = UrlPrefix + 'uncollect'
+    return postRequest(url, params)
   },
   // 获取用户收藏过的所有文章
   toGetCollectedArticles: params => {

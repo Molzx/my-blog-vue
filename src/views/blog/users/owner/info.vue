@@ -1,17 +1,22 @@
 <!--
  * @Author       : xuzhenghao
- * @Date         : 2020-03-04 22:35:19
+ * @Date         : 2020-03-18 18:01:40
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 22:12:41
- * @FilePath     : \VueProjects\my-blog\src\views\blog\users\Layout.vue
+ * @LastEditTime : 2020-03-26 21:55:09
+ * @FilePath     : \VueProjects\my-blog\src\views\blog\users\owner\info.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <page-blog-user-display></page-blog-user-display>
+  <page-blog-user-info></page-blog-user-info>
 </template>
 
 <script>
 export default {
+  title: '我的资料 - Naicha博客',
+  name: 'blog-user-owner-info',
+  props: {
+    //
+  },
   data() {
     return {
       //
@@ -19,10 +24,6 @@ export default {
   },
   mounted() {
     //
-    let path = this.$route.fullPath
-    if (path == '/blog/users' || path == '/blog/users/') {
-      this.$router.push('/blog/home')
-    }
   },
   methods: {
     //

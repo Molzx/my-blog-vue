@@ -190,24 +190,28 @@
     }
     //================text============
     .b-title {
-      color: #242424;
+      @extend .color-title;
+      // color: #242424;
       font-size: 1.3rem;
       font-weight: 400;
       line-height: 1.125;
       margin-bottom: 0.4rem;
     }
     .b-title--small {
-      color: #242424;
+      @extend .color-title;
+      // color: #242424;
       font-size: 1rem;
     }
     .b-sub-title {
-      color: #545c63;
+      @extend .color-sub;
+      // color: #545c63;
       font-size: 0.93rem;
       font-weight: 400;
       line-height: 1.5;
       margin-bottom: 0px;
       a {
-        color: #545c63;
+        @extend .color-sub;
+        // color: #545c63;
         font-size: 0.93rem;
         font-weight: 400;
         line-height: 1.5;

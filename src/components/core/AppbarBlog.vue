@@ -2,8 +2,8 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-13 19:45:44
- * @FilePath     : \VueProjects\my-blog\src\components\core\Appbar.vue
+ * @LastEditTime : 2020-03-26 22:42:00
+ * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
 <template>
@@ -185,7 +185,8 @@ export default {
           //是否登录后才显示
           isLogin: true,
           text: '个人中心',
-          icon: 'mdi-account'
+          icon: 'mdi-account',
+          to: '/blog/users/owner'
         },
         { name: 'login', isLogin: false, text: '登录', icon: 'mdi-login' },
         { name: 'logout', isLogin: true, text: '注销', icon: 'mdi-logout' }
@@ -252,23 +253,22 @@ export default {
     toLoginIn() {
       //登录
       console.log('登录')
-      this.$router.push('/login')
+      this.$toLogin()
     },
     toLogOut() {
       //注销
       console.log('注销')
-
-      this.setLoginStatus()
-      this.setUserInfo()
-      this.setUseUserId()
       //注销后跳回首页
-      this.$router.push('/blog/home')
+      this.$toLogout()
     },
     toUserInfo() {
       //个人中心
       console.log('个人中心')
-      this.setUseUserId()
-      this.$router.push('/blog/users/info')
+      // this.setUseUserId()
+      if (!this.isOwnerSpace) {
+        this.menu = 0
+        this.$router.push('/blog/users/owner/info')
+      }
     },
     requireBaseUserInfo() {
       let vm = this
@@ -294,7 +294,11 @@ export default {
       isLogin: 'getLoginStatusFun',
       //获取基础头像，昵称
       getBaseUserInfo: 'getBaseUserInfoFun'
-    })
+    }),
+    isOwnerSpace() {
+      let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1
+      return flag
+    }
   },
   watch: {
     $route(to) {
@@ -311,12 +315,6 @@ export default {
         }
       }
       this.setActiveBlogPageIndex(this.activeIndex)
-
-      //如果不是跳转到 用户信息页面，把原来设置的第三方用户id清空
-      if (linkTo.indexOf('blog/users') == -1) {
-        this.menu = 999
-        this.setUseUserId()
-      }
     },
 
     'getBaseUserInfo.avatar': {
@@ -325,7 +323,7 @@ export default {
         //头像修改
         console.log(newVal)
         if (newVal) {
-          this.previewAvatar = this.$global.preview + newVal
+          this.previewAvatar = this.$avatar(newVal)
         }
       },
       immediate: true

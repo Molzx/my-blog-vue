@@ -1,123 +1,19 @@
 <template>
-  <v-container class="" style="min-height: 450px;">
-    <v-row>
-      <v-col cols="12"><p class="b-title my-3 mx-8">我的收藏</p> </v-col></v-row
-    >
-    <!-- <v-divider class="mx-0"></v-divider> -->
-    <v-sheet class="" color="grey lighten-4">
-      <v-scroll-y-transition class="py-0" group tag="v-row">
-        <template v-for="(item, i) in getArrayData">
-          <v-col
-            cols="12"
-            :key="i + 'collects'"
-            class="px-6 mt-7 py-0"
-            :class="i == getArrayData.length - 1 ? 'mb-3' : ''"
-          >
-            <v-alert text color="#F5F5F5" class="mb-0 pa-0">
-              <!-- <v-divider v-if="i != 0"></v-divider> -->
-
-              <v-tooltip top content-class="b-tooltip" color="white" light>
-                <template v-slot:activator="{ on }"
-                  ><v-btn
-                    class="opt-btn"
-                    :class="fav ? 'red--text' : ''"
-                    icon
-                    @click="fav = !fav"
-                    v-on="on"
-                  >
-                    <v-icon size="20">mdi-star-face</v-icon>
-                  </v-btn>
-                </template>
-                <span class="grey--text text--darken-3">取消收藏</span>
-              </v-tooltip>
-              <v-sheet>
-                <v-container>
-                  <v-row dense>
-                    <v-col cols="auto" class="mr-1">
-                      <v-card
-                        class="mx-auto"
-                        max-height="68"
-                        flat
-                        style="border-radius:0px"
-                      >
-                        <v-img
-                          height="68"
-                          width="80"
-                          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                        ></v-img>
-                      </v-card>
-                    </v-col>
-                    <v-col class="justify-center">
-                      <v-col cols="12" class="pa-0">
-                        <p class="b-title--small mb-1">
-                          <router-link
-                            :to="{
-                              path: linkToArticle,
-                              query: { q: item.articleId }
-                            }"
-                            class="b-a"
-                          >
-                            {{ item.title }}
-                          </router-link>
-                          <!-- <a class="float-right b-a" @click="item, i">取消收藏</a> -->
-                        </p>
-                      </v-col>
-                      <v-col cols="2" class="pa-0 ">
-                        <p class="mb-0 b-c-desc">
-                          {{ item.description }}
-                        </p>
-                      </v-col>
-                      <v-col cols="12" class="pa-0">
-                        <span class="b-span--time"
-                          >{{ item.createdTime }}
-                        </span>
-
-                        <span class="b-span--time mx-2"> | </span>
-
-                        <span class="b-span--time">
-                          <router-link
-                            :to="{
-                              path: linkToCategory,
-                              query: { q: item.categoryName }
-                            }"
-                            class="b-a"
-                          >
-                            {{ item.categoryName | textLengthFormat(18) }}
-                          </router-link></span
-                        >
-                      </v-col>
-                    </v-col>
-                  </v-row>
-                </v-container></v-sheet
-              >
-            </v-alert></v-col
-          >
-        </template>
-      </v-scroll-y-transition>
-    </v-sheet>
-    <v-row
-      v-if="showMoreBtn"
-      class="justify-center"
-      style="margin-bottom:-36px"
-    >
-      <v-tooltip top content-class="b-tooltip" color="white" light>
-        <template v-slot:activator="{ on }">
-          <div class="social-icon-wrapper3" v-on="on">
-            <div class="social-buttons">
-              <a class="social-button i-orange shadow-1" @click="addItems">
-                <i class="fas fa-angle-double-down"></i>
-              </a>
-            </div>
-          </div>
-        </template>
-        <span class="grey--text text--darken-3">加载更多</span>
-      </v-tooltip>
-    </v-row>
-  </v-container>
+  <page-blog-user-list
+    title="收藏"
+    :icon="icon"
+    :loading="loading"
+    :records="dataItems"
+    :showMoreBtn="showMoreBtn"
+    @nextPage="nextPage"
+    @deleteItems="deleteItems(arguments)"
+  ></page-blog-user-list>
 </template>
 
 <script>
-import testData from '@/assets/data/article'
+// import testData from '@/assets/data/article'
+// eslint-disable-next-line no-unused-vars
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {
     //
@@ -129,7 +25,7 @@ export default {
         //一页的记录数
         size: 10,
         //当前页数
-        current: 1,
+        current: 0,
         //用户id
         userId: '',
         //数据库分页查询，页面偏移量，用在分页查询点赞量、阅读量等
@@ -137,38 +33,40 @@ export default {
         //当前已显示的点赞记录的数目，用与缓存区没有数据时，计算偏移量
         showSize: 0
       },
-      recordItems: testData.article.records,
+      recordItems: [],
       dataItems: [],
       total: 0,
+
+      icon: {
+        size: 20,
+        text: 'mdi-heart'
+      },
       showMoreBtn: false,
-
-      loading: true,
-
-      fav: true
+      loading: true
     }
   },
   mounted() {
     //
-    let data = {
-      total: 30,
-      size: 0,
-      records: testData.article.records
-    }
-    this.changeAfterRequire(data)
+    // let data = {
+    //   total: 30,
+    //   size: 0,
+    //   records: testData.article.records
+    // }
+    // this.changeAfterRequire(data)
+    this.requireData()
   },
   methods: {
     //
     requireData() {
       //
-
       let vm = this
       vm.changeBeforeRequire()
       setTimeout(() => {
         this.$api.collect
-          .toGetCollectedArticles()
+          .toGetCollectedArticles(this.pageParams)
           .then(res => {
             let data = res.data.extend.data
-            console.log(data.msg)
+            // console.log(data)
             vm.changeAfterRequire(data)
           })
           .catch(() => {
@@ -177,32 +75,33 @@ export default {
       }, 0)
     },
     changeBeforeRequire() {
+      if (this.selfUser) {
+        this.pageParams.userId = 0
+      } else {
+        this.pageParams.userId = this.getUseUserId
+      }
+      this.pageParams.current++
       this.pageParams.showSize = this.dataItems.length
     },
     changeAfterRequire(data) {
       this.total = data.total
-      //设置偏移量为返回的size
-      this.pageParams.offset = data.size
-      this.recordItems = data.records
       let total = this.total
       //一页的数量
       // let size = 30
-      let flag = parseInt(total) > this.dataItems.length
-
+      console.log(this.dataItems.length)
+      let flag = parseInt(total) > this.dataItems.length + data.records.length
+      console.log(flag)
       if (flag) {
         this.showMoreBtn = true
       } else {
         this.showMoreBtn = false
       }
-    },
-    addItems() {
-      let item = testData.article.records[1]
-      // console.log(item)
-      this.recordItems = [item]
+      //设置偏移量为返回的size
+      this.pageParams.offset = data.size
+      this.recordItems = data.records
     },
     unCollect(item, index) {
       //取消收藏
-
       let vm = this
 
       let params = {
@@ -218,7 +117,8 @@ export default {
           .toUncollected(params)
           .then(res => {
             let data = res.data.extend.data
-            console.log(data.msg)
+            console.log(data)
+            this.$toast.success(data)
             //在下标处开始删除,删除一位，删除取消点赞的记录
             //不必重新拉取数据
             vm.dataItems.splice(index, 1)
@@ -227,75 +127,57 @@ export default {
             // vm.loading = false
           })
       }, 0)
+    },
+
+    nextPage() {
+      //
+      this.requireData()
+    },
+    deleteItems(args) {
+      //父组件以数组形式接收，deleteItems(args)
+      this.unCollect(args[0], args[1])
+      // this.dataItems.splice(args[1], 1)
     }
   },
   computed: {
     //
-    linkToArticle() {
-      let path = '/blog/articles'
-      return path
-    },
-    linkToCategory() {
-      let path = '/blog/categories/category'
-      return path
-    },
-    linkToTag() {
-      let path = '/blog/tags/tag'
-      return path
-    },
-    getArrayData() {
-      var arr = this.recordItems
-
-      let arr2 = this.dataItems
-      arr2.push(...arr)
-      // console.log(arr2)
-      return arr2
+    ...mapGetters({
+      //获取  其他用户id
+      getUseUserId: 'getUseUserIdFun'
+    }),
+    selfUser() {
+      var path = this.$route.fullPath
+      if (path.indexOf('users/info/owner') != -1) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   watch: {
     //
+
+    recordItems: {
+      handler(newVal) {
+        if (newVal) {
+          // console.log(newVal)
+          this.dataItems.push(...newVal)
+          this.loading = false
+        }
+      },
+      deep: true
+    }
   },
   components: {
     //
   },
-  //截断超出一定数量的字符
+  //
   filters: {
-    textLengthFormat(value, num) {
-      // let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    },
-    subTitleFormat(value) {
-      let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    }
+    //
   }
 }
 </script>
 
-<style lang="scss" src="@styles/blog/social_icon3.scss" scoped></style>
 <style lang="scss" scoped>
-/*  */
-.b-c-desc {
-  color: #7a7a7a;
-  font-size: 0.88rem;
-  width: 700px;
-  overflow: hidden; /*超出部分隐藏*/
-  white-space: nowrap; /*不换行*/
-  text-overflow: ellipsis; /*超出部分文字以...显示*/
-}
-.opt-btn {
-  position: absolute;
-  top: -20px;
-  right: 10px;
-  background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-}
+//
 </style>

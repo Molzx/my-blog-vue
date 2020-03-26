@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:27:42
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-07 11:21:25
+ * @LastEditTime : 2020-03-26 21:28:59
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\http.js
  * @Description  : 这是一些注释
  */
@@ -25,6 +25,7 @@ export const postRequest = (
           req +=
             encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) + '&'
         }
+        req = req.substring(0, req.length - 1)
         return req
       }
     ],

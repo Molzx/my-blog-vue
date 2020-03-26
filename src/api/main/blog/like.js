@@ -2,7 +2,7 @@
 import base from '../../base'
 
 // 导入axios.js中创建的axios实例
-import { getRequest, jsonPostRequest } from '@/utils/axios/http'
+import { getRequest, postRequest } from '@/utils/axios/http'
 const UrlPrefix = base.baseUrl + 'likes/'
 
 const like = {
@@ -17,7 +17,7 @@ const like = {
     //   userId: userId
     // }
     let url = UrlPrefix + 'like'
-    return jsonPostRequest(url, params)
+    return postRequest(url, params)
   },
 
   // 取消点赞
@@ -31,7 +31,7 @@ const like = {
     //   userId: userId
     // }
     let url = UrlPrefix + 'unlike'
-    return jsonPostRequest(url, params)
+    return postRequest(url, params)
   },
   // 获取用户点赞过的所有文章
   toGetLikedArticles: params => {

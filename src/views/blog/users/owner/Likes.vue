@@ -1,11 +1,11 @@
 <template>
-  <page-blog-user-collects></page-blog-user-collects>
+  <page-blog-user-likes></page-blog-user-likes>
 </template>
 
 <script>
 export default {
-  title: '用户收藏 - Naicha博客',
-  name: 'blog-user-collects',
+  title: '我的点赞 - Naicha博客',
+  name: 'blog-user-owner-likes',
   props: {
     //
   },

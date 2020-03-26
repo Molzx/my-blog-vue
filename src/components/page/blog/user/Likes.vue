@@ -59,7 +59,6 @@ export default {
     //
     requireData() {
       //
-
       let vm = this
       vm.changeBeforeRequire()
       setTimeout(() => {
