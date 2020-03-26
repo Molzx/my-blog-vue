@@ -82,12 +82,6 @@
                     {{ item.description | textLengthFormat(120) }}
                   </p>
                   <div class="d-flex flex-row b-footer-content align-start">
-                    <Timeago
-                      class="comment-meta-item timeago "
-                      :datetime="item.createdTime"
-                      :autoUpdate="true"
-                    >
-                    </Timeago>
                     <router-link
                       :to="{
                         path: linkToCategory,
@@ -97,6 +91,14 @@
                     >
                       {{ item.categoryName | textLengthFormat(18) }}
                     </router-link>
+                  </div>
+                  <div class="d-flex flex-row b-footer-content align-start">
+                    <Timeago
+                      class="comment-meta-item timeago "
+                      :datetime="item.createdTime"
+                      :autoUpdate="true"
+                    >
+                    </Timeago>
                     <v-spacer></v-spacer>
                     <template v-for="(opt, optIndex) in item.opt">
                       <span :key="optIndex" class="ml-2">
@@ -226,7 +228,10 @@ export default {
           text2: '取消分享'
         }
       ],
-      optArticleArr: []
+      optLikeIndex: 1,
+      optCollectIndex: 2,
+      optArticleArr: [],
+      floatData: ''
     }
   },
   methods: {
@@ -344,24 +349,8 @@ export default {
       deep: true
     }
   },
-  //截断超出一定数量的字符
   filters: {
-    textLengthFormat(value, num) {
-      // let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    },
-    subTitleFormat(value) {
-      let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    }
+    //
   }
 }
 </script>

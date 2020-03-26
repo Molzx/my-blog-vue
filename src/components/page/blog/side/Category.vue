@@ -6,7 +6,13 @@
           分类
         </p>
         <v-spacer></v-spacer>
-        <v-tooltip top content-class="b-tooltip" color="white" light>
+        <v-tooltip
+          top
+          content-class="b-tooltip"
+          color="white"
+          light
+          transition="scale-transition"
+        >
           <template v-slot:activator="{ on }">
             <v-btn
               icon
@@ -120,24 +126,8 @@ export default {
   computed: {
     //=======内容相关
   },
-  //截断超出一定数量的字符
   filters: {
-    textLengthFormat(value, num) {
-      // let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    },
-    subTitleFormat(value) {
-      let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    }
+    //
   }
 }
 </script>
