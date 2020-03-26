@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 14:21:12
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-13 13:13:05
+ * @LastEditTime : 2020-03-26 20:25:40
  * @FilePath     : \VueProjects\my-blog\src\plugins\index.js
  * @Description  : 这是一些注释
  */
@@ -19,3 +19,5 @@ import './waypoint'
 
 // 几天前格式转换
 import './vue-timeago'
+//自定义全局方法
+import './blog'

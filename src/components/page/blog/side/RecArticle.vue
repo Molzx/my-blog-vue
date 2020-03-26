@@ -53,7 +53,7 @@
                 height="68"
                 width="80"
                 class=" grey lighten-5"
-                :src="item.cover ? $global.preview + item.cover : ''"
+                :src="$cover(item.cover)"
               >
                 <template v-slot:placeholder>
                   <v-row

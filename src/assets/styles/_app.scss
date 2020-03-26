@@ -3,7 +3,7 @@
 @import '../../common/fonts/K2D/fonts.css';
 @import '../../common/fonts/XHei/XHei.css';
 
-$body-font-family: 'Ubuntu', 'Roboto', 'Open Sans', 'XHei', 'Microsoft YaHei',
+$body-font-family: 'XHei', 'Ubuntu', 'Roboto', 'Open Sans', 'Microsoft YaHei',
   sans-serif;
 $font-family-k2d: 'K2D';
 // 网页进度条颜色
@@ -19,6 +19,9 @@ $font-family-k2d: 'K2D';
 }
 .v-application {
   font-family: $body-font-family;
+  title {
+    font-family: $body-font-family;
+  }
 }
 .elevator {
   position: fixed;

@@ -48,7 +48,7 @@
                 <v-card class="b-card-image">
                   <v-img
                     class="b-card-image--img grey lighten-5"
-                    :src="item.cover ? $global.preview + item.cover : ''"
+                    :src="$cover(item.cover)"
                   >
                     <template v-slot:placeholder>
                       <v-row
@@ -98,8 +98,6 @@
                       {{ item.categoryName | textLengthFormat(18) }}
                     </router-link>
                     <v-spacer></v-spacer>
-
-                    <!-- <span class="">2020-01-10</span> -->
                     <template v-for="(opt, optIndex) in item.opt">
                       <span :key="optIndex" class="ml-2">
                         <v-tooltip
@@ -131,23 +129,9 @@
                           <span class="grey--text text--darken-3">{{
                             opt.selected ? opt.text2 : opt.text1
                           }}</span>
-                        </v-tooltip></span
-                      ></template
-                    >
-                    <!-- <i class="far fa-thumbs-up"></i> {{ item.liked }}</span
-                    >
-                    <span class="dot"></span>
-
-                    <span><i class="far fa-star"></i> {{ item.liked }}</span>
-                    <span class="dot"></span>
-
-                    <span><i class="far fa-eye"></i> {{ item.liked }}</span>
-                    <span class="dot"></span>
-
-                    <span
-                      ><i class="far fa-share-square"></i>
-                      {{ item.liked }}</span
-                    > -->
+                        </v-tooltip>
+                      </span>
+                    </template>
                   </div>
                 </div>
               </v-row>

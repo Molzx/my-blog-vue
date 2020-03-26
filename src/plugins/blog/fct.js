@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:59:39
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-25 14:44:42
+ * @LastEditTime : 2020-03-26 20:44:12
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\fct.js
  * @Description  : 这是一些注释
  */
@@ -50,6 +50,7 @@ exports.install = function(Vue, router) {
     let previewAvatar
     if (avatar) {
       if (avatar.indexOf('http') == -1) {
+        console.log(Vue.prototype.$global.host)
         previewAvatar = Vue.prototype.$global.remoteHost + avatar
         // previewAvatar = Vue.prototype.$global.preview + avatar
       } else {

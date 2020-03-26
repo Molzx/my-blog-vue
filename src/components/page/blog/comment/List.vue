@@ -20,14 +20,7 @@
               <template v-slot:icon>
                 <a @click="toUserInfo(comment.fromUid)">
                   <v-avatar>
-                    <img
-                      :src="
-                        comment.fromAvatar
-                          ? $global.preview + comment.fromAvatar
-                          : previewAvatar
-                      "
-                      :alt="comment.fromNickName"
-                    />
+                    <img :src="$avatar(comment.fromAvatar)" />
                   </v-avatar>
                 </a>
               </template>
@@ -206,15 +199,9 @@
                             <div class="avatar-bg">
                               <a @click="toUserInfo(children.fromUid)">
                                 <v-avatar size="40">
-                                  <img
-                                    :src="
-                                      children.fromAvatar
-                                        ? $global.preview + children.fromAvatar
-                                        : previewAvatar
-                                    "
-                                    :alt="children.fromNickName"
-                                  /> </v-avatar
-                              ></a>
+                                  <img :src="$avatar(children.fromAvatar)" />
+                                </v-avatar>
+                              </a>
                             </div>
                           </v-col>
                           <v-col class="pb-0 pt-5 pl-0">

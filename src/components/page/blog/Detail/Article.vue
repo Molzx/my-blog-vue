@@ -2,8 +2,8 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 20:09:16
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-12 22:26:13
- * @FilePath     : \VueProjects\my-blog\src\components\page\blog\BlogDetail.vue
+ * @LastEditTime : 2020-03-26 20:35:21
+ * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\Article.vue
  * @Description  : 这是一些注释
  -->
 <template>
@@ -20,7 +20,7 @@
         v-else
         class="white--text align-end lighten-2"
         height="380px"
-        :src="articleInfo.cover ? $global.preview + articleInfo.cover : ''"
+        :src="$cover(articleInfo.cover)"
       >
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
