@@ -1,0 +1,22 @@
+//默认使用颜色为true，使用图片为false
+$main-background: color !default;
+$main-background-color: #f8fafc;
+$main-background-image: '../../../public/static/images/bg.png';
+$text-color: #8d8b8b;
+$text-color-active: #00b894;
+$bgcolor: #f8f9fa;
+// system
+$sidebar-background-color: #00796b;
+$hoverbg: #5343c7;
+$wrapper-background: $bgcolor;
+$sidebar-group-background: #004d40;
+
+//text -color
+$not-seleted-text: #c4c3ca;
+
+// $bgcolor: $main-background-color;
+//导出js
+:export {
+  bgcolor: $bgcolor;
+  /* ... */
+}

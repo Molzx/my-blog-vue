@@ -4,10 +4,10 @@
     <v-layout row wrap align-center justify-center fill-height>
       <ol ref="menu">
         <li class="menu-item">
-          <a class="nav-a" href="#0">Home</a>
+          <a class="nav-a" href="#0">首页</a>
         </li>
         <li class="menu-item">
-          <a class="nav-a" href="#0">About</a>
+          <a class="nav-a" href="#0">关于</a>
         </li>
         <li class="menu-item">
           <a class="nav-a" href="#0"
@@ -142,7 +142,7 @@
           </ol>
         </li>
         <li class="menu-item">
-          <a class="nav-a" href="#0">Contact</a>
+          <a class="nav-a" href="#0">联系我</a>
         </li>
       </ol>
     </v-layout>
@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import { TimelineLite, TweenMax, Sine, Power1 } from '@commons/tweenmax/all'
+import { TimelineLite, TweenMax, Sine, Power1 } from '@common/tweenmax/all'
 export default {
   props: ['active', 'shadow'],
   data() {

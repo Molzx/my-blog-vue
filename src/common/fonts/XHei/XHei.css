@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "XHei";
+  src: url("XHei.woff2") format("woff2"),
+       url("XHei.woff") format("woff"),
+       url("XHei.ttf") format("truetype"),
+       url("XHei.eot") format("embedded-opentype"),
+       url("XHei.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}

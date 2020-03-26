@@ -8,54 +8,78 @@
     "#text": "当前项或列表头的文字",
     "#content": "当前有子列表时的列表内容（当isMain为true时，该项无效）",
 
+    "header": "博客相关",
     "isActive": false,
-    "isMain": false,
-    "hasSub": true,
-    "to": "",
-    "icon": "fas fa-address-book",
-    "text": "用户管理",
-    "content": [
-      {
-        "to": "/system/user-management/display",
-        "icon": "mdi-view-dashboard",
-        "text": "展示用户"
-      },
-      {
-        "to": "/system/user-management/addition",
-        "icon": "mdi-view-dashboard",
-        "text": "添加用户"
-      },
-      {
-        "to": "/system/user-management/update",
-        "icon": "mdi-view-dashboard",
-        "text": "修改用户"
-      }
-    ]
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/articles",
+    "icon": "mdi-account-switch",
+    "text": "博客文章管理",
+    "content": []
   },
   {
     "isActive": false,
-    "isMain": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/categories",
+    "icon": "mdi-book-lock-open",
+    "text": "博客分类管理",
+    "content": []
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/tags",
+    "icon": "fas fa-file",
+    "text": "博客标签管理",
+    "content": []
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/comments",
+    "icon": "fas fa-file",
+    "text": "博客评论管理",
+    "content": []
+  },
+  {
+    "header": "系统相关",
+    "isActive": false,
+    "isMain": true,
     "hasSub": true,
-    "to": "",
-    "icon": "fas fa-address-book",
+    "to": "/system/users",
+    "icon": "mdi-account-group",
+    "text": "用户管理",
+    "content": []
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/roles",
+    "icon": "mdi-account-switch",
     "text": "角色管理",
-    "content": [
-      {
-        "to": "/system/role-management/display",
-        "icon": "mdi-view-dashboard",
-        "text": "展示角色"
-      },
-      {
-        "to": "/system/role-management/addition",
-        "icon": "mdi-view-dashboard",
-        "text": "添加角色"
-      },
-      {
-        "to": "/system/role-management/update",
-        "icon": "mdi-view-dashboard",
-        "text": "修改角色"
-      }
-    ]
+    "content": []
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/permissions",
+    "icon": "mdi-book-lock-open",
+    "text": "权限管理",
+    "content": []
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/files",
+    "icon": "fas fa-file",
+    "text": "文件管理",
+    "content": []
   },
   {
     "isActive": false,
@@ -63,7 +87,7 @@
     "hasSub": false,
     "icon": "mdi-view-dashboard",
     "text": "测试",
-    "to": "/system/file",
+    "to": "/system/test",
     "content": []
   },
   {

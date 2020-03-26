@@ -1,0 +1,295 @@
+// @import url(https://fonts.googleapis.com/css?family=Raleway:400, 500);
+
+$a-color-dark: #ffffff;
+$a-color-light: #8d8b8b;
+$a-color-dark-hover: white;
+$a-color-light-hover: #00796b;
+
+@mixin a-color($color) {
+  color: $color !important;
+}
+
+.menu-bar {
+  // font-family: 'Raleway', Arial, sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+
+  $normal-color: $a-color-dark !default;
+  $hover-color: $a-color-dark-hover !default;
+  &.light {
+    $normal-color: $a-color-light;
+    $hover-color: $a-color-light-hover;
+  }
+  //左右两边  横向向指示条
+  .menu-bar-1 {
+    $border-color: #00796b;
+
+    * {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+    }
+
+    li {
+      display: inline-block;
+      list-style: outside none none;
+      // margin: 0 2em;
+      margin: 0 0.8em;
+      padding: 0;
+    }
+    a {
+      display: inline-block;
+      padding: 0.5em 17px;
+      color: $normal-color;
+      // @include a-color($normal-color);
+      position: relative;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    a:before {
+      left: 20%;
+      right: 20%;
+      top: 50%;
+      content: '';
+      border-left: 12px solid $border-color;
+      border-right: 12px solid $border-color;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      height: 3px;
+      opacity: 0;
+      position: absolute;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+    }
+    a:hover,
+    .current a {
+      // @include a-color($hover-color);
+      color: $hover-color;
+    }
+    a:hover:before,
+    .current a:before {
+      left: 0;
+      right: 0;
+      opacity: 1;
+    }
+  }
+  //左右两边  竖向指示条
+  .menu-bar-2 {
+    $border-color: #43a047;
+    // $border-color: #27ae60;
+
+    * {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+    }
+
+    li {
+      display: inline-block;
+      list-style: outside none none;
+      margin: 0.4em 0.8em;
+      padding: 0;
+    }
+    a {
+      padding: 0 0.7em;
+      color: $normal-color;
+      position: relative;
+      text-decoration: none;
+      display: inline-block;
+    }
+    a:before {
+      position: absolute;
+      content: '';
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+      opacity: 0;
+      left: 15%;
+      right: 15%;
+      top: 0;
+      bottom: 0;
+      border-left: 3px solid $border-color;
+      border-right: 3px solid $border-color;
+    }
+    a:hover,
+    .current a {
+      color: $hover-color;
+    }
+    a:hover:before,
+    .current a:before {
+      opacity: 1;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  //上边指示条
+  .menu-bar-3 {
+    //使用时a 标签需要加上 data-hover=“xxx”
+    $border-color: #c0392b;
+    * {
+      box-sizing: border-box;
+    }
+    li {
+      display: inline-block;
+      list-style: outside none none;
+      margin: 0 1.5em;
+      padding: 0;
+    }
+    a {
+      padding: 0.5em 0;
+      color: $normal-color;
+      position: relative;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    a:before,
+    a:after {
+      position: absolute;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+    }
+    a:before {
+      top: 0;
+      display: block;
+      height: 3px;
+      width: 0%;
+      content: '';
+      background-color: $border-color;
+    }
+    a:after {
+      left: 0;
+      top: 0;
+      padding: 0.35em 0;
+      position: absolute;
+      content: attr(data-hover);
+      color: $hover-color;
+      white-space: nowrap;
+      max-width: 0%;
+      overflow: hidden;
+    }
+    a:hover:before,
+    .current a:before {
+      opacity: 1;
+      width: 100%;
+    }
+    a:hover:after,
+    .current a:after {
+      max-width: 100%;
+    }
+  }
+  //下边指示条
+  .menu-bar-4 {
+    //使用时a 标签需要加上 data-hover=“xxx”
+    $border-color: #2980b9;
+    * {
+      box-sizing: border-box;
+    }
+    li {
+      display: inline-block;
+      list-style: outside none none;
+      margin: 0 1.5em;
+      padding: 0;
+    }
+    a {
+      padding: 0.5em 0;
+      color: $normal-color;
+      position: relative;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    a:before,
+    a:after {
+      position: absolute;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+    }
+    a:before {
+      bottom: 0;
+      display: block;
+      height: 3px;
+      width: 0%;
+      content: '';
+      background-color: $border-color;
+    }
+    a:after {
+      left: 0;
+      top: 0;
+      padding: 0.35em 0;
+      position: absolute;
+      content: attr(data-hover);
+      color: $hover-color;
+      white-space: nowrap;
+      max-width: 0%;
+      overflow: hidden;
+    }
+    a:hover:before,
+    .current a:before {
+      opacity: 1;
+      width: 100%;
+    }
+    a:hover:after,
+    .current a:after {
+      max-width: 100%;
+    }
+  }
+
+  //上下两边指示条
+  .menu-bar-5 {
+    //
+
+    $border-color: #558b2f;
+
+    // letter-spacing: 1px;
+
+    * {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+    }
+    li {
+      display: inline-block;
+      list-style: outside none none;
+      margin: 0.5em 1.5em;
+      padding: 0;
+    }
+    a {
+      padding: 0.3em 0;
+      color: $normal-color;
+      position: relative;
+      text-decoration: none;
+      display: inline-block;
+    }
+    a:before {
+      position: absolute;
+      content: '';
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+      opacity: 0;
+      top: 25%;
+      bottom: 25%;
+      left: 0;
+      right: 0;
+      border-top: 3px solid $border-color;
+      border-bottom: 3px solid $border-color;
+    }
+    a:hover,
+    .current a {
+      color: $hover-color;
+    }
+    a:hover:before,
+    .current a:before {
+      opacity: 1;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}

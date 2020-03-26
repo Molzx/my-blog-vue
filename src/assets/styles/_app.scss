@@ -1,0 +1,117 @@
+@import '../../common/fonts/Ubuntu/fonts.css';
+
+@import '../../common/fonts/K2D/fonts.css';
+@import '../../common/fonts/XHei/XHei.css';
+
+$body-font-family: 'Ubuntu', 'Roboto', 'Open Sans', 'XHei', 'Microsoft YaHei',
+  sans-serif;
+$font-family-k2d: 'K2D';
+// 网页进度条颜色
+#nprogress .bar {
+  background: $orange-900 !important; //自定义颜色
+}
+
+.app-container {
+  // font-family: 'Ubuntu', 'Roboto', 'Open Sans', 'XHei', 'Microsoft YaHei',
+  //   sans-serif !important;
+  // font-family: 'Ubuntu', 'Microsoft YaHei', 'XHei' 'Roboto', 'Open Sans',
+  //   'Microsoft YaHei', sans-serif;
+}
+.v-application {
+  font-family: $body-font-family;
+}
+.elevator {
+  position: fixed;
+  // padding: 0 16px;
+  bottom: 30%;
+  // margin-top: -140px;
+  right: 16px;
+  z-index: 999;
+  background-color: #fff;
+  box-shadow: 0 4px 12px 0 rgba(7, 17, 27, 0.1);
+  border-radius: 4px;
+
+  .b-btn {
+    min-width: 48px !important;
+  }
+}
+.fill-width {
+  width: 100%;
+}
+.active-box {
+  text-align: center;
+  position: fixed;
+  top: 24%;
+  left: 8%;
+  z-index: 999;
+  // background-color: #fff;
+  // box-shadow: 0 4px 12px 0 rgba(7, 17, 27, 0.1);
+  border-radius: 4px;
+  // margin-left: -40px;
+}
+
+.js-fixed {
+  @media screen and (min-width: 1111px) {
+    position: fixed;
+    top: 20px;
+    z-index: 999;
+    // background: #f8fafc;
+    // width: 280px;
+  }
+}
+.b-tooltip {
+  border-radius: 4px;
+  box-shadow: 0 4px 12px 0 rgba(7, 17, 27, 0.1);
+  opacity: 1 !important;
+  z-index: 1501 !important;
+}
+
+.close-btn {
+  width: 36px !important;
+  height: 36px !important;
+  background-color: #d5f5e3 !important;
+  border-radius: 100%;
+  .v-icon {
+    color: #2ecc71 !important;
+  }
+}
+.max-index {
+  z-index: 9999 !important;
+}
+//==============距离==========
+.dot {
+  margin: 0 6px;
+}
+//===========覆盖=========
+
+//===================分页
+$trans-props: all 0.3s ease;
+.theme--light.v-pagination .v-pagination__item,
+.theme--light.v-pagination .v-pagination__navigation {
+  color: hsl(212, 16%, 48%);
+  // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: $trans-props;
+
+  &.v-pagination__item--active {
+    color: white;
+  }
+}
+
+.theme--light.v-pagination .v-pagination__item:hover,
+.theme--light.v-pagination .v-pagination__navigation:hover {
+  transform: translateY(-4px);
+  // color: #fff;
+  // background-color: #BBDEFB;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.theme--light.v-pagination .v-pagination__item:hover i {
+  /* 	transform: scale(1.1); */
+  color: #fff;
+}
+
+.theme--light.v-pagination .v-pagination__item:hover:after,
+.theme--light.v-pagination .v-pagination__navigation:hover::after {
+  transform: translate(0) scale(1.2);
+}

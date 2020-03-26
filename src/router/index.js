@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-08 16:50:21
- * @LastEditTime : 2020-01-17 21:11:46
+ * @LastEditTime : 2020-02-13 15:57:23
  * @LastEditors  : xuzhenghao
  * @Description: In User Settings Edit
  * @FilePath: \VueProjects\blog\src\router\index.js
@@ -65,13 +65,24 @@ import RouteGenerator from '../utils/easy-router/index.js'
 let generator = new RouteGenerator(
   require.context('@views', true, /\.vue$/, 'lazy')
 )
-let routes = [generator.generate()].concat([{ path: '*', redirect: '/' }])
+let routes = [generator.generate()].concat([{ path: '*', redirect: '/404' }])
 
 const router = new VueRouter({
   // 去掉url中的#
   mode: 'history',
   // routes
   routes: routes
+})
+
+import NProgress from '../plugins/nprogress'
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

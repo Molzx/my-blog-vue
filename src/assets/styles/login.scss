@@ -1,30 +1,19 @@
 /* @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800'); */
-@import '../../commons/fonts/Montserrat/fonts.css';
+// @import '../../common/fonts/Montserrat/fonts.css';
 @import './anim.scss';
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  background: #f6f5f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
-  height: 100vh;
-  margin: -20px 0 0px;
-}
+// h1 {
+//   font-weight: bold;
+//   margin: 0;
+// }
 
-h1 {
-  font-weight: bold;
-  margin: 0;
-}
-
-h2 {
-  text-align: center;
-}
+// h2 {
+//   text-align: center;
+// }
 
 p {
   font-size: 14px;
@@ -43,17 +32,6 @@ a {
   font-size: 14px;
   text-decoration: none;
   /* margin: 15px 0; */
-}
-
-.body {
-  background: #f6f5f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
-  height: 100vh;
-  margin: -20px 0 0px;
 }
 
 .my-button {
@@ -135,23 +113,6 @@ input {
   width: 100%;
 }
 
-.myBackground {
-  background: #f8fafc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
-  height: 100vh;
-  margin: -20px 0 0px;
-}
-
-.my-input-header {
-  width: 100%;
-  border-radius: 4px;
-  max-height: 67px;
-}
-
 .my-color {
   background-color: #f3f5f6;
 }
@@ -205,7 +166,10 @@ input {
   margin-bottom: 0px;
 }
 
-.container {
+* {
+  text-shadow: silver 1px 1px 2px !important;
+}
+.login-container {
   background-color: #fff;
 
   box-sizing: border-box;
@@ -213,7 +177,8 @@ input {
 
   /* box-shadow: 0 8px 16px 0 rgba(7, 17, 27, 0.05); */
   /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
-  box-shadow: 0 14px 28px rgba(7, 17, 27, 0.05), 0 10px 10px rgba(7, 17, 27, 0.05);
+  box-shadow: 0 14px 28px rgba(7, 17, 27, 0.05),
+    0 10px 10px rgba(7, 17, 27, 0.05);
   position: relative;
   overflow: hidden;
   width: 788px;
@@ -234,14 +199,13 @@ input {
   z-index: 2;
 }
 
-.container.right-panel-active .sign-in-container {
+.login-container.right-panel-active .sign-in-container {
   transform: translateX(100%);
   opacity: 0;
   animation: showIn 0.6s;
 }
 
 @keyframes showIn {
-
   0%,
   49.99% {
     opacity: 1;
@@ -266,7 +230,7 @@ input {
   z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
+.login-container.right-panel-active .sign-up-container {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
@@ -275,7 +239,6 @@ input {
 }
 
 @keyframes showUp {
-
   0%,
   49.99% {
     opacity: 0;
@@ -304,7 +267,7 @@ input {
   z-index: 100;
 }
 
-.container.right-panel-active .overlay-container {
+.login-container.right-panel-active .overlay-container {
   transform: translateX(-100%);
 }
 
@@ -334,7 +297,7 @@ input {
   /* background: rgba(0, 0, 0, 0.4); */
 }
 
-.container.right-panel-active .overlay {
+.login-container.right-panel-active .overlay {
   transform: translateX(50%);
 }
 
@@ -357,7 +320,7 @@ input {
   transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
+.login-container.right-panel-active .overlay-left {
   transform: translateX(0);
 }
 
@@ -366,7 +329,7 @@ input {
   transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
+.login-container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
 

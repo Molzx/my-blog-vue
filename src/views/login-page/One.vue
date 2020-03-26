@@ -5,35 +5,44 @@
  * @LastEditors  : xuzhenghao
  -->
 <template>
-  <div class="body">
-    <div class="container" :class="classFlag ? 'right-panel-active' : ''">
+  <v-row class="ma-auto" align="center" justify="center">
+    <div class="login-container" :class="classFlag ? 'right-panel-active' : ''">
       <div class="form-container sign-up-container">
         <form action="#">
-          <h1>Create Account</h1>
-          <div class="social-container">
-            <a href="#" class="social">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social">
-              <i class="fab fa-google-plus-g"></i>
-            </a>
-            <a href="#" class="social">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
+          <div ref="formHeader" class="mx-n3">
+            <h1 class="mb-6">注册</h1>
+            <p class="text-center ma-0">
+              <a
+                :disabled="regViewIndex == 0"
+                @click="setRegPhone"
+                class="caption"
+                :class="regViewIndex == 0 ? 'a-disabled' : ''"
+                >手机号码注册
+              </a>
+              <span> | </span>
+              <a
+                :disabled="regViewIndex == 1"
+                @click="setRegEmail"
+                class="caption"
+                :class="regViewIndex == 1 ? 'a-disabled' : ''"
+                >邮箱注册
+              </a>
+            </p>
           </div>
-          <span>or use your email for registration</span>
-          <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button>Sign Up</button>
+          <transition name="component-scale" mode="out-in">
+            <page-login-reg-phone
+              v-if="regViewIndex == 0"
+            ></page-login-reg-phone>
+            <page-login-reg-email v-else></page-login-reg-email>
+          </transition>
         </form>
       </div>
       <div class="form-container sign-in-container">
         <form action="#">
           <div ref="form">
-            <div ref="formHeader">
-              <h1>Sign in</h1>
-              <div class="social-container">
+            <div ref="formHeader" class="mx-n3">
+              <h1 class="mb-6">登录</h1>
+              <!-- <div class="social-container">
                 <a href="#" class="social">
                   <i class="fab fa-facebook-f"></i>
                 </a>
@@ -43,14 +52,35 @@
                 <a href="#" class="social">
                   <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a ref="loginlink" @click="changeLoginPhone" class="social">
-                  <i class="iconfont icon-phone"></i>
+              </div> -->
+              <!-- <span>默认登录方式</span> -->
+              <p class="text-center ma-0">
+                <a
+                  :disabled="loginViewIndex == 0"
+                  @click="setLoginDefault"
+                  class="caption"
+                  :class="loginViewIndex == 0 ? 'a-disabled' : ''"
+                  >帐号密码登录
                 </a>
-                <a @click="changeLoginEmail" class="social">
-                  <i class="fas fa-at"></i>
+                <span> | </span>
+                <a
+                  :disabled="loginViewIndex == 1"
+                  @click="setLoginPhone"
+                  class="caption"
+                  :class="loginViewIndex == 1 ? 'a-disabled' : ''"
+                  >手机登录
                 </a>
-              </div>
-              <span>or use your account</span>
+                <span> | </span>
+                <a
+                  :disabled="loginViewIndex == 2"
+                  @click="setLoginEmail"
+                  class="caption"
+                  :class="loginViewIndex == 2 ? 'a-disabled' : ''"
+                  >邮箱登录
+                </a>
+                <!-- <span> | </!-->
+                <!-- <span> | 手机登录 | 邮箱登录</span> -->
+              </p>
             </div>
 
             <v-layout ref="component" row wrap>
@@ -63,51 +93,36 @@
               </transition>
             </v-layout>
           </div>
-          <!-- <transition 
-              v-bind:css="false"
-              @before-enter="beforeEnter"
-              @enter="enter"
-              @before-leave="beforeLeave"
-              @leave="leave"
-            >
-              <component :is="view"></component>
-          </transition>-->
-          <!-- <transition name="component-slidex" mode="out-in">
-              <component :is="view"></component>
-          </transition>-->
-          <!-- <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />-->
-          <!-- <a href="#">Forgot your password?</a>
-          <button>Sign In</button>-->
         </form>
       </div>
       <div class="overlay-container">
         <div class="overlay">
           <div class="wrap-mask">
             <div class="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
+              <h1>欢迎回来！</h1>
+              <p class="mb-0">已经拥有帐号了吗？</p>
               <p>
-                To keep connected with us please login with your personal info
+                快回来，我们一起学习交流吧！
               </p>
               <a class="btn btn-1" @click="changeClass('signIn')">
                 <svg>
                   <rect x="0" y="0" fill="none" width="100%" height="100%" />
                 </svg>
-                Sign In
+                登录
               </a>
               <!-- <button class="my-button ghost" @click="changeClass('signIn')">
                   Sign In
               </button>-->
             </div>
             <div class="overlay-panel overlay-right">
-              <h1>Hello, Friend!</h1>
-              <p>Enter your personal details and start journey with us</p>
-
+              <h1>朋友，你好！</h1>
+              <p class="mb-0">还没有帐号吗？</p>
+              <p>快来创建帐号，加入博客吧！</p>
               <a class="btn btn-1" @click="changeClass('signUp')">
                 <svg>
                   <rect x="0" y="0" fill="none" width="100%" height="100%" />
                 </svg>
-                Sign Up
+                注册
               </a>
               <!-- <button
                   class="my-button ghost"
@@ -121,30 +136,32 @@
         </div>
       </div>
     </div>
-  </div>
+  </v-row>
 </template>
 
 <script>
 // import Veloity from 'velocity-animate'
 // import { TweenLite } from 'gsap'
-import { TweenLite } from '@commons/tweenmax/all'
-import LoginDefault from '@views/login-page/Default'
-import LoginPhone from '@views/login-page/Phone'
-import LoginEmail from '@views/login-page/Email'
+import { TweenLite } from '@common/tweenmax/all'
+// import LoginDefault from '@views/login-page/Default'
+// import LoginPhone from '@views/login-page/Phone'
+// import LoginEmail from '@views/login-page/Email'
 export default {
   name: 'login-one',
   data() {
     return {
       publicPath: process.env.BASE_URL,
-      containerClass: 'container',
+      containerClass: 'login-container',
       activedClass: 'right-panel-active',
       classFlag: false,
       formFlag: true,
       singIn: false,
       singUp: false,
 
-      view: 'login-default',
+      view: 'page-login-default',
       loginType: 'default',
+      loginViewIndex: 0,
+      regViewIndex: 0,
 
       fadeInDuration: 1600,
       fadeOutDuration: 1600,
@@ -174,16 +191,49 @@ export default {
         TweenLite.to([form], 0.6, { height: '+=68', onComplete: function() {} })
       }
     },
+    setLoginDefault() {
+      this.loginViewIndex = 0
+
+      this.view = 'page-login-default'
+      this.formAnim(false)
+    },
+    setLoginPhone() {
+      this.loginViewIndex = 1
+
+      const flag = this.view == 'page-login-default'
+      this.view = 'page-login-phone'
+      if (flag) {
+        this.formAnim(true)
+      }
+    },
+    setLoginEmail() {
+      this.loginViewIndex = 2
+
+      const flag = this.view == 'page-login-default'
+      this.view = 'page-login-email'
+      if (flag) {
+        this.formAnim(true)
+      }
+    },
+    setRegPhone() {
+      this.regViewIndex = 0
+    },
+    setRegEmail() {
+      console.log('inn')
+      this.regViewIndex = 1
+    },
     changeLoginPhone: function() {
       const _this = this
       const form = this.$refs.form
-      const flag = _this.view == 'login-default'
+      const flag = _this.view == 'page-login-default'
       if (flag) {
-        _this.view = 'login-phone'
+        _this.view = 'page-login-phone'
         _this.loginType = 'phone'
+        this.loginViewIndex = 1
       } else {
-        _this.view = 'login-default'
+        _this.view = 'page-login-default'
         _this.loginType = 'default'
+        this.loginViewIndex = 0
       }
       this.formAnim(flag)
       console.log('hn')
@@ -205,13 +255,15 @@ export default {
       })
     },
     changeLoginEmail: function() {
-      const flag = this.view == 'login-default'
+      const flag = this.view == 'page-login-default'
       if (flag) {
-        this.view = 'login-email'
+        this.view = 'page-login-email'
         this.loginType = 'email'
+        this.loginViewIndex = 2
       } else {
-        this.view = 'login-default'
+        this.view = 'page-login-default'
         this.loginType = 'default'
+        this.loginViewIndex = 0
       }
       this.formAnim(flag)
     },
@@ -299,9 +351,9 @@ export default {
     }
   },
   components: {
-    'login-default': LoginDefault,
-    'login-phone': LoginPhone,
-    'login-email': LoginEmail
+    // 'login-default': LoginDefault,
+    // 'login-phone': LoginPhone,
+    // 'login-email': LoginEmail
   },
   created: function() {
     // this.$store.dispatch('changeRouter', '测试')
@@ -313,3 +365,10 @@ export default {
 </script>
 <style lang="scss" src="@styles/btn.scss" scoped></style>
 <style lang="scss" src="@styles/login.scss" scoped></style>
+
+<style lang="scss" scoped>
+.a-disabled {
+  pointer-events: none;
+  color: #343434;
+}
+</style>

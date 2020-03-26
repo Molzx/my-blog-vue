@@ -2,18 +2,14 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 21:57:50
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-01-19 18:04:56
+ * @LastEditTime : 2020-02-07 16:09:44
  * @FilePath     : \VueProjects\my-blog\src\assets\js\side.js
  * @Description  : 这是一些注释
  */
-import { TweenLite, TweenMax, TimelineLite } from '@commons/tweenmax/all'
+import { TweenLite, TimelineLite } from '@common/tweenmax/all'
 export const sidebarData = require('@/assets/data/sidebar.json')
 export function sidebarAnim(_this) {
-  const sidebar = _this.$refs.sidebar
-  const container = _this.$refs.container
-
   const hamburger = _this.$refs.hamburger
-
   // let sideBar = document.querySelectorAll('.sidebar_menu')
   // let arrow = document.querySelectorAll('.inner_hamburger')
 
@@ -22,36 +18,63 @@ export function sidebarAnim(_this) {
 
   hamburger.addEventListener('click', function() {
     if (_this.sidebarOpen) {
-      //侧边栏关闭滑动效果
-      TweenLite.fromTo(sidebar, 0.6, { width: 250 }, { width: 100 })
-
-      TweenLite.to(container, 0.6, {
-        css: { width: 'calc(100% - 100px)', marginLeft: '100px' }
-      })
-
+      // TweenLite.to(container, 10.6, {
+      //   css: { width: 'calc(100% - 100px)', marginLeft: '100px' }
+      // })
+      // containAnim(true, _this)
       listItemAnim(true, _this)
       arrowIconAnim(true, _this)
 
       _this.listExpand = false
     } else {
-      //侧边栏展开滑动效果
-      TweenLite.fromTo(sidebar, 0.6, { width: 100 }, { width: 250 })
-
-      TweenLite.to(container, 0.6, {
-        css: { width: 'calc(100% - 250px)', marginLeft: '250px' }
-      })
-
+      // containAnim(false, _this)
       listItemAnim(false, _this)
       arrowIconAnim(false, _this)
       _this.listExpand = true
       _this.sidebarOpenCount++
     }
     _this.sidebarOpen = !_this.sidebarOpen
-    // _this.$refs.wrapper.classList.toggle('active')
+    _this.$refs.wrapper.classList.toggle('active')
     // _this.mini = !_this.mini
   })
 }
+// function containAnim(start, _this) {
+//   const sidebar = _this.$refs.sidebar
+//   const container = _this.$refs.container
+//   if (start) {
+//     //侧边栏关闭滑动效果
+//     TweenLite.fromTo(
+//       sidebar,
+//       0.6,
+//       { width: 250, ease: Power1.easeInOut },
+//       { width: 100 }
+//     )
+//     TweenLite.fromTo(
+//       container,
+//       0.6,
+//       {
+//         css: { width: 'calc(100% - 250px)', marginLeft: '250px' },
+//         ease: Power1.easeInOut
+//       },
+//       {
+//         css: { width: 'calc(100% - 100px)', marginLeft: '100px' }
+//       }
+//     )
+//   } else {
+//     //侧边栏展开滑动效果
+//     TweenLite.fromTo(
+//       sidebar,
+//       0.6,
+//       { width: 100, ease: Power1.easeInOut },
+//       { width: 250 }
+//     )
 
+//     TweenLite.to(container, 0.6, {
+//       css: { width: 'calc(100% - 250px)', marginLeft: '250px' },
+//       ease: Power1.easeOut
+//     })
+//   }
+// }
 /**
  * @description: 导航箭头动画效果
  * @param {type}
@@ -100,38 +123,63 @@ function listItemAnim(start, _this) {
   let group_append_icon = document.querySelectorAll(
     '.v-list-group__header__append-icon'
   )
-
   const group_content = _this.$refs.group_content
   const group_icon = _this.$refs.group_icon
+  let time = 0.3
   if (start) {
     //侧边栏图标文字效果
-    TweenLite.to([text], 0.4, { x: -20, autoAlpha: 0 })
-    TweenLite.to([group_append_icon], 0.3, { x: -10, autoAlpha: 0 })
+    //单条列表项
+    TweenLite.to([text], time, {
+      // scale: 0.6,
+      autoAlpha: 0,
+      transformOrigin: 'left'
+    })
+    //组列表项 头部展开箭头
+    TweenLite.to([group_append_icon], 0.1, {
+      // scale: 0.6,
+      autoAlpha: 0
+    })
 
-    TweenLite.to([group_content], 0.6, { x: -20, autoAlpha: 0 })
-    TweenLite.to([group_icon], 0.6, { x: -70, autoAlpha: 1 })
+    //组列表项 子项的内容
+    TweenLite.to([group_content], 0.1, {
+      // scale: 0.6,
+      autoAlpha: 0,
+      transformOrigin: 'left'
+    })
+    //组列表项 子项的图标
+    TweenLite.fromTo([group_icon], 1, { autoAlpha: 0 }, { autoAlpha: 1 })
   } else {
     //侧边栏图标文字效果
-    TweenLite.to([text], 0.6, { x: 0, autoAlpha: 1 })
-    TweenLite.to([group_append_icon], 0.3, { x: 0, autoAlpha: 1 })
+    //单条列表项
+    TweenLite.to([text], 0.4, { autoAlpha: 1, delay: 0.3 })
+    //组列表项 头部展开箭头
+    TweenLite.to([group_append_icon], 0.4, { scale: 1, autoAlpha: 1 })
 
-    TweenLite.to([group_content], 0.6, { x: 0, autoAlpha: 1 })
-    TweenLite.to([group_icon], 0.6, { x: 0, autoAlpha: 0 })
+    //组列表项 子项的内容
+    TweenLite.to([group_content], 0.4, { autoAlpha: 1, delay: 0.3 })
+
+    //组列表项 子项的图标
+    TweenLite.to([group_icon], 0.4, {
+      // x: 30,
+      autoAlpha: 0,
+      // scale: 0.6,
+      onComplete: function() {
+        TweenLite.set([group_icon], { scale: 1 })
+      }
+    })
   }
 }
 
 export function groupItemAnim(start, _this) {
-  const group_content = _this.$refs.group_content
+  // const group_content = _this.$refs.group_content
   const group_icon = _this.$refs.group_icon
   if (start) {
     _this.$nextTick(function() {
-      TweenMax.set([group_content], { x: -20, autoAlpha: 0 })
+      // TweenLite.set([group_content], { x: -20, autoAlpha: 0 })
 
-      TweenLite.set([group_icon], { x: -70, autoAlpha: 0 })
-      TweenMax.to([group_icon], 0.2, { autoAlpha: 1 })
+      // TweenLite.set([group_icon], { x: -70, autoAlpha: 0 })
+
+      TweenLite.to([group_icon], 0.6, { autoAlpha: 1 })
     })
-  } else {
-    TweenLite.to([group_content], 0.6, { x: 0, autoAlpha: 1 })
-    TweenLite.to([group_icon], 0.6, { x: 0 })
   }
 }

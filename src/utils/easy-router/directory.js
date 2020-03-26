@@ -214,7 +214,11 @@ class Directory {
       //当是默认子路由时，替换路径为/
       path: view.IsIndex ? '/' : view.LastInfo,
       name: view.Component.name,
-      component: component
+      component: component,
+      meta: {
+        //对应每个页面要显示的标题
+        title: view.Component.title
+      }
       // component: view.Component
     }
   }

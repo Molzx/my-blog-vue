@@ -75,16 +75,16 @@
 </template>
 
 <script>
-import LoginDefault from '@views/login-page/Default'
-import LoginPhone from '@views/login-page/Phone'
-import LoginEmail from '@views/login-page/Email'
+// import LoginDefault from '@views/login-page/Default'
+// import LoginPhone from '@views/login-page/Phone'
+// import LoginEmail from '@views/login-page/Email'
 
 export default {
   name: 'login-two',
   data() {
     return {
       flag: false,
-      view: 'login-default',
+      view: 'page-login-default',
       who: 'LoginPhone',
       loginType: 'default',
       btnLoginPhone: '短信登錄',
@@ -93,29 +93,29 @@ export default {
   },
   methods: {
     changeComponent: function() {
-      if (this.view == 'login-default' || this.loginType == 'email') {
+      if (this.view == 'page-login-default' || this.loginType == 'email') {
         if (this.loginType == 'email') {
           this.btnLoginEmail = '郵箱登錄'
         }
-        this.view = 'login-phone'
+        this.view = 'page-login-phone'
         this.loginType = 'phone'
         this.btnLoginPhone = '帳號密碼登錄'
       } else {
-        this.view = 'login-default'
+        this.view = 'page-login-default'
         this.loginType = 'default'
         this.btnLoginPhone = '短信登錄'
       }
     },
     changeViewEmail: function() {
-      if (this.view == 'login-default' || this.loginType == 'phone') {
+      if (this.view == 'page-login-default' || this.loginType == 'phone') {
         if (this.loginType == 'phone') {
           this.btnLoginPhone = '短信登錄'
         }
-        this.view = 'login-email'
+        this.view = 'page-login-email'
         this.loginType = 'email'
         this.btnLoginEmail = '帳號密碼登錄'
       } else {
-        this.view = 'login-default'
+        this.view = 'page-login-default'
         this.loginType = 'default'
         this.btnLoginEmail = '郵箱登錄'
       }
@@ -134,9 +134,9 @@ export default {
     }
   },
   components: {
-    'login-default': LoginDefault,
-    'login-phone': LoginPhone,
-    'login-email': LoginEmail
+    // 'login-default': LoginDefault,
+    // 'login-phone': LoginPhone,
+    // 'login-email': LoginEmail
   }
 }
 </script>

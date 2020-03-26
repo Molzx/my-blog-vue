@@ -1,13 +1,18 @@
 //导入material
 @import './material.scss';
-
+@import './color.scss';
+@import './background.scss';
+@import './app';
+@import './system';
+@import './blog';
+// @import './blog/top_nav';
 //默认使用颜色为true，使用图片为false
-$main-background: color !default;
-$main-background-color: #f8fafc;
-$main-background-image: '../../../public/static/images/bg.png';
-$text-color: #8d8b8b;
-$text-color-active: #00b894;
-
+// $main-background: color !default;
+// $main-background-color: #f8fafc;
+// $main-background-image: '../../../public/static/images/bg.png';
+// $text-color: #8d8b8b;
+// $text-color-active: #00b894;
+// $bgcolor: $main-background-color;
 .myBackground {
   // $main-background: image;
 
@@ -59,26 +64,34 @@ $text-color-active: #00b894;
   box-sizing: border-box;
 }
 
+.btn-icon-diy {
+  height: 36px !important;
+  width: 36px !important;
+  margin: 0 0 !important;
+}
 //覆盖组件
-.side-list-item-content,
-.side-list-group-item-content .v-list-item__title {
-  // font-size: 1.2rem;
+//system界面=====
+//========顶部
+.system-wrapper .v-toolbar__content {
+  padding-left: 0px;
 }
 
-//列表头部
-.side-list-group .v-list-group__header {
-  // padding: 0 30px;
-  padding: 0 10px 0 0;
-}
-
-//侧边栏列表展开时，列表头的设置
-.side-list-group .v-list-group__header.v-list-item--active {
-  background: #cccccc1c;
-  color: white !important;
-}
-
-//侧边栏展开时，列表的设置
-.side-list-group .v-list-group__items {
-  border-radius: 4px;
-  background: $light-blue-900;
+///
+.diy-data-footer {
+  .v-data-footer {
+    border-top: none !important;
+  }
+  .v-data-footer__icons-before,
+  .v-data-footer__icons-after {
+    display: none;
+  }
+  .v-data-footer__select {
+    margin-right: 0;
+    .v-select {
+      margin: 13px 0 13px 8px;
+    }
+  }
+  .v-data-footer__pagination {
+    margin: 0 24px 0 24px;
+  }
 }

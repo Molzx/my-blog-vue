@@ -146,9 +146,9 @@
 </template>
 
 <script>
-import { TimelineLite, TweenMax, Sine, Power1 } from '@commons/tweenmax/all'
+import { TimelineLite, TweenMax, Sine, Power1 } from '@common/tweenmax/all'
 export default {
-  name: 'test',
+  name: 'main-test',
   data() {
     return {}
   },

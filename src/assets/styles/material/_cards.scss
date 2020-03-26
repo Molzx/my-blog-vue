@@ -1,5 +1,6 @@
 .v-card {
-  box-shadow: $card-shadow !important;
+  // box-shadow: $card-shadow !important;
+  box-shadow: $card-shadow;
   border-radius: $border-radius-base;
 
   .category {
@@ -26,10 +27,10 @@
     margin-bottom: $card-offset !important;
 
     .category {
-      color: rgba($white, .62);
+      color: rgba($white, 0.62);
     }
 
-    .v-card--material__header.v-card{
+    .v-card--material__header.v-card {
       padding: $padding-general;
     }
   }
@@ -46,7 +47,7 @@
     margin: $card-margin 0 !important;
   }
 
-  .v-card--material__header{
+  .v-card--material__header {
     border-radius: $border-radius-base + 3;
     min-height: $card-chart-min-height;
     padding: 0 !important;

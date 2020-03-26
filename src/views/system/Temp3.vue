@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <div>
+    <!-- <page-system-article-lcategory></page-system-article-lcategory> -->
+    <page-system-article-addition></page-system-article-addition>
+  </div>
 </template>
 
 <script>

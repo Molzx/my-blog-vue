@@ -10,7 +10,8 @@
 import base from '../../base'
 
 // 导入axios.js中创建的axios实例
-import axios from '@/utils/axios'
+// import axios from '@/utils/axios'
+import axios from '@/utils/axios/index'
 const UrlPrefix = base.baseUrl
 
 const userRole = {

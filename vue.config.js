@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 15:34:46
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-01-18 22:46:16
+ * @LastEditTime : 2020-02-11 16:19:30
  * @FilePath     : \VueProjects\my-blog\vue.config.js
  * @Description  : 这是一些注释
  */
@@ -57,6 +57,7 @@ module.exports = {
   //       .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
   //   }
   // },
+
   //配置别名 绝对路径
   configureWebpack: {
     devtool: 'source-map',
@@ -69,7 +70,7 @@ module.exports = {
         '@js': resolve('src/assets/js'),
         '@components': resolve('src/components'),
         '@views': resolve('src/views'),
-        '@commons': resolve('src/commons'),
+        '@common': resolve('src/common'),
         vue$: 'vue/dist/vue.esm.js'
       }
     }
