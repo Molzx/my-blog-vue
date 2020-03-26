@@ -75,6 +75,16 @@
       ></page-blog-side-rec-article>
       <!-- <page-blog-side-new-article></page-blog-side-new-article> -->
     </v-col>
+    <!-- ====公告内容开始== -->
+    <v-col
+      class="px-0"
+      v-if="sideListShow[4]"
+      :order="otherData.sideListOrder[4]"
+    >
+      <page-blog-side-announcement
+        type="announcement"
+      ></page-blog-side-announcement>
+    </v-col>
   </v-row>
 </template>
 
@@ -109,9 +119,9 @@ export default {
           sideTagLoading: true,
           sideNewArticleLoading: true,
           //展示顺序
-          sideListOrder: [1, 2, 3, 4],
+          sideListOrder: [2, 3, 4, 5, 1],
           //展示的组件
-          sideListShow: [true, true, true, true]
+          sideListShow: [true, true, true, true, true]
         }
       }
     }

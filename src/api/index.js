@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 14:39:21
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-05 16:00:01
+ * @LastEditTime : 2020-03-26 23:12:45
  * @FilePath     : \VueProjects\my-blog\src\api\index.js
  * @Description  : api接口的统一出口
  */
@@ -23,6 +23,8 @@ import comment from './main/system/comment'
 import blog from './main/blog/blog'
 import like from './main/blog/like'
 import collect from './main/blog/collect'
+import announcement from './main/system/announcement'
+import report from './main/system/user-report'
 
 // 其他模块的接口……
 
@@ -40,6 +42,8 @@ export default {
   comment,
   blog,
   like,
-  collect
+  collect,
+  announcement,
+  report
   // ……
 }

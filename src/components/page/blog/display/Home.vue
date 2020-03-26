@@ -74,9 +74,9 @@ export default {
         sideNewArticleLoading: true,
 
         //展示顺序
-        sideListOrder: [1, 2, 3, 4],
+        sideListOrder: [2, 3, 4, 5, 1],
         //展示的组件
-        sideListShow: [true, true, true, true]
+        sideListShow: [true, true, true, true, true]
       },
       items: testData.article.items
     }

@@ -1,14 +1,27 @@
 <template>
   <div>
     <v-card class="shadow-1  b-card-title  ">
-      <v-row class=" mx-3 fill-height" justify="center" align="center">
-        <p class="  text-left mb-0 ml-3">
-          <strong class="title headline blue-grey--text text--darken-4"
-            >分类</strong
-          >
+      <v-row class=" mx-6 fill-height" justify="center" align="center">
+        <p class="b-title--normal  text-left mb-0">
+          分类
         </p>
         <v-spacer></v-spacer>
-        <v-chip
+        <v-tooltip top content-class="b-tooltip" color="white" light>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              small
+              color="blue"
+              style="background:#E3F2FD"
+              @click="toMore"
+              v-on="on"
+            >
+              <v-icon size="20">mdi-unfold-more-vertical</v-icon>
+            </v-btn>
+          </template>
+          <span class="grey--text text--darken-3">查看更多</span>
+        </v-tooltip>
+        <!-- <v-chip
           class="green lighten-5"
           text-color="green"
           color="transparent"
@@ -16,7 +29,7 @@
         >
           More
           <v-icon dense right color="green">fas fa-angle-double-right</v-icon>
-        </v-chip>
+        </v-chip> -->
       </v-row>
     </v-card>
     <v-card class="shadow-1  mb-6 b-card-content">
@@ -28,12 +41,12 @@
           >
           </v-skeleton-loader>
 
-          <v-list nav class="pa-0" v-else>
+          <v-list nav dense class="pa-0" v-else>
             <v-list-item-group active-class="pink--text">
-              <v-divider></v-divider>
+              <!-- <v-divider></v-divider> -->
               <template v-for="(item, i) in sideCategoryItems">
                 <v-list-item
-                  :key="item.categoryId + item.categoryName"
+                  :key="item.categoryId + item.categoryName + i"
                   class="mb-0"
                   @click="filterCategory(item)"
                 >
@@ -46,7 +59,7 @@
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-badge
-                      color="primary"
+                      color="blue lighten-5 blue--text"
                       :content="item.count"
                       class="ml-1"
                       inline
@@ -55,14 +68,15 @@
                   </v-list-item-action>
                 </v-list-item>
 
-                <v-divider
+                <!-- <v-divider
                   v-if="i + 1 < sideCategoryItems.length"
                   :key="i"
-                ></v-divider
-              ></template>
+                ></v-divider> -->
+              </template>
 
-              <v-divider></v-divider></v-list-item-group
-          ></v-list>
+              <!-- <v-divider></v-divider> -->
+            </v-list-item-group>
+          </v-list>
         </v-scale-transition>
       </v-card-text>
     </v-card>
@@ -130,6 +144,15 @@ export default {
 
 <style lang="scss" scoped>
 /deep/ .v-list-item__title {
-  color: #4a4a4a;
+  color: #545c63;
+  padding-bottom: 2px;
+}
+/deep/ .v-list--dense .v-list-item .v-list-item__subtitle,
+.v-list--dense .v-list-item .v-list-item__title,
+.v-list-item--dense .v-list-item__subtitle,
+.v-list-item--dense .v-list-item__title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1rem;
 }
 </style>

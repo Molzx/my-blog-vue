@@ -1,22 +1,26 @@
 <template>
   <div>
     <v-card class="shadow-1  b-card-title">
-      <v-row class=" mx-3 fill-height" justify="center" align="center">
-        <p class="  text-left mb-0 ml-3">
-          <strong class="title headline blue-grey--text text--darken-4"
-            >标签</strong
-          >
+      <v-row class=" mx-6 fill-height" justify="center" align="center">
+        <p class="b-title--normal  text-left mb-0">
+          标签
         </p>
         <v-spacer></v-spacer>
-        <v-chip
-          class="green lighten-5"
-          text-color="green"
-          color="transparent"
-          @click="toMore"
-        >
-          More
-          <v-icon dense right color="green">fas fa-angle-double-right</v-icon>
-        </v-chip>
+        <v-tooltip top content-class="b-tooltip" color="white" light>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              small
+              color="green"
+              style="background:#E8F5E9"
+              @click="toMore"
+              v-on="on"
+            >
+              <v-icon size="20">mdi-unfold-more-vertical</v-icon>
+            </v-btn>
+          </template>
+          <span class="grey--text text--darken-3">查看更多</span>
+        </v-tooltip>
       </v-row>
     </v-card>
     <v-card class="shadow-1  mb-6 b-card-content">
@@ -31,12 +35,12 @@
             <v-chip
               v-for="tag in sideTagItems"
               :key="tag.tagId + tag.tagName"
-              class="ma-1"
-              color="light-blue lighten-5"
+              class="ma-1 "
+              color="grey lighten-5 "
               @click="filterTag(tag)"
-              >{{ tag.tagName }}
+              ><span class="color-sub">{{ tag.tagName }}</span>
               <v-badge
-                color="green"
+                color="green lighten-5 green--text"
                 :content="tag.count"
                 class="ml-1"
                 bordered

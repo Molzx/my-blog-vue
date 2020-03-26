@@ -73,40 +73,52 @@
           <div
             class="d-flex flex-column justify-center ml-3 mr-2  text-truncate"
           >
-            <p
-              class=" text-no-wrap d-inline-block text-truncate mb-2
+            <v-tooltip
+              top
+              content-class="b-tooltip"
+              color="white"
+              light
+              max-width="280"
+            >
+              <template v-slot:activator="{ on }">
+                <p
+                  v-on="on"
+                  class=" text-no-wrap d-inline-block text-truncate mb-2
                     b-sub-title
                     "
-            >
-              <router-link
-                :to="{
-                  path: '/blog/articles',
-                  query: { q: item.articleId }
-                }"
-                class="b-a"
-              >
-                {{ item.title }}
-              </router-link>
-            </p>
-            <p
-              class="d-flex text-no-wrap d-inline-block text-truncate mb-0
-                    body-2 grey--text text--darken-2
-                    "
-            >
-              <v-icon size="14" class="mx-1">fas fa-eye</v-icon>
-              <span
-                class="caption font-weight-medium   grey--text text--darken-2"
-                >2321</span
-              >
-
-              <span class="mx-1">·</span>
-              <v-icon size="12" class="mr-1">fas fa-calendar-alt</v-icon>
-              <Timeago
-                class="caption font-weight-medium   grey--text text--darken-2"
-                :datetime="item.createdTime"
-                :autoUpdate="true"
-              >
-              </Timeago>
+                >
+                  <router-link
+                    :to="{
+                      path: '/blog/articles',
+                      query: { q: item.articleId }
+                    }"
+                    class="b-a"
+                  >
+                    {{ item.title }}
+                  </router-link>
+                </p>
+              </template>
+              <span class="grey--text text--darken-3">{{ item.title }}</span>
+            </v-tooltip>
+            <p class="d-flex text-no-wrap d-inline-block text-truncate mb-0">
+              <span class="footer-bg">
+                <span>
+                  <v-icon size="12" class="mr-1">mdi-calendar-clock</v-icon>
+                  <Timeago
+                    class=""
+                    :datetime="item.createdTime"
+                    :autoUpdate="true"
+                  >
+                  </Timeago>
+                </span>
+                <span class="mx-1">·</span>
+                <span>
+                  <v-icon size="12" class="mx-1">mdi-comment-text</v-icon>
+                  <span class="mx-1">{{
+                    item.commentTotal | getMaxNum(3)
+                  }}</span>
+                </span>
+              </span>
             </p>
           </div>
         </div>
@@ -193,28 +205,19 @@ export default {
   components: {
     //
   },
-  //截断超出一定数量的字符
   filters: {
-    textLengthFormat(value, num) {
-      // let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    },
-    subTitleFormat(value) {
-      let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    }
+    //
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 /*  */
+.footer-bg {
+  color: #6a6a6a;
+  font-size: 12px;
+  padding: 0 8px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
 </style>

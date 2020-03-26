@@ -197,20 +197,28 @@
       line-height: 1.125;
       margin-bottom: 0.4rem;
     }
+    .b-title--normal {
+      @extend .color-title;
+      // color: #242424;
+      font-size: 1.11rem;
+      font-weight: 500;
+      line-height: 1.5em !important;
+      letter-spacing: 0 !important;
+    }
     .b-title--small {
       @extend .color-title;
       // color: #242424;
       font-size: 1rem;
     }
     .b-sub-title {
-      @extend .color-sub;
+      @extend .color-title;
       // color: #545c63;
       font-size: 0.93rem;
       font-weight: 400;
       line-height: 1.5;
       margin-bottom: 0px;
       a {
-        @extend .color-sub;
+        @extend .color-title;
         // color: #545c63;
         font-size: 0.93rem;
         font-weight: 400;
