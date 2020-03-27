@@ -85,15 +85,9 @@
                     b-sub-title
                     "
                 >
-                  <router-link
-                    :to="{
-                      path: '/blog/articles',
-                      query: { q: item.articleId }
-                    }"
-                    class="b-a"
+                  <a @click="toDetail(item.articleId)" class="b-a">
+                    {{ item.title }}</a
                   >
-                    {{ item.title }}
-                  </router-link>
                 </p>
               </template>
               <span class="grey--text text--darken-3">{{ item.title }}</span>
@@ -127,6 +121,7 @@
 
 <script>
 export default {
+  inject: ['routerRefresh'], //在子组件中注入在父组件中创建的属性
   props: {
     //
     type: {
@@ -180,6 +175,13 @@ export default {
     //   // console.log(top)
     //   console.log(pd)
     // }
+    toDetail(articleId) {
+      this.$router.push({
+        path: '/blog/articles',
+        query: { q: articleId }
+      })
+      this.routerRefresh() //调用app.vue里面的routerRefresh()方法，完成摧毁和重建过程
+    }
   },
   computed: {
     //

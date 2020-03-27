@@ -1,16 +1,10 @@
 <template>
   <div>
-    <v-card class="shadow-1  b-card-title">
-      <v-row class=" mx-3 fill-height" justify="center" align="center">
-        <p class="  text-left mb-0 ml-3">
-          <strong class="title headline blue-grey--text text--darken-4"
-            >标签</strong
-          >
+    <v-card class="shadow-1  b-card-title  short">
+      <v-row class=" mx-6 fill-height" justify="center" align="center">
+        <p class="b-title--normal  text-left mb-0">
+          标签
         </p>
-        <v-spacer></v-spacer>
-        <v-chip class="green lighten-5" text-color="green" color="transparent">
-          15215
-        </v-chip>
       </v-row>
     </v-card>
     <v-card class="shadow-1  mb-6 b-card-content">
@@ -22,28 +16,30 @@
             </v-col>
           </v-row>
           <v-row class="mx-0" justify="start" v-else>
-            <v-chip
+            <v-badge
               v-for="tag in tagInfo"
               :key="tag.tagId + tag.tagName"
-              class="ma-1"
-              color="light-blue lighten-5"
-              @click="filterTag(tag)"
-              >{{ tag.tagName }}
-              <v-badge
-                color="green"
-                :content="tag.count"
-                class="ml-1"
-                bordered
-                inline
+              color="deep orange lighten-5 deep orange--text"
+              :content="tag.count"
+              class="ma-2"
+              bordered
+              overlap
+            >
+              <v-chip
+                class=""
+                color="teal lighten-5 teal--text"
+                @click="filterTag(tag)"
               >
-              </v-badge>
-            </v-chip>
-          </v-row> </v-scale-transition
-      ></v-card-text>
+                <span class="">{{ tag.tagName }}</span>
+              </v-chip>
+            </v-badge>
+          </v-row>
+        </v-scale-transition></v-card-text
+      >
       <v-divider></v-divider>
     </v-card>
 
-    <v-pagination v-model="page" class="my-4" :length="8"></v-pagination>
+    <!-- <v-pagination v-model="page" class="my-4" :length="8"></v-pagination> -->
   </div>
 </template>
 
@@ -99,22 +95,7 @@ export default {
   },
   //截断超出一定数量的字符
   filters: {
-    textLengthFormat(value, num) {
-      // let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    },
-    subTitleFormat(value) {
-      let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    }
+    //
   }
 }
 </script>

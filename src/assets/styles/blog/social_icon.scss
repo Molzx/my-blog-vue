@@ -65,30 +65,64 @@
     transition: $trans-props;
   }
   .social-icon {
+    $green: #00ab6c;
+    $blue: #1da1f2;
+    $brown: #24292e;
+    $red: #d32f2f;
+    $pink: #ea4c89;
+    $teal: #00796b;
+    $orange: #f57c00;
+    $deep-orange: #e64a19;
+    &.active {
+      &.i-green i {
+        color: $green;
+      }
+      &.i-blue i {
+        color: $blue;
+      }
+      &.i-brown i {
+        color: $brown;
+      }
+      &.i-red i {
+        color: $red;
+      }
+      &.i-pink i {
+        color: $pink;
+      }
+      &.i-teal i {
+        color: $teal;
+      }
+      &.i-orange i {
+        color: $orange;
+      }
+      &.i-deep-orange i {
+        color: $deep-orange;
+      }
+    }
     &.i-green:after {
-      background-color: #00ab6c;
+      background-color: $green;
     }
     &.i-blue:after {
-      background-color: #1da1f2;
+      background-color: $blue;
     }
     &.i-brown:after {
-      background-color: #24292e;
+      background-color: $brown;
     }
     &.i-red:after {
-      background-color: #d32f2f;
+      background-color: $red;
     }
 
     &.i-pink:after {
-      background-color: #ea4c89;
+      background-color: $pink;
     }
     &.i-teal:after {
-      background-color: #00796b;
+      background-color: $teal;
     }
     &.i-orange:after {
-      background-color: #f57c00;
+      background-color: $orange;
     }
     &.i-deep-orange:after {
-      background-color: #e64a19;
+      background-color: $deep-orange;
     }
   }
   .social-icon.twitter:after {
@@ -124,7 +158,7 @@
 
   .social-icon:hover i {
     /* 	transform: scale(1.1); */
-    color: #fff;
+    color: #fff !important;
   }
 
   .social-icon:hover:after {

@@ -4,10 +4,7 @@
     :class="commentList.length == 0 ? '' : 'active'"
   >
     <!-- Something -->
-    <v-row class="justify-center" v-if="commentList.length == 0">
-      <p class="mb-0">来做第一个留言的人吧</p>
-    </v-row>
-    <v-container v-else>
+    <v-container>
       <v-timeline class="pt-0" align-top dense>
         <v-scroll-y-transition class="py-0" group>
           <template v-for="(comment, commentIndex) in commentList">
@@ -411,15 +408,16 @@
             </v-timeline-item>
           </template>
         </v-scroll-y-transition>
-        <v-timeline-item class="pb-0" right color="light-blue lighten-5">
+        <v-timeline-item class="pb-0" right color="grey lighten-5">
           <template v-slot:icon>
-            <a>
-              <v-avatar @click="goToComment">
-                <v-icon class="blue-grey--text text--darken-1"
-                  >fas fa-angle-up</v-icon
-                >
-              </v-avatar>
-            </a>
+            <v-tooltip top content-class="b-tooltip" color="white" light>
+              <template v-slot:activator="{ on }">
+                <a @click="goToComment" v-on="on">
+                  <v-img :src="commentBg" height="24" contain></v-img>
+                </a>
+              </template>
+              <span class="grey--text text--darken-3">添加评论</span>
+            </v-tooltip>
           </template>
           <v-row class="comment-item">
             <v-pagination
@@ -511,7 +509,9 @@ export default {
       validateMode: 'passive',
       validateModes: ['aggressive', 'passive'],
 
-      previewAvatar: require('@/assets/images/avatar/avatar.svg')
+      previewAvatar: require('@/assets/images/avatar/avatar.svg'),
+
+      commentBg: require('@/assets/images/comment/comment.svg')
     }
   },
   mounted() {

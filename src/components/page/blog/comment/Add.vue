@@ -16,7 +16,6 @@
               <v-avatar size="48">
                 <img
                   :src="isLogin ? previewAvatar : unloginAvatar"
-                  :alt="isLogin ? getBaseUserInfo.nickName : '未登录用户'"
                 /> </v-avatar
             ></a>
           </div>
@@ -198,7 +197,7 @@ export default {
         //头像修改
         // console.log(newVal)
         if (newVal) {
-          this.previewAvatar = this.$global.preview + newVal
+          this.previewAvatar = this.$avatar(newVal)
         }
       },
       immediate: true

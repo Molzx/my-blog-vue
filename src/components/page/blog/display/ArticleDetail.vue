@@ -186,6 +186,19 @@ export default {
     // eslint-disable-next-line no-unused-vars
     getArticleFloatGroup(newVal) {
       // console.log(newVal)
+    },
+    articleInfo(newVal) {
+      if (newVal) {
+        this.floatGroupData = {
+          likeCount: newVal.liked,
+          collectCount: newVal.collected,
+          commentCount: newVal.commentTotal,
+          shareCount: newVal.shared,
+          isLiked: newVal.likedStatus,
+          isCollected: newVal.collectedStatus,
+          isShared: false
+        }
+      }
     }
   },
   components: {

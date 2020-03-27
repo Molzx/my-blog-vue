@@ -1,31 +1,31 @@
 <template>
-  <v-dialog
-    v-model="show"
-    width="500"
-    scrollable
-    transition="scroll-y-transition"
-    origin="center right"
+  <helper-dialog
+    :show.sync="show"
+    width="450"
+    :headerTitle="formHeader"
+    headerColor="info"
+    cardTextHeight="250"
+    @cancel="cancel"
   >
-    <v-card class="mx-auto">
-      <v-alert tile colored-border class=" pb-0">
-        <div class="d-flex align-center">
-          <v-alert text dense border="left" class="mb-0" color="info">
-            {{ formHeader }}
-          </v-alert>
-          <v-spacer></v-spacer>
-          <v-btn fab depressed small class="close-btn" @click="cancel">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-alert>
+    <template slot="content.card-text">
+      <v-container>
+        <v-row class="justify-center align-start">
+          <v-col cols="12" class="py-0 mb-2">
+            <v-img :src="warnBg" height="180" contain></v-img>
+          </v-col>
+          <v-col cols="12" class="py-0">
+            <p v-if="isUnbindPhone" class="text-center mb-0">
+              是否解绑手机号：{{ info.phone }}
+            </p>
+            <p v-if="isUnbindEmail" class="text-center mb-0">
+              是否解绑邮箱：{{ info.email }}
+            </p>
+          </v-col>
+        </v-row>
+      </v-container>
+    </template>
 
-      <v-card-text>
-        <v-container>
-          <p v-if="isUnbindPhone">是否解绑手机号：{{ info.phone }}</p>
-          <p v-if="isUnbindEmail">是否解绑邮箱：{{ info.email }}</p>
-        </v-container>
-      </v-card-text>
-
+    <template slot="footer">
       <v-divider></v-divider>
 
       <v-card-actions class="justify-center align-center">
@@ -39,8 +39,8 @@
           确认
         </v-btn>
       </v-card-actions>
-    </v-card>
-  </v-dialog>
+    </template>
+  </helper-dialog>
 </template>
 
 <script>
@@ -59,7 +59,9 @@ export default {
       //组件类型，默认0，1绑定手机号码，2为邮箱
       type: 0,
       show: false,
-      loading: false
+      loading: false,
+
+      warnBg: require('@/assets/images/warn/warn.svg')
     }
   },
   mounted() {

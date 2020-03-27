@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 20:09:16
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 20:35:21
+ * @LastEditTime : 2020-03-27 22:08:54
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\Article.vue
  * @Description  : 这是一些注释
  -->
@@ -78,6 +78,7 @@
 
     <!-- 添加评论 -->
     <page-blog-detail-comment
+      :commentData="commentData"
       v-waypoint="{
         active: true,
         callback: onWaypoint,
@@ -104,7 +105,8 @@ export default {
       article: '',
       articleContent: '',
       loading: true,
-
+      //评论相关信息
+      commentData: {},
       //waypoint 配置
       //默认waypoint 会触发两次
       pointTopCount: 0,
@@ -212,7 +214,10 @@ export default {
     //
     articleInfo(newVal) {
       if (newVal) {
-        this.article = this.articleInfo
+        this.article = newVal
+        this.commentData = {
+          commentStatus: newVal.commentStatus == '开启'
+        }
       }
     }
     // 'otherData.sideListShow': {
@@ -225,22 +230,7 @@ export default {
   },
   //截断超出一定数量的字符
   filters: {
-    textLengthFormat(value, num) {
-      // let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    },
-    subTitleFormat(value) {
-      let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    }
+    //
   }
 }
 </script>
@@ -249,13 +239,21 @@ export default {
 .v-note-wrapper {
   border: none;
 }
-/deep/ .markdown-body code {
-  font-size: 90%;
-}
-/deep/ .v-application code {
-  background-color: #f5f5f5;
-  color: #bd4147;
-  box-shadow: none;
+/deep/ .markdown-body {
+  color: #4f4f4f;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: #4d4d4d;
+  }
+  code {
+    font-size: 90%;
+  }
+  .hljs code {
+    font-size: 100%;
+  }
 }
 /deep/ .v-skeleton-loader__image {
   height: 380px;

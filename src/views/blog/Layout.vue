@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 20:40:58
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 14:01:39
+ * @LastEditTime : 2020-03-27 16:16:07
  * @FilePath     : \VueProjects\my-blog\src\views\blog\Layout.vue
  * @Description  : 这是一些注释
  -->
@@ -27,7 +27,7 @@
       ></core-back-to-top-button>
     </v-fab-transition>
     <v-slide-x-reverse-transition mode="out-in">
-      <router-view v-wechat-title="webTitle"></router-view>
+      <router-view v-wechat-title="webTitle" v-if="routerAlive"></router-view>
     </v-slide-x-reverse-transition>
   </v-container>
 </template>
@@ -37,7 +37,13 @@ export default {
   name: 'blog-page',
   data() {
     return {
-      rightFloatHidden: true
+      rightFloatHidden: true,
+      routerAlive: true
+    }
+  },
+  provide() {
+    return {
+      routerRefresh: this.routerRefresh
     }
   },
   methods: {
@@ -51,6 +57,13 @@ export default {
       } else {
         this.rightFloatHidden = true
       }
+    },
+    //解决同路由页面不刷新问题
+    routerRefresh() {
+      this.routerAlive = false
+      this.$nextTick(() => {
+        this.routerAlive = true
+      })
     }
   },
   computed: {

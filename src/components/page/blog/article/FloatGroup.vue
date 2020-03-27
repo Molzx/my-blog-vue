@@ -2,8 +2,8 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 22:20:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-12 22:35:03
- * @FilePath     : \VueProjects\my-blog\src\components\page\blog\ArticleButton.vue
+ * @LastEditTime : 2020-03-27 21:53:59
+ * @FilePath     : \VueProjects\my-blog\src\components\page\blog\article\FloatGroup.vue
  * @Description  : 这是一些注释
  -->
 <template>
@@ -21,7 +21,6 @@
             >
               <template v-slot:activator="{ on }">
                 <v-badge
-                  :value="hover[0] && thumbsUpCount"
                   color="white"
                   :content="thumbsUpCount"
                   overlap
@@ -30,7 +29,11 @@
                   transition="slide-y-reverse-transition"
                 >
                   <v-hover v-model="hover[0]">
-                    <a class="social-icon i-pink" v-on="on">
+                    <a
+                      class="social-icon i-pink"
+                      :class="isLikedClass"
+                      v-on="on"
+                    >
                       <i class="fas fa-thumbs-up"></i>
                     </a>
                   </v-hover>
@@ -59,7 +62,11 @@
                   transition="slide-y-reverse-transition"
                 >
                   <v-hover v-model="hover[1]">
-                    <a class="social-icon i-teal" v-on="on">
+                    <a
+                      class="social-icon i-deep-orange"
+                      :class="isCollectedClass"
+                      v-on="on"
+                    >
                       <i class="fas fa-star"></i>
                     </a>
                   </v-hover>
@@ -265,12 +272,12 @@ export default {
       type: Object,
       default: () => {
         return {
-          liked: 0,
-          collected: 0,
-          comment: 0,
-          shared: 0,
+          likeCount: 0,
+          collectCount: 0,
+          commentCount: 0,
+          shareCount: 0,
           isLiked: false,
-          isCollect: false,
+          isCollected: false,
           isShared: false
         }
       }
@@ -311,20 +318,40 @@ export default {
   components: {},
   computed: {
     thumbsUpCount() {
-      let data = this.articleData.thumbsUpCount
-      return this.refixCountData(data)
+      let data = this.floatGroupData.likeCount
+      return data
+      // let data = this.articleData.thumbsUpCount
+      // return this.refixCountData(data)
     },
     starCount() {
-      let data = this.articleData.starCount
-      return this.refixCountData(data)
+      let data = this.floatGroupData.collectCount
+      return data
+      // let data = this.articleData.starCount
+      // return this.refixCountData(data)
     },
     commentCount() {
-      let data = this.articleData.commentCount
-      return this.refixCountData(data)
+      let data = this.floatGroupData.commentCount
+      return data
+      // let data = this.articleData.commentCount
+      // return this.refixCountData(data)
     },
     shareCount() {
-      let data = this.articleData.shareCount
-      return this.refixCountData(data)
+      let data = this.floatGroupData.shareCount
+      return data
+      // let data = this.articleData.shareCount
+      // return this.refixCountData(data)
+    },
+    isLikedClass() {
+      if (this.floatGroupData.isLiked) {
+        return 'active'
+      }
+      return ''
+    },
+    isCollectedClass() {
+      if (this.floatGroupData.isCollected) {
+        return 'active'
+      }
+      return ''
     }
   },
 

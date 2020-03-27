@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 22:54:52
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-12 22:57:17
+ * @LastEditTime : 2020-03-27 22:17:16
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\article\Footer.vue
  * @Description  : 这是一些注释
  -->
@@ -12,13 +12,17 @@
       <a>首发链接</a>
     </div>
     <v-container>
-      <v-row class="justify-center">
-        <v-icon left color="info">mdi-tag</v-icon>
+      <v-row class="justify-center align-center">
+        <v-avatar size="96" color="grey lighten-4">
+          <v-img :src="tagBg" height="64" contain></v-img>
+        </v-avatar>
+      </v-row>
+      <v-row class="mt-4 justify-center align-center">
         <v-chip
           v-for="tag in tagItems"
           :key="tag.tagId"
           class="ma-1"
-          color="grey lighten-3"
+          color="teal lighten-5 teal--text"
           >{{ tag.tagName }}
         </v-chip>
       </v-row>
@@ -49,7 +53,8 @@ export default {
         'Art',
         'Tech',
         'Creative Writing'
-      ]
+      ],
+      tagBg: require('@/assets/images/tag.svg')
     }
   },
   methods: {},

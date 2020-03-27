@@ -48,7 +48,7 @@
           </v-skeleton-loader>
 
           <v-list nav dense class="pa-0" v-else>
-            <v-list-item-group active-class="pink--text">
+            <v-list-item-group active-class="blue--text">
               <!-- <v-divider></v-divider> -->
               <template v-for="(item, i) in sideCategoryItems">
                 <v-list-item

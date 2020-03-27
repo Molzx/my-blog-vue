@@ -9,22 +9,14 @@
         :formData.sync="formData"
         @postComment="postComment"
       ></page-blog-comment-add>
-      <!-- <div class="container" style="height:72px">
-        <mavon-editor
-          v-model="commentValue"
-          ref="md"
-          :autofocus="false"
-          :subfield="false"
-          :toolbarsFlag="false"
-          :boxShadow="false"
-          @imgAdd="$imgAdd"
-          @change="change"
-        />
-        <button @click="submit">提交</button>
-      </div> -->
-      <!-- <v-divider></v-divider> -->
+      <page-blog-comment-tip
+        v-if="!commentData.commentStatus || commentList.length == 0"
+        :isEmpty="commentData.commentStatus && commentList.length == 0"
+      >
+      </page-blog-comment-tip>
       <!-- 评论信息 -->
       <page-blog-comment-list
+        v-else
         ref="showComments"
         :formData.sync="formData"
         :commentList="commentList"
@@ -43,6 +35,9 @@
 export default {
   props: {
     //
+    commentData: {
+      type: Object
+    }
   },
   data() {
     return {
@@ -80,7 +75,6 @@ export default {
   },
   mounted() {
     //
-    this.initData()
   },
   methods: {
     //
@@ -260,6 +254,16 @@ export default {
   },
   watch: {
     //
+    //监听表单内容，内容为空，采用懒加载，提交再验证，如果内容不为空，采用立即校验
+    'commentData.commentStatus': {
+      handler(newVal) {
+        if (newVal) {
+          //如果开启评论功能，则查询评论信息
+          this.initData()
+        }
+      },
+      immediate: true
+    }
   },
   components: {
     //

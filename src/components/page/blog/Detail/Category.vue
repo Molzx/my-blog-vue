@@ -1,11 +1,9 @@
 <template>
   <div>
-    <v-card class="shadow-1  b-card-title  ">
-      <v-row class=" mx-3 fill-height" justify="center" align="center">
-        <p class="  text-left mb-0 ml-3">
-          <strong class="title headline blue-grey--text text--darken-4"
-            >所有分类</strong
-          >
+    <v-card class="shadow-1  b-card-title  short">
+      <v-row class=" mx-6 fill-height" justify="center" align="center">
+        <p class="b-title--normal  text-left mb-0">
+          分类
         </p>
       </v-row>
     </v-card>
@@ -18,11 +16,11 @@
           >
           </v-skeleton-loader>
           <v-list nav class="pa-0" v-else>
-            <v-list-item-group active-class="pink--text">
+            <v-list-item-group active-class="blue--text">
               <!-- <v-divider></v-divider> -->
               <template v-for="(item, i) in categoryInfo">
                 <v-list-item
-                  :key="item.categoryName + item.categoryId"
+                  :key="item.categoryName + item.categoryId + i"
                   class="mb-0"
                   @click="filterCategory(item)"
                 >
@@ -34,15 +32,8 @@
                     >
                   </v-list-item-content>
                   <v-list-item-action>
-                    <!-- <v-btn x-small outlined fab color="info">
-                          <strong
-                            class="primary--text text--lighten-1 body-2 font-weight-bold"
-                            >12</strong
-                          ></v-btn
-                        > -->
-
                     <v-badge
-                      color="primary"
+                      color="blue lighten-5 blue--text"
                       :content="item.count"
                       class="ml-1"
                       inline
@@ -51,10 +42,10 @@
                   </v-list-item-action>
                 </v-list-item>
 
-                <v-divider
+                <!-- <v-divider
                   v-if="i + 1 < categories.length"
                   :key="i"
-                ></v-divider>
+                ></v-divider> -->
               </template>
 
               <!-- <v-divider></v-divider> -->
@@ -118,4 +109,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+/deep/ .v-list-item__title {
+  color: #545c63;
+  padding-bottom: 2px;
+}
+</style>

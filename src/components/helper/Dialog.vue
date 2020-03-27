@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 21:36:51
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-19 23:45:02
+ * @LastEditTime : 2020-03-27 14:44:18
  * @FilePath     : \VueProjects\my-blog\src\components\helper\Dialog.vue
  * @Description  : 这是一些注释
  -->
@@ -21,7 +21,7 @@
   >
     <v-card class="b-dialog">
       <slot name="header">
-        <v-alert tile colored-border class="">
+        <v-alert tile colored-border class="mb-0">
           <div class="d-flex align-center">
             <v-alert text dense border="left" class="mb-0" :color="headerColor">
               {{ headerTitle }}

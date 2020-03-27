@@ -1,104 +1,85 @@
 <template>
-  <v-dialog
-    v-model="show"
+  <helper-dialog
+    :show.sync="show"
     width="500"
-    scrollable
-    transition="scroll-x-transition"
-    origin="center right"
+    headerTitle="修改资料"
+    headerColor="info"
+    cardTextHeight="300"
+    @cancel="cancel"
   >
-    <v-card class="mx-auto">
-      <v-alert tile colored-border class=" pb-0">
-        <div class="d-flex align-center">
-          <v-alert text dense border="left" class="mb-0" color="info">
-            修改资料
-          </v-alert>
-          <v-spacer></v-spacer>
-          <v-btn fab depressed small class="close-btn" @click="cancel">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-alert>
-
-      <v-card-text>
-        <v-container>
-          <ValidationObserver ref="form">
-            <v-form>
-              <v-row>
-                <v-col cols="12">
-                  <ValidationProvider
-                    name="nickName"
-                    rules="required|min:5|max:15|nickName"
-                    v-slot="{ errors }"
-                  >
-                    <v-text-field
-                      v-model="formData.nickName"
-                      :counter="15"
-                      label="昵称"
-                      :error-messages="errors[0]"
-                      dense
-                      :disabled="loading"
-                    ></v-text-field>
-                  </ValidationProvider>
-                </v-col>
-                <v-col cols="12">
-                  <v-slider
-                    v-model="formData.age"
-                    color="green"
-                    label="年龄"
-                    min="10"
-                    max="60"
-                    thumb-label
+    <template slot="content.card-text">
+      <v-container>
+        <ValidationObserver ref="form">
+          <v-form>
+            <v-row dense>
+              <v-col cols="12">
+                <ValidationProvider
+                  name="nickName"
+                  rules="required|min:5|max:15|nickName"
+                  v-slot="{ errors }"
+                >
+                  <v-text-field
+                    v-model="formData.nickName"
+                    :counter="15"
+                    label="昵称"
+                    :error-messages="errors[0]"
                     dense
                     :disabled="loading"
-                  ></v-slider>
-                </v-col>
-                <v-col cols="12">
-                  <ValidationProvider
-                    name="gender"
-                    rules="required|oneOf:男生,女生,保密"
-                    v-slot="{ errors }"
-                  >
-                    <v-select
-                      v-model="formData.gender"
-                      :items="genderItem"
-                      menu-props="auto"
-                      :error-messages="errors[0]"
-                      label="性别"
-                      dense
-                      :disabled="loading"
-                    ></v-select>
-                  </ValidationProvider>
-                </v-col>
-                <v-col cols="12">
-                  <ValidationProvider
-                    name="autograph"
-                    rules="max:60"
-                    v-slot="{ errors }"
-                    ><v-textarea
-                      v-model="formData.autograph"
-                      :error-messages="errors[0]"
-                      label="个性签名"
-                      auto-grow
-                      :rows="2"
-                      :counter="60"
-                      :disabled="loading"
-                    ></v-textarea>
-                    <!-- <v-text-field
-                      v-model="formData.autograph"
-                      :counter="20"
-                      :error-messages="errors[0]"
-                      label="个性签名"
-                      dense
-                      :disabled="loading"
-                    ></v-text-field> -->
-                  </ValidationProvider>
-                </v-col>
-              </v-row>
-            </v-form>
-          </ValidationObserver>
-        </v-container>
-      </v-card-text>
+                  ></v-text-field>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12">
+                <v-slider
+                  v-model="formData.age"
+                  color="green"
+                  label="年龄"
+                  min="10"
+                  max="60"
+                  thumb-label
+                  dense
+                  :disabled="loading"
+                ></v-slider>
+              </v-col>
+              <v-col cols="12">
+                <ValidationProvider
+                  name="gender"
+                  rules="required|oneOf:男生,女生,保密"
+                  v-slot="{ errors }"
+                >
+                  <v-select
+                    v-model="formData.gender"
+                    :items="genderItem"
+                    menu-props="auto"
+                    :error-messages="errors[0]"
+                    label="性别"
+                    dense
+                    :disabled="loading"
+                  ></v-select>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12">
+                <ValidationProvider
+                  name="autograph"
+                  rules="max:60"
+                  v-slot="{ errors }"
+                  ><v-textarea
+                    v-model="formData.autograph"
+                    :error-messages="errors[0]"
+                    label="个性签名"
+                    auto-grow
+                    :rows="2"
+                    :counter="60"
+                    :disabled="loading"
+                  ></v-textarea>
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+          </v-form>
+        </ValidationObserver>
+      </v-container>
+    </template>
 
+    <template slot="footer">
       <v-divider></v-divider>
 
       <v-card-actions class="justify-center align-center">
@@ -112,8 +93,8 @@
           确认
         </v-btn>
       </v-card-actions>
-    </v-card>
-  </v-dialog>
+    </template>
+  </helper-dialog>
 </template>
 
 <script>

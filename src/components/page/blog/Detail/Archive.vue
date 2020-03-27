@@ -105,7 +105,8 @@
                         <v-img
                           height="68"
                           width="80"
-                          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                          class=" grey lighten-5"
+                          :src="$cover(record.cover)"
                         ></v-img>
                       </v-card>
                     </v-col>
@@ -147,18 +148,19 @@
                         class="pa-0"
                         v-if="record.tags.length > 0"
                       >
-                        <v-icon size="10" left color="light-blue darken-2"
+                        <!-- <v-icon size="10" left color="light-blue darken-2"
                           >fas fa-tags</v-icon
-                        >
+                        > -->
                         <span class="b-span--time">
                           <v-chip
                             v-for="tag in record.tags"
                             :key="tag.tagId + tag.tagName"
                             class="ma-1"
                             small
-                            color="cyan  lighten-5"
+                            color="cyan lighten-5 cyan--text"
                             @click="filterTag(tag)"
-                            >{{ tag.tagName }}
+                          >
+                            {{ tag.tagName }}
                           </v-chip>
                           <!-- <router-link
                             :to="

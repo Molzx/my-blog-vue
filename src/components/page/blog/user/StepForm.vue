@@ -1,191 +1,38 @@
 <template>
-  <v-dialog
-    v-model="show"
-    width="500"
-    scrollable
-    transition="scroll-y-transition"
-    origin="center right"
+  <helper-dialog
+    :show.sync="show"
+    width="450"
+    :headerTitle="formHeader"
+    headerColor="info"
+    cardTextHeight="250"
+    @cancel="closeDialog"
   >
-    <v-card class="mx-auto">
-      <v-alert tile colored-border class=" pb-0">
-        <div class="d-flex align-center">
-          <v-alert text dense border="left" class="mb-0" color="info">
-            {{ formHeader }}
-          </v-alert>
-          <v-spacer></v-spacer>
-          <v-btn fab depressed small class="close-btn" @click="closeDialog">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-alert>
-
-      <v-card-text>
-        <v-container>
-          <ValidationObserver ref="form">
-            <v-form>
-              <v-window v-model="step">
-                <v-window-item :value="1">
-                  <p class="info-title-p mt-0 text-center">
-                    {{ verifyHeader }}
-                  </p>
-                  <p class="info-p  text-center mb-0">
-                    为了您的帐号安全，需要验证您的身份
-                  </p>
-                  <div>
-                    <v-row v-if="isUpdatePhone">
-                      <v-col cols="12">
-                        <ValidationProvider
-                          name="phone"
-                          rules="required|phone"
-                          v-slot="{ errors }"
-                          class="fill-width"
-                        >
-                          <v-text-field
-                            v-model="formData.phone"
-                            label="手机号码"
-                            :error-messages="errors[0]"
-                            :disabled="true"
-                          ></v-text-field>
-                        </ValidationProvider>
-                      </v-col>
-                      <v-col cols="12">
-                        <ValidationProvider
-                          name="captcha"
-                          rules="required|min:4|numeric"
-                          v-slot="{ errors }"
-                          class="fill-width"
-                        >
-                          <v-text-field
-                            v-model="formData.captcha"
-                            label="请输入验证码"
-                            :error-messages="errors[0]"
-                            :disabled="loading"
-                            class="captchaInput"
-                          >
-                            <template v-slot:append>
-                              <v-btn
-                                text
-                                color="green"
-                                :disabled="isSend || loading"
-                                @click="sendCode"
-                              >
-                                {{ btnContent }}
-                              </v-btn>
-                            </template>
-                          </v-text-field>
-                        </ValidationProvider>
-                      </v-col>
-                    </v-row>
-
-                    <v-row v-if="isUpdateEmail">
-                      <v-col cols="12">
-                        <ValidationProvider
-                          name="email"
-                          rules="required|email"
-                          v-slot="{ errors }"
-                          class="fill-width"
-                        >
-                          <v-text-field
-                            v-model="formData.email"
-                            label="邮箱帐号"
-                            :error-messages="errors[0]"
-                            :disabled="true"
-                          ></v-text-field>
-                        </ValidationProvider>
-                      </v-col>
-                      <v-col cols="12">
-                        <ValidationProvider
-                          name="captcha"
-                          rules="required|min:4|numeric"
-                          v-slot="{ errors }"
-                          class="fill-width"
-                        >
-                          <v-text-field
-                            v-model="formData.captcha"
-                            label="请输入验证码"
-                            :error-messages="errors[0]"
-                            :disabled="loading"
-                            class="captchaInput"
-                          >
-                            <template v-slot:append>
-                              <v-btn
-                                text
-                                color="green"
-                                :disabled="isSend || loading"
-                                @click="sendCode"
-                              >
-                                {{ btnContent }}
-                              </v-btn>
-                            </template>
-                          </v-text-field>
-                        </ValidationProvider>
-                      </v-col>
-                    </v-row>
-                    <v-row v-if="isUpdatePsw">
-                      <v-col cols="12">
-                        <ValidationProvider
-                          name="password"
-                          rules="required|max:16"
-                          v-slot="{ errors }"
-                          class="fill-width"
-                        >
-                          <v-text-field
-                            v-model="formData.password"
-                            :type="showPassword ? 'text' : 'password'"
-                            label="请输入旧密码"
-                            :counter="16"
-                            :append-icon="
-                              showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                            "
-                            @click:append="showPassword = !showPassword"
-                            :error-messages="errors[0]"
-                            :disabled="loading"
-                          ></v-text-field>
-                        </ValidationProvider>
-                      </v-col>
-                      <v-col cols="12">
-                        <ValidationProvider
-                          name="captcha"
-                          rules="required|length:4|numeric"
-                          v-slot="{ errors }"
-                          class="fill-width"
-                        >
-                          <v-text-field
-                            v-model="formData.captcha"
-                            label="请输入验证码"
-                            :error-messages="errors[0]"
-                            :disabled="loading"
-                            class="captchaInput"
-                          >
-                            <template v-slot:append>
-                              <img
-                                :src="imageCodeData"
-                                @click="sendCode"
-                                style="cursor: pointer;"
-                              />
-                            </template>
-                          </v-text-field>
-                        </ValidationProvider>
-                      </v-col>
-                    </v-row>
-                  </div>
-                </v-window-item>
-
-                <v-window-item :value="2">
-                  <v-row v-if="isUpdatePhone">
+    <template slot="content.card-text">
+      <v-container>
+        <ValidationObserver ref="form">
+          <v-form>
+            <v-window v-model="step">
+              <v-window-item :value="1">
+                <p class="info-title-p mt-0 text-center">
+                  {{ verifyHeader }}
+                </p>
+                <p class="info-p  text-center mb-0">
+                  为了您的帐号安全，需要验证您的身份
+                </p>
+                <div>
+                  <v-row v-if="isUpdatePhone" dense>
                     <v-col cols="12">
                       <ValidationProvider
                         name="phone"
                         rules="required|phone"
-                        v-slot="{ errors, passed }"
+                        v-slot="{ errors }"
                         class="fill-width"
                       >
-                        <div v-show="false">{{ (canSend = passed) }}</div>
                         <v-text-field
                           v-model="formData.phone"
-                          label="请输入手机号码"
+                          label="手机号码"
                           :error-messages="errors[0]"
-                          :disabled="loading"
+                          :disabled="true"
                         ></v-text-field>
                       </ValidationProvider>
                     </v-col>
@@ -207,7 +54,7 @@
                             <v-btn
                               text
                               color="green"
-                              :disabled="!canSend || isSend || loading"
+                              :disabled="isSend || loading"
                               @click="sendCode"
                             >
                               {{ btnContent }}
@@ -218,20 +65,19 @@
                     </v-col>
                   </v-row>
 
-                  <v-row v-if="isUpdateEmail">
+                  <v-row v-if="isUpdateEmail" dense>
                     <v-col cols="12">
                       <ValidationProvider
                         name="email"
                         rules="required|email"
-                        v-slot="{ errors, passed }"
+                        v-slot="{ errors }"
                         class="fill-width"
                       >
-                        <div v-show="false">{{ (canSend = passed) }}</div>
                         <v-text-field
                           v-model="formData.email"
-                          label="请输入邮箱帐号"
+                          label="邮箱帐号"
                           :error-messages="errors[0]"
-                          :disabled="loading"
+                          :disabled="true"
                         ></v-text-field>
                       </ValidationProvider>
                     </v-col>
@@ -253,7 +99,7 @@
                             <v-btn
                               text
                               color="green"
-                              :disabled="!canSend || isSend || loading"
+                              :disabled="isSend || loading"
                               @click="sendCode"
                             >
                               {{ btnContent }}
@@ -263,7 +109,7 @@
                       </ValidationProvider>
                     </v-col>
                   </v-row>
-                  <v-row v-if="isUpdatePsw">
+                  <v-row v-if="isUpdatePsw" dense>
                     <v-col cols="12">
                       <ValidationProvider
                         name="password"
@@ -274,29 +120,12 @@
                         <v-text-field
                           v-model="formData.password"
                           :type="showPassword ? 'text' : 'password'"
-                          label="请输入新密码"
+                          label="请输入旧密码"
                           :counter="16"
                           :append-icon="
                             showPassword ? 'mdi-eye' : 'mdi-eye-off'
                           "
                           @click:append="showPassword = !showPassword"
-                          :error-messages="errors[0]"
-                          :disabled="loading"
-                        ></v-text-field>
-                      </ValidationProvider>
-                    </v-col>
-                    <v-col cols="12">
-                      <ValidationProvider
-                        name="repassword"
-                        rules="required|max:16|confirmed:password"
-                        v-slot="{ errors }"
-                        class="fill-width"
-                      >
-                        <v-text-field
-                          v-model="repassword"
-                          :type="showPassword ? 'text' : 'password'"
-                          :counter="16"
-                          label="请再次输入密码"
                           :error-messages="errors[0]"
                           :disabled="loading"
                         ></v-text-field>
@@ -327,13 +156,171 @@
                       </ValidationProvider>
                     </v-col>
                   </v-row>
-                </v-window-item>
-              </v-window>
-            </v-form>
-          </ValidationObserver>
-        </v-container>
-      </v-card-text>
+                </div>
+              </v-window-item>
 
+              <v-window-item :value="2">
+                <v-row v-if="isUpdatePhone">
+                  <v-col cols="12">
+                    <ValidationProvider
+                      name="phone"
+                      rules="required|phone"
+                      v-slot="{ errors, passed }"
+                      class="fill-width"
+                    >
+                      <div v-show="false">{{ (canSend = passed) }}</div>
+                      <v-text-field
+                        v-model="formData.phone"
+                        label="请输入手机号码"
+                        :error-messages="errors[0]"
+                        :disabled="loading"
+                      ></v-text-field>
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col cols="12">
+                    <ValidationProvider
+                      name="captcha"
+                      rules="required|min:4|numeric"
+                      v-slot="{ errors }"
+                      class="fill-width"
+                    >
+                      <v-text-field
+                        v-model="formData.captcha"
+                        label="请输入验证码"
+                        :error-messages="errors[0]"
+                        :disabled="loading"
+                        class="captchaInput"
+                      >
+                        <template v-slot:append>
+                          <v-btn
+                            text
+                            color="green"
+                            :disabled="!canSend || isSend || loading"
+                            @click="sendCode"
+                          >
+                            {{ btnContent }}
+                          </v-btn>
+                        </template>
+                      </v-text-field>
+                    </ValidationProvider>
+                  </v-col>
+                </v-row>
+
+                <v-row v-if="isUpdateEmail">
+                  <v-col cols="12">
+                    <ValidationProvider
+                      name="email"
+                      rules="required|email"
+                      v-slot="{ errors, passed }"
+                      class="fill-width"
+                    >
+                      <div v-show="false">{{ (canSend = passed) }}</div>
+                      <v-text-field
+                        v-model="formData.email"
+                        label="请输入邮箱帐号"
+                        :error-messages="errors[0]"
+                        :disabled="loading"
+                      ></v-text-field>
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col cols="12">
+                    <ValidationProvider
+                      name="captcha"
+                      rules="required|min:4|numeric"
+                      v-slot="{ errors }"
+                      class="fill-width"
+                    >
+                      <v-text-field
+                        v-model="formData.captcha"
+                        label="请输入验证码"
+                        :error-messages="errors[0]"
+                        :disabled="loading"
+                        class="captchaInput"
+                      >
+                        <template v-slot:append>
+                          <v-btn
+                            text
+                            color="green"
+                            :disabled="!canSend || isSend || loading"
+                            @click="sendCode"
+                          >
+                            {{ btnContent }}
+                          </v-btn>
+                        </template>
+                      </v-text-field>
+                    </ValidationProvider>
+                  </v-col>
+                </v-row>
+                <v-row v-if="isUpdatePsw">
+                  <v-col cols="12">
+                    <ValidationProvider
+                      name="password"
+                      rules="required|max:16"
+                      v-slot="{ errors }"
+                      class="fill-width"
+                    >
+                      <v-text-field
+                        v-model="formData.password"
+                        :type="showPassword ? 'text' : 'password'"
+                        label="请输入新密码"
+                        :counter="16"
+                        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append="showPassword = !showPassword"
+                        :error-messages="errors[0]"
+                        :disabled="loading"
+                      ></v-text-field>
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col cols="12">
+                    <ValidationProvider
+                      name="repassword"
+                      rules="required|max:16|confirmed:password"
+                      v-slot="{ errors }"
+                      class="fill-width"
+                    >
+                      <v-text-field
+                        v-model="repassword"
+                        :type="showPassword ? 'text' : 'password'"
+                        :counter="16"
+                        label="请再次输入密码"
+                        :error-messages="errors[0]"
+                        :disabled="loading"
+                      ></v-text-field>
+                    </ValidationProvider>
+                  </v-col>
+                  <v-col cols="12">
+                    <ValidationProvider
+                      name="captcha"
+                      rules="required|length:4|numeric"
+                      v-slot="{ errors }"
+                      class="fill-width"
+                    >
+                      <v-text-field
+                        v-model="formData.captcha"
+                        label="请输入验证码"
+                        :error-messages="errors[0]"
+                        :disabled="loading"
+                        class="captchaInput"
+                      >
+                        <template v-slot:append>
+                          <img
+                            :src="imageCodeData"
+                            @click="sendCode"
+                            style="cursor: pointer;"
+                          />
+                        </template>
+                      </v-text-field>
+                    </ValidationProvider>
+                  </v-col>
+                </v-row>
+              </v-window-item>
+            </v-window>
+          </v-form>
+        </ValidationObserver>
+      </v-container>
+    </template>
+
+    <template slot="footer">
       <v-divider></v-divider>
 
       <v-card-actions class="justify-center align-center">
@@ -347,8 +334,8 @@
           {{ stepContent }}
         </v-btn>
       </v-card-actions>
-    </v-card>
-  </v-dialog>
+    </template>
+  </helper-dialog>
 </template>
 
 <script>
