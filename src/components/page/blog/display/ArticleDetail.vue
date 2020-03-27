@@ -41,6 +41,7 @@
 
 <script>
 import { scrollToTop } from '@/assets/js/scrolling'
+import { copy } from '@/assets/js/fct'
 import { mapActions, mapGetters } from 'vuex'
 import {
   reqArticleDetailData,
@@ -137,11 +138,16 @@ export default {
     }
   },
   mounted() {
-    //
+    //复制添加版权信息
+
+    document.body.addEventListener('copy', copy, false)
     //回到顶部
     scrollToTop(this)
     //获取地址栏的参数
     this.getUrlParams()
+  },
+  beforeDestroy() {
+    document.body.removeEventListener('copy', copy)
   },
   methods: {
     //

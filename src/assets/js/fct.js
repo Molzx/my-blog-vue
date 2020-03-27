@@ -91,3 +91,47 @@ function endSendBtn(vm, type, code) {
   clearInterval(vm.timer)
   vm.timer = null
 }
+
+export function copy() {
+  //复制添加版权信息
+  if (typeof window.getSelection == 'undefined') return //IE8 及更老的版本不兼容
+
+  var body_element = document.getElementsByTagName('body')[0]
+  var selection = window.getSelection()
+
+  //如果选择是短的内容，让我们不要打扰我们的用户
+  if (('' + selection).length < 30) return
+
+  //创建一个DIV的可见区域之外
+  //并填写选定的文本
+  var newdiv = document.createElement('div')
+  newdiv.style.position = 'absolute'
+  newdiv.style.left = '-99999px'
+  body_element.appendChild(newdiv)
+  newdiv.appendChild(selection.getRangeAt(0).cloneContents())
+
+  //我们需要<pre>标签解决方案
+  //其他的文本在<pre>失去了所有的行符！
+  if (selection.getRangeAt(0).commonAncestorContainer.nodeName == 'PRE') {
+    newdiv.innerHTML = '<pre>' + newdiv.innerHTML + '</pre>'
+  }
+  //   返回https://xxx/blog/home
+  let url =
+    window.location.protocol + '//' + window.location.host + '/blog/home'
+  newdiv.innerHTML +=
+    "<br />————————————————<br />欢迎转载，转载请注明: <a href='" +
+    url +
+    "'>" +
+    '「奶茬博客」</a>(' +
+    url +
+    ")<br />原文链接：<a href='" +
+    document.location.href +
+    "'>" +
+    document.location.href +
+    '</a>'
+
+  selection.selectAllChildren(newdiv)
+  window.setTimeout(function() {
+    body_element.removeChild(newdiv)
+  }, 200)
+}

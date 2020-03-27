@@ -2,16 +2,36 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 22:54:52
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 22:17:16
+ * @LastEditTime : 2020-03-27 23:13:35
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\article\Footer.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <v-card-text>
-    <div class="mb-3">
-      <a>首发链接</a>
-    </div>
-    <v-container>
+  <v-card-text class="pt-0 px-6">
+    <v-container class="pt-0">
+      <v-row
+        class="justify-start align-center"
+        v-if="footerData.copyrightStatus"
+      >
+        <p class="mb-0 color-sub">
+          版权声明：本文为博主「Naicha」的原创文章，首发地址为「Naicha博客」
+        </p>
+      </v-row>
+      <v-row class="justify-start align-center" v-if="footerData.reprintStatus">
+        <p class="mb-0 color-sub">
+          转载声明：欢迎转载，转载请附上原文出处链接及本声明。
+        </p>
+      </v-row>
+
+      <v-divider class="my-4"></v-divider>
+
+      <v-row class="justify-start align-center">
+        <p class="mb-0 color-sub">
+          分类专栏：<a @click="filterCategory(categoryInfo)">{{
+            categoryInfo.categoryName
+          }}</a>
+        </p>
+      </v-row>
       <v-row class="justify-center align-center">
         <v-avatar size="96" color="grey lighten-4">
           <v-img :src="tagBg" height="64" contain></v-img>
@@ -23,6 +43,7 @@
           :key="tag.tagId"
           class="ma-1"
           color="teal lighten-5 teal--text"
+          @click="filterTag(tag)"
           >{{ tag.tagName }}
         </v-chip>
       </v-row>
@@ -37,29 +58,52 @@
 <script>
 export default {
   props: {
+    categoryInfo: {
+      type: Object
+    },
     tagItems: {
       type: Array
+    },
+    footerData: {
+      type: Object
     }
   },
   data() {
     return {
-      tags: [
-        'Work',
-        'Home Improvement',
-        'Vacation',
-        'Food',
-        'Drawers',
-        'Shopping',
-        'Art',
-        'Tech',
-        'Creative Writing'
-      ],
       tagBg: require('@/assets/images/tag.svg')
     }
   },
-  methods: {},
-  components: {}
+  mounted() {
+    //
+  },
+  methods: {
+    //
+
+    filterCategory(category) {
+      let path = '/blog/categories/category'
+      let params = category.categoryName
+      // console.log(path)
+      this.$router.push({ path: path, query: { q: params } })
+    },
+    filterTag(tag) {
+      let path = '/blog/tags/tag'
+      let params = tag.tagName
+      // console.log(path)
+      this.$router.push({ path: path, query: { q: params } })
+    }
+  },
+  computed: {
+    //
+  },
+  watch: {
+    //
+  },
+  components: {
+    //
+  }
 }
 </script>
 
-<style></style>
+<style>
+/*  */
+</style>

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 20:09:16
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 22:08:54
+ * @LastEditTime : 2020-03-27 23:17:29
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\Article.vue
  * @Description  : 这是一些注释
  -->
@@ -67,10 +67,11 @@
           </div> -->
         </div>
       </v-card-text>
-      <v-divider></v-divider>
       <!-- 页脚信息 -->
       <page-blog-article-footer
+        :categoryInfo="categoryInfo"
         :tagItems="articleInfo.tags"
+        :footerData="footerData"
       ></page-blog-article-footer>
     </v-card>
     <!-- 赞赏信息 -->
@@ -107,6 +108,10 @@ export default {
       loading: true,
       //评论相关信息
       commentData: {},
+      //分类信息
+      categoryInfo: {},
+      //页脚信息
+      footerData: {},
       //waypoint 配置
       //默认waypoint 会触发两次
       pointTopCount: 0,
@@ -218,6 +223,17 @@ export default {
         this.commentData = {
           commentStatus: newVal.commentStatus == '开启'
         }
+        this.categoryInfo = {
+          categoryId: newVal.categoryId,
+          categoryName: newVal.categoryName
+        }
+
+        this.footerData = {
+          //版权声明
+          copyrightStatus: newVal.copyrightStatus == '开启',
+          //转载声明
+          reprintStatus: newVal.reprintStatus == '开启'
+        }
       }
     }
     // 'otherData.sideListShow': {
@@ -254,6 +270,15 @@ export default {
   .hljs code {
     font-size: 100%;
   }
+}
+/deep/ .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
+  width: 100%;
+  height: 100%;
+  padding: 8px 10px 0px 10px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 /deep/ .v-skeleton-loader__image {
   height: 380px;

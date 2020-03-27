@@ -1,24 +1,39 @@
+<!--
+ * @Author       : xuzhenghao
+ * @Date         : 2020-02-14 14:09:25
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-03-27 23:41:37
+ * @FilePath     : \VueProjects\my-blog\src\components\page\blog\article\Author.vue
+ * @Description  : 这是一些注释
+ -->
 <template>
   <div class="mt-4">
     <!-- Something -->
+    <v-btn depressed @click="show = true">hh</v-btn>
     <!-- 个人信息 -->
-    <v-alert text dense color="teal" border="left"
-      >我是Tusi，一个创业公司前端小leader，每天依然为写不完的业务代码烦恼，在打磨产品道路上沉淀技术，探索成长路线。如果你与我一样，正在思考自己的技术成长与价值，欢迎加我微信交流探讨，微信号ice_lloly。我会在公众号猿出道和小程序Tusi博客同步博客内容，快来撩我。
-    </v-alert>
+    <v-alert text dense color="teal">
+      <template v-slot:prepend>
+        <v-tooltip
+          v-model="show"
+          top
+          content-class="b-tooltip contact"
+          color="white"
+          light
+          max-width="180"
+        >
+          <template v-slot:activator="{ on }">
+            <v-avatar size="72" color="grey lighten-4" class="mr-3">
+              <v-img :src="avatarBg" height="72" contain v-on="on"></v-img>
+            </v-avatar>
+          </template>
 
-    <!-- 扫码关注 -->
-    <div class="d-flex justify-center">
-      <div>
-        <v-img
-          height="200"
-          width="200"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        ></v-img>
-      </div>
-    </div>
-    <div class="text-center mt-2">
-      <a>欢迎关注</a>
-    </div>
+          <!-- 扫码关注 -->
+          <v-img :src="mmQrCodeBg" width="180" contain></v-img>
+          <!-- <span class="grey--text text--darken-3">查看更多</span> -->
+        </v-tooltip>
+      </template>
+      我是Naicha，一个正在起步的后端程序员，仍在不断学习新知识，探索成长路线。如果你与我一样，正在学习知识和充实自我，欢迎加我微信交流探讨。
+    </v-alert>
   </div>
 </template>
 
@@ -28,6 +43,9 @@ export default {
   data() {
     return {
       //
+      show: true,
+      avatarBg: require('@/assets/images/avatar/contact_avatar.svg'),
+      mmQrCodeBg: require('@/assets/images/mmqrcode.png')
     }
   },
   mounted() {
@@ -48,6 +66,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 /*  */
+.b-tooltip.contact {
+  padding: 8px;
+}
 </style>
