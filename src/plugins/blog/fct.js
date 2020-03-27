@@ -2,12 +2,12 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:59:39
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 22:14:05
+ * @LastEditTime : 2020-03-27 13:56:17
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\fct.js
  * @Description  : 这是一些注释
  */
 // eslint-disable-next-line no-unused-vars
-exports.install = function(Vue, router) {
+exports.install = function(Vue, router, TweenMaxObject) {
   Vue.prototype.$toLogin = () => {
     //全局函数，跳转到登录页面
     console.log(router)
@@ -104,8 +104,20 @@ exports.install = function(Vue, router) {
         return Vue.prototype.$global.filesTypeBgs.zip
     }
   }
-  Vue.prototype.$pushH = function() {
-    //全局函数2
+  Vue.prototype.$scrollTop = function() {
+    //滑动到顶部
+    TweenMaxObject.TweenMax.to(window, 1.6, {
+      scrollTo: 0,
+      ease: TweenMaxObject.Bounce.easeOut
+    })
+    // TweenMax.to(window, 2, { scrollTo: { y: 'min' } })
+  }
+  Vue.prototype.$scrollBottom = function() {
+    //滚动到最下方
+    TweenMaxObject.TweenMax.to(window, 1.6, {
+      scrollTo: 'max',
+      ease: TweenMaxObject.Bounce.easeOut
+    })
   }
   Vue.prototype.$pushHN = function() {
     //全局函数3

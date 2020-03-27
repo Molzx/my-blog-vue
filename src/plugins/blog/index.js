@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:37:38
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 20:56:36
+ * @LastEditTime : 2020-03-27 13:52:14
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\index.js
  * @Description  : 这是一些注释
  */
@@ -16,5 +16,7 @@ Vue.prototype.$global = global
 filters(Vue)
 // eslint-disable-next-line no-unused-vars
 import router from '@/router'
+import { TweenMax, Power2, Bounce } from '@common/tweenmax/all'
+let TweenMaxObject = { TweenMax, Power2, Bounce }
 import functions from './fct'
-Vue.use(functions, router)
+Vue.use(functions, router, TweenMaxObject)

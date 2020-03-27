@@ -113,7 +113,7 @@
                             <v-badge color="grey lighten-4" inline overlap>
                               <template v-slot:badge>
                                 <span class="opt-color--text">
-                                  {{ opt.count | getMaxNum(3) }}
+                                  {{ opt.count | getMaxNum(4) }}
                                 </span>
                               </template>
                               <v-btn
@@ -220,7 +220,7 @@ export default {
           icon: 'mdi-heart',
           class: 'like',
           size: 16,
-          count: 1223,
+          count: 0,
           selected: false,
           text1: '点赞',
           text2: '取消点赞'
@@ -229,7 +229,7 @@ export default {
           icon: 'mdi-star-face',
           class: 'collect',
           size: 18,
-          count: 121,
+          count: 0,
           selected: false,
           text1: '收藏',
           text2: '取消收藏'
@@ -238,7 +238,7 @@ export default {
           icon: 'mdi-share',
           class: 'share',
           size: 18,
-          count: 122,
+          count: 0,
           selected: true,
           text1: '分享',
           text2: '取消分享'
@@ -247,6 +247,7 @@ export default {
       optViewIndex: 0,
       optLikeIndex: 1,
       optCollectIndex: 2,
+      optShareIndex: 3,
       //点赞操作的那一项的信息
       optArticleInfo: {},
       optArticleArr: []
@@ -289,10 +290,11 @@ export default {
       }
     },
     //设置图标的显示状态
-    setOptStatus() {
+    setOptStatus(result) {
       let info = this.optArticleInfo
       let selected = info.selected
       info.article.opt[info.optIndex].selected = selected
+      info.article.opt[info.optIndex].count = result.count
       this.$set(this.optArticleArr, info.articleIndex, info.article)
     },
     like(item) {
@@ -312,9 +314,8 @@ export default {
           .then(res => {
             let data = res.data.extend.data
             // console.log(data)
-            vm.$toast.success(data)
             //设置状态
-            vm.setOptStatus()
+            vm.setOptStatus(data)
           })
           .catch(() => {
             // vm.loading = false
@@ -338,9 +339,8 @@ export default {
           .then(res => {
             let data = res.data.extend.data
             // console.log(data)
-            vm.$toast.success(data)
             //设置状态
-            vm.setOptStatus()
+            vm.setOptStatus(data)
           })
           .catch(() => {
             // vm.loading = false
@@ -364,9 +364,8 @@ export default {
           .then(res => {
             let data = res.data.extend.data
             // console.log(data)
-            vm.$toast.success(data)
             //设置状态
-            vm.setOptStatus()
+            vm.setOptStatus(data)
           })
           .catch(() => {
             // vm.loading = false
@@ -390,9 +389,8 @@ export default {
           .then(res => {
             let data = res.data.extend.data
             // console.log(data)
-            vm.$toast.success(data)
             //设置状态
-            vm.setOptStatus()
+            vm.setOptStatus(data)
           })
           .catch(() => {
             // vm.loading = false
@@ -439,8 +437,12 @@ export default {
           this.optArticleArr.forEach(i => {
             let arr = this.optBtnItems
             i.opt = JSON.parse(JSON.stringify(arr))
+            i.opt[this.optViewIndex].count = i.view
+            i.opt[this.optLikeIndex].count = i.liked
             i.opt[this.optLikeIndex].selected = i.likedStatus
+            i.opt[this.optCollectIndex].count = i.collected
             i.opt[this.optCollectIndex].selected = i.collectedStatus
+            i.opt[this.optShareIndex].count = i.shared
           })
         }
       },

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 20:40:58
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-13 15:19:06
+ * @LastEditTime : 2020-03-27 14:01:39
  * @FilePath     : \VueProjects\my-blog\src\views\blog\Layout.vue
  * @Description  : 这是一些注释
  -->
@@ -44,7 +44,8 @@ export default {
     //屏幕滚动方法
     onScroll(e) {
       let top = e.target.scrollingElement.scrollTop
-      let show = parseInt(top) >= 150
+      // console.log(top)
+      let show = parseInt(top) >= 720
       if (show) {
         this.rightFloatHidden = false
       } else {

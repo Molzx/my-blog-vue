@@ -2,10 +2,8 @@
   <div ref="sideArticle" class="nn">
     <v-card class="shadow-1  b-card-title--recommand ">
       <v-row class=" mx-3 fill-height" justify="center" align="center">
-        <p class="mb-0">
-          <strong class="title headline blue-grey--text text--darken-4">{{
-            getTitle
-          }}</strong>
+        <p class="b-title--normal  text-center mb-0">
+          {{ getTitle }}
         </p>
       </v-row>
     </v-card>

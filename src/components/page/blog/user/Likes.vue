@@ -116,9 +116,10 @@ export default {
         this.$api.like
           .toUnliked(params)
           .then(res => {
+            // eslint-disable-next-line no-unused-vars
             let data = res.data.extend.data
-            console.log(data)
-            this.$toast.success(data)
+            // console.log(data)
+            this.$toast.success('取消收藏成功')
             //在下标处开始删除,删除一位，删除取消点赞的记录
             //不必重新拉取数据
             vm.dataItems.splice(index, 1)

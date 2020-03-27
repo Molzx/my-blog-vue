@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { scrollToTop } from '@/assets/js/scrolling'
+// import { scrollToTop } from '@/assets/js/scrolling'
 export default {
   props: {
     //
@@ -21,7 +21,8 @@ export default {
   methods: {
     //
     scrollToTop() {
-      scrollToTop(this)
+      this.$scrollTop()
+      // scrollToTop(this)
     }
   },
   computed: {
