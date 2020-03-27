@@ -93,7 +93,14 @@ export default {
         //推荐状态
         recommendStatus: '推荐',
         //状态标记
-        status: '启用'
+        status: '启用',
+
+        //评论数量
+        commentTotal: 0,
+        //点赞状态
+        likedStatus: false,
+        //收藏状态
+        collectedStatus: false
       },
       articleList: [],
       // articleInfo: '',
@@ -119,12 +126,12 @@ export default {
         sideListShow: [false, false, false, false]
       },
       floatGroupData: {
-        liked: 0,
-        collected: 0,
-        comment: 0,
-        shared: 0,
+        likeCount: 0,
+        collectCount: 0,
+        commentCount: 0,
+        shareCount: 0,
         isLiked: false,
-        isCollect: false,
+        isCollected: false,
         isShared: false
       }
     }

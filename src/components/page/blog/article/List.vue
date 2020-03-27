@@ -92,9 +92,9 @@
                       {{ item.categoryName | textLengthFormat(18) }}
                     </router-link>
                   </div>
-                  <div class="d-flex flex-row b-footer-content align-start">
+                  <div class="d-flex flex-row align-center b-footer--opt">
                     <Timeago
-                      class="comment-meta-item timeago "
+                      class=""
                       :datetime="item.createdTime"
                       :autoUpdate="true"
                     >
@@ -107,26 +107,38 @@
                           content-class="b-tooltip"
                           color="white"
                           light
+                          open-delay="300"
                         >
-                          <template v-slot:activator="{ on }"
-                            ><v-btn
-                              class="opt-btn"
-                              :class="opt.selected ? 'red--text' : ''"
-                              icon
-                              small
-                              @click="clickOptBtn(item, articleIndex, optIndex)"
-                              v-on="on"
-                              style="background:#f5f5f5;z-index:5;margin-right:-10px;"
-                            >
-                              <v-icon
-                                :size="opt.size"
-                                v-text="opt.icon"
-                              ></v-icon>
-                            </v-btn>
-                            {{ articleIndex }}
-                            <v-chip class="" x-small color="grey lighten-4">
-                              {{ opt.count }}
-                            </v-chip>
+                          <template v-slot:activator="{ on }">
+                            <v-badge color="grey lighten-4" inline overlap>
+                              <template v-slot:badge>
+                                <span class="opt-color--text">
+                                  {{ opt.count | getMaxNum(3) }}
+                                </span>
+                              </template>
+                              <v-btn
+                                class="opt-btn"
+                                :class="
+                                  opt.selected ? 'active ' + opt.class : ''
+                                "
+                                icon
+                                small
+                                @click="
+                                  clickOptBtn(item, articleIndex, optIndex)
+                                "
+                                v-on="on"
+                              >
+                                <v-icon
+                                  :size="opt.size"
+                                  v-text="opt.icon"
+                                ></v-icon>
+                              </v-btn>
+                            </v-badge>
+                            <!-- {{ articleIndex }}
+
+                            <span class="opt-bg footer--span">
+                              {{ opt.count | getMaxNum(4) }}
+                            </span> -->
                           </template>
                           <span class="grey--text text--darken-3">{{
                             opt.selected ? opt.text2 : opt.text1
@@ -197,14 +209,16 @@ export default {
       optBtnItems: [
         {
           icon: 'mdi-eye',
+          class: 'view',
           size: 18,
           count: 0,
           selected: true,
           text1: '浏览量',
-          text2: ''
+          text2: '浏览量'
         },
         {
-          icon: 'mdi-thumb-up',
+          icon: 'mdi-heart',
+          class: 'like',
           size: 16,
           count: 1223,
           selected: false,
@@ -213,6 +227,7 @@ export default {
         },
         {
           icon: 'mdi-star-face',
+          class: 'collect',
           size: 18,
           count: 121,
           selected: false,
@@ -221,6 +236,7 @@ export default {
         },
         {
           icon: 'mdi-share',
+          class: 'share',
           size: 18,
           count: 122,
           selected: true,
@@ -228,10 +244,12 @@ export default {
           text2: '取消分享'
         }
       ],
+      optViewIndex: 0,
       optLikeIndex: 1,
       optCollectIndex: 2,
-      optArticleArr: [],
-      floatData: ''
+      //点赞操作的那一项的信息
+      optArticleInfo: {},
+      optArticleArr: []
     }
   },
   methods: {
@@ -241,16 +259,45 @@ export default {
       // this.$router.push({ path: path, query: { q: params } })
     },
     clickOptBtn(article, articleIndex, optIndex) {
-      let flag = article.opt[optIndex].selected
-      console.log(this.optArticleArr)
-      this.optArticleArr.slice(articleIndex, 1)
-      this.optArticleArr[0].opt[2].selected = !flag
-      console.log(this.optArticleArr)
+      this.optArticleInfo = {
+        article: article,
+        articleIndex: articleIndex,
+        optIndex: optIndex,
+        selected: !article.opt[optIndex].selected
+      }
+      if (optIndex == this.optViewIndex) {
+        this.$router.push({
+          path: this.linkToArticle,
+          query: { q: article.articleId }
+        })
+      } else if (optIndex == this.optLikeIndex) {
+        if (this.optArticleInfo.selected) {
+          //点赞
+          this.like(article)
+        } else {
+          //取消点赞
+          this.unlike(article)
+        }
+      } else if (optIndex == this.optCollectIndex) {
+        if (this.optArticleInfo.selected) {
+          //收藏
+          this.collect(article)
+        } else {
+          //取消收藏
+          this.uncollect(article)
+        }
+      }
+    },
+    //设置图标的显示状态
+    setOptStatus() {
+      let info = this.optArticleInfo
+      let selected = info.selected
+      info.article.opt[info.optIndex].selected = selected
+      this.$set(this.optArticleArr, info.articleIndex, info.article)
     },
     like(item) {
       //点赞
-      // let vm = this
-
+      let vm = this
       let params = {
         //资源类型
         ownerType: '文章',
@@ -261,10 +308,39 @@ export default {
       }
       setTimeout(() => {
         this.$api.like
-          .toliked(params)
+          .toLiked(params)
           .then(res => {
             let data = res.data.extend.data
-            console.log(data.msg)
+            // console.log(data)
+            vm.$toast.success(data)
+            //设置状态
+            vm.setOptStatus()
+          })
+          .catch(() => {
+            // vm.loading = false
+          })
+      }, 0)
+    },
+    unlike(item) {
+      //取消点赞
+      let vm = this
+      let params = {
+        //资源类型
+        ownerType: '文章',
+        //资源id
+        ownerId: item.articleId
+        //用户id
+        // userId: userId
+      }
+      setTimeout(() => {
+        this.$api.like
+          .toUnliked(params)
+          .then(res => {
+            let data = res.data.extend.data
+            // console.log(data)
+            vm.$toast.success(data)
+            //设置状态
+            vm.setOptStatus()
           })
           .catch(() => {
             // vm.loading = false
@@ -273,8 +349,7 @@ export default {
     },
     collect(item) {
       //收藏
-      // let vm = this
-
+      let vm = this
       let params = {
         //资源类型
         ownerType: '文章',
@@ -288,7 +363,36 @@ export default {
           .toCollected(params)
           .then(res => {
             let data = res.data.extend.data
-            console.log(data.msg)
+            // console.log(data)
+            vm.$toast.success(data)
+            //设置状态
+            vm.setOptStatus()
+          })
+          .catch(() => {
+            // vm.loading = false
+          })
+      }, 0)
+    },
+    uncollect(item) {
+      //取消收藏
+      let vm = this
+      let params = {
+        //资源类型
+        ownerType: '文章',
+        //资源id
+        ownerId: item.articleId
+        //用户id
+        // userId: userId
+      }
+      setTimeout(() => {
+        this.$api.collect
+          .toUncollected(params)
+          .then(res => {
+            let data = res.data.extend.data
+            // console.log(data)
+            vm.$toast.success(data)
+            //设置状态
+            vm.setOptStatus()
           })
           .catch(() => {
             // vm.loading = false
@@ -331,23 +435,25 @@ export default {
     articleList: {
       handler(newVal) {
         if (newVal) {
-          this.optArticleArr = newVal
+          this.optArticleArr = JSON.parse(JSON.stringify(newVal))
           this.optArticleArr.forEach(i => {
             let arr = this.optBtnItems
             i.opt = JSON.parse(JSON.stringify(arr))
+            i.opt[this.optLikeIndex].selected = i.likedStatus
+            i.opt[this.optCollectIndex].selected = i.collectedStatus
           })
         }
       },
       deep: true
-    },
-    optArticleArr: {
-      handler(newVal) {
-        if (newVal) {
-          console.log(newVal)
-        }
-      },
-      deep: true
     }
+    // optArticleArr: {
+    //   handler(newVal) {
+    //     if (newVal) {
+    //       console.log(newVal)
+    //     }
+    //   },
+    //   deep: true
+    // }
   },
   filters: {
     //
@@ -355,4 +461,44 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.b-footer--opt {
+  font-size: 13px;
+  color: #7a7a7a;
+}
+.opt-btn {
+  background: #f5f5f5;
+  color: #6c6c6c;
+  z-index: 5;
+  &.active {
+    background: #e3f2fd;
+    &.view {
+      background: #e0f7fa;
+      color: #00bcd4;
+    }
+    &.like {
+      background: #ffebee;
+      color: #f44336;
+      // background: #e1f5fe;
+      // color: #03a9f4;
+    }
+    &.collect {
+      background: #fce4ec;
+      color: #e91e63;
+    }
+    &.share {
+      background: #fbe9e7;
+      color: #ff5722;
+    }
+  }
+  // margin-right: -10px;
+}
+.opt-color--text {
+  color: #6c6c6c;
+}
+.opt-bg {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 3px 8px;
+}
+</style>

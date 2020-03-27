@@ -11,7 +11,8 @@ $bg-10: '../images/bg/concrete_seamless.png';
 $bg-11: '../images/bg/confectionary.png';
 $bg-12: '../images/bg/geometry2.png';
 $bg-13: '../images/bg/concrete-texture.png';
-
+$bg-14: '../images/bg/circles-light.png';
+$bg-15: '../images/bg/wavy-dots.png';
 // =============dark background=====================
 $bg-1-dark: '../images/bg/dark-grey-terrazzo.png';
 
@@ -21,10 +22,12 @@ $bg-1-dark: '../images/bg/dark-grey-terrazzo.png';
 }
 
 @mixin background-image-light($bg) {
-  background: url($bg) !important;
+  background: rgba(0, 0, 0, 0) url($bg) repeat scroll 0% 0% !important;
+  // background: url($bg) !important;
 }
 @mixin background-image-dark($bg) {
-  background: url($bg) !important;
+  background: rgba(0, 0, 0, 0) url($bg) repeat scroll 0% 0% !important;
+  // background: url($bg) !important;
 }
 //==============color=========
 .bg-color-1 {
@@ -36,7 +39,7 @@ $bg-1-dark: '../images/bg/dark-grey-terrazzo.png';
 
 //=================image===========
 .bg-1 {
-  background: url(../images/bg/concrete-texture.png) !important;
+  background: url(../images/bg/wavy-dots.png) !important;
   background-size: 100% 100% !important;
 }
 
@@ -76,6 +79,12 @@ $bg-1-dark: '../images/bg/dark-grey-terrazzo.png';
 }
 .bg-13 {
   @include background-image-light($bg-13);
+}
+.bg-14 {
+  @include background-image-light($bg-14);
+}
+.bg-15 {
+  @include background-image-light($bg-15);
 }
 // =============dark background=====================
 .bg-1-dark {

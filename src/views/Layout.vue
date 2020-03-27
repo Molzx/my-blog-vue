@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 15:46:54
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-13 19:46:27
+ * @LastEditTime : 2020-03-27 11:08:57
  * @FilePath     : \VueProjects\my-blog\src\views\Layout.vue
  * @Description  : 这是一些注释
  -->
@@ -106,7 +106,7 @@ export default {
     getMainBackground() {
       var mainClass = ''
       if (this.isBlogPage) {
-        mainClass = 'bg-6'
+        mainClass = 'bg-14'
       }
       if (this.isSystemPage) {
         mainClass = 'bg-color-2'

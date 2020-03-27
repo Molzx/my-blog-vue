@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:33:54
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 11:12:39
+ * @LastEditTime : 2020-03-27 10:36:59
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\filters.js
  * @Description  : 这是一些注释
  */
@@ -62,7 +62,9 @@ const filters = {
   //截取大于num位数字的值为num+，如9999,3 变为999+
   getMaxNum(value, num) {
     // let num = 18
-    if (!value) return 0
+    if (!value || value == 0) {
+      return 0
+    }
     //如102，保留3位，最大999
     let maxNum = Math.pow(10, num) - 1
     if (parseInt(value) > maxNum) {
