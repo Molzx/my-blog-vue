@@ -4,7 +4,7 @@
     width="500"
     headerTitle="修改举报信息"
     headerColor="info"
-    cardTextHeight="400"
+    :limitCardTextHeight="false"
     @cancel="cancel"
   >
     <template slot="content.card-text">
@@ -15,11 +15,10 @@
       ></page-system-report-form>
     </template>
     <template slot="footer">
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="cancel">
-          取消
-        </v-btn>
+      <!--  -->
+      <v-divider></v-divider>
+
+      <v-card-actions class="d-flex justify-center">
         <v-btn
           :loading="otherData.loading"
           color="primary"

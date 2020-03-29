@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 21:36:51
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 08:58:16
+ * @LastEditTime : 2020-03-29 23:37:38
  * @FilePath     : \VueProjects\my-blog\src\components\helper\Dialog.vue
  * @Description  : 这是一些注释
  -->
@@ -42,6 +42,7 @@
       </slot>
       <slot name="content">
         <v-card-text
+          class="py-0"
           :style="limitCardTextHeight ? `max-height: ${cardTextHeight}px;` : ''"
         >
           <slot name="content.card-text"></slot>

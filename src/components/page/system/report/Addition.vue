@@ -1,10 +1,10 @@
 <template>
   <helper-dialog
     :show.sync="show"
-    width="500"
+    width="480"
     headerTitle="添加举报信息"
     headerColor="info"
-    cardTextHeight="400"
+    :limitCardTextHeight="false"
     @cancel="cancel"
   >
     <template slot="content.card-text">
@@ -15,11 +15,10 @@
       ></page-system-report-form>
     </template>
     <template slot="footer">
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="cancel">
-          取消
-        </v-btn>
+      <!--  -->
+      <v-divider></v-divider>
+
+      <v-card-actions class="d-flex justify-center">
         <v-btn
           :loading="otherData.loading"
           color="primary"
@@ -41,9 +40,9 @@ export default {
   data: () => ({
     formData: {
       // 举报人的帐号ID，前台新增不传
-      reporter: 0,
+      reporter: '',
       // 被举报人的帐号ID
-      accusedUser: 0,
+      accusedUser: '',
       // 举报理由
       reason: '',
       // 状态标记 { 0：启用，1：禁用 }，前台新增不传

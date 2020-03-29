@@ -129,7 +129,21 @@ export default {
     commentOwnerId: '评论主资源Id',
     commentParentId: '回复评论Id',
     commentFromUser: '评论人',
-    commentToUser: '被评论人'
+    commentToUser: '被评论人',
+
+    //====公告功能
+    announcementTitle: '公告标题',
+    announcementContent: '公告内容',
+    announcementFile: '公告封面文件',
+    announcementUrl: '公告封面URL地址',
+    announcementStatus: '公告状态',
+
+    //====举报功能
+    reportReporter: '举报人ID',
+    reportAccusedUser: '被举报人ID',
+    reportReason: '举报理由',
+    reportHandledStatus: '举报信息处理状态',
+    reportStatus: '举报信息记录状态'
   },
   // validation: zh_CN.messages
   validation: {

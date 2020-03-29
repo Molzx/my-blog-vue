@@ -4,7 +4,7 @@
     width="500"
     headerTitle="添加公告"
     headerColor="info"
-    cardTextHeight="510"
+    :limitCardTextHeight="false"
     @cancel="cancel"
   >
     <template slot="content.card-text">
@@ -15,11 +15,9 @@
       ></page-system-announcement-form>
     </template>
     <template slot="footer">
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="cancel">
-          取消
-        </v-btn>
+      <v-divider></v-divider>
+
+      <v-card-actions class="d-flex justify-center">
         <v-btn
           :loading="otherData.loading"
           color="primary"

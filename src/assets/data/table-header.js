@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-21 12:25:08
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-07 14:51:04
+ * @LastEditTime : 2020-03-29 22:13:12
  * @FilePath     : \VueProjects\my-blog\src\assets\data\table-header.js
  * @Description  : 系统展示表格头部数据
  */
@@ -207,6 +207,51 @@ export const comment = [
   { text: '评论状态', value: 'status' },
   { text: '创建时间', value: 'createdTime' },
   { text: '更新时间', value: 'updatedTime' },
+  {
+    text: '可用操作',
+    value: 'action',
+    sortable: false,
+    align: 'center',
+    width: 140
+  }
+]
+
+export const announcement = [
+  {
+    text: '',
+    align: 'center',
+    sortable: false,
+    value: 'id'
+  },
+  { text: '标题', value: 'title' },
+  { text: '内容', value: 'content' },
+  { text: '封面链接', value: 'url' },
+  { text: '创建时间', value: 'createdTime' },
+  { text: '更新时间', value: 'updatedTime' },
+  { text: '状态', value: 'status' },
+  {
+    text: '可用操作',
+    value: 'action',
+    sortable: false,
+    align: 'center',
+    width: 140
+  }
+]
+
+export const report = [
+  {
+    text: '',
+    align: 'center',
+    sortable: false,
+    value: 'id'
+  },
+  { text: '举报人', value: 'reporter' },
+  { text: '被举报人', value: 'accusedUser' },
+  { text: '举报理由', value: 'reason' },
+  { text: '处理状态', value: 'handledStatus' },
+  { text: '创建时间', value: 'createdTime' },
+  { text: '更新时间', value: 'updatedTime' },
+  { text: '状态', value: 'status' },
   {
     text: '可用操作',
     value: 'action',

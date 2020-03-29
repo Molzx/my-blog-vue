@@ -13,7 +13,7 @@
     "isMain": true,
     "hasSub": false,
     "to": "/system/articles",
-    "icon": "mdi-account-switch",
+    "icon": "fas fa-feather-alt",
     "text": "博客文章管理",
     "content": []
   },
@@ -22,7 +22,7 @@
     "isMain": true,
     "hasSub": false,
     "to": "/system/categories",
-    "icon": "mdi-book-lock-open",
+    "icon": "fas fa-map-signs",
     "text": "博客分类管理",
     "content": []
   },
@@ -31,7 +31,7 @@
     "isMain": true,
     "hasSub": false,
     "to": "/system/tags",
-    "icon": "fas fa-file",
+    "icon": "fas fa-tag",
     "text": "博客标签管理",
     "content": []
   },
@@ -40,7 +40,7 @@
     "isMain": true,
     "hasSub": false,
     "to": "/system/comments",
-    "icon": "fas fa-file",
+    "icon": "fas fa-comment-dots",
     "text": "博客评论管理",
     "content": []
   },
@@ -50,7 +50,7 @@
     "isMain": true,
     "hasSub": true,
     "to": "/system/users",
-    "icon": "mdi-account-group",
+    "icon": "fas fa-user-cog",
     "text": "用户管理",
     "content": []
   },
@@ -59,7 +59,7 @@
     "isMain": true,
     "hasSub": false,
     "to": "/system/roles",
-    "icon": "mdi-account-switch",
+    "icon": "fas fa-user-shield",
     "text": "角色管理",
     "content": []
   },
@@ -68,7 +68,7 @@
     "isMain": true,
     "hasSub": false,
     "to": "/system/permissions",
-    "icon": "mdi-book-lock-open",
+    "icon": "fas fa-shield-alt",
     "text": "权限管理",
     "content": []
   },
@@ -77,8 +77,26 @@
     "isMain": true,
     "hasSub": false,
     "to": "/system/files",
-    "icon": "fas fa-file",
+    "icon": "fas fa-archive",
     "text": "文件管理",
+    "content": []
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/announcements",
+    "icon": "fas fa-bullhorn",
+    "text": "公告管理",
+    "content": []
+  },
+  {
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system/reports",
+    "icon": "fas fa-user-clock",
+    "text": "举报管理",
     "content": []
   },
   {

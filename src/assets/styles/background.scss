@@ -46,18 +46,18 @@ $dark-bgs: (
   // background: url($bg) !important;
 }
 @mixin background-image-dark($arg) {
-  background: rgba(0, 0, 0, 0) url(%bg-#{$arg}) repeat scroll 0% 0% !important;
+  background: rgba(0, 0, 0, 0) url($arg) repeat scroll 0% 0% !important;
   // background: url($bg) !important;
 }
 // =============light background=====================
-@for $i from 0 through length($light-bgs) {
+@for $i from 0 through length($light-bgs)-1 {
   .bg-#{$i + 1} {
     @include background-image-light(map-get($light-bgs, $i));
   }
 }
 // =============dark background=====================
 //bg-1开始
-@for $i from 0 through length($dark-bgs) {
+@for $i from 0 through length($dark-bgs)-1 {
   .bg-dark-#{$i + 1} {
     @include background-image-dark(map-get($dark-bgs, $i));
   }

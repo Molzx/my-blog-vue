@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-24 13:46:07
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-09 10:49:14
+ * @LastEditTime : 2020-03-29 22:32:17
  * @FilePath     : \VueProjects\my-blog\src\common\lang\en.js
  * @Description  : 这是一些注释
  */
@@ -124,7 +124,21 @@ export default {
     commentOwnerId: 'CommentOwnId',
     commentParentId: 'CommentParentId',
     commentFromUser: 'CommentFromUser',
-    commentToUser: 'CommentToUser'
+    commentToUser: 'CommentToUser',
+
+    //====公告功能
+    announcementTitle: 'AnnouncementTitle',
+    announcementContent: 'AnnouncementContent',
+    announcementFile: 'AnnouncementFile',
+    announcementUrl: 'AnnouncementUrl',
+    announcementStatus: 'AnnouncementStatus',
+
+    //====举报功能
+    reportReporter: 'Reporter',
+    reportAccusedUser: 'AccusedUser',
+    reportReason: 'ReportReason',
+    reportHandledStatus: 'ReportHandledStatus',
+    reportStatus: 'ReportStatus'
   },
   // validation: en.messages
   validation: {

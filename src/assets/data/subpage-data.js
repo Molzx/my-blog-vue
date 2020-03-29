@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-04 12:51:12
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-05 14:08:53
+ * @LastEditTime : 2020-03-29 22:22:21
  * @FilePath     : \VueProjects\my-blog\src\assets\data\subpage-data.js
  * @Description  : 这是一些注释
  */
@@ -88,6 +88,18 @@ let data = {
     currentPage: 0,
     toolbarColor: ['primary', 'deep-orange', 'deep-orange', 'deep-orange'],
     title: ['评论列表信息', '评论详细信息', '修改评论信息', '添加评论信息']
+  },
+  announcement: {
+    name: 'announcement',
+    currentPage: 0,
+    toolbarColor: ['primary', 'deep-orange', 'deep-orange', 'deep-orange'],
+    title: ['公告列表信息', '公告详细信息', '修改公告信息', '添加公告信息']
+  },
+  report: {
+    name: 'report',
+    currentPage: 0,
+    toolbarColor: ['primary', 'deep-orange', 'deep-orange', 'deep-orange'],
+    title: ['举报信息列表', '举报详细信息', '修改举报信息', '添加举报信息']
   }
   // ……
 }

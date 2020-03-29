@@ -4,7 +4,7 @@
     width="500"
     headerTitle="公告信息"
     headerColor="info"
-    cardTextHeight="240"
+    :limitCardTextHeight="false"
     @cancel="cancel"
   >
     <template slot="content.card-text">

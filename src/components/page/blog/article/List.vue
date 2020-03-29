@@ -124,7 +124,7 @@
                     </v-avatar> -->
                     <v-spacer></v-spacer>
                     <template v-for="(opt, optIndex) in item.opt">
-                      <span :key="optIndex" class="ml-2">
+                      <span :key="optIndex" class="ml-2 span-opt">
                         <v-tooltip
                           top
                           content-class="b-tooltip"
@@ -428,7 +428,8 @@ export default {
           this.optArticleArr.forEach(i => {
             let arr = this.optBtnItems
             i.opt = JSON.parse(JSON.stringify(arr))
-            i.opt[this.optViewIndex].count = i.view
+            i.opt[this.optViewIndex].count = 99999
+            // i.opt[this.optViewIndex].count = i.view
             i.opt[this.optLikeIndex].count = i.liked
             i.opt[this.optLikeIndex].selected = i.likedStatus
             i.opt[this.optCollectIndex].count = i.collected
@@ -469,6 +470,9 @@ export default {
   margin-top: 1px;
   .time-age {
     color: hsl(212, 16%, 48%);
+  }
+  .span-opt {
+    // min-width: 50px;
   }
 }
 .opt-btn {

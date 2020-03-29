@@ -22,7 +22,7 @@
           :ripple="{ class: 'side-ripple-color' }"
         >
           <v-list-item-icon ref="icon">
-            <v-icon class="drawer-icon" size="24" v-text="item.icon"></v-icon>
+            <v-icon class="drawer-icon" size="18" v-text="item.icon"></v-icon>
           </v-list-item-icon>
 
           <v-list-item-content ref="content">
@@ -38,7 +38,7 @@
         >
           <template v-slot:activator>
             <v-list-item-icon ref="icon">
-              <v-icon size="24" v-text="item.icon"></v-icon>
+              <v-icon size="18" v-text="item.icon"></v-icon>
             </v-list-item-icon>
             <v-list-item-content ref="content">
               <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -54,7 +54,7 @@
             :ripple="{ class: 'side-ripple-color' }"
           >
             <v-list-item-icon ref="group_icon">
-              <v-icon size="24" v-text="content.icon"></v-icon>
+              <v-icon size="18" v-text="content.icon"></v-icon>
             </v-list-item-icon>
             <v-list-item-content ref="group_content">
               <v-list-item-title v-text="content.text"></v-list-item-title>
