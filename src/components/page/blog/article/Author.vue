@@ -2,19 +2,18 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-14 14:09:25
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 23:41:37
+ * @LastEditTime : 2020-03-28 20:06:30
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\article\Author.vue
  * @Description  : 这是一些注释
  -->
 <template>
   <div class="mt-4">
     <!-- Something -->
-    <v-btn depressed @click="show = true">hh</v-btn>
+    <!-- <v-btn depressed @click="show = true">hh</v-btn> -->
     <!-- 个人信息 -->
     <v-alert text dense color="teal">
       <template v-slot:prepend>
         <v-tooltip
-          v-model="show"
           top
           content-class="b-tooltip contact"
           color="white"

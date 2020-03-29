@@ -163,10 +163,19 @@
         total-visible="7"
       ></v-pagination>
     </v-row>
+
+    <!-- 登录提示组件 -->
+    <helper-permission-dialog
+      :show.sync="showLoginTip"
+      :shortContent="getTipContent"
+    ></helper-permission-dialog>
   </v-container>
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import { mapActions, mapGetters } from 'vuex'
+import { like, unlike, collect, uncollect } from '@/assets/js/blog'
 export default {
   props: {
     showBreadcrumbs: {
@@ -250,7 +259,22 @@ export default {
       optShareIndex: 3,
       //点赞操作的那一项的信息
       optArticleInfo: {},
-      optArticleArr: []
+      //点赞、收藏操作的参数
+      optParams: {
+        //资源类型
+        ownerType: '文章',
+        //资源id
+        ownerId: ''
+        //用户id
+        // userId: userId
+      },
+      optArticleArr: [],
+
+      showLoginTip: false,
+      LoginTipContent: {
+        like: '点赞',
+        collect: '收藏'
+      }
     }
   },
   methods: {
@@ -271,21 +295,34 @@ export default {
           path: this.linkToArticle,
           query: { q: article.articleId }
         })
-      } else if (optIndex == this.optLikeIndex) {
-        if (this.optArticleInfo.selected) {
-          //点赞
-          this.like(article)
+      } else if (optIndex == this.optShareIndex) {
+        this.optParams.ownerId = article.articleId
+      } else {
+        //判断是否已登录
+        if (this.$isLogin()) {
+          if (optIndex == this.optLikeIndex) {
+            this.optParams.ownerId = article.articleId
+
+            if (this.optArticleInfo.selected) {
+              //点赞
+              like(this, this.optParams)
+            } else {
+              //取消点赞
+              unlike(this, this.optParams)
+            }
+          } else if (optIndex == this.optCollectIndex) {
+            this.optParams.ownerId = article.articleId
+            if (this.optArticleInfo.selected) {
+              //收藏
+              collect(this, this.optParams)
+            } else {
+              //取消收藏
+              uncollect(this, this.optParams)
+            }
+          }
         } else {
-          //取消点赞
-          this.unlike(article)
-        }
-      } else if (optIndex == this.optCollectIndex) {
-        if (this.optArticleInfo.selected) {
-          //收藏
-          this.collect(article)
-        } else {
-          //取消收藏
-          this.uncollect(article)
+          //未登录，打开登录提示
+          this.showLoginTip = true
         }
       }
     },
@@ -296,110 +333,14 @@ export default {
       info.article.opt[info.optIndex].selected = selected
       info.article.opt[info.optIndex].count = result.count
       this.$set(this.optArticleArr, info.articleIndex, info.article)
-    },
-    like(item) {
-      //点赞
-      let vm = this
-      let params = {
-        //资源类型
-        ownerType: '文章',
-        //资源id
-        ownerId: item.articleId
-        //用户id
-        // userId: userId
-      }
-      setTimeout(() => {
-        this.$api.like
-          .toLiked(params)
-          .then(res => {
-            let data = res.data.extend.data
-            // console.log(data)
-            //设置状态
-            vm.setOptStatus(data)
-          })
-          .catch(() => {
-            // vm.loading = false
-          })
-      }, 0)
-    },
-    unlike(item) {
-      //取消点赞
-      let vm = this
-      let params = {
-        //资源类型
-        ownerType: '文章',
-        //资源id
-        ownerId: item.articleId
-        //用户id
-        // userId: userId
-      }
-      setTimeout(() => {
-        this.$api.like
-          .toUnliked(params)
-          .then(res => {
-            let data = res.data.extend.data
-            // console.log(data)
-            //设置状态
-            vm.setOptStatus(data)
-          })
-          .catch(() => {
-            // vm.loading = false
-          })
-      }, 0)
-    },
-    collect(item) {
-      //收藏
-      let vm = this
-      let params = {
-        //资源类型
-        ownerType: '文章',
-        //资源id
-        ownerId: item.articleId
-        //用户id
-        // userId: userId
-      }
-      setTimeout(() => {
-        this.$api.collect
-          .toCollected(params)
-          .then(res => {
-            let data = res.data.extend.data
-            // console.log(data)
-            //设置状态
-            vm.setOptStatus(data)
-          })
-          .catch(() => {
-            // vm.loading = false
-          })
-      }, 0)
-    },
-    uncollect(item) {
-      //取消收藏
-      let vm = this
-      let params = {
-        //资源类型
-        ownerType: '文章',
-        //资源id
-        ownerId: item.articleId
-        //用户id
-        // userId: userId
-      }
-      setTimeout(() => {
-        this.$api.collect
-          .toUncollected(params)
-          .then(res => {
-            let data = res.data.extend.data
-            // console.log(data)
-            //设置状态
-            vm.setOptStatus(data)
-          })
-          .catch(() => {
-            // vm.loading = false
-          })
-      }, 0)
     }
   },
   components: {},
   computed: {
+    ...mapGetters({
+      //判断是否本地有token ，有返回 true
+      isLogin: 'getLoginStatusFun'
+    }),
     linkToArticle() {
       let path = '/blog/articles'
       return path
@@ -417,6 +358,16 @@ export default {
         return 0
       } else {
         return Math.ceil(this.pageParams.total / this.pageParams.size)
+      }
+    },
+    getTipContent() {
+      let type = this.optArticleInfo.optIndex
+      switch (type) {
+        case this.optLikeIndex:
+          return this.LoginTipContent.like
+
+        default:
+          return this.LoginTipContent.collect
       }
     }
   },

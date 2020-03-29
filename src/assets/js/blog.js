@@ -199,3 +199,76 @@ export function reqSideNewArticleData(vm) {
     vm.otherData.sideNewArticleLoading = false
   }
 }
+
+//点赞
+export function like(vm, params) {
+  //点赞
+  // let vm = this
+  setTimeout(() => {
+    this.$api.like
+      .toLiked(params)
+      .then(res => {
+        let data = res.data.extend.data
+        // console.log(data)
+        //设置状态
+        vm.setOptStatus(data)
+      })
+      .catch(() => {
+        // vm.loading = false
+      })
+  }, 0)
+}
+//取消点赞
+export function unlike(vm, params) {
+  //取消点赞
+  // let vm = this
+  setTimeout(() => {
+    this.$api.like
+      .toUnliked(params)
+      .then(res => {
+        let data = res.data.extend.data
+        // console.log(data)
+        //设置状态
+        vm.setOptStatus(data)
+      })
+      .catch(() => {
+        // vm.loading = false
+      })
+  }, 0)
+}
+//收藏
+export function collect(vm, params) {
+  //收藏
+  // let vm = this
+  setTimeout(() => {
+    this.$api.collect
+      .toCollected(params)
+      .then(res => {
+        let data = res.data.extend.data
+        // console.log(data)
+        //设置状态
+        vm.setOptStatus(data)
+      })
+      .catch(() => {
+        // vm.loading = false
+      })
+  }, 0)
+}
+//取消收藏
+export function uncollect(vm, params) {
+  //取消收藏
+  // let vm = this
+  setTimeout(() => {
+    this.$api.collect
+      .toUncollected(params)
+      .then(res => {
+        let data = res.data.extend.data
+        // console.log(data)
+        //设置状态
+        vm.setOptStatus(data)
+      })
+      .catch(() => {
+        // vm.loading = false
+      })
+  }, 0)
+}

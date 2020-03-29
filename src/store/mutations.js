@@ -17,6 +17,10 @@ import subPage from '@/assets/data/subpage-data'
 
 export default {
   //
+  changeNetwork(state, status) {
+    state.NetworkStatus = status
+    storage.setItem({ name: 'NetworkStatus', value: status })
+  },
   // 修改验证码key，并将 Key存入 sessionStorage
   setCodeKey(state, codeKey) {
     state.codeKey = codeKey
@@ -24,7 +28,11 @@ export default {
   },
   // 修改验证码 倒计时，并将 Key存入 sessionStorage
   setCodeTime(state, time) {
-    state.codeTime = time
+    if (time) {
+      state.codeTime = time
+    } else {
+      state.codeTime = ''
+    }
     sessionStorage.setItem('codeTime', state.codeTime)
   },
 
@@ -46,7 +54,7 @@ export default {
     if (typeof info != undefined) {
       state.Authorization = info.Authorization
       //判断是否记住我，如果为1保存token7天，否则为当次浏览器会话
-      if (info.type == 1) {
+      if (info.type) {
         console.log('in')
         storage.setItem({
           name: 'Authorization',
@@ -63,26 +71,23 @@ export default {
       sessionStorage.removeItem('Authorization')
     }
   },
-  changeNetwork(state, status) {
-    state.NetworkStatus = status
-    storage.setItem({ name: 'NetworkStatus', value: status })
-  },
   // 修改基础用户信息，并将信息存入localStorage
   setBaseUserInfo(state, info) {
     //如果info不为空
     if (typeof info != undefined) {
-      let userInfo = info.BaseUserInfo
-      if (userInfo) {
-        state.BaseUserInfo = {
-          avatar: userInfo.avatar,
-          nickName: userInfo.nickName
-        }
-      } else {
-        state.BaseUserInfo = {
-          avatar: info.avatar,
-          nickName: info.nickName
-        }
-      }
+      state.BaseUserInfo = info
+      // let userInfo = info.BaseUserInfo
+      // if (userInfo) {
+      //   state.BaseUserInfo = {
+      //     avatar: userInfo.avatar,
+      //     nickName: userInfo.nickName
+      //   }
+      // } else {
+      //   state.BaseUserInfo = {
+      //     avatar: info.avatar,
+      //     nickName: info.nickName
+      //   }
+      // }
       storage.setItem({ name: 'BaseUserInfo', value: state.BaseUserInfo })
     } else {
       state.BaseUserInfo = ''

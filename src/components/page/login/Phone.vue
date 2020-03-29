@@ -61,8 +61,6 @@
           <v-switch
             class="my-switch"
             v-model="remember"
-            :true-value="1"
-            :false-value="0"
             :disabled="loading"
             inset
             dense
@@ -91,7 +89,7 @@
 </template>
 
 <script>
-import { goToPage } from '@js/login'
+import { afterLoginSuccess } from '@js/login'
 import { mapGetters, mapActions } from 'vuex'
 import { changeSendBtn, reloadSendBtn } from '@/assets/js/fct'
 
@@ -115,7 +113,7 @@ export default {
       //是否可点击发送按钮
       canSend: false,
 
-      remember: 1,
+      remember: true,
       loading: false
     }
   },
@@ -168,22 +166,8 @@ export default {
         .toLoginBySmsCode(this.loginData)
         .then(res => {
           let data = res.data.extend
-          let userToken = 'Bearer ' + data.token
-          console.log(userToken)
-          // 将用户token保存到vuex中
-
-          let userInfo = data.userInfo
-          vm.setLoginStatus({
-            Authorization: userToken,
-            BaseUserInfo: userInfo,
-            type: vm.remember
-          })
-          vm.setUserInfo(userInfo)
-          vm.$toast.success('登录成功')
-
-          vm.loading = false
-          //跳转到原来页面
-          goToPage(vm)
+          //整理数据
+          afterLoginSuccess(vm, data)
         })
         .catch(() => {
           vm.loading = false

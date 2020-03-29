@@ -79,8 +79,6 @@
           <v-switch
             class="my-switch"
             v-model="remember"
-            :true-value="1"
-            :false-value="0"
             :disabled="loading"
             inset
             dense
@@ -128,7 +126,7 @@
 
 <script>
 // import { toSendImageCode, toLoginByImageCode } from '@/api/login'
-import { goToPage } from '@js/login'
+import { afterLoginSuccess } from '@js/login'
 import { mapActions } from 'vuex'
 export default {
   name: 'login-default',
@@ -148,7 +146,7 @@ export default {
       imageData:
         'data:image/jpeg;base64,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',
 
-      remember: 1,
+      remember: true,
 
       showPassword: false,
       loading: false
@@ -185,21 +183,8 @@ export default {
         .toLoginByImageCode(this.loginData)
         .then(res => {
           let data = res.data.extend
-          let userToken = 'Bearer ' + data.token
-          console.log(vm.remember)
-          // 将用户token保存到vuex中
-          let userInfo = data.userInfo
-          vm.setLoginStatus({
-            Authorization: userToken,
-            BaseUserInfo: userInfo,
-            type: vm.remember
-          })
-          vm.setUserInfo(userInfo)
-          vm.$toast.success('登录成功')
-
-          vm.loading = false
-          //跳转到原来页面
-          goToPage(vm)
+          //整理数据
+          afterLoginSuccess(vm, data)
         })
         .catch(() => {
           vm.loading = false

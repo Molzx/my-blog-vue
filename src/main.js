@@ -35,6 +35,8 @@ import api from '@/api'
 //使用 this.$api.login.方法
 Vue.prototype.$api = api
 
+//加载分享功能样式
+// import '../node_modules/social-share.js/dist/css/share.min.css'
 //加载全局样式
 import '@styles/main.scss'
 //导入material design icon

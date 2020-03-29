@@ -1,34 +1,36 @@
 // =============light background=====================
-$bg-2: '../images/bg/circuit.png';
-$bg-3: '../images/bg/doodles.png';
-$bg-4: '../images/bg/email-pattern.png';
-$bg-5: '../images/bg/funky-lines.png';
-$bg-6: '../images/bg/leaves-pattern.png';
-$bg-7: '../images/bg/light-grey-terrazzo.png';
-$bg-8: '../images/bg/memphis-colorful.png';
-$bg-9: '../images/bg/stripes-light.png';
-$bg-10: '../images/bg/concrete_seamless.png';
-$bg-11: '../images/bg/confectionary.png';
-$bg-12: '../images/bg/geometry2.png';
-$bg-13: '../images/bg/concrete-texture.png';
-$bg-14: '../images/bg/circles-light.png';
-$bg-15: '../images/bg/wavy-dots.png';
+$light-bgs: (
+  0: '../images/bg/circuit.png',
+  1: '../images/bg/doodles.png',
+  2: '../images/bg/email-pattern.png',
+  3: '../images/bg/funky-lines.png',
+  4: '../images/bg/leaves-pattern.png',
+  5: '../images/bg/light-grey-terrazzo.png',
+  6: '../images/bg/memphis-colorful.png',
+  7: '../images/bg/stripes-light.png',
+  8: '../images/bg/concrete_seamless.png',
+  9: '../images/bg/confectionary.png',
+  10: '../images/bg/geometry2.png',
+  11: '../images/bg/concrete-texture.png',
+  12: '../images/bg/circles-light.png',
+  13: '../images/bg/wavy-dots.png',
+  14: '../images/bg/dust_scratches.png'
+);
 // =============dark background=====================
-$bg-1-dark: '../images/bg/dark-grey-terrazzo.png';
+$dark-bgs: (
+  0: '../images/bg/dark-grey-terrazzo.png'
+);
+
+.bg-0 {
+  background: url(../images/bg/dust_scratches.png) !important;
+  background-size: 100% 100% !important;
+}
 
 .transprant {
   background: transparent !important;
   background-color: transparent !important;
 }
 
-@mixin background-image-light($bg) {
-  background: rgba(0, 0, 0, 0) url($bg) repeat scroll 0% 0% !important;
-  // background: url($bg) !important;
-}
-@mixin background-image-dark($bg) {
-  background: rgba(0, 0, 0, 0) url($bg) repeat scroll 0% 0% !important;
-  // background: url($bg) !important;
-}
 //==============color=========
 .bg-color-1 {
   background-color: $main-background-color !important;
@@ -38,57 +40,27 @@ $bg-1-dark: '../images/bg/dark-grey-terrazzo.png';
 }
 
 //=================image===========
-.bg-1 {
-  background: url(../images/bg/wavy-dots.png) !important;
-  background-size: 100% 100% !important;
-}
 
-.bg-2 {
-  @include background-image-light($bg-2);
+@mixin background-image-light($arg) {
+  background: rgba(0, 0, 0, 0) url($arg) repeat scroll 0% 0% !important;
+  // background: url($bg) !important;
 }
-.bg-3 {
-  @include background-image-light($bg-3);
+@mixin background-image-dark($arg) {
+  background: rgba(0, 0, 0, 0) url(%bg-#{$arg}) repeat scroll 0% 0% !important;
+  // background: url($bg) !important;
 }
-.bg-4 {
-  @include background-image-light($bg-4);
-}
-.bg-5 {
-  @include background-image-light($bg-5);
-}
-.bg-6 {
-  @include background-image-light($bg-6);
-}
-.bg-7 {
-  @include background-image-light($bg-7);
-}
-.bg-8 {
-  @include background-image-light($bg-8);
-}
-
-.bg-9 {
-  @include background-image-light($bg-9);
-}
-.bg-10 {
-  @include background-image-light($bg-10);
-}
-.bg-11 {
-  @include background-image-light($bg-11);
-}
-.bg-12 {
-  @include background-image-light($bg-12);
-}
-.bg-13 {
-  @include background-image-light($bg-13);
-}
-.bg-14 {
-  @include background-image-light($bg-14);
-}
-.bg-15 {
-  @include background-image-light($bg-15);
+// =============light background=====================
+@for $i from 0 through length($light-bgs) {
+  .bg-#{$i + 1} {
+    @include background-image-light(map-get($light-bgs, $i));
+  }
 }
 // =============dark background=====================
-.bg-1-dark {
-  @include background-image-dark($bg-1-dark);
+//bg-1开始
+@for $i from 0 through length($dark-bgs) {
+  .bg-dark-#{$i + 1} {
+    @include background-image-dark(map-get($dark-bgs, $i));
+  }
 }
 
 //================shadow ================================

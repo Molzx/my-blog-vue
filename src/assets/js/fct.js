@@ -76,7 +76,7 @@ function endSendBtn(vm, type, code) {
     vm.isSend = true
     // console.log('in')
   } else {
-    vm.setCodeTime({})
+    vm.setCodeTime()
     // 倒计时完，可点击
     vm.isSend = false
   }
@@ -91,7 +91,7 @@ function endSendBtn(vm, type, code) {
   clearInterval(vm.timer)
   vm.timer = null
 }
-
+//复制添加版权来源信息
 export function copy() {
   //复制添加版权信息
   if (typeof window.getSelection == 'undefined') return //IE8 及更老的版本不兼容
@@ -134,4 +134,112 @@ export function copy() {
   window.setTimeout(function() {
     body_element.removeChild(newdiv)
   }, 200)
+}
+//打开小窗口
+export function openWindow(url, title, w, h) {
+  // Fixes dual-screen position                            Most browsers       Firefox
+  const dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : screen.left
+  const dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : screen.top
+
+  const width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+    ? document.documentElement.clientWidth
+    : screen.width
+  const height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+    ? document.documentElement.clientHeight
+    : screen.height
+
+  const left = width / 2 - w / 2 + dualScreenLeft
+  const top = height / 2 - h / 2 + dualScreenTop
+  const newWindow = window.open(
+    url,
+    title,
+    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' +
+      w +
+      ', height=' +
+      h +
+      ', top=' +
+      top +
+      ', left=' +
+      left
+  )
+
+  // Puts focus on the newWindow
+  if (window.focus) {
+    newWindow.focus()
+  }
+}
+//name 弹窗名字
+//width 弹窗宽度（比例）
+//height 弹窗高度（比例）
+//myWindow 弹窗对象
+export function openWin(url, name, width, height, myWindow) {
+  // var myWindow
+  var w_percent = width ? width : 9 //如果参数未传，则取9
+  var h_percent = height ? height : 8
+  var widths = (window.screen.availWidth * w_percent) / 10
+  var heights = (window.screen.availHeight * h_percent) / 10
+  var iLeft = (window.screen.availWidth - widths) / 2
+  var iTop = (window.screen.availHeight - heights) / 2
+
+  //判断是否为IE
+  var b_version = navigator.appVersion
+  var version = b_version.split(';')
+  if (version[1]) {
+    var trim_Version = version[1].replace(/[ ]/g, '')
+  }
+  if (
+    trim_Version == 'MSIE9.0' ||
+    trim_Version == 'MSIE10.0' ||
+    trim_Version == 'WOW64' ||
+    trim_Version == 'MSIE7.0'
+  ) {
+    //IE浏览器，直接打开
+    myWindow = window.open(
+      url,
+      name,
+      'scrollbars=yes,width=' +
+        widths +
+        ',height=' +
+        heights +
+        ',left=' +
+        iLeft +
+        ',top=' +
+        iTop +
+        ''
+    )
+    myWindow.focus()
+  } else {
+    //非IE，判断窗口是否存在，若存在，则关闭当前窗口，重新打开
+    if (myWindow) {
+      myWindow.close()
+      myWindow = null
+    }
+    myWindow = window.open(
+      url,
+      name,
+      'scrollbars=yes,width=' +
+        widths +
+        ',height=' +
+        heights +
+        ',left=' +
+        iLeft +
+        ',top=' +
+        iTop +
+        ''
+    )
+  }
+
+  // console.log(myWindow)
+  return myWindow
+  //弹窗名字重命名ss
+  // var title = name
+  // setTimeout(function() {
+  //   myWindow.document.title = title
+  // }, 1000)
 }

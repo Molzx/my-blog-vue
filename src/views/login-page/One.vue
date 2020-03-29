@@ -78,6 +78,8 @@
                   :class="loginViewIndex == 2 ? 'a-disabled' : ''"
                   >邮箱登录
                 </a>
+                <span> | </span>
+                <a @click="loginGithub" class="caption">Github登录 </a>
                 <!-- <span> | </!-->
                 <!-- <span> | 手机登录 | 邮箱登录</span> -->
               </p>
@@ -143,6 +145,9 @@
 // import Veloity from 'velocity-animate'
 // import { TweenLite } from 'gsap'
 import { TweenLite } from '@common/tweenmax/all'
+// eslint-disable-next-line no-unused-vars
+import { openWindow, openWin } from '@/assets/js/fct'
+import { afterLoginSuccess } from '@js/login'
 // import LoginDefault from '@views/login-page/Default'
 // import LoginPhone from '@views/login-page/Phone'
 // import LoginEmail from '@views/login-page/Email'
@@ -168,12 +173,45 @@ export default {
       formHeight: 0,
 
       //发送到子组件的数据
-      data: '发送到子组件的数据'
+      data: '发送到子组件的数据',
+
+      loading: true,
+      remmenber: true,
+      myWindow: ''
     }
   },
   computed: {},
   watch: {},
   methods: {
+    //
+
+    loginGithub() {
+      // 获取请求的地址  https://github.com/login/oauth/authorize？client_id=xxx
+      let githubAuthorizeUrl =
+        'http://127.0.0.1:8088/api/v1/auth/github/callback'
+      let myWindow
+      if (this.myWindow) {
+        myWindow = this.myWindow
+      }
+      this.myWindow = openWin(githubAuthorizeUrl, 'Github登录', 5, 8, myWindow)
+      // openWindow(githubAuthorizeUrl, 'github', 800, 640)
+      window.addEventListener('message', this.loginGithubHandler, false)
+    },
+    loginGithubHandler(e) {
+      let vm = this
+      let result = e.data
+      let token = result.token
+      if (token) {
+        // this.$store.dispatch('xxxx', e.data).then(res => {
+        //   window.removeEventListener('message', this.loginGithubHandler, false)
+        // })
+
+        //整理数据
+        afterLoginSuccess(vm, result)
+        window.removeEventListener('message', this.loginGithubHandler, false)
+      }
+    },
+    //==============
     getSonData() {},
     changeClass: function(type) {
       console.log('don')
@@ -199,7 +237,6 @@ export default {
     },
     setLoginPhone() {
       this.loginViewIndex = 1
-
       const flag = this.view == 'page-login-default'
       this.view = 'page-login-phone'
       if (flag) {

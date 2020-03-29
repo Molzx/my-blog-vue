@@ -106,7 +106,7 @@ export default {
     getMainBackground() {
       var mainClass = ''
       if (this.isBlogPage) {
-        mainClass = 'bg-14'
+        mainClass = 'bg-15'
       }
       if (this.isSystemPage) {
         mainClass = 'bg-color-2'

@@ -2,12 +2,12 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:59:39
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 13:56:17
+ * @LastEditTime : 2020-03-28 18:28:19
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\fct.js
  * @Description  : 这是一些注释
  */
 // eslint-disable-next-line no-unused-vars
-exports.install = function(Vue, router, TweenMaxObject) {
+exports.install = function(Vue, router, store, TweenMaxObject) {
   Vue.prototype.$toLogin = () => {
     //全局函数，跳转到登录页面
     console.log(router)
@@ -38,10 +38,10 @@ exports.install = function(Vue, router, TweenMaxObject) {
   }
   Vue.prototype.$toLogout = () => {
     //全局函数，注销登录
-    Vue.prototype.$store.dispatch('setUseUserIdFun')
-    Vue.prototype.$store.dispatch('setBaseUserInfoFun')
-    Vue.prototype.$store.dispatch('setUserInfoFun')
-    Vue.prototype.$store.dispatch('setLoginStatusFun')
+    store.dispatch('setUseUserIdFun')
+    store.dispatch('setBaseUserInfoFun')
+    store.dispatch('setUserInfoFun')
+    store.dispatch('setLoginStatusFun')
     //注销后跳回首页
     router.push('/blog/home')
   }
@@ -119,7 +119,8 @@ exports.install = function(Vue, router, TweenMaxObject) {
       ease: TweenMaxObject.Bounce.easeOut
     })
   }
-  Vue.prototype.$pushHN = function() {
-    //全局函数3
+  Vue.prototype.$isLogin = function() {
+    //获取是否登录，已登录返回true
+    return store.getters.getLoginStatusFun
   }
 }

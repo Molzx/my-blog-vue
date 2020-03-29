@@ -29,7 +29,7 @@ export default {
   setLoginStatusFun(context, info) {
     context.commit('setLoginStatus', info)
     //设置基本用户信息
-    context.commit('setBaseUserInfo', info)
+    context.commit('setBaseUserInfo', info.BaseUserInfo)
   },
   setBaseUserInfoFun(context, info) {
     context.commit('setBaseUserInfo', info)

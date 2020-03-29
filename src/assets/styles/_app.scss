@@ -17,22 +17,6 @@ $font-family-k2d: 'K2D';
   // font-family: 'Ubuntu', 'Microsoft YaHei', 'XHei' 'Roboto', 'Open Sans',
   //   'Microsoft YaHei', sans-serif;
 }
-.v-application {
-  font-family: $body-font-family;
-  title,
-  .display-4,
-  .display-3,
-  .display-2,
-  .display-1,
-  .headline,
-  .subtitle-1,
-  .subtitle-2,
-  .body-1.body-2,
-  caption,
-  .overline {
-    font-family: $body-font-family;
-  }
-}
 .elevator {
   position: fixed;
   // padding: 0 16px;
@@ -102,36 +86,11 @@ $font-family-k2d: 'K2D';
 .dot {
   margin: 0 6px;
 }
-//===========覆盖=========
+//============输入框
 
-//===================分页
-$trans-props: all 0.3s ease;
-.theme--light.v-pagination .v-pagination__item,
-.theme--light.v-pagination .v-pagination__navigation {
-  color: hsl(212, 16%, 48%);
-  // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: $trans-props;
-
-  &.v-pagination__item--active {
-    color: white;
-  }
-}
-
-.theme--light.v-pagination .v-pagination__item:hover,
-.theme--light.v-pagination .v-pagination__navigation:hover {
-  transform: translateY(-4px);
-  // color: #fff;
-  // background-color: #BBDEFB;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16);
-}
-
-.theme--light.v-pagination .v-pagination__item:hover i {
-  /* 	transform: scale(1.1); */
-  color: #fff;
-}
-
-.theme--light.v-pagination .v-pagination__item:hover:after,
-.theme--light.v-pagination .v-pagination__navigation:hover::after {
-  transform: translate(0) scale(1.2);
+.my-input {
+  width: 100%;
+  border-radius: 4px;
+  /* margin-bottom: -22px; */
+  // max-height: 67px;
 }

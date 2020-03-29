@@ -31,8 +31,9 @@
 
     background-color: white;
     border-radius: 50%;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
-
+    // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
+    //新
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     text-decoration: none;
 
     transition: $trans-props;
@@ -128,7 +129,24 @@
   .social-icon.twitter:after {
     background-color: #1da1f2;
   }
-
+  .social-icon.facebook:after {
+    background-color: #1877f2;
+  }
+  .social-icon.google:after {
+    background-color: #ff5722;
+  }
+  .social-icon.qq:after {
+    background-color: #00bcd4;
+  }
+  .social-icon.wechat:after {
+    background-color: #43a047;
+  }
+  .social-icon.weibo:after {
+    background-color: #d32f2f;
+  }
+  .social-icon.qzone:after {
+    background-color: #ff5722;
+  }
   .social-icon.github:after {
     background-color: #24292e;
   }

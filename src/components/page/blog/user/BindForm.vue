@@ -20,12 +20,24 @@
                   class="fill-width"
                 >
                   <div v-show="false">{{ (canSend = passed) }}</div>
+
                   <v-text-field
+                    v-model="formData.phone"
+                    label="请输入手机号码"
+                    solo
+                    flat
+                    required
+                    background-color="#eee"
+                    class="my-input"
+                    :error-messages="errors[0]"
+                    :disabled="loading"
+                  ></v-text-field>
+                  <!-- <v-text-field
                     v-model="formData.phone"
                     label="请输入手机号码"
                     :error-messages="errors[0]"
                     :disabled="loading"
-                  ></v-text-field>
+                  ></v-text-field> -->
                 </ValidationProvider>
               </v-col>
               <v-col cols="12">

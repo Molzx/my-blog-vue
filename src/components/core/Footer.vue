@@ -2,32 +2,13 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:16:02
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-13 09:50:50
+ * @LastEditTime : 2020-03-28 16:21:21
  * @FilePath     : \VueProjects\my-blog\src\components\core\Footer.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <v-footer padless app absolute>
-    <v-card tile class=" shadow-1 text-center">
-      <v-card-text>
-        <v-btn v-for="icon in icons" :key="icon" class="mx-4 black--text" icon>
-          <v-icon size="24px">{{ icon }}</v-icon>
-        </v-btn>
-      </v-card-text>
-
-      <v-card-text class="black--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
-        Mauris cursus commodo interdum. Praesent ut risus eget metus luctus
-        accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a
-        sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula
-        lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus
-        iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor
-        vel ut orci. Orci varius natoque penatibus et magnis dis parturient
-        montes, nascetur ridiculus mus.
-      </v-card-text>
-
-      <v-divider></v-divider>
-
+  <v-footer padless app absolute color="transparent">
+    <v-card tile class="shadow-1 text-center opacity-6 fill-width">
       <v-card-text class="black--text">
         <strong
           >Copyright © {{ new Date().getFullYear() }} Naicha. All rights
@@ -40,20 +21,35 @@
 
 <script>
 export default {
+  props: {
+    //
+  },
   data() {
     return {
-      icons: [
-        'fab fa-facebook',
-        'fab fa-twitter',
-        'fab fa-google-plus',
-        'fab fa-linkedin',
-        'fab fa-instagram'
-      ]
+      //
     }
   },
-  methods: {},
-  components: {}
+  mounted() {
+    //
+  },
+  methods: {
+    //
+  },
+  computed: {
+    //
+  },
+  watch: {
+    //
+  },
+  components: {
+    //
+  }
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+/*  */
+.opacity-6 {
+  opacity: 0.6;
+}
+</style>

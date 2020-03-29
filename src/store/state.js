@@ -31,12 +31,11 @@ export default {
   //存储验证码 倒计时
   codeTime: sessionStorage.getItem('codeTime')
     ? sessionStorage.getItem('codeTime')
-    : {},
+    : '',
   //存储登录成功的用户信息
   userInfo: sessionStorage.getItem('userInfo')
     ? sessionStorage.getItem('userInfo')
     : '',
-
   //存储登录成功的用户头像和昵称
   BaseUserInfo: storage.getItem('BaseUserInfo')
     ? storage.getItem('BaseUserInfo')

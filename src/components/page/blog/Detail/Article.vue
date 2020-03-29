@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 20:09:16
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 23:17:29
+ * @LastEditTime : 2020-03-28 18:47:11
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\Article.vue
  * @Description  : 这是一些注释
  -->
@@ -217,24 +217,29 @@ export default {
   components: {},
   watch: {
     //
-    articleInfo(newVal) {
-      if (newVal) {
-        this.article = newVal
-        this.commentData = {
-          commentStatus: newVal.commentStatus == '开启'
-        }
-        this.categoryInfo = {
-          categoryId: newVal.categoryId,
-          categoryName: newVal.categoryName
-        }
+    articleInfo: {
+      // eslint-disable-next-line no-unused-vars
+      handler(newVal, oldVal) {
+        //
+        if (newVal) {
+          this.article = newVal
+          this.commentData = {
+            commentStatus: newVal.commentStatus == '开启'
+          }
+          this.categoryInfo = {
+            categoryId: newVal.categoryId,
+            categoryName: newVal.categoryName
+          }
 
-        this.footerData = {
-          //版权声明
-          copyrightStatus: newVal.copyrightStatus == '开启',
-          //转载声明
-          reprintStatus: newVal.reprintStatus == '开启'
+          this.footerData = {
+            //版权声明
+            copyrightStatus: newVal.copyrightStatus == '开启',
+            //转载声明
+            reprintStatus: newVal.reprintStatus == '开启'
+          }
         }
-      }
+      },
+      deep: true
     }
     // 'otherData.sideListShow': {
     //   handler(newVal) {
@@ -254,6 +259,7 @@ export default {
 <style lang="scss" scoped>
 .v-note-wrapper {
   border: none;
+  z-index: 800 !important;
 }
 /deep/ .markdown-body {
   color: #4f4f4f;
