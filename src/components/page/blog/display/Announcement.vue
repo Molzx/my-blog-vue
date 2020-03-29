@@ -1,3 +1,11 @@
+<!--
+ * @Author       : xuzhenghao
+ * @Date         : 2020-03-17 19:48:39
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-03-29 13:44:49
+ * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\Announcement.vue
+ * @Description  : 这是一些注释
+ -->
 <template>
   <v-row class="pa-4">
     <v-col cols="4" v-for="(item, i) in getRecords" :key="i">
@@ -45,8 +53,8 @@ export default {
     requireData() {
       //
       let vm = this
-      this.$api.announcement
-        .toGetListInfo()
+      this.$api.blog
+        .toGetAnnouncements()
         .then(res => {
           let data = res.data.extend.data
           vm.records = data

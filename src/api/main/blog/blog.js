@@ -2,6 +2,7 @@
 import base from '../../base'
 
 // http.js中创建的axios 方法实例
+// eslint-disable-next-line no-unused-vars
 import { getRequest, jsonPostRequest } from '@/utils/axios/http'
 const UrlPrefix = base.baseUrl
 const prefix = UrlPrefix + 'blog/'
@@ -9,26 +10,26 @@ const blog = {
   //=====================添加=====================
 
   //添加评论
-  toAddComment: params => {
-    // let params1 = {
-    //   //父评论ID：为空则为父评论，不为空则为子评论
-    //   parentId: params.parentId,
+  // toAddComment: params => {
+  //   // let params1 = {
+  //   //   //父评论ID：为空则为父评论，不为空则为子评论
+  //   //   parentId: params.parentId,
 
-    //   //被评论的资源id，可以是文章，文件等
-    //   ownerId: params.ownerId,
+  //   //   //被评论的资源id，可以是文章，文件等
+  //   //   ownerId: params.ownerId,
 
-    //   //评论类型 { 0：文章，1：文件 }
-    //   type: params.type,
+  //   //   //评论类型 { 0：文章，1：文件 }
+  //   //   type: params.type,
 
-    //   //被评论的用户ID
-    //   toUid: params.toUid,
+  //   //   //被评论的用户ID
+  //   //   toUid: params.toUid,
 
-    //   //评论内容
-    //   content: params.content
-    // }
-    params.parentId == '' ? delete params.parentId : params.parentId
-    return jsonPostRequest(prefix + 'comments', params)
-  },
+  //   //   //评论内容
+  //   //   content: params.content
+  //   // }
+  //   params.parentId == '' ? delete params.parentId : params.parentId
+  //   return jsonPostRequest(prefix + 'comments', params)
+  // },
   //=====================删除=====================
 
   //=====================更新=====================
@@ -84,10 +85,15 @@ const blog = {
     return getRequest(url, obj)
   },
 
+  //获取所有启用状态的公告数据
+  toGetAnnouncements: () => getRequest(prefix + 'announcements'),
   //=====================侧边=====================
 
   //获取侧边栏所有数据
   toGetSideAll: () => getRequest(prefix + 'side/all'),
+
+  //获取最新更新的一条公告
+  toGetSideAnnouncement: () => getRequest(prefix + 'side/announcement'),
 
   //获取最新--发布--文章列表
   toGetSideNewArticles: () => getRequest(prefix + 'side/articles-new'),

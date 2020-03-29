@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 21:36:51
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-28 18:38:40
+ * @LastEditTime : 2020-03-29 08:58:16
  * @FilePath     : \VueProjects\my-blog\src\components\helper\Dialog.vue
  * @Description  : 这是一些注释
  -->
@@ -15,9 +15,9 @@
     :transition="transition"
     :origin="origin"
     :persistent="persistent"
-    overlay-opacity="0.38"
-    overlay-color="green  lighten-5"
-    content-class="shadow-1 b-dialog"
+    overlay-opacity="1"
+    overlay-color="hsla(0, 0%, 100%, 0.9)"
+    content-class="b-dialog"
   >
     <v-card class="b-dialog">
       <slot name="header">
@@ -41,7 +41,9 @@
         </v-alert>
       </slot>
       <slot name="content">
-        <v-card-text :style="`height: ${cardTextHeight}px;`">
+        <v-card-text
+          :style="limitCardTextHeight ? `height: ${cardTextHeight}px;` : ''"
+        >
           <slot name="content.card-text"></slot>
         </v-card-text>
       </slot>
@@ -73,6 +75,10 @@ export default {
     height: {
       type: [Number, String],
       default: undefined
+    },
+    limitCardTextHeight: {
+      type: Boolean,
+      default: true
     },
     cardTextHeight: {
       type: [Number, String],
@@ -133,7 +139,4 @@ export default {
 
 <style lang="scss" scoped>
 /*  */
-.b-dialog {
-  border-radius: 8px !important;
-}
 </style>

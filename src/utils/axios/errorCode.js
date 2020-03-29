@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:02:27
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-05 18:03:51
+ * @LastEditTime : 2020-03-29 10:44:30
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\errorCode.js
  * @Description  : 错误统一处理
  */
@@ -74,6 +74,11 @@ const errorCode = {
   code500: function() {
     // 服务器错误
     toast.error('服务器错误')
+  },
+  code100420: function(message) {
+    // token无效，请重新登录
+    toast.error(message + '，请重新登录')
+    toLogin()
   }
 }
 export default judgeErrorCode

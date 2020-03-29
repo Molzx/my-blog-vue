@@ -36,8 +36,8 @@ export default {
     requireData() {
       //
       let vm = this
-      this.$api.announcement
-        .toGetEnabledInfo()
+      this.$api.blog
+        .toGetSideAnnouncement()
         .then(res => {
           let data = res.data.extend.data
           vm.record = data

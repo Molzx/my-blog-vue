@@ -94,3 +94,17 @@ $font-family-k2d: 'K2D';
   /* margin-bottom: -22px; */
   // max-height: 67px;
 }
+//对话框
+.b-dialog {
+  border-radius: 6px !important;
+  max-width: calc(100vw - 100px);
+  max-height: calc(100vh - 100px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1) !important;
+}
+.overlay-color {
+  background: hsla(0, 0%, 100%, 0.9);
+}
+//
+.icon-color {
+  color: hsl(212, 16%, 48%);
+}

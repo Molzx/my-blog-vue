@@ -82,23 +82,46 @@
                     {{ item.description | textLengthFormat(120) }}
                   </p>
                   <div class="d-flex flex-row b-footer-content align-start">
-                    <router-link
+                    <v-chip
+                      class="mr-1 type-bg"
+                      small
+                      color=""
+                      text-color="#4CAF50"
+                      @click="filterType(item.type)"
+                      >{{ item.type }}
+                    </v-chip>
+                    <v-chip
+                      class="mr-1 category-bg"
+                      label
+                      small
+                      color="blue--text"
                       :to="{
                         path: linkToCategory,
                         query: { q: item.categoryName }
                       }"
-                      class="b-a"
-                    >
-                      {{ item.categoryName | textLengthFormat(18) }}
-                    </router-link>
+                      >{{ item.categoryName | textLengthFormat(18) }}
+                    </v-chip>
+                    <!-- <rou -->
                   </div>
                   <div class="d-flex flex-row align-center b-footer--opt">
-                    <Timeago
-                      class=""
-                      :datetime="item.createdTime"
-                      :autoUpdate="true"
-                    >
-                    </Timeago>
+                    <v-chip class="" small color="grey lighten-5">
+                      <v-icon
+                        left
+                        size="13"
+                        class="ml-1"
+                        color="hsl(212, 16%, 48%)"
+                        >fas fa-calendar-minus</v-icon
+                      >
+                      <Timeago
+                        class="time-age"
+                        :datetime="item.createdTime"
+                        :autoUpdate="true"
+                      >
+                      </Timeago>
+                    </v-chip>
+                    <!-- <v-avatar size="24">
+                      <img :src="dateBg" />
+                    </v-avatar> -->
                     <v-spacer></v-spacer>
                     <template v-for="(opt, optIndex) in item.opt">
                       <span :key="optIndex" class="ml-2">
@@ -140,7 +163,7 @@
                               {{ opt.count | getMaxNum(4) }}
                             </span> -->
                           </template>
-                          <span class="grey--text text--darken-3">{{
+                          <span class="icon-color">{{
                             opt.selected ? opt.text2 : opt.text1
                           }}</span>
                         </v-tooltip>
@@ -213,44 +236,43 @@ export default {
     return {
       //页数，第几页
       page: 1,
-      liked: false,
-      collected: false,
+      dateBg: require('@/assets/images/date.svg'),
       optBtnItems: [
         {
-          icon: 'mdi-eye',
+          icon: 'fas fa-book-reader',
           class: 'view',
-          size: 18,
+          size: 14,
           count: 0,
-          selected: true,
-          text1: '浏览量',
+          selected: false,
+          text1: '快点进来，一起学习吧 :)',
           text2: '浏览量'
         },
         {
-          icon: 'mdi-heart',
+          icon: 'fas fa-thumbs-up',
           class: 'like',
-          size: 16,
+          size: 14,
           count: 0,
           selected: false,
-          text1: '点赞',
+          text1: '喜欢这篇文章吗，点个赞叭 :)',
           text2: '取消点赞'
         },
         {
-          icon: 'mdi-star-face',
+          icon: 'fas fa-star',
           class: 'collect',
-          size: 18,
+          size: 14,
           count: 0,
           selected: false,
-          text1: '收藏',
+          text1: '不妨先收藏，下次再看叭 :)',
           text2: '取消收藏'
         },
         {
-          icon: 'mdi-share',
+          icon: 'fas fa-share',
           class: 'share',
-          size: 18,
+          size: 14,
           count: 0,
           selected: true,
-          text1: '分享',
-          text2: '取消分享'
+          text1: '分享给其他人看看叭 :)',
+          text2: '分享给其他人看看叭 :)'
         }
       ],
       optViewIndex: 0,
@@ -276,6 +298,10 @@ export default {
         collect: '收藏'
       }
     }
+  },
+  mounted() {
+    //获取当前页数
+    this.getUrlParams()
   },
   methods: {
     goToDetail() {
@@ -333,6 +359,16 @@ export default {
       info.article.opt[info.optIndex].selected = selected
       info.article.opt[info.optIndex].count = result.count
       this.$set(this.optArticleArr, info.articleIndex, info.article)
+    },
+    // eslint-disable-next-line no-unused-vars
+    filterType(type) {
+      //
+    },
+    getUrlParams() {
+      let params = parseInt(this.$route.query.p)
+      if (params) {
+        this.page = params
+      }
     }
   },
   components: {},
@@ -374,11 +410,15 @@ export default {
 
   watch: {
     //
-    page() {
-      this.pageParams.current = this.page
-      this.$emit('update:pageParams', this.pageParams)
-      //调用父类方法获取数据
-      this.$emit('changePage')
+    page(newVal) {
+      //更新地址栏分页参数
+      let page = parseInt(newVal)
+      this.$router.replace({ path: this.$route.fullPath, query: { p: page } }) // 这样页面就跳转到相应的路由了。
+      // console.log(this.$route)
+      // this.pageParams.current = this.page
+      // this.$emit('update:pageParams', this.pageParams)
+      // //调用父类方法获取数据
+      // this.$emit('changePage')
     },
 
     articleList: {
@@ -415,13 +455,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.type-bg {
+  background-color: #f4f8fe !important;
+  border-color: #f4f8fe !important;
+}
+.category-bg {
+  background-color: #e3f2fd47 !important;
+  border-color: #e3f2fd47 !important;
+}
 .b-footer--opt {
   font-size: 13px;
-  color: #7a7a7a;
+  color: hsl(212, 16%, 48%);
+  margin-top: 1px;
+  .time-age {
+    color: hsl(212, 16%, 48%);
+  }
 }
 .opt-btn {
   background: #f5f5f5;
-  color: #6c6c6c;
+  color: hsl(212, 16%, 48%);
+  // color: #6c6c6c;
   z-index: 5;
   &.active {
     background: #e3f2fd;
@@ -447,7 +500,8 @@ export default {
   // margin-right: -10px;
 }
 .opt-color--text {
-  color: #6c6c6c;
+  color: hsl(212, 16%, 48%);
+  // color: #6c6c6c;
 }
 .opt-bg {
   background: #f5f5f5;

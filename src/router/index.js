@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2019-12-08 16:50:21
- * @LastEditTime : 2020-02-13 15:57:23
+ * @LastEditTime : 2020-03-29 12:54:26
  * @LastEditors  : xuzhenghao
  * @Description: In User Settings Edit
- * @FilePath: \VueProjects\blog\src\router\index.js
+ * @FilePath     : \VueProjects\my-blog\src\router\index.js
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -74,15 +74,15 @@ const router = new VueRouter({
   routes: routes
 })
 
-import NProgress from '../plugins/nprogress'
+// import NProgress from '../plugins/nprogress'
 
 router.beforeEach((to, from, next) => {
-  NProgress.start()
+  // NProgress.start()
   next()
 })
 
 router.afterEach(() => {
-  NProgress.done()
+  // NProgress.done()
 })
 
 export default router

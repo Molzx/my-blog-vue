@@ -221,8 +221,8 @@ export default {
       // console.log(this.formData)
       let vm = this
       setTimeout(() => {
-        vm.$api.blog
-          .toAddComment(vm.formData)
+        vm.$api.comment
+          .toAdditionForBlog(vm.formData)
           .then(res => {
             console.log('post comment')
             let data = res.data.extend

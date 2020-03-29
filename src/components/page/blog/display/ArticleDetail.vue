@@ -204,6 +204,8 @@ export default {
           isCollected: newVal.collectedStatus,
           isShared: false
         }
+
+        console.log(this.floatGroupData)
       }
     }
   },

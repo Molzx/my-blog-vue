@@ -82,9 +82,10 @@ export default {
     }
   },
   mounted() {
-    //
     //回到顶部
     scrollToTop(this)
+    //获取当前页数
+    this.getUrlParams()
     this.requireData()
   },
   methods: {
@@ -95,6 +96,12 @@ export default {
       setTagItems: 'setTagItemsFun',
       setNewArticleItems: 'setNewArticleItemsFun'
     }),
+    getUrlParams() {
+      let params = this.$route.query.p
+      if (params) {
+        this.pageParams.current = params
+      }
+    },
     requireData() {
       reqArticleData(this)
       reqSideRecArticleData(this)
@@ -103,8 +110,12 @@ export default {
       reqSideNewArticleData(this)
     },
     selfReqData() {
+      this.otherData.articleListLoading = true
       //回到顶部
       scrollToTop(this)
+      //获取分页参数
+      this.getUrlParams()
+      //请求分页数据
       reqArticleData(this)
     }
   },
@@ -132,6 +143,8 @@ export default {
   },
   watch: {
     //
+    // 监听路由变化，随时获取新的列表信息
+    $route: 'selfReqData'
   },
   components: {
     //

@@ -13,7 +13,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-badge
-                  :value="hover[0] && getLikeCount"
+                  :value="hover[0]"
                   color="white"
                   overlap
                   border
@@ -37,9 +37,7 @@
                   </v-hover>
                 </v-badge>
               </template>
-              <span class="max-index grey--text text--darken-3"
-                >喜欢就点个赞叭</span
-              >
+              <span class="max-index icon-color">喜欢就点个赞叭 :)</span>
             </v-tooltip>
 
             <v-tooltip
@@ -75,7 +73,7 @@
                   </v-hover>
                 </v-badge>
               </template>
-              <span class="max-index grey--text text--darken-3">收藏</span>
+              <span class="max-index icon-color">收藏</span>
             </v-tooltip>
             <v-tooltip
               right
@@ -86,7 +84,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-badge
-                  :value="hover[2] && getCommentCount"
+                  :value="hover[2]"
                   color="white"
                   overlap
                   border
@@ -109,7 +107,7 @@
                   </v-hover>
                 </v-badge>
               </template>
-              <span class="max-index grey--text text--darken-3">评论</span>
+              <span class="max-index icon-color">评论</span>
             </v-tooltip>
             <!-- <a
               class="social-icon i-orange"
@@ -129,7 +127,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-badge
-                  :value="hover[3] && getShareCount && !showShareGroup"
+                  :value="hover[3] && !showShareGroup"
                   color="white"
                   overlap
                   border
@@ -159,7 +157,7 @@
                   </v-hover>
                 </v-badge>
               </template>
-              <span class="max-index grey--text text--darken-3">{{
+              <span class="max-index icon-color">{{
                 showShareGroup ? '收起' : '分享'
               }}</span>
             </v-tooltip>
@@ -206,7 +204,7 @@
                         </div>
                       </v-col>
                       <v-col>
-                        <p class="mb-0 grey--text text--darken-3">
+                        <p class="mb-0 icon-color">
                           微信里点“发现”，扫一下二维码便可将本文分享至朋友圈。
                         </p>
                         <!-- <p class="mb-0 grey--text text--darken-3">
@@ -351,7 +349,7 @@ export default {
     // 展示二维码
     showQrCode() {
       // 二维码内容,一般是由后台返回的跳转链接,这里是写死的一个链接
-      this.qrcode = 'https://yuchengkai.cn/docs/frontend/#typeof'
+      this.qrcode = document.location.href
       // 使用$nextTick确保数据渲染
       this.$nextTick(() => {
         this.createQrcode()

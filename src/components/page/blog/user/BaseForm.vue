@@ -4,7 +4,7 @@
     width="500"
     headerTitle="修改资料"
     headerColor="info"
-    cardTextHeight="300"
+    :limitCardTextHeight="false"
     @cancel="cancel"
   >
     <template slot="content.card-text">

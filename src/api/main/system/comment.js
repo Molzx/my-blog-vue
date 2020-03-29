@@ -1,3 +1,11 @@
+/*
+ * @Author       : xuzhenghao
+ * @Date         : 2020-02-24 20:06:06
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-03-29 13:46:33
+ * @FilePath     : \VueProjects\my-blog\src\api\main\system\comment.js
+ * @Description  : 这是一些注释
+ */
 /* eslint-disable no-unused-vars */
 // 导入接口域名列表
 import base from '../../base'
