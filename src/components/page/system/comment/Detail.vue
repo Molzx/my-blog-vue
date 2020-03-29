@@ -7,43 +7,33 @@
  * @Description  : 这是一些注释
  -->
 <template>
-  <v-dialog
-    v-model="show"
+  <helper-dialog
+    :show.sync="show"
     width="500"
-    scrollable
-    transition="scroll-x-transition"
-    origin="center right"
+    headerTitle="评论信息"
+    headerColor="info"
+    :limitCardTextHeight="false"
+    @cancel="cancel"
   >
-    <v-card>
-      <v-card-title
-        class=" title font-weight-regular justify-space-between"
-        color="primary"
-      >
-        <span>评论信息</span>
-        <div class="d-flex align-center">
-          <v-btn icon color="primary" small class="mb-2 mr-3" @click="cancel">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-card-title>
-      <v-card-text>
-        <p class="font-weight-medium">评论类型：{{ info.type }}</p>
-        <p class="font-weight-medium">评论人id：{{ info.fromUid }}</p>
-        <p class="font-weight-medium">评论人帐号：{{ info.fromUserName }}</p>
-        <p class="font-weight-medium">评论人昵称：{{ info.fromNickName }}</p>
-        <p class="font-weight-medium">被回复人id：{{ info.toUid }}</p>
-        <p class="font-weight-medium">被回复人帐号：{{ info.toUserName }}</p>
-        <p class="font-weight-medium">被回复人昵称：{{ info.toNickName }}</p>
-        <p class="font-weight-medium">评论内容：{{ info.content }}</p>
-        <p class="font-weight-medium">置顶状态：{{ info.status }}</p>
-        <p class="font-weight-medium">评论状态：{{ info.status }}</p>
-        <p class="font-weight-medium">创建时间：{{ info.createdTime }}</p>
-        <p class="font-weight-medium">
-          更新时间：{{ info.updatedTime }}
-        </p></v-card-text
-      >
-    </v-card>
-  </v-dialog>
+    <template slot="content.card-text">
+      <!--  -->
+      <p class="font-weight-medium">评论类型：{{ info.type }}</p>
+      <p class="font-weight-medium">评论人id：{{ info.fromUid }}</p>
+      <p class="font-weight-medium">评论人帐号：{{ info.fromUserName }}</p>
+      <p class="font-weight-medium">评论人昵称：{{ info.fromNickName }}</p>
+      <p class="font-weight-medium">被回复人id：{{ info.toUid }}</p>
+      <p class="font-weight-medium">被回复人帐号：{{ info.toUserName }}</p>
+      <p class="font-weight-medium">被回复人昵称：{{ info.toNickName }}</p>
+      <p class="font-weight-medium">评论内容：{{ info.content }}</p>
+      <p class="font-weight-medium">置顶状态：{{ info.status }}</p>
+      <p class="font-weight-medium">评论状态：{{ info.status }}</p>
+      <p class="font-weight-medium">创建时间：{{ info.createdTime }}</p>
+      <p class="font-weight-medium">更新时间：{{ info.updatedTime }}</p>
+    </template>
+    <template slot="footer">
+      <!--  -->
+    </template>
+  </helper-dialog>
 </template>
 
 <script>

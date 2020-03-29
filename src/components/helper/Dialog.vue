@@ -42,7 +42,7 @@
       </slot>
       <slot name="content">
         <v-card-text
-          :style="limitCardTextHeight ? `height: ${cardTextHeight}px;` : ''"
+          :style="limitCardTextHeight ? `max-height: ${cardTextHeight}px;` : ''"
         >
           <slot name="content.card-text"></slot>
         </v-card-text>

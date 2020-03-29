@@ -23,12 +23,12 @@
           <v-col cols="12">
             <ValidationProvider
               name="fileName"
-              rules="required|max:10"
+              rules="required|max:50"
               v-slot="{ errors }"
             >
               <v-text-field
                 v-model="formData.name"
-                :counter="10"
+                :counter="50"
                 label="文件名称"
                 :error-messages="errors[0]"
                 dense

@@ -363,7 +363,7 @@ export default {
 }
 
 .appbar-menu-title {
-  color: #555555 !important;
+  color: #6c6c6c !important;
   font-size: 0.86rem !important;
 }
 .appbar-menu-class /deep/ .v-icon.v-icon {

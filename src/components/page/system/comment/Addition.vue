@@ -1,39 +1,25 @@
 <template>
-  <v-dialog
-    v-model="show"
+  <helper-dialog
+    :show.sync="show"
     width="500"
-    scrollable
-    transition="scroll-x-transition"
-    origin="center right"
+    headerTitle="添加评论"
+    headerColor="info"
+    :limitCardTextHeight="false"
+    @cancel="cancel"
   >
-    <v-card class="mx-auto">
-      <v-alert tile colored-border class="mb-0 pb-0">
-        <div class="d-flex align-center">
-          <v-alert text dense border="left" class="mb-0" color="info">
-            添加评论
-          </v-alert>
-          <v-spacer></v-spacer>
-          <v-btn fab depressed small class="close-btn" @click="goBack">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-alert>
-
-      <v-card-text>
-        <page-system-comment-form
-          ref="chirldForm"
-          :formData.sync="formData"
-          :otherData.sync="otherData"
-        ></page-system-comment-form>
-      </v-card-text>
-
+    <template slot="content.card-text">
+      <!--  -->
+      <page-system-comment-form
+        ref="chirldForm"
+        :formData.sync="formData"
+        :otherData.sync="otherData"
+      ></page-system-comment-form>
+    </template>
+    <template slot="footer">
+      <!--  -->
       <v-divider></v-divider>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="cancel">
-          取消
-        </v-btn>
+      <v-card-actions class="d-flex justify-center">
         <v-btn
           :loading="otherData.loading"
           color="primary"
@@ -43,8 +29,8 @@
           确认
         </v-btn>
       </v-card-actions>
-    </v-card>
-  </v-dialog>
+    </template>
+  </helper-dialog>
 </template>
 
 <script>
@@ -89,13 +75,7 @@ export default {
       return parent
     },
     goBack() {
-      //重设校验状态
-      this.$refs.chirldForm.reset()
-      // 重置表单数据
-      Object.assign(this.$data.formData, this.$options.data().formData)
-      this.otherData.file = []
-
-      this.show = false
+      this.cancel()
 
       //如果是当前管理功能页面调用，则直接返回index.vue
       if (this.selfUse.status) {
@@ -147,6 +127,13 @@ export default {
       this.$refs.chirldForm.validate()
     },
     cancel() {
+      //取消返回
+      //重设校验状态
+      this.$refs.chirldForm.reset()
+      // 重置表单数据
+      Object.assign(this.$data.formData, this.$options.data().formData)
+      this.otherData.file = []
+
       this.show = false
     },
     openDialog() {

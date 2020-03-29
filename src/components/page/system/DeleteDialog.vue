@@ -2,51 +2,57 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-30 10:04:15
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-04 14:30:05
- * @FilePath     : \VueProjects\my-blog\src\components\page\DeleteDialog.vue
+ * @LastEditTime : 2020-03-29 18:07:23
+ * @FilePath     : \VueProjects\my-blog\src\components\page\system\DeleteDialog.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <v-dialog
-    v-model="show"
+  <helper-dialog
+    :show.sync="show"
     width="500"
-    transition="scroll-x-transition"
-    origin="center right"
+    headerTitle="删除警告"
+    headerColor="error"
+    :limitCardTextHeight="false"
+    @cancel="cancel"
   >
-    <v-card>
-      <v-card-title class="headline grey lighten-2" primary-title>
-        删除警告
-      </v-card-title>
-
-      <v-card-text>
-        <v-row justify="space-around">
-          <v-icon v-if="!loading" size="200" color="orange"
-            >mdi-alert-circle-outline</v-icon
-          >
-          <v-progress-circular
-            class="mt-6"
-            v-else
-            :size="150"
-            :width="7"
-            color="orange"
-            indeterminate
-          ></v-progress-circular>
-        </v-row>
-      </v-card-text>
-
+    <template slot="content.card-text">
+      <!--  -->
+      <v-row align="center" justify="center" v-if="!loading">
+        <v-col cols="12" justify="space-around">
+          <v-img :src="warnBg" height="160" contain></v-img>
+        </v-col>
+        <v-col cols="12" class="py-0">
+          <p class="text-center mt-2" style="color:#99a4b0;">
+            确定删除此记录吗？
+          </p>
+        </v-col>
+      </v-row>
+      <v-row align="center" justify="center" v-else>
+        <v-progress-circular
+          class="mt-6"
+          :size="150"
+          :width="7"
+          color="orange"
+          indeterminate
+        ></v-progress-circular>
+      </v-row>
+    </template>
+    <template slot="footer">
+      <!--  -->
       <v-divider></v-divider>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="cancel">
-          取消
-        </v-btn>
-        <v-btn color="primary" text @click="confirm">
+      <v-card-actions class="d-flex justify-center">
+        <v-btn
+          color="red-lighten-5 red--text"
+          depressed
+          @click="confirm"
+          style="width:150px;"
+        >
           确认
         </v-btn>
       </v-card-actions>
-    </v-card>
-  </v-dialog>
+    </template>
+  </helper-dialog>
 </template>
 
 <script>
@@ -56,7 +62,9 @@ export default {
     return {
       show: false,
       loading: false,
-      record: {}
+      record: {},
+
+      warnBg: require('@/assets/images/warn/warn.svg')
     }
   },
   computed: {},

@@ -2,40 +2,30 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-05 14:10:05
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-05 19:58:02
- * @FilePath     : \VueProjects\my-blog\src\components\page\file\Detail.vue
+ * @LastEditTime : 2020-03-29 18:18:00
+ * @FilePath     : \VueProjects\my-blog\src\components\page\system\category\Detail.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <v-dialog
-    v-model="show"
+  <helper-dialog
+    :show.sync="show"
     width="500"
-    scrollable
-    transition="scroll-x-transition"
-    origin="center right"
+    headerTitle="分类信息"
+    headerColor="info"
+    :limitCardTextHeight="false"
+    @cancel="cancel"
   >
-    <v-card>
-      <v-card-title
-        class=" title font-weight-regular justify-space-between"
-        color="primary"
-      >
-        <span>分类信息</span>
-        <div class="d-flex align-center">
-          <v-btn icon color="primary" small class="mb-2 mr-3" @click="cancel">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-card-title>
-      <v-card-text>
-        <p class="font-weight-medium">分类名称：{{ info.categoryName }}</p>
-        <p class="font-weight-medium">分类状态：{{ info.status }}</p>
-        <p class="font-weight-medium">创建时间：{{ info.createdTime }}</p>
-        <p class="font-weight-medium">
-          更新时间：{{ info.updatedTime }}
-        </p></v-card-text
-      >
-    </v-card>
-  </v-dialog>
+    <template slot="content.card-text">
+      <!--  -->
+    </template>
+    <template slot="footer">
+      <!--  -->
+      <p class="font-weight-medium">分类名称：{{ info.categoryName }}</p>
+      <p class="font-weight-medium">分类状态：{{ info.status }}</p>
+      <p class="font-weight-medium">创建时间：{{ info.createdTime }}</p>
+      <p class="font-weight-medium">更新时间：{{ info.updatedTime }}</p>
+    </template>
+  </helper-dialog>
 </template>
 
 <script>

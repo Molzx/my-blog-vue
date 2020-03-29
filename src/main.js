@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 14:01:53
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 21:00:56
+ * @LastEditTime : 2020-03-29 17:40:15
  * @FilePath     : \VueProjects\my-blog\src\main.js
  * @Description  : 项目主要js文件
  */
@@ -42,7 +42,7 @@ import '@styles/main.scss'
 //导入material design icon
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 //导入fontawesome图标
-import '@common/fontawesome-free-5.12.0/css/all.css'
+import '@common/fontawesome-free-5.13.0-web/css/all.css'
 //加载swiper
 import '../node_modules/swiper/css/swiper.css'
 
