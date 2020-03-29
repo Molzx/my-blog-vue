@@ -2,8 +2,8 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-15 17:35:35
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-08 17:00:32
- * @FilePath     : \VueProjects\blog\src\store\mutations.js
+ * @LastEditTime : 2020-03-29 16:40:48
+ * @FilePath     : \VueProjects\my-blog\src\store\mutations.js
  * @Description  : 这是一些注释
  */
 // https://vuex.vuejs.org/en/mutations.html
@@ -138,6 +138,15 @@ export default {
     state.drawerWidth = number
   },
 
+  //侧边栏开启状态
+  changeOpenDrawer(state, open) {
+    if (open) {
+      state.openDrawer = open
+    } else {
+      state.openDrawer = !state.openDrawer
+    }
+    sessionStorage.setItem('openDrawer', state.openDrawer)
+  },
   //文章列表展示页面的分类下拉，标签下拉数据是否更新
   setArticleConditionRefresh(state, articleConditionRefresh) {
     state.articleConditionRefresh = articleConditionRefresh
@@ -181,5 +190,6 @@ export default {
     } else {
       state.useUserId = ''
     }
+    sessionStorage.setItem('useUserId', state.useUserId)
   }
 }

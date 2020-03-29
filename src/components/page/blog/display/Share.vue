@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 16:20:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-20 16:53:49
+ * @LastEditTime : 2020-03-29 14:18:29
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\Share.vue
  * @Description  : 这是一些注释
  -->
@@ -30,7 +30,6 @@
     </v-row>
   </div>
   <div v-else>
-    <helper-tip-dialog :show="show"> </helper-tip-dialog>
     <v-row>
       <v-col v-for="(record, i) in records" :key="i" cols="3">
         <v-hover v-slot:default="{ hover }">
@@ -61,7 +60,7 @@
                               fab
                               class="toast-btn"
                               v-on="on"
-                              @click="downloadFile(record)"
+                              @click="checkLoginStatus(record)"
                             >
                               <v-icon color="green"
                                 >iconfont icon-download</v-icon
@@ -146,6 +145,12 @@
         </v-hover>
       </v-col>
     </v-row>
+
+    <!-- 登录提示组件 -->
+    <helper-permission-dialog
+      :show.sync="showLoginTip"
+      shortContent="下载"
+    ></helper-permission-dialog>
   </div>
 </template>
 
@@ -168,7 +173,7 @@ export default {
       loading: false,
       records: [],
 
-      show: false,
+      showLoginTip: false,
       fileBg: require('@/assets/images/files/file3.svg'),
       downloadBg: require('@/assets/images/download.svg'),
       warnBg: require('@/assets/images/permission/no_permission2.svg')
@@ -203,7 +208,7 @@ export default {
       const vm = this
       this.loading = true
       setTimeout(() => {
-        vm.$api.file.toGetPageListForBlog(this.pageParams).then(res => {
+        vm.$api.blog.toGetSharesFile(this.pageParams).then(res => {
           let data = res.data.extend
           console.log(data)
           vm.records = data.records
@@ -214,24 +219,26 @@ export default {
         })
       }, 200)
     },
-
+    checkLoginStatus(item) {
+      //
+      if (this.$isLogin()) {
+        this.downloadFile(item)
+      } else {
+        this.showLoginTip = true
+      }
+    },
     // eslint-disable-next-line no-unused-vars
     downloadFile(item) {
-      console.log('inin')
-      if (this.isLogin) {
-        const vm = this
+      const vm = this
 
-        let fileName = item.originName
-        let params = item.id
-        // let name = 'FL_fOMMe708XB3bvsOYb.png'
-        // window.location.href = 'localhost:8088/api/v1/resources/download/FL_fOMMe708XB3bvsOYb.png'
-        vm.$api.file.toDownloadById(params).then(res => {
-          const content = res.data //返回的内容
-          vm.download(content, fileName)
-        })
-      } else {
-        this.openDialog()
-      }
+      let fileName = item.originName
+      let params = item.id
+      // let name = 'FL_fOMMe708XB3bvsOYb.png'
+      // window.location.href = 'localhost:8088/api/v1/resources/download/FL_fOMMe708XB3bvsOYb.png'
+      vm.$api.file.toDownloadById(params).then(res => {
+        const content = res.data //返回的内容
+        vm.download(content, fileName)
+      })
     },
     //处理下载流
     download(content, fileName) {
@@ -248,21 +255,13 @@ export default {
         document.body.appendChild(link)
         link.click()
       }
-    },
-
-    cancel() {
-      this.show = false
-    },
-    openDialog() {
-      // this.$tipDialog.login()
-      this.show = true
     }
   },
   computed: {
     //
     ...mapGetters({
       //判断是否本地有token ，有返回 true
-      isLogin: 'getLoginStatusFun'
+      // isLogin: 'getLoginStatusFun'
     }),
     getFileType() {
       //传值

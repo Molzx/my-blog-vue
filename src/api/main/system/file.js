@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-05 15:57:38
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-07 11:16:17
+ * @LastEditTime : 2020-03-29 14:03:57
  * @FilePath     : \VueProjects\my-blog\src\api\main\system\file.js
  * @Description  : 这是一些注释
  */
@@ -80,6 +80,13 @@ const file = {
     obj.search == '' ? delete obj.search : obj.search
 
     let url = UrlPrefix + 'page-list'
+    return getRequest(url, obj)
+  },
+  //获取共享文件列表分页数据
+  toGetPageListForBlog: params => {
+    let obj = JSON.parse(JSON.stringify(params))
+
+    let url = UrlPrefix + 'page-list/shares'
     return getRequest(url, obj)
   },
   //-======

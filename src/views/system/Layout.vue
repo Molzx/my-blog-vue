@@ -1,11 +1,18 @@
+<!--
+ * @Author       : xuzhenghao
+ * @Date         : 2020-01-18 21:52:07
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-03-29 15:24:26
+ * @FilePath     : \VueProjects\my-blog\src\views\system\Layout.vue
+ * @Description  : 这是一些注释
+ -->
 <template>
   <v-sheet
     id="scrolling-system"
     v-resize="onResize"
     ref="sheet"
     color="transprant"
-    class="overflow-y-auto"
-    :max-height="windowSize.y - 1"
+    class="overflow-y-auto fill-width fill-height"
   >
     <!-- :max-height="windowSize.y - 1" -->
     <div ref="container" class="main-body ">

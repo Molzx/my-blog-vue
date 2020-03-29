@@ -7,7 +7,7 @@
  * @Description  : 这是一些注释
  -->
 <template>
-  <page-blog-user-display></page-blog-user-display>
+  <page-blog-display-user></page-blog-display-user>
 </template>
 
 <script>

@@ -1,10 +1,11 @@
 <template>
-  <v-navigation-drawer app mobile-break-point="754" class="left-drawer">
-    <div class="drawer__logo d-flex align-center justify-center">
-      <router-link to="/system">
-        <img height="50" src="../../assets/images/logo.svg" />
-      </router-link>
-    </div>
+  <v-navigation-drawer
+    app
+    clipped
+    mobile-break-point="754"
+    class="left-drawer"
+    v-model="drawerStatus"
+  >
     <v-list class="transparent drawer-list">
       <template v-for="(item, index) in routes">
         <v-subheader v-if="hasHeader(item)" :key="'h' + index">{{
@@ -30,7 +31,6 @@
         </v-list-item>
         <v-list-group
           v-else
-          @click="groupClick($event)"
           :key="index + 'g'"
           :value="item.isActive"
           color="success"
@@ -68,10 +68,13 @@
 
 <script>
 import { sidebarData } from '@js/sidebar'
+// eslint-disable-next-line no-unused-vars
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      routes: sidebarData
+      routes: sidebarData,
+      drawerStatus: true
     }
   },
   mounted() {
@@ -89,9 +92,16 @@ export default {
   },
   computed: {
     //
+    ...mapGetters({
+      //获取抽屉状态
+      getOpenDrawer: 'getOpenDrawerFun'
+    })
   },
   watch: {
     //
+    getOpenDrawer(newVal) {
+      this.drawerStatus = newVal
+    }
   },
   components: {
     //
@@ -103,6 +113,6 @@ export default {
 //侧边list列表字体颜色
 /deep/
   .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
-  color: #9baaab !important;
+  color: hsl(212, 16%, 48%) !important;
 }
 </style>

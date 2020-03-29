@@ -1,10 +1,10 @@
 <template>
-  <v-container class="" style="min-height: 500px;">
+  <v-container class="" style="min-height:500px">
     <v-row>
-      <v-col cols="12"
-        ><p class="b-title my-3 mx-8">{{ getTitle }}</p>
-      </v-col></v-row
-    >
+      <v-col cols="12">
+        <p class="b-title my-3 mx-8">{{ getTitle }}</p>
+      </v-col>
+    </v-row>
     <v-row
       v-if="records.length == 0 && !loading"
       class="mt-8 justify-center align-center"
@@ -12,11 +12,11 @@
       <v-img :src="$global.emptyBg" height="300" contain></v-img>
     </v-row>
     <!-- <v-divider class="mx-0"></v-divider> -->
-    <v-row v-else>
+    <v-row v-else :key="`icon-${loading}`">
       <v-container>
         <v-sheet class="" color="grey lighten-4">
           <v-row v-if="loading">
-            <template v-for="i in 4">
+            <template v-for="i in 3">
               <v-col
                 cols="12"
                 :key="i + 'collects'"
@@ -210,6 +210,7 @@ export default {
   data() {
     return {
       //
+      isEditing: true
     }
   },
   mounted() {

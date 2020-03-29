@@ -87,6 +87,27 @@ const blog = {
 
   //获取所有启用状态的公告数据
   toGetAnnouncements: () => getRequest(prefix + 'announcements'),
+
+  //获取共享文件列表分页数据
+  toGetSharesFile: params => {
+    let obj = JSON.parse(JSON.stringify(params))
+
+    let url = prefix + 'shares'
+    return getRequest(url, obj)
+  },
+
+  //获取其他用户可供展示的数据
+  toGetOtherUserInfo: params => {
+    let isObj = Object.prototype.toString.call(params) === '[object Object]'
+    let obj
+    if (!isObj) {
+      obj = { userId: params }
+    } else {
+      obj = params
+    }
+    let url = prefix + 'user-info'
+    return getRequest(url, obj)
+  },
   //=====================侧边=====================
 
   //获取侧边栏所有数据

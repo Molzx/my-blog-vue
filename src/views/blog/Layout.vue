@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 20:40:58
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 16:16:07
+ * @LastEditTime : 2020-03-29 16:23:06
  * @FilePath     : \VueProjects\my-blog\src\views\blog\Layout.vue
  * @Description  : 这是一些注释
  -->
@@ -10,7 +10,7 @@
   <v-container
     fluid
     grid-list-xl
-    class="py-6 px-0"
+    class="py-6 px-0 fill-height"
     style="width:1111px"
     v-scroll="onScroll"
   >
@@ -26,9 +26,9 @@
         v-show="!rightFloatHidden"
       ></core-back-to-top-button>
     </v-fab-transition>
-    <v-slide-x-reverse-transition mode="out-in">
+    <v-scale-transition mode="out-in" origin="center center">
       <router-view v-wechat-title="webTitle" v-if="routerAlive"></router-view>
-    </v-slide-x-reverse-transition>
+    </v-scale-transition>
   </v-container>
 </template>
 

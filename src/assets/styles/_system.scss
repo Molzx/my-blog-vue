@@ -44,14 +44,15 @@ $container-border-radius: 12px;
       transition: all 0.3s ease;
     }
     .drawer-list {
+      $drawer-color: hsl(212, 16%, 48%);
       .drawer-icon {
-        color: #9baaab !important;
+        color: $drawer-color !important;
       }
       .v-list-item--active .drawer-icon {
         color: inherit !important;
       }
       .theme--light.v-subheader {
-        color: #9baaab !important;
+        color: $drawer-color !important;
       }
       .active-list {
         border-left: 3px solid #2980b9;

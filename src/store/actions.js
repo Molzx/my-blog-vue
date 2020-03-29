@@ -49,6 +49,9 @@ export default {
   setDrawerWidthFun(context, number) {
     context.commit('setDrawerWidth', number)
   },
+  changeOpenDrawerFun(context, open) {
+    context.commit('changeOpenDrawer', open)
+  },
 
   //文章列表展示页面的分类下拉，标签下拉数据是否更新
   setArticleConditionRefreshFun(context, articleConditionRefresh) {

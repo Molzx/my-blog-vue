@@ -33,6 +33,7 @@ export default {
   getSubPageCurrentPageFun: state => state.currentSubPage.currentPage,
   getUseRecordIdFun: state => state.useRecordId,
   getDrawerWidthFun: state => state.drawerWidth,
+  getOpenDrawerFun: state => state.openDrawer,
 
   //================blog============
   getActiveBlogPageIndexFun: state => state.blogData.activePageIndex,

@@ -56,6 +56,10 @@ export default {
     ? sessionStorage.getItem('useRecordId')
     : '',
   drawerWidth: 250,
+  //侧边栏开启状态
+  openDrawer: sessionStorage.getItem('openDrawer')
+    ? sessionStorage.getItem('openDrawer')
+    : true,
 
   //=============blog================
   //存储博客顶栏导航的index

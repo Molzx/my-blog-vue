@@ -284,6 +284,7 @@ export default {
         //用户id
         // userId: userId
       },
+      //登录提示框
       showLoginTip: false,
       LoginTipContent: {
         like: '点赞',

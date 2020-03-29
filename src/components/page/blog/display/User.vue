@@ -1,6 +1,6 @@
 <template>
-  <v-row no-gutters>
-    <v-col cols="auto" class="mr-1">
+  <v-row class="pa-4 fill-height">
+    <v-col cols="auto" class="pr-1">
       <v-card style="border-radius:8px" class="shadow-1  mb-6">
         <v-container style="height: 300px;min-width:230px;">
           <v-tabs vertical optional slider-size="3" v-model="tab">
@@ -19,9 +19,11 @@
         </v-container>
       </v-card>
     </v-col>
-    <v-col>
+    <v-col class="pl-1">
       <v-card style="border-radius:8px" class="shadow-1  mb-6">
-        <router-view></router-view>
+        <v-scale-transition mode="out-in" origin="center center">
+          <router-view></router-view>
+        </v-scale-transition>
       </v-card>
     </v-col>
   </v-row>
@@ -112,8 +114,13 @@ export default {
 
 <style lang="scss" scoped>
 /*  */
+/deep/ .theme--light.v-tabs > .v-tabs-bar .v-tab--disabled,
+.theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active),
+.theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) > .v-icon {
+  color: #6c6c6c !important;
+}
 .left-tab {
-  color: #5c634a;
+  color: #4f4f4f;
   justify-content: start !important;
 }
 //未选中hover

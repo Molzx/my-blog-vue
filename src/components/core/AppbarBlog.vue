@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 22:42:00
+ * @LastEditTime : 2020-03-29 16:36:02
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -25,7 +25,7 @@
         :active="activeNavMenu"
       ></core-navmenu> -->
         <div class="menu-bar light">
-          <ul class="menu-bar-1" ref="menuBar">
+          <ul class="menu-bar-4" ref="menuBar">
             <li
               v-for="(item, i) in links"
               :key="i"
@@ -77,7 +77,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-avatar size="38" class="avatar-shadow" v-on="on">
-                <img :src="isLogin ? previewAvatar : unloginAvatar" />
+                <img :src="$isLogin() ? previewAvatar : unloginAvatar" />
                 <!-- :alt="isLogin ? getBaseUserInfo.nickName : '奶茬-未登录用户'" -->
               </v-avatar>
             </template>
@@ -88,7 +88,7 @@
                   <template v-for="(item, i) in menuItems">
                     <v-list-item
                       :key="i"
-                      v-if="isLogin == item.isLogin && item.to"
+                      v-if="$isLogin() == item.isLogin && item.to"
                       :to="item.to"
                     >
                       <v-list-item-icon>
@@ -103,7 +103,7 @@
                     </v-list-item>
                     <v-list-item
                       :key="i"
-                      v-if="isLogin == item.isLogin && !item.to"
+                      v-if="$isLogin() == item.isLogin && !item.to"
                       @click="clickMenu(item.name)"
                     >
                       <v-list-item-icon>
@@ -164,6 +164,14 @@ export default {
         {
           text: '标签',
           link: '/blog/tags'
+        },
+        {
+          text: '共享',
+          link: '/blog/shares'
+        },
+        {
+          text: '公告',
+          link: '/blog/announcements'
         },
         {
           text: '测试',
@@ -227,11 +235,16 @@ export default {
     },
     initBaseUserInfo() {
       //如果用户已登录
-      if (this.isLogin) {
+      if (this.$isLogin()) {
         //如果头像信息为空
         let info = this.getBaseUserInfo
         if (!info) {
           this.requireBaseUserInfo()
+        }
+      } else {
+        //如果用户未登录，且跳转到个人中心，返回首页
+        if (this.isOwnerSpace) {
+          this.$router.push('/blog/home')
         }
       }
     },
@@ -291,7 +304,7 @@ export default {
     ...mapGetters({
       getActiveBlogPageIndex: 'getActiveBlogPageIndexFun',
       //判断是否本地有token ，有返回 true
-      isLogin: 'getLoginStatusFun',
+      // isLogin: 'getLoginStatusFun',
       //获取基础头像，昵称
       getBaseUserInfo: 'getBaseUserInfoFun'
     }),

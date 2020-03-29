@@ -144,6 +144,14 @@ export default {
   text-decoration: none;
   color: #555 !important;
   position: relative;
+  //限制两行
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  display: -webkit-box;
+  display: bo;
 }
 .toc-link.active,
 .toc-link:hover {

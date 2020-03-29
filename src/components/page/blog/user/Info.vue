@@ -1,7 +1,7 @@
 <template>
   <v-container class="px-8" style="min-height: 450px;">
     <p class="b-title my-6">
-      {{ canEdited ? '我的资料' : info.nickName + '的资料' }}
+      {{ isOwnerSpace ? '我的资料' : info.nickName + '的资料' }}
     </p>
     <v-divider class="mx-0"></v-divider>
     <page-blog-user-base-form
@@ -25,7 +25,7 @@
         <page-blog-user-avatar-form
           ref="avatarForm"
           :info.sync="info"
-          :edited="canEdited"
+          :edited="isOwnerSpace"
         ></page-blog-user-avatar-form>
         <div v-if="loading">
           <template v-for="i in 2">
@@ -44,7 +44,7 @@
         <div v-else>
           <a
             class="info-a  d-flex justify-end mt-0"
-            v-if="canEdited"
+            v-if="isOwnerSpace"
             @click="updateInfo"
             >修改资料</a
           >
@@ -59,12 +59,12 @@
             加入博客已经{{ getDiffDate(info.createdTime) }}天了
           </p>
           <p class="info-title-p ">
-            {{ canEdited ? '上次登录时间' : '活跃时间' }}
+            {{ isOwnerSpace ? '上次登录时间' : '活跃时间' }}
           </p>
           <p class="info-p">
             <Timeago :datetime="info.loginedTime" :autoUpdate="true"> </Timeago>
           </p>
-          <div v-if="canEdited">
+          <div v-if="isOwnerSpace">
             <v-divider class="mt-4"></v-divider>
             <p class="info-title-p ">私密信息（仅个人可见）</p>
 
@@ -141,10 +141,10 @@ export default {
       setUserInfo: 'setUserInfoFun'
     }),
     requireData() {
-      //判断是否保存有正在使用的其他用户的id，有则显示他人信息，否则显示个人信息
       //是否为查看个人信息
-      if (this.canEdited) {
-        //
+      if (this.isOwnerSpace) {
+        console.log(this.isOwnerSpace)
+        //判断是否保存有个人信息
         let userInfo = this.getUserInfo
         //  && JSON.stringify(userInfo) != '{}'
         if (userInfo) {
@@ -152,11 +152,18 @@ export default {
           this.info = this.getUserInfo
           this.loading = false
         } else {
-          //发送请求获取数据
+          //本地没有信息，则发送请求获取数据
           this.requireUserInfo()
         }
       } else {
-        this.requireOtherUserInfo()
+        console.log('oini')
+        //刷新页面，如果存在其他用户id，则请求数据，没有则跳到主页
+        if (this.isExistOtherUserId) {
+          this.requireOtherUserInfo()
+        } else {
+          //
+          this.$router.replace('/blog/home')
+        }
       }
     },
     //请求获取用户信息
@@ -184,7 +191,7 @@ export default {
       //
       let vm = this
       vm.loading = true
-      this.$api.user
+      this.$api.blog
         .toGetOtherUserInfo(this.getUseUserId)
         .then(res => {
           let data = res.data.extend.data
@@ -232,9 +239,14 @@ export default {
       getUserInfo: 'getUserInfoFun',
       getUseUserId: 'getUseUserIdFun'
     }),
-    canEdited() {
-      let variable = this.getUseUserId
-      return !variable
+    //是否为个人信息
+    isOwnerSpace() {
+      let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1
+      return flag
+    },
+    isExistOtherUserId() {
+      let variable = this.getUseUserId ? true : false
+      return variable
     },
     alreadyBindPhone() {
       let variable = !this.info.phone
@@ -259,13 +271,13 @@ export default {
   margin-top: 24px;
 }
 .info-title-p {
-  color: #363636 !important;
+  color: #4d4d4d !important;
   margin-top: 24px;
   margin-bottom: 8px;
   font-size: 1.12rem;
 }
 .info-p {
-  color: #7a7a7a !important;
+  color: #6c6c6c !important;
   margin-bottom: 8px;
   font-size: 0.97rem;
 }

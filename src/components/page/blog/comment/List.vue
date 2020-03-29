@@ -431,6 +431,11 @@
       </v-timeline>
     </v-container>
 
+    <!-- 登录提示组件 -->
+    <helper-permission-dialog
+      :show.sync="showLoginTip"
+      shortContent="发表回复"
+    ></helper-permission-dialog>
     <!-- <v-btn absolute bottom left fab></v-btn> -->
   </div>
 </template>
@@ -511,7 +516,10 @@ export default {
 
       previewAvatar: require('@/assets/images/avatar/avatar.svg'),
 
-      commentBg: require('@/assets/images/comment/comment.svg')
+      commentBg: require('@/assets/images/comment/comment.svg'),
+
+      //登录提示框
+      showLoginTip: false
     }
   },
   mounted() {
@@ -526,15 +534,29 @@ export default {
     toUserInfo(userId) {
       //
       this.setUseUserId(userId)
-      this.$router.push('/blog/users/info')
+      this.$router.push('/blog/users/other/info')
     },
     //加载更多子评论
     loadingMore(commentId) {
       this.$emit('loadingMore', commentId)
     },
+
+    checkLoginStatus(item) {
+      //
+      if (this.$isLogin()) {
+        this.downloadFile(item)
+      } else {
+        this.showLoginTip = true
+      }
+    },
     //==========
     //回复主评论
     replyParent(parentComment, parentIndex) {
+      //判断是否已登录，未登录，展开提示框
+      if (!this.$isLogin()) {
+        this.showLoginTip = true
+        return
+      }
       //如果已经打开输入框，则关闭
       if (this.showParentReply == parentIndex) {
         this.showParentReply = -1
@@ -553,6 +575,11 @@ export default {
     },
     //回复子评论
     replyChildren(childrenComment, parentIndex, childrenIndex) {
+      //判断是否已登录，未登录，展开提示框
+      if (!this.$isLogin()) {
+        this.showLoginTip = true
+        return
+      }
       //如果已经打开输入框，则关闭
       if (this.showChildrenReply == childrenIndex) {
         this.showParentReply = -1
