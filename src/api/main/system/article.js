@@ -98,17 +98,25 @@ const article = {
     let obj = JSON.parse(JSON.stringify(params))
     // let state = params.state == 'all' ? '' : params.state
     //如果是查询所有，即状态是 all 或者 id等于 0的，把参数删除，不上传到后台
-    obj.type == 'all' ? delete obj.type : obj.type
-    obj.cid == 0 ? delete obj.cid : obj.cid
-    obj.tid == 0 ? delete obj.tid : obj.tid
-    obj.status == 'all' ? delete obj.status : obj.status
-    obj.admStatus == 'all' ? delete obj.admStatus : obj.admStatus
-    obj.copStatus == 'all' ? delete obj.copStatus : obj.copStatus
-    obj.repStatus == 'all' ? delete obj.repStatus : obj.repStatus
-    obj.comStatus == 'all' ? delete obj.comStatus : obj.comStatus
-    obj.pubStatus == 'all' ? delete obj.pubStatus : obj.pubStatus
-    obj.recStatus == 'all' ? delete obj.recStatus : obj.recStatus
-    obj.search == '' ? delete obj.search : obj.search
+    // obj.type == 'all' ? delete obj.type : obj.type
+    // obj.cid == 0 ? delete obj.cid : obj.cid
+    // obj.tid == 0 ? delete obj.tid : obj.tid
+    // obj.status == 'all' ? delete obj.status : obj.status
+    // obj.admStatus == 'all' ? delete obj.admStatus : obj.admStatus
+    // obj.copStatus == 'all' ? delete obj.copStatus : obj.copStatus
+    // obj.repStatus == 'all' ? delete obj.repStatus : obj.repStatus
+    // obj.comStatus == 'all' ? delete obj.comStatus : obj.comStatus
+    // obj.pubStatus == 'all' ? delete obj.pubStatus : obj.pubStatus
+    // obj.recStatus == 'all' ? delete obj.recStatus : obj.recStatus
+    // obj.search == '' ? delete obj.search : obj.search
+
+    //如果是查询所有，即状态是 all 或者 id等于 0的，把参数删除，不上传到后台
+    for (let key in obj) {
+      console.log(key + '---' + obj[key])
+      if (obj[key] == 'all' || obj[key] == 0 || obj[key] == '' || !obj[key]) {
+        delete obj[key]
+      }
+    }
     // let obj = JSON.parse(JSON.stringify(params))
     // //删除不用的属性
     // delete obj.state

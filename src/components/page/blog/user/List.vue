@@ -10,6 +10,11 @@
       class="mt-8 justify-center align-center"
     >
       <v-img :src="$global.emptyBg" height="300" contain></v-img>
+      <v-col cols="12">
+        <p class="text-center" style="color:#bababa;">
+          暂时木有内容呀～～
+        </p>
+      </v-col>
     </v-row>
     <!-- <v-divider class="mx-0"></v-divider> -->
     <v-row v-else :key="`icon-${loading}`">
@@ -52,8 +57,9 @@
                         </v-col>
                       </v-row>
                     </v-container>
-                  </v-sheet> </v-alert
-              ></v-col>
+                  </v-sheet>
+                </v-alert>
+              </v-col>
             </template>
           </v-row>
           <v-row v-else>
@@ -232,11 +238,14 @@ export default {
     ...mapGetters({
       getUseUserId: 'getUseUserIdFun'
     }),
-    isSelfUserInfo() {
-      return !this.getUseUserId
+
+    //是否为个人信息
+    isOwnerSpace() {
+      let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1
+      return flag
     },
     getTitle() {
-      if (this.isSelfUserInfo) {
+      if (this.isOwnerSpace) {
         return '我的' + this.title
       } else {
         return 'Ta的' + this.title

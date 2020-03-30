@@ -227,7 +227,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       handler(newVal) {
         //头像修改
-        console.log(newVal)
+        // console.log(newVal)
         if (newVal) {
           this.previewAvatar = this.$avatar(newVal)
         }

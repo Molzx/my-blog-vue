@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 20:40:58
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 16:23:06
+ * @LastEditTime : 2020-03-30 13:45:30
  * @FilePath     : \VueProjects\my-blog\src\views\blog\Layout.vue
  * @Description  : 这是一些注释
  -->
@@ -10,7 +10,7 @@
   <v-container
     fluid
     grid-list-xl
-    class="py-6 px-0 fill-height"
+    class="py-6 px-0 fill-height align-start"
     style="width:1111px"
     v-scroll="onScroll"
   >

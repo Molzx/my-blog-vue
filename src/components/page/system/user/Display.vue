@@ -2,16 +2,31 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 09:21:58
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-03 22:01:43
- * @FilePath     : \VueProjects\my-blog\src\components\page\user\Display.vue
+ * @LastEditTime : 2020-03-30 23:36:37
+ * @FilePath     : \VueProjects\my-blog\src\components\page\system\user\Display.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <page-system-list-table
+  <page-system-table-list
     ref="listDisplay"
     :tableData.sync="tableData"
     :pageParams.sync="pageParams"
-  ></page-system-list-table>
+  >
+    <template slot="condition-prepend">
+      <v-chip-group v-model="pageParams.state">
+        <v-chip
+          filter
+          outlined
+          v-for="item in stateItem"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ item.state }}
+        </v-chip>
+      </v-chip-group>
+      <v-divider class="mx-4" inset vertical></v-divider>
+    </template>
+  </page-system-table-list>
 </template>
 
 <script>
@@ -41,6 +56,12 @@ export default {
         isGetTableData: false
       },
 
+      stateItem: [
+        // { state: '不筛选', value: 'all' },
+        { state: '正常', value: '正常' },
+        { state: '已禁言', value: '禁言' },
+        { state: '已冻结', value: '冻结' }
+      ],
       //操作的是否为最后一页的唯一一条记录
       isEndRecord: false
     }

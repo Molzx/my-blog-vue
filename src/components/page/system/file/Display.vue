@@ -1,9 +1,9 @@
 <template>
-  <page-system-card-table
+  <page-system-table-card
     ref="listDisplay"
     :tableData.sync="tableData"
     :pageParams.sync="pageParams"
-  ></page-system-card-table>
+  ></page-system-table-card>
 </template>
 
 <script>

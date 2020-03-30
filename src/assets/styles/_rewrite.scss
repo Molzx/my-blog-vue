@@ -27,6 +27,9 @@
   // margin-top: 16px;
   padding-top: 4px;
 }
+.v-autocomplete__content.v-menu__content {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
 //===================按钮
 .theme--light.v-btn.v-btn--icon {
   color: hsl(212, 16%, 48%);

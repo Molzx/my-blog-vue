@@ -2,46 +2,56 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 16:20:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 14:18:29
+ * @LastEditTime : 2020-03-30 13:42:19
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\Share.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <div v-if="loading">
-    <v-row>
+  <div class="fill-width">
+    <v-row v-if="loading">
       <v-col v-for="i in 4" :key="i" cols="3">
         <v-card
-          class="shadow-1"
+          :class="hover ? 'on-hover' : 'shadow-1'"
           style="border-radius: 8px !important;"
           min-width="240px"
         >
-          <v-skeleton-loader tile type="image" max-height="150px">
-          </v-skeleton-loader>
-          <v-skeleton-loader type="card-heading"> </v-skeleton-loader>
+          <v-card-text>
+            <v-row class="align-start ml-3 mr-0 mb-3">
+              <div class=" file-bg"></div>
+              <v-spacer></v-spacer>
+              <div class="float-right my-auto">
+                <div class="d-flex justify-end">
+                  <v-skeleton-loader type="chip"> </v-skeleton-loader>
+                </div>
+                <div class="d-flex justify-end mt-2">
+                  <v-skeleton-loader type="chip"> </v-skeleton-loader>
+                </div>
+              </div>
+            </v-row>
+            <v-skeleton-loader type="card-heading"> </v-skeleton-loader>
 
-          <v-skeleton-loader
-            type="list-item-three-line"
-            class="mt-0"
-            width="100%"
-          >
-          </v-skeleton-loader>
+            <v-skeleton-loader
+              type="list-item-three-line"
+              class="mt-0"
+              width="100%"
+            >
+            </v-skeleton-loader>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
-  </div>
-  <div v-else>
-    <v-row>
+    <v-row v-else>
       <v-col v-for="(record, i) in records" :key="i" cols="3">
         <v-hover v-slot:default="{ hover }">
           <v-card
-            class="shadow-1"
+            :class="hover ? 'on-hover' : 'shadow-1'"
             style="border-radius: 8px !important;"
             min-width="240px"
           >
             <v-card-text>
               <v-row class="align-start ml-3 mr-0 mb-3">
                 <div class=" file-bg">
-                  <v-img :src="$fileBg(record.type)">
+                  <v-img :src="$fileBg(record.fileName)">
                     <v-expand-transition>
                       <div
                         v-if="hover"
@@ -62,7 +72,7 @@
                               v-on="on"
                               @click="checkLoginStatus(record)"
                             >
-                              <v-icon color="green"
+                              <v-icon color="green" size="36"
                                 >iconfont icon-download</v-icon
                               >
                               <!-- <v-avatar size="68">
@@ -120,27 +130,6 @@
               </p>
               <!-- <p class="text-right mt-3 mb-0">3天前</p> -->
             </v-card-text>
-
-            <!-- <v-tooltip
-              top
-              content-class="b-tooltip"
-              color="white"
-              light
-              open-on-hover
-            >
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  v-show="hover"
-                  fab
-                  class="toast-btn"
-                  v-on="on"
-                  @click="downloadFile(record)"
-                >
-                  <v-icon color="green">mdi-bell</v-icon>
-                </v-btn>
-              </template>
-              <span class="grey--text text--darken-3">下载</span>
-            </v-tooltip> -->
           </v-card>
         </v-hover>
       </v-col>
@@ -344,5 +333,14 @@ export default {
   // opacity: 0.9;
   position: absolute;
   width: 100%;
+}
+.v-card {
+  box-shadow: none;
+  transition: all 0.4s ease-in-out;
+  // transition: opacity 0.4s ease-in-out;
+}
+
+.v-card:not(.on-hover) {
+  // opacity: 0.6;
 }
 </style>

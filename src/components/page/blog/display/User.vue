@@ -8,12 +8,12 @@
               class="left-tab"
               v-for="(item, i) in tabItems"
               :key="i"
-              :to="isSelfUserInfo ? item.toOwner : item.toOther"
+              :to="isOwnerSpace ? item.toOwner : item.toOther"
             >
               <v-icon left :size="item.iconSize">{{
                 item.to == tab ? item.iconSelected : item.iconNormal
               }}</v-icon>
-              {{ isSelfUserInfo ? item.textOwner : item.textOther }}
+              {{ isOwnerSpace ? item.textOwner : item.textOther }}
             </v-tab>
           </v-tabs>
         </v-container>
@@ -82,8 +82,11 @@ export default {
     ...mapGetters({
       getUseUserId: 'getUseUserIdFun'
     }),
-    isSelfUserInfo() {
-      return this.getUseUserId == ''
+
+    //是否为个人信息
+    isOwnerSpace() {
+      let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1
+      return flag
     },
     color() {
       switch (this.bottomNav) {

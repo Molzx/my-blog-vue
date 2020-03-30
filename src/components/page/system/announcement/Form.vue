@@ -4,7 +4,6 @@
       <v-container>
         <v-row no-gutters>
           <v-col cols="12">
-            <!-- <v-chip label color="grey lighten-4 blue--text">公告标题</v-chip> -->
             <ValidationProvider
               name="announcementTitle"
               rules="required|max:30"

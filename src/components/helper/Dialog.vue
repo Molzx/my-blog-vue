@@ -2,13 +2,13 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 21:36:51
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 23:37:38
+ * @LastEditTime : 2020-03-30 17:47:01
  * @FilePath     : \VueProjects\my-blog\src\components\helper\Dialog.vue
  * @Description  : 这是一些注释
  -->
 <template>
   <v-dialog
-    v-model="show"
+    v-model="showDialog"
     :scrollable="scrollable"
     :width="width"
     :height="height"
@@ -128,9 +128,16 @@ export default {
   },
   watch: {
     //
-    // show(newVal) {
-    //   this.showDialog = newVal
-    // }
+    show(newVal) {
+      this.showDialog = newVal
+    },
+    showDialog(newVal) {
+      //当自身更新了值，传回给父组件
+      if (newVal != this.show) {
+        this.$emit('update:show', newVal)
+      }
+      // this.showDialog = newVal
+    }
   },
   components: {
     //

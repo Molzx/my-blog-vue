@@ -104,66 +104,66 @@
         >添加{{ tableData.nameText }}</v-btn
       >
     </v-row>
-    <v-container fluid>
-      <v-row v-if="initLoading">
-        <v-col
-          v-for="index in [1, 2, 3, 4]"
-          :key="index"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-        >
-          <v-skeleton-loader type="card"></v-skeleton-loader>
-        </v-col>
-      </v-row>
-      <v-data-iterator
-        v-else
-        :items="tableData.records"
-        :loading="tableData.showLoading"
-        :search="search"
-        :page.sync="pageParams.current"
-        :items-per-page="pageParams.size"
-        @page-count="getPageTotal"
-        :options.sync="options"
-        @pagination="updatePagination"
-        hide-default-footer
+    <v-row v-if="initLoading">
+      <v-col
+        v-for="index in [1, 2, 3, 4]"
+        :key="index"
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
       >
-        <template v-slot:no-data>
-          <div class="align-center text-center" v-text="noDataText"></div>
-        </template>
-        <template v-slot:loading>
-          <v-container style="height: 100px;">
-            <v-row class="fill-height" align-content="center" justify="center">
-              <v-col class="subtitle-1 text-center" cols="12">
-                {{ loadingText }}
-              </v-col>
-              <v-col cols="6">
-                <v-progress-linear
-                  color="green accent-4"
-                  indeterminate
-                  rounded
-                  height="8"
-                ></v-progress-linear>
-              </v-col>
-            </v-row>
-          </v-container>
-          <!-- <div class="align-center text-center" 
+        <v-skeleton-loader type="card"></v-skeleton-loader>
+      </v-col>
+    </v-row>
+    <v-data-iterator
+      v-else
+      :items="tableData.records"
+      :loading="tableData.showLoading"
+      :search="search"
+      :page.sync="pageParams.current"
+      :items-per-page="pageParams.size"
+      @page-count="getPageTotal"
+      :options.sync="options"
+      @pagination="updatePagination"
+      hide-default-footer
+    >
+      <template v-slot:no-data>
+        <div class="align-center text-center" v-text="noDataText"></div>
+      </template>
+      <template v-slot:loading>
+        <v-container style="height: 100px;">
+          <v-row class="fill-height" align-content="center" justify="center">
+            <v-col class="subtitle-1 text-center" cols="12">
+              {{ loadingText }}
+            </v-col>
+            <v-col cols="6">
+              <v-progress-linear
+                color="green accent-4"
+                indeterminate
+                rounded
+                height="8"
+              ></v-progress-linear>
+            </v-col>
+          </v-row>
+        </v-container>
+        <!-- <div class="align-center text-center" 
           v-text="loadingText"></div> -->
-        </template>
+      </template>
 
-        <template v-slot:default="props">
-          <v-row>
-            <v-col
-              v-for="item in props.items"
-              :key="item.permissionId"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
-              <v-skeleton-loader :loading="tableData.showLoading" type="card">
-                <v-card>
+      <template v-slot:default="props">
+        <v-row>
+          <v-col
+            v-for="item in props.items"
+            :key="item.permissionId"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="3"
+          >
+            <v-skeleton-loader :loading="tableData.showLoading" type="card">
+              <v-hover v-slot:default="{ hover }">
+                <v-card outlined :class="hover ? '' : 'no-shadow'">
                   <v-card-title class="subheading font-weight-bold">{{
                     item[showTitleKey]
                   }}</v-card-title>
@@ -191,8 +191,8 @@
                     </v-list-item>
                   </v-list>-->
                   <v-divider></v-divider>
-                  <v-card-actions
-                    ><v-hover v-slot:default="{ hover }">
+                  <v-card-actions>
+                    <v-hover v-slot:default="{ hover }">
                       <v-btn class="" text icon color="blue lighten-2">
                         <v-icon
                           small
@@ -252,87 +252,85 @@
                     </v-chip> -->
                   </v-card-actions>
                 </v-card>
-              </v-skeleton-loader>
-            </v-col>
-          </v-row>
-        </template>
+              </v-hover>
+            </v-skeleton-loader>
+          </v-col>
+        </v-row>
+      </template>
 
-        <template v-slot:footer>
-          <v-container class="mx-0 pa-0">
-            <v-row align="center" justify="center" no-gutters>
-              <v-col cols="3">
-                <span class="grey--text body-2">
-                  第 {{ pagination.pageStart + 1 }} -
-                  {{ pagination.pageStop }}条，共 {{ pagination.itemsLength }}条
-                </span>
-                <span class="grey--text body-2">每页记录数</span>
-                <v-menu offset-y>
-                  <template v-slot:activator="{ on }">
-                    <v-btn dark text color="primary" class="ml-2" v-on="on">
-                      {{ pagination.itemsPerPage }}
-                      <v-icon>mdi-chevron-down</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item
-                      v-for="(number, index) in sizeItems"
-                      :key="index"
-                      @click="updateItemsPerPage(number)"
-                    >
-                      <v-list-item-title>{{ number }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-col>
+      <template v-slot:footer> </template>
+    </v-data-iterator>
 
-              <v-col>
-                <v-pagination
-                  class="align-self-center align-center"
-                  ref="pagination"
-                  v-model="pageParams.current"
-                  :length="tableData.pageTotal"
-                  :next-icon="nextIcon"
-                  :prev-icon="prevIcon"
-                  :page="pageParams.current"
-                  :dataTotal-visible="totalVisible"
-                  style=""
-                ></v-pagination
-              ></v-col>
-              <v-col cols="3">
-                <v-row align="center" justify="center" no-gutters>
-                  <span
-                    class="
-            grey--text body-2"
-                  >
-                    跳转到
-                  </span>
-                  <v-col cols="3">
-                    <div class="ma-1">
-                      <v-text-field
-                        v-model="goCurrentPage"
-                        :label="goCurrentPage + ''"
-                        single-line
-                        hide-details
-                        dense
-                        full-width
-                        type="number"
-                        @keydown.enter="updateCurrentPage"
-                      ></v-text-field>
-                    </div>
-                  </v-col>
-                  <span
-                    class="
-            grey--text body-2"
-                    >页， 第 {{ pagination.page }} 页，共
-                    {{ tableData.pageTotal }}页
-                  </span>
-                </v-row></v-col
+    <v-row align="center" justify="center" no-gutters class="">
+      <v-col cols="3">
+        <span class="table-footer">
+          第 {{ pagination.pageStart + 1 }} - {{ pagination.pageStop }}条，共
+          {{ pagination.itemsLength }}条
+        </span>
+        <span class="table-footer">
+          每页
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn dark text color="primary" class="mr-1" v-on="on">
+                {{ options.itemsPerPage }}
+                <v-icon>mdi-chevron-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(number, index) in sizeItems"
+                :key="index"
+                @click="updateItemsPerPage(number)"
               >
-            </v-row></v-container
-          >
-        </template>
-      </v-data-iterator>
-    </v-container>
+                <v-list-item-title>{{ number }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          条
+        </span>
+      </v-col>
+
+      <v-col>
+        <v-pagination
+          class="align-self-center align-center"
+          ref="pagination"
+          v-model="pageParams.current"
+          :length="tableData.pageTotal"
+          :next-icon="nextIcon"
+          :prev-icon="prevIcon"
+          :page="pageParams.current"
+          :total-visible="totalVisible"
+          style=""
+          circle
+          color="teal"
+        >
+        </v-pagination>
+      </v-col>
+      <v-col cols="3">
+        <v-row align="center" justify="center" no-gutters>
+          <span class="table-footer">
+            跳转到
+          </span>
+          <v-col cols="3">
+            <div class="ma-1">
+              <v-text-field
+                v-model="goCurrentPage"
+                :label="goCurrentPage + ''"
+                single-line
+                hide-details
+                dense
+                full-width
+                type="number"
+                @keydown.enter="updateCurrentPage"
+              ></v-text-field>
+            </div>
+          </v-col>
+          <span class="table-footer"
+            >页， 第 {{ pagination.page }} 页，共 {{ tableData.pageTotal }}页
+          </span>
+        </v-row>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -469,7 +467,29 @@ export default {
         }
       ],
       initLoading: true,
-      showDownload: false
+      showDownload: false,
+
+      IndexDetail: 'detail',
+      IndexEdit: 'edit',
+      IndexDel: 'delete',
+      IndexAdd: 'addition',
+      optItems: [
+        {
+          icon: 'iconfont icon-zhaiyao',
+          desc: '详细信息',
+          index: 'detail'
+        },
+        {
+          icon: 'iconfont icon-bianji',
+          desc: '修改信息',
+          index: 'edit'
+        },
+        {
+          icon: 'iconfont icon-shanchu',
+          desc: '删除记录',
+          index: 'delete'
+        }
+      ]
     }
   },
   mounted() {
@@ -608,6 +628,26 @@ export default {
       }
     },
     //================
+
+    optItem(index, item) {
+      switch (index) {
+        case this.IndexDetail:
+          this.displayItem(item)
+          break
+        case this.IndexEdit:
+          this.editItem(item)
+          break
+        case this.IndexDel:
+          this.deleteItem(item)
+          break
+        case this.IndexAdd:
+          this.addItem(item)
+          break
+
+        default:
+          break
+      }
+    },
     stopInitLoading() {
       this.initLoading = false
     },

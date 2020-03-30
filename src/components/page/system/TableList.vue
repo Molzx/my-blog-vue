@@ -4,68 +4,7 @@
       <slot name="header-row1">
         <v-row class="mx-0" align="center" style="height:48px;">
           <slot name="header-prepend">
-            <div
-              v-if="tableData.name == 'user'"
-              class="d-flex flex-row flex-stretch align-center"
-            >
-              <v-btn
-                class="mr-1"
-                depressed
-                color="primary"
-                dark
-                @click="stateClickAnim"
-              >
-                用户状态<v-icon ref="stateArrowIcon" right small
-                  >fas fa-chevron-right</v-icon
-                >
-              </v-btn>
-              <v-card ref="stateCard">
-                <v-responsive
-                  ref="stateRespContainer"
-                  :max-width="stateRespWidth"
-                  class="transition-swing"
-                >
-                  <v-btn-toggle
-                    v-model="pageParams.state"
-                    color="blue accent-3"
-                    borderless
-                    dense
-                  >
-                    <v-btn value="all">
-                      全部
-                    </v-btn>
-                    <v-btn value="正常">
-                      正常
-                    </v-btn>
-
-                    <v-btn value="禁言">
-                      已禁言
-                    </v-btn>
-
-                    <v-btn value="冻结">
-                      已冻结
-                    </v-btn>
-                  </v-btn-toggle>
-                </v-responsive>
-              </v-card>
-            </div>
-            <!-- <div
-              class="d-flex flex-row flex-stretch align-center"
-              v-if="tableData.name === 'article'"
-            >
-              <v-btn
-                class="mr-1"
-                depressed
-                color="primary"
-                dark
-                @click="showArticleCondition = !showArticleCondition"
-              >
-                条件筛选<v-icon ref="statusArrowIcon" right small
-                  >fas fa-chevron-bottom</v-icon
-                >
-              </v-btn>
-            </div> -->
-            <div class="d-flex flex-row flex-stretch align-center" v-else>
+            <div class="d-flex flex-row flex-stretch align-center">
               <v-btn
                 class="mr-3"
                 depressed
@@ -87,42 +26,24 @@
                   ></v-icon>
                 </v-scale-transition>
               </v-btn>
-              <v-slide-x-transition>
-                <v-chip-group
-                  v-show="showCondition"
-                  v-model="pageParams.status"
-                >
-                  <v-chip
-                    filter
-                    outlined
-                    v-for="item in statusItem"
-                    :key="item.value"
-                    :value="item.value"
-                  >
-                    {{ item.state }}
-                  </v-chip>
-                </v-chip-group>
-              </v-slide-x-transition>
-              <!-- <v-card ref="statusCard">
-                <v-btn-toggle
-                  v-model="pageParams.status"
-                  color="blue accent-3"
-                  borderless
-                  dense
-                >
-                  <v-btn value="all">
-                    默认
-                  </v-btn>
-
-                  <v-btn value="启用">
-                    启用
-                  </v-btn>
-
-                  <v-btn value="禁用">
-                    禁用
-                  </v-btn>
-                </v-btn-toggle>
-              </v-card> -->
+              <slot name="condition">
+                <v-slide-x-transition>
+                  <v-row v-show="showCondition" class="mx-0">
+                    <slot name="condition-prepend"> </slot>
+                    <v-chip-group v-model="pageParams.status">
+                      <v-chip
+                        filter
+                        outlined
+                        v-for="item in statusItem"
+                        :key="item.value"
+                        :value="item.value"
+                      >
+                        {{ item.state }}
+                      </v-chip>
+                    </v-chip-group>
+                  </v-row>
+                </v-slide-x-transition>
+              </slot>
             </div>
           </slot>
           <v-spacer></v-spacer>
@@ -160,168 +81,7 @@
         </v-row>
       </slot>
 
-      <slot name="header-row2">
-        <!-- <v-expand-transition>
-          <div
-            v-if="tableData.name === 'article'"
-            v-show="showArticleCondition"
-          >
-            <v-row>
-              <v-col cols="12" md="8">
-                <v-overflow-btn
-                  v-model="pageParams.cid"
-                  hint="文章分类"
-                  placeholder="筛选"
-                  :items="tableData.categoryItems"
-                  item-text="categoryName"
-                  item-value="categoryId"
-                  persistent-hint
-                  single-line
-                  dense
-                  disable-lookup
-                  background-color="#fafafa"
-                  menu-props="bottom, overflowY"
-                ></v-overflow-btn>
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-overflow-btn
-                  v-model="pageParams.tid"
-                  hint="文章标签"
-                  placeholder="筛选"
-                  :items="tableData.tagItems"
-                  item-text="tagName"
-                  item-value="tagId"
-                  persistent-hint
-                  single-line
-                  dense
-                  disable-lookup
-                  background-color="#fafafa"
-                  menu-props="bottom, overflowY"
-                ></v-overflow-btn>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.type"
-                  hint="文章类型"
-                  :items="typeStatusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  disable-lookup
-                  background-color="#fafafa"
-                  menu-props="bottom, overflowY"
-                ></v-overflow-btn
-              ></v-col>
-
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.status"
-                  hint="文章可见状态"
-                  :items="statusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  background-color="#fafafa"
-                  menu-props="bottom"
-                >
-                </v-overflow-btn>
-              </v-col>
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.pubStatus"
-                  hint="发布状态"
-                  :items="pubStatusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  background-color="#fafafa"
-                  menu-props="bottom"
-                ></v-overflow-btn>
-              </v-col>
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.recStatus"
-                  hint="推荐状态"
-                  :items="recStatusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  background-color="#fafafa"
-                  menu-props="bottom"
-                ></v-overflow-btn>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.admStatus"
-                  hint="赞赏功能"
-                  :items="switchStatusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  background-color="#fafafa"
-                  menu-props="bottom"
-                ></v-overflow-btn>
-              </v-col>
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.copStatus"
-                  hint="版权声明"
-                  :items="switchStatusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  background-color="#fafafa"
-                  menu-props="bottom"
-                ></v-overflow-btn>
-              </v-col>
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.repStatus"
-                  hint="转载声明"
-                  :items="switchStatusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  background-color="#fafafa"
-                  menu-props="bottom"
-                ></v-overflow-btn>
-              </v-col>
-              <v-col cols="3">
-                <v-overflow-btn
-                  v-model="pageParams.comStatus"
-                  hint="评论功能"
-                  :items="switchStatusItems"
-                  item-text="state"
-                  item-value="value"
-                  persistent-hint
-                  single-line
-                  dense
-                  background-color="#fafafa"
-                  menu-props="bottom"
-                ></v-overflow-btn>
-              </v-col>
-            </v-row>
-          </div>
-        </v-expand-transition> -->
-      </slot>
+      <slot name="header-row2"> </slot>
     </slot>
     <v-row class="mx-0">
       <v-col cols="12" class="px-0">
@@ -336,7 +96,6 @@
             :page.sync="pageParams.current"
             :items-per-page="pageParams.size"
             @page-count="getPageTotal"
-            :options.sync="options"
             @pagination="updatePagination"
             hide-default-footer
           >
@@ -388,7 +147,7 @@
               <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                   <v-btn dark text color="primary" class="mr-1" v-on="on">
-                    {{ options.itemsPerPage }}
+                    {{ pagination.itemsPerPage }}
                     <v-icon>mdi-chevron-down</v-icon>
                   </v-btn>
                 </template>
@@ -454,7 +213,6 @@
 </template>
 
 <script>
-import { TweenLite } from '@common/tweenmax/all'
 export default {
   props: {
     pageParams: {
@@ -465,16 +223,7 @@ export default {
           current: 1,
           sorts: [],
           orders: [],
-          state: 'all',
-          status: 'all',
-          //
-          //文章用条件
-          admStatus: 'all',
-          copStatus: 'all',
-          repStatus: 'all',
-          comStatus: 'all',
-          pubStatus: 'all',
-          recStatus: 'all'
+          status: ''
         }
       }
     },
@@ -490,6 +239,20 @@ export default {
           showLoading: false,
           isUpdatePagination: false,
           isGetTableData: false
+        }
+      }
+    },
+    //card表格需要返回的数据
+    cardPagination: {
+      type: Object,
+      default: () => {
+        return {
+          page: 0,
+          itemsPerPage: 0,
+          pageStart: -1,
+          pageStop: 0,
+          pageTotal: 0,
+          itemsLength: 0
         }
       }
     }
@@ -512,7 +275,7 @@ export default {
       options: {},
       pagination: {
         page: 0,
-        itemsPerPage: 0,
+        itemsPerPage: 8,
         pageStart: -1,
         pageStop: 0,
         pageTotal: 0,
@@ -553,94 +316,13 @@ export default {
     }
   },
   mounted() {
-    // if (this.tableData.name !== 'article') {
-    //   this.initStatusAnim()
-    // }
+    //
   },
   methods: {
-    initStatusAnim() {
-      const card = this.$refs.statusCard.$el
-      TweenLite.set(card, {
-        css: {
-          width: 0,
-          // width: 0
-          scale: 0.4,
-          autoAlpha: 0,
-          transformOrigin: 'left'
-        }
-      })
-    },
-    statusClickAnim() {
-      const card = this.$refs.statusCard.$el
-      const icon = this.$refs.statusArrowIcon.$el
-      if (this.statusRespFlag) {
-        TweenLite.to(card, 0.2, {
-          css: {
-            scale: 0.6,
-            autoAlpha: 0,
-            transformOrigin: 'left'
-          },
-          onComplete: function() {
-            TweenLite.set([card], {
-              width: 0
-            })
-          }
-        })
-        TweenLite.to(icon, 0.2, { x: 0, autoAlpha: 1 })
-      } else {
-        TweenLite.set(card, {
-          width: 192
-        })
-        TweenLite.to(card, 0.2, {
-          css: {
-            // x: 0,
-            // width: 192
-            scale: 1,
-            autoAlpha: 1,
-            transformOrigin: 'left'
-          }
-        })
-        TweenLite.to(icon, 0.2, { x: 15, autoAlpha: 0 })
-      }
-
-      this.statusRespFlag = !this.statusRespFlag
-    },
-    stateClickAnim() {
-      const card = this.$refs.stateRespContainer.$parent.$el
-      const resp = this.$refs.stateRespContainer.$el
-      const icon = this.$refs.stateArrowIcon.$el
-      if (this.stateRespFlag) {
-        TweenLite.to(resp, 0, {
-          css: {
-            maxWidth: 0
-          }
-        })
-        TweenLite.to(card, 0.4, {
-          css: {
-            marginRight: 0
-          }
-        })
-        TweenLite.to(icon, 0.2, { x: 0, autoAlpha: 1 })
-      } else {
-        TweenLite.to(resp, 0, {
-          css: {
-            maxWidth: 383
-          }
-        })
-        TweenLite.to(card, 0.2, {
-          css: {
-            marginRight: 8
-          }
-        })
-        TweenLite.to(icon, 0.2, { x: 15, autoAlpha: 0 })
-      }
-      this.stateRespFlag = !this.stateRespFlag
-    },
     searchClick(e) {
       this.searchWidth = 300
       console.log(e)
     },
-
     startSearch() {
       this.pageParams.search = this.search
     },
@@ -664,23 +346,24 @@ export default {
       }
       this.goCurrentPage = this.pageParams.current
 
+      this.$emit('update:cardPagination', this.pagination)
       return this.pagination
     },
-    updateOptions() {
-      this.options = {
-        page: this.pageParams.current,
-        itemsPerPage: this.pageParams.size,
-        sortBy: [],
-        sortDesc: [],
-        groupBy: [],
-        groupDesc: [],
-        multiSort: false,
-        mustSort: false
-      }
-      return this.options
-    },
+    // updateOptions() {
+    //   this.options = {
+    //     page: this.pageParams.current,
+    //     itemsPerPage: this.pageParams.size,
+    //     sortBy: [],
+    //     sortDesc: [],
+    //     groupBy: [],
+    //     groupDesc: [],
+    //     multiSort: false,
+    //     mustSort: false
+    //   }
+    //   return this.options
+    // },
     updateItemsPerPage(number) {
-      this.options.itemsPerPage = number
+      this.pagination.itemsPerPage = number
     },
     updateCurrentPage() {
       this.pageParams.current = parseInt(this.goCurrentPage)
@@ -735,15 +418,15 @@ export default {
       },
       deep: true
     },
-    'options.itemsPerPage': {
+    'pagination.itemsPerPage': {
       handler(newVal) {
         if (typeof newVal != 'undefined') {
-          // console.log('new' + newVal)
+          console.log('new' + newVal)
 
           // this.pageParams.current = current
           if (this.pageParams.size == newVal) {
             //初始化页面
-            // console.log('initOptions.itemsPerPage')
+            console.log('initOptions.itemsPerPage')
           } else {
             console.log('----.itemsPerPage')
             this.isDoNow = false
@@ -783,6 +466,7 @@ export default {
     'tableData.isUpdatePagination': {
       handler(newVal) {
         if (newVal == true) {
+          console.log('hingsg')
           //更新页面总记录数
           this.updatePagination()
           this.tableData.isUpdatePagination = false

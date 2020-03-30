@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:59:39
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-28 18:28:19
+ * @LastEditTime : 2020-03-30 13:24:33
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\fct.js
  * @Description  : 这是一些注释
  */
@@ -90,19 +90,26 @@ exports.install = function(Vue, router, store, TweenMaxObject) {
     }
     return previewImg
   }
-  Vue.prototype.$fileBg = type => {
+  Vue.prototype.$fileBg = name => {
     //全局函数，根据传进来的参数，判断使用文件所属类型背景
-    switch (type) {
-      case 'text/html':
-        return Vue.prototype.$global.filesTypeBgs.html
-
-      case 'image/png':
-      case 'image/jpeg':
-        return Vue.prototype.$global.filesTypeBgs.img
-
-      default:
-        return Vue.prototype.$global.filesTypeBgs.zip
+    let index = name.lastIndexOf('.')
+    let type = name.substring(index + 1, name.length)
+    let data = Vue.prototype.$global.filesTypeBgs[type]
+    if (!data) {
+      data = Vue.prototype.$global.filesTypeBgs.zip
     }
+    return data
+    // switch (type) {
+    //   case 'text/html':
+    //     return Vue.prototype.$global.filesTypeBgs.html
+
+    //   case 'image/png':
+    //   case 'image/jpeg':
+    //     return Vue.prototype.$global.filesTypeBgs.img
+
+    //   default:
+    //     return Vue.prototype.$global.filesTypeBgs.zip
+    // }
   }
   Vue.prototype.$scrollTop = function() {
     //滑动到顶部

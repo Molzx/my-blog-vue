@@ -50,7 +50,7 @@ export default {
     }
   },
   created() {
-    console.log(this.$route)
+    // console.log(this.$route)
     //
     // console.log('create')
     let current = this.getCurrentSubPage

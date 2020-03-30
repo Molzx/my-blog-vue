@@ -64,7 +64,9 @@ $dark-bgs: (
 }
 
 //================shadow ================================
-
+.no-shadow {
+  box-shadow: none !important;
+}
 .shadow-1 {
   box-shadow: 0 8px 16px 0 rgba(28, 31, 33, 0.1) !important;
 }
