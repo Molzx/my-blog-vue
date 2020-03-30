@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-21 12:25:08
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 22:13:12
+ * @LastEditTime : 2020-03-30 11:02:13
  * @FilePath     : \VueProjects\my-blog\src\assets\data\table-header.js
  * @Description  : 系统展示表格头部数据
  */
@@ -32,7 +32,7 @@ export const user = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]
 
@@ -52,7 +52,7 @@ export const role = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]
 export const permission = [
@@ -72,7 +72,7 @@ export const permission = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]
 
@@ -113,7 +113,7 @@ export const file = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140,
+    width: 180,
     show: false
   }
 ]
@@ -134,7 +134,7 @@ export const tag = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 170
   }
 ]
 
@@ -154,7 +154,7 @@ export const category = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]
 export const article = [
@@ -180,7 +180,7 @@ export const article = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]
 export const comment = [
@@ -212,7 +212,7 @@ export const comment = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]
 
@@ -234,7 +234,7 @@ export const announcement = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]
 
@@ -257,6 +257,6 @@ export const report = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 140
+    width: 180
   }
 ]

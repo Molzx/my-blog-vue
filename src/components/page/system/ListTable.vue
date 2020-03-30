@@ -1,423 +1,410 @@
 <template>
   <v-card class="card-no">
-    <v-container>
-      <v-row class=" pb-2">
-        <div
-          v-if="tableData.name == 'user'"
-          class="d-flex flex-row flex-stretch align-center"
+    <v-row class=" pb-2">
+      <div
+        v-if="tableData.name == 'user'"
+        class="d-flex flex-row flex-stretch align-center"
+      >
+        <v-btn
+          class="mr-1"
+          depressed
+          color="primary"
+          dark
+          @click="stateClickAnim"
         >
-          <v-btn
-            class="mr-1"
-            depressed
-            color="primary"
-            dark
-            @click="stateClickAnim"
+          用户状态<v-icon ref="stateArrowIcon" right small
+            >fas fa-chevron-right</v-icon
           >
-            用户状态<v-icon ref="stateArrowIcon" right small
-              >fas fa-chevron-right</v-icon
-            >
-          </v-btn>
-          <v-card ref="stateCard">
-            <v-responsive
-              ref="stateRespContainer"
-              :max-width="stateRespWidth"
-              class="transition-swing"
-            >
-              <v-btn-toggle
-                v-model="pageParams.state"
-                color="blue accent-3"
-                borderless
-                dense
-              >
-                <v-btn value="all">
-                  全部
-                </v-btn>
-                <v-btn value="正常">
-                  正常
-                </v-btn>
-
-                <v-btn value="禁言">
-                  已禁言
-                </v-btn>
-
-                <v-btn value="冻结">
-                  已冻结
-                </v-btn>
-              </v-btn-toggle>
-            </v-responsive>
-          </v-card>
-        </div>
-        <div
-          class="d-flex flex-row flex-stretch align-center"
-          v-if="tableData.name === 'article'"
-        >
-          <v-btn
-            class="mr-1"
-            depressed
-            color="primary"
-            dark
-            @click="showArticleCondition = !showArticleCondition"
+        </v-btn>
+        <v-card ref="stateCard">
+          <v-responsive
+            ref="stateRespContainer"
+            :max-width="stateRespWidth"
+            class="transition-swing"
           >
-            条件筛选<v-icon ref="statusArrowIcon" right small
-              >fas fa-chevron-bottom</v-icon
-            >
-          </v-btn>
-        </div>
-        <div class="d-flex flex-row flex-stretch align-center" v-else>
-          <v-btn
-            class="mr-1"
-            depressed
-            color="primary"
-            dark
-            @click="statusClickAnim"
-          >
-            {{ tableData.nameText }}状态<v-icon
-              ref="statusArrowIcon"
-              right
-              small
-              >fas fa-chevron-right</v-icon
-            >
-          </v-btn>
-          <v-card ref="statusCard">
             <v-btn-toggle
-              v-model="pageParams.status"
+              v-model="pageParams.state"
               color="blue accent-3"
               borderless
               dense
             >
               <v-btn value="all">
-                默认
+                全部
+              </v-btn>
+              <v-btn value="正常">
+                正常
               </v-btn>
 
-              <v-btn value="启用">
-                启用
+              <v-btn value="禁言">
+                已禁言
               </v-btn>
 
-              <v-btn value="禁用">
-                禁用
+              <v-btn value="冻结">
+                已冻结
               </v-btn>
             </v-btn-toggle>
-          </v-card>
-        </div>
-        <v-spacer></v-spacer>
-        <v-responsive
-          ref="searchContainer"
-          :max-width="searchWidth"
-          class="transition-swing"
+          </v-responsive>
+        </v-card>
+      </div>
+      <div
+        class="d-flex flex-row flex-stretch align-center"
+        v-if="tableData.name === 'article'"
+      >
+        <v-btn
+          class="mr-1"
+          depressed
+          color="primary"
+          dark
+          @click="showArticleCondition = !showArticleCondition"
         >
-          <v-text-field
-            v-model="search"
-            append-icon="search"
-            @click:append="startSearch"
-            @keydown.enter="startSearch"
-            label="搜索..."
-            single-line
-            hide-details
-            dense
-            solo
-            flat
-            rounded
-            background-color="#f5f5f5"
-            @focus="searchWidth = 200"
-            @blur="searchWidth = 130"
-          ></v-text-field>
-        </v-responsive>
-        <v-btn class="mx-4" depressed color="diy-1" @click="addItem"
-          >添加{{ tableData.nameText }}</v-btn
-        >
-      </v-row>
-
-      <v-expand-transition>
-        <div v-if="tableData.name === 'article'" v-show="showArticleCondition">
-          <v-row>
-            <v-col cols="12" md="8">
-              <v-overflow-btn
-                v-model="pageParams.cid"
-                hint="文章分类"
-                placeholder="筛选"
-                :items="tableData.categoryItems"
-                item-text="categoryName"
-                item-value="categoryId"
-                persistent-hint
-                single-line
-                dense
-                disable-lookup
-                background-color="#fafafa"
-                menu-props="bottom, overflowY"
-              ></v-overflow-btn>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-overflow-btn
-                v-model="pageParams.tid"
-                hint="文章标签"
-                placeholder="筛选"
-                :items="tableData.tagItems"
-                item-text="tagName"
-                item-value="tagId"
-                persistent-hint
-                single-line
-                dense
-                disable-lookup
-                background-color="#fafafa"
-                menu-props="bottom, overflowY"
-              ></v-overflow-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.type"
-                hint="文章类型"
-                :items="typeStatusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                disable-lookup
-                background-color="#fafafa"
-                menu-props="bottom, overflowY"
-              ></v-overflow-btn
-            ></v-col>
-
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.status"
-                hint="文章可见状态"
-                :items="statusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                background-color="#fafafa"
-                menu-props="bottom"
-              >
-              </v-overflow-btn>
-            </v-col>
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.pubStatus"
-                hint="发布状态"
-                :items="pubStatusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                background-color="#fafafa"
-                menu-props="bottom"
-              ></v-overflow-btn>
-            </v-col>
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.recStatus"
-                hint="推荐状态"
-                :items="recStatusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                background-color="#fafafa"
-                menu-props="bottom"
-              ></v-overflow-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.admStatus"
-                hint="赞赏功能"
-                :items="switchStatusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                background-color="#fafafa"
-                menu-props="bottom"
-              ></v-overflow-btn>
-            </v-col>
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.copStatus"
-                hint="版权声明"
-                :items="switchStatusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                background-color="#fafafa"
-                menu-props="bottom"
-              ></v-overflow-btn>
-            </v-col>
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.repStatus"
-                hint="转载声明"
-                :items="switchStatusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                background-color="#fafafa"
-                menu-props="bottom"
-              ></v-overflow-btn>
-            </v-col>
-            <v-col cols="3">
-              <v-overflow-btn
-                v-model="pageParams.comStatus"
-                hint="评论功能"
-                :items="switchStatusItems"
-                item-text="state"
-                item-value="value"
-                persistent-hint
-                single-line
-                dense
-                background-color="#fafafa"
-                menu-props="bottom"
-              ></v-overflow-btn>
-            </v-col>
-          </v-row>
-        </div>
-      </v-expand-transition>
-      <v-row>
-        <v-col cols="12" class="px-0">
-          <v-data-table
-            calculate-widths
-            :headers="tableData.headers"
-            :items="tableData.records"
-            :loading="tableData.showLoading"
-            :loading-text="loadingText"
-            :no-data-text="noDataText"
-            :page.sync="pageParams.current"
-            :items-per-page="pageParams.size"
-            @page-count="getPageTotal"
-            :options.sync="options"
-            @pagination="updatePagination"
-            hide-default-footer
+          条件筛选<v-icon ref="statusArrowIcon" right small
+            >fas fa-chevron-bottom</v-icon
           >
-            <template v-slot:item.action="{ item }">
-              <v-hover v-slot:default="{ hover }">
-                <v-btn class="" text icon color="blue lighten-2">
-                  <v-icon
-                    small
-                    :color="hover ? 'green  darken-2' : ''"
-                    @click="displayItem(item)"
-                  >
-                    mdi-comment-alert-outline
-                    <!-- iconfont icon-eye -->
-                  </v-icon>
-                </v-btn>
-              </v-hover>
-              <v-hover v-slot:default="{ hover }">
-                <v-btn class="" text icon color="blue lighten-2">
-                  <v-icon
-                    small
-                    :color="hover ? 'green  darken-2' : ''"
-                    @click="editItem(item)"
-                    >mdi-circle-edit-outline
-                    <!-- iconfont icon-edit- -->
-                  </v-icon>
-                </v-btn>
-              </v-hover>
-              <v-hover v-slot:default="{ hover }">
-                <v-btn class="" text icon color="blue lighten-2">
+        </v-btn>
+      </div>
+      <div class="d-flex flex-row flex-stretch align-center" v-else>
+        <v-btn
+          class="mr-1"
+          depressed
+          color="primary"
+          dark
+          @click="statusClickAnim"
+        >
+          {{ tableData.nameText }}状态<v-icon ref="statusArrowIcon" right small
+            >fas fa-chevron-right</v-icon
+          >
+        </v-btn>
+        <v-card ref="statusCard">
+          <v-btn-toggle
+            v-model="pageParams.status"
+            color="blue accent-3"
+            borderless
+            dense
+          >
+            <v-btn value="all">
+              默认
+            </v-btn>
+
+            <v-btn value="启用">
+              启用
+            </v-btn>
+
+            <v-btn value="禁用">
+              禁用
+            </v-btn>
+          </v-btn-toggle>
+        </v-card>
+      </div>
+      <v-spacer></v-spacer>
+      <v-responsive
+        ref="searchContainer"
+        :max-width="searchWidth"
+        class="transition-swing"
+      >
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          @click:append="startSearch"
+          @keydown.enter="startSearch"
+          label="搜索..."
+          single-line
+          hide-details
+          dense
+          solo
+          flat
+          rounded
+          background-color="#f5f5f5"
+          @focus="searchWidth = 200"
+          @blur="searchWidth = 130"
+        ></v-text-field>
+      </v-responsive>
+      <v-btn class="mx-4" depressed color="diy-1" @click="addItem"
+        >添加{{ tableData.nameText }}</v-btn
+      >
+    </v-row>
+
+    <v-expand-transition>
+      <div v-if="tableData.name === 'article'" v-show="showArticleCondition">
+        <v-row>
+          <v-col cols="12" md="8">
+            <v-overflow-btn
+              v-model="pageParams.cid"
+              hint="文章分类"
+              placeholder="筛选"
+              :items="tableData.categoryItems"
+              item-text="categoryName"
+              item-value="categoryId"
+              persistent-hint
+              single-line
+              dense
+              disable-lookup
+              background-color="#fafafa"
+              menu-props="bottom, overflowY"
+            ></v-overflow-btn>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-overflow-btn
+              v-model="pageParams.tid"
+              hint="文章标签"
+              placeholder="筛选"
+              :items="tableData.tagItems"
+              item-text="tagName"
+              item-value="tagId"
+              persistent-hint
+              single-line
+              dense
+              disable-lookup
+              background-color="#fafafa"
+              menu-props="bottom, overflowY"
+            ></v-overflow-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.type"
+              hint="文章类型"
+              :items="typeStatusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              disable-lookup
+              background-color="#fafafa"
+              menu-props="bottom, overflowY"
+            ></v-overflow-btn
+          ></v-col>
+
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.status"
+              hint="文章可见状态"
+              :items="statusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              background-color="#fafafa"
+              menu-props="bottom"
+            >
+            </v-overflow-btn>
+          </v-col>
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.pubStatus"
+              hint="发布状态"
+              :items="pubStatusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              background-color="#fafafa"
+              menu-props="bottom"
+            ></v-overflow-btn>
+          </v-col>
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.recStatus"
+              hint="推荐状态"
+              :items="recStatusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              background-color="#fafafa"
+              menu-props="bottom"
+            ></v-overflow-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.admStatus"
+              hint="赞赏功能"
+              :items="switchStatusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              background-color="#fafafa"
+              menu-props="bottom"
+            ></v-overflow-btn>
+          </v-col>
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.copStatus"
+              hint="版权声明"
+              :items="switchStatusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              background-color="#fafafa"
+              menu-props="bottom"
+            ></v-overflow-btn>
+          </v-col>
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.repStatus"
+              hint="转载声明"
+              :items="switchStatusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              background-color="#fafafa"
+              menu-props="bottom"
+            ></v-overflow-btn>
+          </v-col>
+          <v-col cols="3">
+            <v-overflow-btn
+              v-model="pageParams.comStatus"
+              hint="评论功能"
+              :items="switchStatusItems"
+              item-text="state"
+              item-value="value"
+              persistent-hint
+              single-line
+              dense
+              background-color="#fafafa"
+              menu-props="bottom"
+            ></v-overflow-btn>
+          </v-col>
+        </v-row>
+      </div>
+    </v-expand-transition>
+    <v-row>
+      <v-col cols="12" class="px-0">
+        <v-data-table
+          calculate-widths
+          :headers="tableData.headers"
+          :items="tableData.records"
+          :loading="tableData.showLoading"
+          :loading-text="loadingText"
+          :no-data-text="noDataText"
+          :page.sync="pageParams.current"
+          :items-per-page="pageParams.size"
+          @page-count="getPageTotal"
+          :options.sync="options"
+          @pagination="updatePagination"
+          hide-default-footer
+        >
+          <template v-slot:item.action="{ item }">
+            <v-tooltip
+              v-for="opt in optItems"
+              :key="opt.index"
+              top
+              content-class="b-tooltip"
+              color="white"
+              light
+            >
+              <template v-slot:activator="{ on, value }">
+                <v-btn
+                  class="opt-btn ml-1"
+                  :class="value ? 'active' : ''"
+                  text
+                  icon
+                  color="icon-color"
+                  v-on="on"
+                >
                   <v-icon
                     size="20"
-                    :color="hover ? 'green  darken-2' : ''"
-                    @click="deleteItem(item)"
-                    >mdi-delete-sweep-outline
-                    <!-- iconfont icon-trash -->
+                    :color="value ? 'blue' : ''"
+                    @click="optItem(opt.index, item)"
+                  >
+                    {{ opt.icon }}
                   </v-icon>
                 </v-btn>
-              </v-hover>
-            </template>
-            <template v-slot:footer>
-              <v-container class="mx-0 pa-0">
-                <v-row align="center" justify="center" no-gutters>
-                  <v-col cols="3">
-                    <span class="table-footer">
-                      第 {{ pagination.pageStart + 1 }} -
-                      {{ pagination.pageStop }}条，共
-                      {{ pagination.itemsLength }}条
-                    </span>
-                    <span class="table-footer"
-                      >每页
-                      <v-menu offset-y>
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            dark
-                            text
-                            color="primary"
-                            class="mr-1"
-                            v-on="on"
-                          >
-                            {{ pagination.itemsPerPage }}
-                            <v-icon>mdi-chevron-down</v-icon>
-                          </v-btn>
-                        </template>
-                        <v-list>
-                          <v-list-item
-                            v-for="(number, index) in sizeItems"
-                            :key="index"
-                            @click="updateItemsPerPage(number)"
-                          >
-                            <v-list-item-title>{{ number }}</v-list-item-title>
-                          </v-list-item>
-                        </v-list> </v-menu
-                      >条</span
-                    >
-                  </v-col>
+              </template>
+              <span class="icon-color">{{ opt.desc }}</span>
+            </v-tooltip>
+          </template>
+          <template v-slot:footer> </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
+    <v-footer app padless fixed inset class="my-footer">
+      <div class=" fill-width px-10 pt-2 pb-1">
+        <v-row align="center" justify="center" no-gutters class="">
+          <v-col cols="3">
+            <span class="table-footer">
+              第 {{ pagination.pageStart + 1 }} -
+              {{ pagination.pageStop }}条，共 {{ pagination.itemsLength }}条
+            </span>
+            <span class="table-footer">
+              每页
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-btn dark text color="primary" class="mr-1" v-on="on">
+                    {{ options.itemsPerPage }}
+                    <v-icon>mdi-chevron-down</v-icon>
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(number, index) in sizeItems"
+                    :key="index"
+                    @click="updateItemsPerPage(number)"
+                  >
+                    <v-list-item-title>{{ number }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              条
+            </span>
+          </v-col>
 
-                  <v-col>
-                    <v-pagination
-                      class="align-self-center align-center"
-                      ref="pagination"
-                      v-model="pageParams.current"
-                      :length="tableData.pageTotal"
-                      :next-icon="nextIcon"
-                      :prev-icon="prevIcon"
-                      :page="pageParams.current"
-                      :dataTotal-visible="totalVisible"
-                      style=""
-                    ></v-pagination
-                  ></v-col>
-                  <v-col cols="3">
-                    <v-row align="center" justify="center" no-gutters>
-                      <span class="table-footer">
-                        跳转到
-                      </span>
-                      <v-col cols="3">
-                        <div class="ma-1">
-                          <v-text-field
-                            v-model="goCurrentPage"
-                            :label="goCurrentPage + ''"
-                            single-line
-                            hide-details
-                            dense
-                            full-width
-                            type="number"
-                            @keydown.enter="updateCurrentPage"
-                          ></v-text-field>
-                        </div>
-                      </v-col>
-                      <span class="table-footer"
-                        >页， 第 {{ pagination.page }} 页，共
-                        {{ tableData.pageTotal }}页
-                      </span>
-                    </v-row>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
-    </v-container>
+          <v-col>
+            <v-pagination
+              class="align-self-center align-center"
+              ref="pagination"
+              v-model="pageParams.current"
+              :length="tableData.pageTotal"
+              :next-icon="nextIcon"
+              :prev-icon="prevIcon"
+              :page="pageParams.current"
+              :total-visible="totalVisible"
+              style=""
+              circle
+              color="teal"
+            >
+            </v-pagination>
+          </v-col>
+          <v-col cols="3">
+            <v-row align="center" justify="center" no-gutters>
+              <span class="table-footer">
+                跳转到
+              </span>
+              <v-col cols="3">
+                <div class="ma-1">
+                  <v-text-field
+                    v-model="goCurrentPage"
+                    :label="goCurrentPage + ''"
+                    single-line
+                    hide-details
+                    dense
+                    full-width
+                    type="number"
+                    @keydown.enter="updateCurrentPage"
+                  ></v-text-field>
+                </div>
+              </v-col>
+              <span class="table-footer"
+                >页， 第 {{ pagination.page }} 页，共
+                {{ tableData.pageTotal }}页
+              </span>
+            </v-row>
+          </v-col>
+        </v-row>
+      </div>
+    </v-footer>
   </v-card>
 </template>
 
@@ -519,6 +506,27 @@ export default {
         { state: '不筛选', value: 'all' },
         { state: '所有人可见', value: '启用' },
         { state: '仅个人可见', value: '禁用' }
+      ],
+      IndexDetail: 'detail',
+      IndexEdit: 'edit',
+      IndexDel: 'delete',
+      IndexAdd: 'addition',
+      optItems: [
+        {
+          icon: 'iconfont icon-zhaiyao',
+          desc: '详细信息',
+          index: 'detail'
+        },
+        {
+          icon: 'iconfont icon-bianji',
+          desc: '修改信息',
+          index: 'edit'
+        },
+        {
+          icon: 'iconfont icon-shanchu',
+          desc: '删除记录',
+          index: 'delete'
+        }
       ]
     }
   },
@@ -650,13 +658,32 @@ export default {
       return this.options
     },
     updateItemsPerPage(number) {
-      this.pageParams.size = number
+      this.options.itemsPerPage = number
     },
     updateCurrentPage() {
       this.pageParams.current = parseInt(this.goCurrentPage)
     },
 
     //================
+    optItem(index, item) {
+      switch (index) {
+        case this.IndexDetail:
+          this.displayItem(item)
+          break
+        case this.IndexEdit:
+          this.editItem(item)
+          break
+        case this.IndexDel:
+          this.deleteItem(item)
+          break
+        case this.IndexAdd:
+          this.addItem(item)
+          break
+
+        default:
+          break
+      }
+    },
     displayItem(item) {
       this.$parent.displayItem(item)
     },
@@ -696,7 +723,7 @@ export default {
             //初始化页面
             // console.log('initOptions.itemsPerPage')
           } else {
-            // console.log('----.itemsPerPage')
+            console.log('----.itemsPerPage')
             this.isDoNow = false
             this.pageParams.size = newVal
 
@@ -765,4 +792,13 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.opt-btn.active {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.opt-btn {
+  opacity: 0.8;
+}
+</style>

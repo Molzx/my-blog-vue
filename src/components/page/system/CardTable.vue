@@ -594,8 +594,8 @@ export default {
       return this.options
     },
     updateItemsPerPage(number) {
-      this.itemsPerPage = number
-      this.pageParams.size = number
+      this.options.itemsPerPage = number
+      // this.pageParams.size = number
     },
     updateCurrentPage() {
       this.pageParams.current = parseInt(this.goCurrentPage)
