@@ -1,80 +1,61 @@
 <template>
-  <div>
-    <v-sheet color="grey lighten-4">
-      <v-container class="py-0">
-        <v-row align="center" justify="start">
-          <v-col
-            v-for="(selection, i) in selections"
-            :key="selection.name"
-            class="shrink"
-          >
-            <v-chip
-              :disabled="otherData.loading"
-              close
-              label
-              @click:close="selected.splice(i, 1)"
-            >
-              <!-- <v-icon left v-text="selection.icon"></v-icon> -->
-              {{ selection.name }}
-            </v-chip>
-          </v-col>
-          <v-col v-if="!allSelected" cols="12">
-            <v-text-field
-              ref="search"
-              v-model="search"
-              full-width
-              hide-details
-              label="Search"
-              single-line
-              dense
-              :disabled="otherData.loading"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-sheet>
-    <v-divider v-if="!allSelected"></v-divider>
-
-    <v-list
-      color="grey lighten-4"
-      class="overflow-y-auto mt-2"
-      max-height="240"
-      v-show="!allSelected"
-    >
-      <v-skeleton-loader
-        :loading="otherData.loading"
-        height="240"
-        type="list-item@5"
-      >
-        <template v-for="(item, i) in roleList">
-          <v-list-item
-            v-if="!selected.includes(i)"
-            :key="i"
+  <v-sheet color="">
+    <v-row align="center" justify="start" class="mx-0 mb-2">
+      <template v-for="(selection, i) in selections">
+        <v-chip
+          :key="selection + i"
+          class="ma-2"
+          color="grey lighten-4 blue grey--text text--darken-1"
+          label
+          close
+          :disabled="otherData.loading"
+          @click:close="selected.splice(i, 1)"
+        >
+          {{ selection.name }}
+        </v-chip>
+      </template>
+    </v-row>
+    <v-card outlined class="no-shadow mx-2" v-if="!allSelected">
+      <v-row align="center" justify="start" class="mx-0">
+        <v-col cols="12">
+          <v-text-field
+            ref="search"
+            v-model="search"
+            full-width
+            hide-details
+            label="搜索..."
+            single-line
+            dense
             :disabled="otherData.loading"
-            @click="selected.push(i)"
-          >
-            <!-- <v-list-item-avatar>
-                  <v-icon :disabled="loading" v-text="item.icon"></v-icon>
-                </v-list-item-avatar> -->
-            <v-list-item-title v-text="item.name"></v-list-item-title>
-          </v-list-item>
-        </template>
-      </v-skeleton-loader>
-    </v-list>
-    <!-- <v-divider v-if="type == 'edit'">></v-divider>
+          ></v-text-field>
+        </v-col>
+      </v-row>
 
-    <v-card-actions v-if="type == 'edit'">
-      <v-spacer></v-spacer>
-      <v-btn
-        :disabled="!selected.length"
-        :loading="otherData.loading"
-        color="purple"
-        text
-        @click="addRole"
-        >确认</v-btn
+      <v-list
+        color=""
+        class="overflow-y-auto mt-2"
+        max-height="240"
+        v-show="!allSelected"
       >
-    </v-card-actions> -->
-  </div>
+        <v-skeleton-loader
+          :loading="otherData.loading"
+          height="240"
+          type="list-item@5"
+        >
+          <template v-for="(item, i) in roleList">
+            <v-list-item
+              v-if="!selected.includes(i)"
+              :key="item + i"
+              :disabled="otherData.loading"
+              @click="selected.push(i)"
+            >
+              <v-list-item-title v-text="item.name"></v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-skeleton-loader>
+      </v-list>
+    </v-card>
+  </v-sheet>
 </template>
 
 <script>

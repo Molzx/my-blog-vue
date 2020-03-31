@@ -19,6 +19,10 @@
     font-family: $body-font-family !important;
   }
 }
+//===================列表 list
+.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  color: #4d4d4d !important;
+}
 //===================输入框 input
 .theme--light.v-messages {
   color: #6c6c6c;
@@ -83,6 +87,25 @@
 .v-data-table th {
   padding: 0 6px;
 }
+//表格hover颜色
+.theme--light.v-data-table
+  tbody
+  tr:hover:not(.v-data-table__expanded__content) {
+  //默认
+  // background: #eee;
+  background: #f5f5f5;
+}
+//===================步骤条stepper
+.theme--light.v-stepper .v-stepper__step--editable:hover .v-stepper__label {
+  // text-shadow: 0 0 0 #000;
+  text-shadow: none;
+  color: #4d4d4d;
+}
+.theme--light.v-stepper .v-stepper__step--active .v-stepper__label {
+  // text-shadow: 0 0 0 #000;
+  text-shadow: none;
+  color: #4d4d4d;
+}
 //===================分页
 $trans-props: all 0.3s ease;
 .theme--light.v-pagination .v-pagination__item,
@@ -113,4 +136,27 @@ $trans-props: all 0.3s ease;
 .theme--light.v-pagination .v-pagination__item:hover:after,
 .theme--light.v-pagination .v-pagination__navigation:hover::after {
   transform: translate(0) scale(1.2);
+}
+
+//===================markdown===================
+
+.v-note-wrapper {
+  border: none;
+  z-index: 800 !important;
+}
+/deep/ .markdown-body {
+  color: #4f4f4f;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: #4d4d4d;
+  }
+  code {
+    font-size: 90%;
+  }
+  .hljs code {
+    font-size: 100%;
+  }
 }

@@ -1,50 +1,64 @@
+<!--
+ * @Author       : xuzhenghao
+ * @Date         : 2020-02-03 21:26:21
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-03-31 23:19:02
+ * @FilePath     : \VueProjects\my-blog\src\components\page\system\role\Detail.vue
+ * @Description  : 这是一些注释
+ -->
 <template>
-  <v-card>
-    <v-container>
-      <v-row>
-        <v-spacer></v-spacer>
-        <div class="d-flex align-center">
-          <v-btn icon color="primary" small class="mb-2 mr-3" @click="goBack">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-row>
-      <v-row no-gutters>
+  <v-card flat>
+    <v-card-text class="px-0">
+      <v-row no-gutters align="start">
         <v-col cols="auto">
-          <v-chip class="ma-2" color="green" label text-color="white">
+          <v-chip class="ma-2" label color="green lighten-5 green--text">
             <v-icon left>mdi-label</v-icon>
             角色的资料
           </v-chip></v-col
         >
         <v-col>
-          <v-sheet color="grey lighten-4">
-            <v-container>
-              <v-row>
-                <v-col cols="4">
-                  <p class="font-weight-medium">角色代码：{{ info.code }}</p>
-                  <p class="font-weight-medium">角色名称：{{ info.name }}</p>
-                  <p class="font-weight-medium">
-                    角色描述：{{ info.description }}
-                  </p>
-                </v-col>
-                <v-col cols="4">
-                  <p class="font-weight-medium">角色状态：{{ info.status }}</p>
-                  <p class="font-weight-medium">
-                    创建时间：{{ info.createdTime }}
-                  </p>
-                  <p class="font-weight-medium">
-                    更新时间：{{ info.updatedTime }}
-                  </p>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-sheet>
+          <v-row class="mx-2">
+            <v-col cols="4">
+              <p class="color-title">
+                角色代码
+                <span>：</span>
+                <span class="color-content">{{ info.code }}</span>
+              </p>
+              <p class="color-title">
+                角色名称
+                <span>：</span>
+                <span class="color-content">{{ info.name }}</span>
+              </p>
+              <p class="color-title">
+                角色描述
+                <span>：</span>
+                <span class="color-content">{{ info.description }}</span>
+              </p>
+            </v-col>
+            <v-col cols="4">
+              <p class="color-title">
+                角色状态
+                <span>：</span>
+                <span class="color-content">{{ info.status }}</span>
+              </p>
+              <p class="color-title">
+                创建时间
+                <span>：</span>
+                <span class="color-content">{{ info.createdTime }}</span>
+              </p>
+              <p class="color-title">
+                更新时间
+                <span>：</span>
+                <span class="color-content">{{ info.updatedTime }}</span>
+              </p>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
       <page-system-role-pdisplay
         :permissionData.sync="permissionData"
       ></page-system-role-pdisplay>
-    </v-container>
+    </v-card-text>
   </v-card>
 </template>
 

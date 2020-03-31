@@ -2,8 +2,8 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 09:15:03
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-03 20:53:47
- * @FilePath     : \VueProjects\my-blog\src\components\page\user\Editer.vue
+ * @LastEditTime : 2020-03-31 23:31:11
+ * @FilePath     : \VueProjects\my-blog\src\components\page\system\user\Editer.vue
  * @Description  : 这是一些注释
  -->
 <template>
@@ -26,31 +26,30 @@
             :type="type"
           ></page-system-user-roledisplay>
 
-          <v-container>
-            <v-row no-gutters class="mt-3">
-              <v-col cols="auto">
-                <v-chip class="ma-2" color="green" label text-color="white">
-                  <v-icon left>mdi-label</v-icon>
-                  可添加角色
-                </v-chip></v-col
-              ><v-col>
-                <page-system-user-role
-                  ref="userRole"
-                  v-if="roleData.roleItems != false"
-                  :formData.sync="formData"
-                  :roleData.sync="roleData"
-                  :otherData.sync="otherData"
-                  :type="type"
-                  @fatherMethod="setRightBtnDisabled"
-                ></page-system-user-role>
+          <v-row no-gutters class="mt-3">
+            <v-col cols="auto">
+              <v-chip class="ma-2" label color="green lighten-5 green--text">
+                <v-icon left>mdi-label</v-icon>
+                可添加角色
+              </v-chip>
+            </v-col>
+            <v-col>
+              <page-system-user-role
+                ref="userRole"
+                v-if="roleData.roleItems != false"
+                :formData.sync="formData"
+                :roleData.sync="roleData"
+                :otherData.sync="otherData"
+                :type="type"
+                @fatherMethod="setRightBtnDisabled"
+              ></page-system-user-role>
 
-                <v-sheet v-else color="grey lighten-4">
-                  <v-chip class="ma-2" label>
-                    暂无
-                  </v-chip>
-                </v-sheet></v-col
-              ></v-row
-            ></v-container
+              <v-sheet v-else color="grey lighten-4">
+                <v-chip class="ma-2" label>
+                  暂无
+                </v-chip>
+              </v-sheet></v-col
+            ></v-row
           >
         </v-card-text>
       </v-window-item>

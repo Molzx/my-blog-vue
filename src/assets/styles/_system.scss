@@ -85,14 +85,6 @@ $container-border-radius: 12px;
         .v-alert__border {
           border-width: 2px;
         }
-        //表格hover颜色
-        .theme--light.v-data-table
-          tbody
-          tr:hover:not(.v-data-table__expanded__content) {
-          //默认
-          // background: #eee;
-          background: #e0f7fa;
-        }
         // 表格头部底下的阴影线
         .theme--light.v-data-table thead tr:last-child th {
           // border-bottom: thin solid rgba(0, 0, 0, 0.12);

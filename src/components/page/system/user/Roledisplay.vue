@@ -1,14 +1,14 @@
 <template>
   <v-container class="pa-0">
-    <v-row no-gutters class="mt-3">
+    <v-row no-gutters class="mt-3" align="start">
       <v-col cols="auto">
-        <v-chip class="ma-2" color="green" label text-color="white">
+        <v-chip class="ma-2" label color="green lighten-5 green--text">
           <v-icon left>mdi-label</v-icon>
           启用的角色
         </v-chip></v-col
       >
       <v-col>
-        <v-sheet color="grey lighten-4">
+        <v-sheet color="">
           <v-menu
             v-for="(item, i) in enabledRoles"
             :key="i"
@@ -19,10 +19,11 @@
             origin="top left"
           >
             <template v-slot:activator="{ on }">
-              <v-chip class="ma-2" color="green" label outlined v-on="on"
-                ><v-avatar left>
-                  <v-icon>mdi-checkbox-marked-circle</v-icon>
-                </v-avatar>
+              <v-chip
+                class="ma-2"
+                color="grey lighten-4 blue grey--text text--darken-1"
+                v-on="on"
+              >
                 {{ item.name }}
               </v-chip>
             </template>
@@ -60,15 +61,15 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-row no-gutters class="mt-3">
+    <v-row no-gutters class="mt-3" align="start">
       <v-col cols="auto">
-        <v-chip class="ma-2" color="orange" label text-color="white">
+        <v-chip class="ma-2" label color="green lighten-5 green--text">
           <v-icon left>mdi-label</v-icon>
           禁用的角色
         </v-chip></v-col
       >
       <v-col>
-        <v-sheet color="grey lighten-4">
+        <v-sheet color="">
           <v-menu
             v-for="(item, i) in disabledRoles"
             :key="i"
@@ -79,7 +80,11 @@
             origin="top left"
           >
             <template v-slot:activator="{ on }">
-              <v-chip class="ma-2" color="orange" label outlined v-on="on">
+              <v-chip
+                class="ma-2"
+                color="grey lighten-4 blue grey--text text--darken-1"
+                v-on="on"
+              >
                 {{ item.name }}
               </v-chip>
             </template>

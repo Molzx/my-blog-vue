@@ -1,47 +1,70 @@
 <template>
   <!-- Something -->
-  <v-card class="mx-auto transparent" flat>
+  <v-card class="mx-auto no-shadow pa-3" outlined>
     <v-row class="mx-0 mb-2 align-center">
       <v-col cols="auto">
+        <!-- <v-btn depressed color="grey lighten-5 blue grey--text" class="mr-2">
+          上一页
+        </v-btn> -->
         <v-btn
           depressed
-          color="blue lighten-5 blue--text text--darken-3"
+          color="green lighten-5 green--text"
           @click="clickAdd"
           class="mr-2"
+          width="100"
         >
           添加
-          <v-icon right>mdi-plus</v-icon>
+          <!-- <v-icon right>mdi-plus</v-icon> -->
         </v-btn>
-        <v-btn icon @click="clickSearch">
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+        <!-- <v-btn icon @click="clickSearch">
+          <v-icon>iconfont icon-search-alt</v-icon>
+        </v-btn> -->
       </v-col>
       <v-slide-x-transition>
-        <v-col cols="5" v-if="openSearch" key="g1">
-          <v-text-field
-            ref="search"
-            v-model="search"
-            full-width
-            hide-details
-            dense
-            label="Search"
-            single-line
-          >
-          </v-text-field>
-        </v-col>
+        <v-col cols="5" v-if="openSearch" key="g1"> </v-col>
       </v-slide-x-transition>
       <v-spacer></v-spacer>
+      <v-responsive
+        ref="searchContainer"
+        :max-width="searchWidth"
+        class="transition-swing mx-2"
+      >
+        <v-text-field
+          ref="search"
+          v-model="search"
+          full-width
+          label="搜索..."
+          single-line
+          hide-details
+          dense
+          solo
+          flat
+          rounded
+          background-color="#f5f5f5"
+          append-icon="iconfont icon-search-alt"
+          @click:append="clickSearch"
+          @keydown.enter="clickSearch"
+          @focus="searchWidth = 200"
+          @blur="searchWidth = 150"
+        >
+        </v-text-field>
+      </v-responsive>
+      <slot name="right-btn">
+        <!-- <v-btn depressed color="green lighten-5 green--text" class="">
+          下一页
+        </v-btn> -->
+      </slot>
     </v-row>
     <v-sheet
       color="transparent"
       class="overflow-y-auto"
       :max-height="maxHeight"
     >
-      <v-list>
+      <v-list nav>
         <v-list-item-group
           v-model="selected"
           active-class="border"
-          color="indigo"
+          color="blue"
           :mandatory="mandatory"
           :multiple="multiple"
         >
@@ -113,7 +136,8 @@ export default {
   },
   data() {
     return {
-      //
+      //搜索框宽度
+      searchWidth: 150,
       openSearch: true,
       search: '',
       //选中的list列表数据

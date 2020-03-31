@@ -18,14 +18,15 @@
             :type="type"
           ></page-system-role-pdisplay>
 
-          <v-container>
+          <v-container class="pa-0">
             <v-row no-gutters class="mt-3">
               <v-col cols="auto">
-                <v-chip class="ma-2" color="green" label text-color="white">
+                <v-chip class="ma-2" label color="green lighten-5 green--text">
                   <v-icon left>mdi-label</v-icon>
-                  可添加角色
-                </v-chip></v-col
-              ><v-col>
+                  可添加权限
+                </v-chip>
+              </v-col>
+              <v-col>
                 <page-system-role-padd
                   ref="permissionAdd"
                   v-if="permissionData.permissionItems != false"

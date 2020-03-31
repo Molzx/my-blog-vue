@@ -79,6 +79,12 @@ const permission = {
   },
 
   //获取权限列表分页数据
+  toGetListInfo: () => {
+    let url = UrlPrefix + 'list'
+    return getRequest(url)
+  },
+
+  //获取权限列表分页数据
   toGetPageListInfo: params => {
     let obj = JSON.parse(JSON.stringify(params))
 

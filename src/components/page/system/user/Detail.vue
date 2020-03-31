@@ -2,36 +2,28 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 09:14:45
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-07 17:18:08
- * @FilePath     : \VueProjects\my-blog\src\components\page\user\Detail.vue
+ * @LastEditTime : 2020-03-31 23:23:33
+ * @FilePath     : \VueProjects\my-blog\src\components\page\system\user\Detail.vue
  * @Description  : 这是一些注释
  -->
 <template>
-  <v-card>
+  <v-card flat>
     <v-container>
-      <v-row>
-        <v-spacer></v-spacer>
-        <div class="d-flex align-center">
-          <v-btn icon color="primary" small class="mb-2 mr-3" @click="goBack">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
-      </v-row>
       <v-row no-gutters>
         <v-col cols="auto">
-          <v-chip class="ma-2" color="green" label text-color="white">
+          <v-chip class="ma-2" label color="green lighten-5 green--text">
             <v-icon left>mdi-label</v-icon>
             用户的资料
-          </v-chip></v-col
-        >
+          </v-chip>
+        </v-col>
         <v-col>
-          <v-sheet color="grey lighten-4">
+          <v-sheet color="">
             <v-container>
               <v-row>
                 <v-col cols="2" class="d-flex justify-center">
                   <div class="d-flex align-center align-self-center">
                     <v-avatar size="72" class="shadow-5">
-                      <img :src="info.avatar" />
+                      <img :src="$avatar(info.avatar)" />
                     </v-avatar>
                   </div>
                 </v-col>
@@ -127,9 +119,6 @@ export default {
           let data = res.data.extend.data
           vm.info = data
           vm.roleData.roles = vm.info.roles
-          vm.info.avatar =
-            'http://localhost:8088/api/v1/resources/preview?fileName=' +
-            vm.info.avatar
         })
         .catch(() => {
           this.loading = false

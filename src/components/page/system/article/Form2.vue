@@ -22,18 +22,26 @@
         <!-- 分类选择 -->
         <v-stepper-content step="1">
           <v-sheet color="white" min-height="400px">
-            <v-row class="mx-0 mt-4 step-group">
-              <v-btn class="mx-2" color="primary" @click="addListItemComplete">
-                下一步
-              </v-btn>
-            </v-row>
+            <!-- <v-row class="mx-0 mt-4 step-group">
+            </v-row> -->
             <!-- 选择列表 -->
-            <page-system-list-item-form
+            <page-system-form-list
               ref="listItemForm"
               :maxHeight="300"
               :otherData.sync="otherData"
               @fatherMethod="addCategory"
-            ></page-system-list-item-form>
+            >
+              <template slot="right-btn">
+                <v-btn
+                  class="mx-2"
+                  depressed
+                  color="blue lighten-5 blue--text"
+                  @click="addListItemComplete"
+                >
+                  下一步
+                </v-btn>
+              </template>
+            </page-system-form-list>
 
             <!-- 加入添加分类 -->
 
@@ -46,18 +54,33 @@
         <!-- 标签选择 -->
         <v-stepper-content step="2">
           <v-sheet color="white" min-height="400px">
-            <v-row class="mx-0 mt-4 step-group">
-              <v-btn class="mx-2" text @click="step--">上一步</v-btn>
-              <v-btn class="mx-2" color="primary" @click="addChipComplete">
-                下一步
-              </v-btn>
-            </v-row>
-            <page-system-chip-form
+            <!-- <v-row class="mx-0 mt-4 step-group"> </v-row> -->
+            <page-system-form-chip
               ref="chipForm"
               :maxHeight="300"
               :otherData.sync="otherData"
               @fatherMethod="addTag"
-            ></page-system-chip-form>
+            >
+              <template slot="left-btn">
+                <v-btn
+                  class="mx-2"
+                  depressed
+                  color="grey lighten-4 blue color-sub"
+                  @click="step--"
+                  >上一步</v-btn
+                >
+              </template>
+              <template slot="right-btn">
+                <v-btn
+                  class="mx-2"
+                  depressed
+                  color="blue lighten-5 blue--text"
+                  @click="addChipComplete"
+                >
+                  下一步
+                </v-btn>
+              </template>
+            </page-system-form-chip>
 
             <!-- 加入添加标签-->
             <page-system-tag-addition
@@ -68,99 +91,118 @@
         </v-stepper-content>
         <v-stepper-content step="3">
           <v-sheet color="white" min-height="400px">
-            <!-- 分类选项 -->
-            <v-divider></v-divider>
-            <v-row class="mx-0 align-center">
-              <v-col cols="auto" class="px-0">
-                <v-chip
-                  class="ma-2"
-                  color="green darken-1"
-                  label
-                  text-color="white"
-                  @click="step = step - 2"
-                >
-                  所属分类
-                </v-chip>
-              </v-col>
-              <v-col>
-                <v-list>
-                  <v-list-item-group active-class="border" color="indigo">
-                    <template v-for="(item, i) in otherData.selectedListItems">
-                      <v-list-item :key="i" :value="item[otherData.listId]">
-                        <v-list-item-icon>
-                          <v-icon v-text="item.icon"></v-icon>
-                        </v-list-item-icon>
-
-                        <v-list-item-content>
-                          <v-list-item-title
-                            v-text="item[otherData.listText]"
-                          ></v-list-item-title>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </template>
-                  </v-list-item-group>
-                </v-list>
-              </v-col>
-            </v-row>
-            <!-- 标签选项 -->
-            <v-divider></v-divider>
-            <v-row class="mx-0 align-center">
-              <v-col cols="auto" class="px-0">
-                <v-chip
-                  class="ma-2"
-                  color="green darken-1"
-                  label
-                  text-color="white"
-                  @click="step--"
-                >
-                  拥有标签
-                </v-chip>
-              </v-col>
-              <v-col>
-                <template v-for="(item, i) in otherData.selectedChipItems">
-                  <v-chip
-                    :key="i"
-                    class="ma-2"
-                    color="pink"
-                    label
-                    text-color="white"
-                    close
-                    @click:close="deleteItems(i)"
+            <v-card class="mx-auto no-shadow pa-3" outlined>
+              <v-row class="mx-0 mb-2 align-center justify-start">
+                <v-col cols="auto">
+                  <v-btn
+                    depressed
+                    color="grey lighten-5 blue grey--text"
+                    class="mr-2"
+                    @click="step--"
                   >
-                    <v-icon left>mdi-label</v-icon>
-                    {{ item[otherData.chipText] }}
+                    上一页
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <!-- 分类选项 -->
+              <v-divider></v-divider>
+              <v-row class="mx-0 align-center">
+                <v-col cols="auto" class="px-0">
+                  <v-chip
+                    class="ma-2"
+                    color="green lighten-5 green--text"
+                    label
+                    @click="step = step - 2"
+                  >
+                    所属分类
                   </v-chip>
-                </template>
-              </v-col>
-            </v-row>
-            <v-divider></v-divider>
-            <!-- 功能选项 -->
-            <v-row class="mx-0 align-center">
-              <v-col cols="auto" class="px-0">
-                <v-chip
-                  class="ma-2"
-                  color="green darken-1"
-                  label
-                  text-color="white"
-                >
-                  附加选项
-                </v-chip>
-              </v-col>
-              <v-col>
-                <v-chip-group v-model="selectedOpts" column multiple>
-                  <template v-for="(item, i) in switchOpt">
+                </v-col>
+                <v-col>
+                  <v-chip
+                    class="ma-2"
+                    color="grey lighten-4 blue grey--text text--darken-1"
+                    label
+                  >
+                    {{ otherData.selectedListItems[0][otherData.listText] }}
+                  </v-chip>
+                  <!-- <v-list>
+                    <v-list-item-group active-class="border" color="indigo">
+                      <template
+                        v-for="(item, i) in otherData.selectedListItems"
+                      >
+                        <v-list-item :key="i" :value="item[otherData.listId]">
+                          <v-list-item-icon>
+                            <v-icon v-text="item.icon"></v-icon>
+                          </v-list-item-icon>
+
+                          <v-list-item-content>
+                            <v-list-item-title
+                              v-text="item[otherData.listText]"
+                            ></v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </template>
+                    </v-list-item-group>
+                  </v-list> -->
+                </v-col>
+              </v-row>
+              <!-- 标签选项 -->
+              <v-divider></v-divider>
+              <v-row class="mx-0 align-start">
+                <v-col cols="auto" class="px-0">
+                  <v-chip
+                    class="ma-2"
+                    color="green lighten-5 green--text"
+                    label
+                    @click="step--"
+                  >
+                    拥有标签
+                  </v-chip>
+                </v-col>
+                <v-col>
+                  <template v-for="(item, i) in otherData.selectedChipItems">
                     <v-chip
-                      filter
-                      outlined
+                      :key="i"
                       class="ma-2"
-                      :value="item.id"
-                      :key="item.id + i"
-                      >{{ item.text }}</v-chip
+                      color="grey lighten-4 blue grey--text text--darken-1"
+                      label
+                      close
+                      @click:close="deleteItems(i)"
                     >
+                      <v-icon left>mdi-label</v-icon>
+                      {{ item[otherData.chipText] }}
+                    </v-chip>
                   </template>
-                </v-chip-group>
-              </v-col>
-            </v-row>
+                </v-col>
+              </v-row>
+              <v-divider></v-divider>
+              <!-- 功能选项 -->
+              <v-row class="mx-0 align-center">
+                <v-col cols="auto" class="px-0">
+                  <v-chip
+                    class="ma-2"
+                    color="green lighten-5 green--text"
+                    label
+                  >
+                    附加选项
+                  </v-chip>
+                </v-col>
+                <v-col>
+                  <v-chip-group v-model="selectedOpts" column multiple>
+                    <template v-for="(item, i) in switchOpt">
+                      <v-chip
+                        filter
+                        outlined
+                        class="ma-2"
+                        :value="item.id"
+                        :key="item.id + i"
+                        >{{ item.text }}</v-chip
+                      >
+                    </template>
+                  </v-chip-group>
+                </v-col>
+              </v-row>
+            </v-card>
             <!-- <v-row class="mx-0 mt-0 float-right">
               <v-btn class="mx-2" text @click="step--">回到标签</v-btn>
               <v-btn class="mx-2" text @click="step = step - 2">回到分类</v-btn>

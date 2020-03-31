@@ -32,11 +32,13 @@
             </ValidationProvider>
           </v-col>
           <v-col cols="12" md="4">
-            <v-row class="mx-0 align-center">
-              <v-chip label outlined color="info" class="mr-2">文章类型</v-chip>
+            <v-row class="mx-2 align-center">
+              <v-chip label color="blue lighten-5 blue--text" class="mr-2"
+                >文章类型</v-chip
+              >
               <v-chip-group
                 v-model="formData.type"
-                active-class="blue--text text--accent-4"
+                active-class="green--text "
                 mandatory
               >
                 <v-chip value="原创">
@@ -103,7 +105,7 @@
               v-model="uploadSelection"
               active-class="blue--text"
               mandatory
-              class=""
+              class="mx-2"
             >
               <v-chip label>上传文件</v-chip>
               <v-chip label>网络地址</v-chip>

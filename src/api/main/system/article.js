@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // 导入接口域名列表
 import base from '../../base'
 
@@ -133,49 +134,7 @@ const article = {
     // obj.status = status
     let url = articlePrefix + 'page-list/some-info'
     return getRequest(url, obj)
-  },
-
-  //===================用户角色表相关===============================
-
-  //=====================添加=====================
-
-  //为用户添加一个角色
-  toAddRole: (userId, roleId) => {
-    let params = {
-      userId: userId,
-      roleId: roleId
-    }
-    return jsonPostRequest(UrlPrefix + 'user-role/records', params)
-  },
-  //为用户添加多个角色
-  toAddRoles: (userId, roleIds) => {
-    let params = {
-      userId: userId,
-      roleIds: roleIds
-    }
-    return jsonPostRequest(UrlPrefix + 'user-role/users/id/roles', params)
-  },
-  //=====================删除=====================
-
-  //=====================更新=====================
-  // 更新用户的拥有的角色记录的状态
-  toUpdRoleStatus: (userId, roleId, status) => {
-    let params = {
-      userId: userId,
-      roleId: roleId,
-      status: status
-    }
-    return jsonPutRequest(UrlPrefix + 'user-role/records', params)
-  },
-  //=====================查询=====================
-
-  //获取用户未拥有的全部角色
-  toGetNotHasRoles: userId =>
-    getRequest(UrlPrefix + 'user-role/users/' + userId + '/other/roles'),
-
-  //获取用户拥有的全部角色
-  toGetHasRoles: userId =>
-    getRequest(UrlPrefix + 'user-role/users/' + userId + '/own/roles')
+  }
 }
 
 //导出接口方法

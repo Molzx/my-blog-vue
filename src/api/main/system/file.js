@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-05 15:57:38
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 14:03:57
+ * @LastEditTime : 2020-03-31 17:19:03
  * @FilePath     : \VueProjects\my-blog\src\api\main\system\file.js
  * @Description  : 这是一些注释
  */
@@ -33,6 +33,16 @@ const file = {
     return filesRequest(UrlPrefix + 'item', params)
   },
 
+  //批量上传文章图片
+  toUploadBatchImg: params => {
+    // let params = {
+    //   name: name,
+    //   description: description,
+    //   status: status,
+    //   file:文件
+    // }
+    return filesRequest(UrlPrefix + 'list/picture', params)
+  },
   //=====================删除=====================
   // 根据记录ID删除记录
   toDeleteById: params => {

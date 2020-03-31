@@ -12,7 +12,25 @@
       </v-window-item>
 
       <v-window-item :value="2">
-        <v-card-text>Nothing </v-card-text>
+        <v-card-text>
+          <!-- 选择列表 -->
+          <page-system-form-list
+            ref="listItemForm"
+            :maxHeight="300"
+            ;multiple="true"
+            :otherData.sync="otherData"
+            @fatherMethod="addPermission"
+          >
+            <template slot="right-btn"> </template>
+          </page-system-form-list>
+
+          <!-- 加入添加分类 -->
+
+          <!-- <page-system-category-addition
+              :selfUse="categoryAdd"
+              ref="categoryAdd"
+            ></page-system-category-addition> -->
+        </v-card-text>
       </v-window-item>
     </v-window>
 
@@ -51,7 +69,19 @@ export default {
     otherData: {
       file: [],
       validateSuccess: false,
-      loading: false
+      loading: false,
+
+      //添加展示权限使用====
+      //待显示的list列表数据
+      listItems: [],
+      //请求更新list列表信息
+      requireListItems: false,
+      //已选中的list列表数据
+      selectedListItems: [],
+      ///======主要标识字段=========
+      listId: 'permissionId',
+      ///======主要显示字段=========
+      listText: 'name'
     },
     currentPage: 1
   }),
@@ -81,12 +111,25 @@ export default {
         this.$refs.chirldForm.validate()
       }
     },
+
     getPermissions() {
       let vm = this
-      this.$api.permission.toGetUserUseListInfo().then(res => {
+      this.$api.permission.toGetListInfo().then(res => {
         let data = res.data.extend
-        vm.roleData.roleItems = data.data
+        vm.otherData.listItems = data.data
       })
+    },
+    addPermission() {
+      //
+    },
+    //更改List数据为后台使用的数据
+    changeSelectedLists() {
+      let arr = []
+      this.otherData.selectedListItems.forEach(item => {
+        arr.push(item[this.otherData.listId])
+      })
+      //赋值给表单数据
+      this.formData.permissionIds = arr
     },
     save() {
       this.otherData.loading = true
@@ -134,8 +177,20 @@ export default {
       handler(newVal) {
         if (newVal == true) {
           //校验成功，发送请求
-          this.currentPage++
+          if (this.currentPage == 1) {
+            this.getPermissions()
+            this.currentPage++
+          }
           this.otherData.validateSuccess = false
+        }
+      },
+      immediate: true
+    },
+    //更新选中列表数据
+    'otherData.selectedListItems': {
+      handler(newVal) {
+        if (newVal.length > 0) {
+          this.changeSelectedLists()
         }
       },
       immediate: true
