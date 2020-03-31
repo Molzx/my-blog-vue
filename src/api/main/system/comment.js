@@ -75,15 +75,23 @@ const comment = {
     let obj = JSON.parse(JSON.stringify(params))
 
     //如果是查询所有，即状态是 all 或者 id等于 0的，把参数删除，不上传到后台
-    obj.type == 'all' ? delete obj.type : obj.type
-    obj.ownerId == 0 ? delete obj.ownerId : obj.ownerId
-    obj.searchParent == '' ? delete obj.searchParent : obj.searchParent
-    obj.fromUid == 0 ? delete obj.fromUid : obj.fromUid
-    obj.toUid == 0 ? delete obj.toUid : obj.toUid
-    obj.status == 'all' ? delete obj.status : obj.status
-    obj.sticky == 'all' ? delete obj.sticky : obj.sticky
+    // obj.type == 'all' ? delete obj.type : obj.type
+    // obj.ownerId == 0 ? delete obj.ownerId : obj.ownerId
+    // obj.searchParent == '' ? delete obj.searchParent : obj.searchParent
+    // obj.fromUid == 0 ? delete obj.fromUid : obj.fromUid
+    // obj.toUid == 0 ? delete obj.toUid : obj.toUid
+    // obj.status == 'all' ? delete obj.status : obj.status
+    // obj.sticky == 'all' ? delete obj.sticky : obj.sticky
 
-    obj.search == '' ? delete obj.search : obj.search
+    // obj.search == '' ? delete obj.search : obj.search
+
+    //如果是查询所有，即状态是 all 或者 id等于 0的，把参数删除，不上传到后台
+    for (let key in obj) {
+      // console.log(key + '---' + obj[key])
+      if (obj[key] == 'all' || obj[key] == 0 || obj[key] == '' || !obj[key]) {
+        delete obj[key]
+      }
+    }
     let url = commentPrefix + 'page-list/sys'
     return getRequest(url, obj)
   },

@@ -1,10 +1,10 @@
 <template>
-  <page-system-list-table
+  <page-system-table-list
     ref="listDisplay"
     :tableData.sync="tableData"
     :pageParams.sync="pageParams"
   >
-  </page-system-list-table>
+  </page-system-table-list>
 </template>
 
 <script>
@@ -15,25 +15,25 @@ export default {
   data() {
     return {
       pageParams: {
-        size: 5,
+        size: 8,
         current: 1,
         sorts: [],
         orders: [],
-        status: 'all',
+        status: '',
         //评论类型
-        type: 'all',
+        type: '',
         // 评论所属的资源id
-        ownerId: 0,
+        ownerId: '',
         // 一级评论，或二级评论
         searchParent: '',
         // 发送评论的用户id
-        fromUid: 0,
+        fromUid: '',
         // 被回复的用户id
-        toUid: 0,
+        toUid: '',
         // 搜索模糊查询字符串
         search: '',
         // 置顶
-        sticky: 'all'
+        sticky: ''
       },
       tableData: {
         name: 'comment',

@@ -1,9 +1,24 @@
 <template>
-  <page-system-list-table
+  <page-system-table-list
     ref="listDisplay"
     :tableData.sync="tableData"
     :pageParams.sync="pageParams"
-  ></page-system-list-table>
+  >
+    <template slot="condition-prepend">
+      <v-chip-group v-model="pageParams.handledStatus">
+        <v-chip
+          filter
+          outlined
+          v-for="item in handledStatusItem"
+          :key="item.value"
+          :value="item.value"
+        >
+          {{ item.state }}
+        </v-chip>
+      </v-chip-group>
+      <v-divider class="mx-4" inset vertical></v-divider>
+    </template>
+  </page-system-table-list>
 </template>
 
 <script>
@@ -13,12 +28,13 @@ export default {
   data() {
     return {
       pageParams: {
-        size: 5,
+        size: 8,
         current: 1,
         sorts: [],
         orders: [],
         search: '',
-        status: 'all'
+        handledStatus: '',
+        status: ''
       },
       tableData: {
         name: 'report',
@@ -32,7 +48,14 @@ export default {
         isGetTableData: false
       },
       //操作的是否为最后一页的唯一一条记录
-      isEndRecord: false
+      isEndRecord: false,
+
+      handledStatusItem: [
+        // { state: '不筛选', value: 'all' },
+        { state: '待处理', value: '待处理' },
+        { state: '处理中', value: '处理中' },
+        { state: '已解决', value: '已解决' }
+      ]
     }
   },
   mounted() {},

@@ -5,44 +5,48 @@
         <v-row class="mx-0" align="center" style="height:48px;">
           <slot name="header-prepend">
             <div class="d-flex flex-row flex-stretch align-center">
-              <v-btn
-                class="mr-3"
-                depressed
-                color="blue lighten-5 blue--text"
-                @click="showCondition = !showCondition"
-              >
-                条件筛选
-                <v-scale-transition mode="out-in" origin="center center">
-                  <v-icon
-                    ref="statusArrowIcon"
-                    right
-                    small
-                    :key="showCondition"
-                    v-text="
-                      showCondition
-                        ? 'fas fa-chevron-left'
-                        : 'fas fa-chevron-right'
-                    "
-                  ></v-icon>
-                </v-scale-transition>
-              </v-btn>
               <slot name="condition">
-                <v-slide-x-transition>
-                  <v-row v-show="showCondition" class="mx-0">
-                    <slot name="condition-prepend"> </slot>
-                    <v-chip-group v-model="pageParams.status">
-                      <v-chip
-                        filter
-                        outlined
-                        v-for="item in statusItem"
-                        :key="item.value"
-                        :value="item.value"
-                      >
-                        {{ item.state }}
-                      </v-chip>
-                    </v-chip-group>
-                  </v-row>
-                </v-slide-x-transition>
+                <slot name="condition-btn">
+                  <v-btn
+                    class="mr-3"
+                    depressed
+                    color="blue lighten-5 blue--text"
+                    @click="showCondition = !showCondition"
+                  >
+                    条件筛选
+                    <v-scale-transition mode="out-in" origin="center center">
+                      <v-icon
+                        ref="statusArrowIcon"
+                        right
+                        small
+                        :key="showCondition"
+                        v-text="
+                          showCondition
+                            ? 'fas fa-chevron-left'
+                            : 'fas fa-chevron-right'
+                        "
+                      ></v-icon>
+                    </v-scale-transition>
+                  </v-btn>
+                </slot>
+                <slot name="condition-content">
+                  <v-slide-x-transition>
+                    <v-row v-show="showCondition" class="mx-0">
+                      <slot name="condition-prepend"> </slot>
+                      <v-chip-group v-model="pageParams.status">
+                        <v-chip
+                          filter
+                          outlined
+                          v-for="item in statusItem"
+                          :key="item.value"
+                          :value="item.value"
+                        >
+                          {{ item.state }}
+                        </v-chip>
+                      </v-chip-group>
+                    </v-row>
+                  </v-slide-x-transition>
+                </slot>
               </slot>
             </div>
           </slot>
@@ -54,7 +58,7 @@
           >
             <v-text-field
               v-model="search"
-              append-icon="search"
+              append-icon="iconfont icon-search-alt"
               @click:append="startSearch"
               @keydown.enter="startSearch"
               label="搜索..."
@@ -76,6 +80,7 @@
             color="blue lighten-5 blue--text"
             @click="addItem"
           >
+            <!-- <v-icon left>iconfont icon-plus-circle</v-icon> -->
             添加记录
           </v-btn>
         </v-row>
@@ -97,6 +102,7 @@
             :items-per-page="pageParams.size"
             @page-count="getPageTotal"
             @pagination="updatePagination"
+            disable-sort
             hide-default-footer
           >
             <template v-slot:item.action="{ item }">
@@ -129,86 +135,127 @@
                 <span class="icon-color">{{ opt.desc }}</span>
               </v-tooltip>
             </template>
+            <template v-slot:item.title="{ item }">
+              <v-tooltip top content-class="b-tooltip" color="white" light>
+                <template v-slot:activator="{ on }">
+                  <span
+                    v-on="on"
+                    class=" d-inline-block text-truncate"
+                    style="max-width: 200px;"
+                    >{{ item.title }}</span
+                  >
+                </template>
+                <span class="icon-color">{{ item.title }}</span>
+              </v-tooltip>
+            </template>
+            <template v-slot:item.content="{ item }">
+              <v-tooltip top content-class="b-tooltip" color="white" light>
+                <template v-slot:activator="{ on }">
+                  <span
+                    v-on="on"
+                    class=" d-inline-block text-truncate"
+                    style="max-width: 200px;"
+                    >{{ item.content }}</span
+                  >
+                </template>
+                <span class="icon-color ">{{ item.content }}</span>
+              </v-tooltip>
+            </template>
+            <template v-slot:item.reason="{ item }">
+              <v-tooltip top content-class="b-tooltip" color="white" light>
+                <template v-slot:activator="{ on }">
+                  <span
+                    v-on="on"
+                    class=" d-inline-block text-truncate"
+                    style="max-width: 200px;"
+                    >{{ item.reason }}</span
+                  >
+                </template>
+                <span class="icon-color">{{ item.reason }}</span>
+              </v-tooltip>
+            </template>
             <template v-slot:footer> </template>
           </v-data-table>
         </slot>
       </v-col>
     </v-row>
-    <v-footer app padless fixed inset class="my-footer">
-      <div class=" fill-width px-10 pt-2 pb-1">
-        <v-row align="center" justify="center" no-gutters class="">
-          <v-col cols="3">
-            <span class="table-footer">
-              第 {{ pagination.pageStart + 1 }} -
-              {{ pagination.pageStop }}条，共 {{ pagination.itemsLength }}条
-            </span>
-            <span class="table-footer">
-              每页
-              <v-menu offset-y>
-                <template v-slot:activator="{ on }">
-                  <v-btn dark text color="primary" class="mr-1" v-on="on">
-                    {{ pagination.itemsPerPage }}
-                    <v-icon>mdi-chevron-down</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(number, index) in sizeItems"
-                    :key="index"
-                    @click="updateItemsPerPage(number)"
-                  >
-                    <v-list-item-title>{{ number }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-              条
-            </span>
-          </v-col>
-
-          <v-col>
-            <v-pagination
-              class="align-self-center align-center"
-              ref="pagination"
-              v-model="pageParams.current"
-              :length="tableData.pageTotal"
-              :next-icon="nextIcon"
-              :prev-icon="prevIcon"
-              :page="pageParams.current"
-              :total-visible="totalVisible"
-              style=""
-              circle
-              color="teal"
-            >
-            </v-pagination>
-          </v-col>
-          <v-col cols="3">
-            <v-row align="center" justify="center" no-gutters>
+    <v-slide-y-transition>
+      <v-footer app padless fixed inset class="my-footer">
+        <div class=" fill-width px-10 pt-2 pb-1">
+          <v-row align="center" justify="center" no-gutters class="">
+            <v-col cols="3">
               <span class="table-footer">
-                跳转到
+                第 {{ pagination.pageStart + 1 }} -
+                {{ pagination.pageStop }}条，共 {{ pagination.itemsLength }}条
               </span>
-              <v-col cols="3">
-                <div class="ma-1">
-                  <v-text-field
-                    v-model="goCurrentPage"
-                    :label="goCurrentPage + ''"
-                    single-line
-                    hide-details
-                    dense
-                    full-width
-                    type="number"
-                    @keydown.enter="updateCurrentPage"
-                  ></v-text-field>
-                </div>
-              </v-col>
-              <span class="table-footer"
-                >页， 第 {{ pagination.page }} 页，共
-                {{ tableData.pageTotal }}页
+              <span class="table-footer">
+                每页
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on }">
+                    <v-btn dark text color="primary" class="mr-1" v-on="on">
+                      {{ pagination.itemsPerPage }}
+                      <v-icon>mdi-chevron-down</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item
+                      v-for="(number, index) in sizeItems"
+                      :key="index"
+                      @click="updateItemsPerPage(number)"
+                    >
+                      <v-list-item-title>{{ number }}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+                条
               </span>
-            </v-row>
-          </v-col>
-        </v-row>
-      </div>
-    </v-footer>
+            </v-col>
+
+            <v-col>
+              <v-pagination
+                class="align-self-center align-center"
+                ref="pagination"
+                v-model="pageParams.current"
+                :length="tableData.pageTotal"
+                :next-icon="nextIcon"
+                :prev-icon="prevIcon"
+                :page="pageParams.current"
+                :total-visible="totalVisible"
+                style=""
+                circle
+                color="teal"
+              >
+              </v-pagination>
+            </v-col>
+            <v-col cols="3">
+              <v-row align="center" justify="center" no-gutters>
+                <span class="table-footer">
+                  跳转到
+                </span>
+                <v-col cols="3">
+                  <div class="ma-1">
+                    <v-text-field
+                      v-model="goCurrentPage"
+                      :label="goCurrentPage + ''"
+                      single-line
+                      hide-details
+                      dense
+                      full-width
+                      type="number"
+                      @keydown.enter="updateCurrentPage"
+                    ></v-text-field>
+                  </div>
+                </v-col>
+                <span class="table-footer"
+                  >页， 第 {{ pagination.page }} 页，共
+                  {{ tableData.pageTotal }}页
+                </span>
+              </v-row>
+            </v-col>
+          </v-row>
+        </div>
+      </v-footer>
+    </v-slide-y-transition>
   </v-card>
 </template>
 
@@ -298,19 +345,22 @@ export default {
       IndexAdd: 'addition',
       optItems: [
         {
-          icon: 'iconfont icon-zhaiyao',
+          icon: 'iconfont icon-invoice',
           desc: '详细信息',
-          index: 'detail'
+          index: 'detail',
+          show: true
         },
         {
-          icon: 'iconfont icon-bianji',
+          icon: 'iconfont icon-edit-alt',
           desc: '修改信息',
-          index: 'edit'
+          index: 'edit',
+          show: true
         },
         {
-          icon: 'iconfont icon-shanchu',
+          icon: 'iconfont icon-trash-alt',
           desc: '删除记录',
-          index: 'delete'
+          index: 'delete',
+          show: true
         }
       ]
     }

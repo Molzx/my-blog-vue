@@ -8,7 +8,7 @@
               文章类型：
               <v-chip-group
                 v-model="formData.type"
-                active-class="blue--text text--accent-4"
+                active-class="blue--text"
                 mandatory
               >
                 <v-chip
@@ -157,6 +157,7 @@
                 dense
                 hint="置顶状态"
                 persistent-hint
+                color="blue"
                 :label="`${formData.sticky}`"
                 :true-value="stickyItem[0].text"
                 :false-value="stickyItem[1].text"

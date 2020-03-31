@@ -7,6 +7,9 @@
     class="appbar"
   >
     <div class="appbar__logo d-flex align-center">
+      <router-link to="/system" class="mr-2">
+        <img height="50" src="../../assets/images/logo.svg" />
+      </router-link>
       <v-btn
         icon
         color="icon-color"
@@ -14,16 +17,17 @@
         @click="clickOpenDrawer"
       >
         <v-scale-transition mode="out-in" origin="center center">
-          <v-icon size="18" :key="getNavIcon">{{ getNavIcon }}</v-icon>
+          <v-icon :key="getNavIcon">{{ getNavIcon }}</v-icon>
         </v-scale-transition>
       </v-btn>
-      <router-link to="/system">
-        <img height="50" src="../../assets/images/logo.svg" />
-      </router-link>
     </div>
     <div class="d-flex align-center">
-      <v-btn depressed color="light-blue lighten-5 blue--text">
-        <v-icon left>fas fa-home</v-icon>
+      <v-btn
+        depressed
+        color="light-blue lighten-5 blue--text"
+        @click="goToHome"
+      >
+        <v-icon left>iconfont icon-home-alt</v-icon>
         主页
       </v-btn>
     </div>
@@ -197,6 +201,10 @@ export default {
           break
       }
     },
+    goToHome() {
+      // console.log('主页')
+      this.$router.push('/blog/home')
+    },
     toLogOut() {
       //注销
       console.log('注销')
@@ -205,7 +213,7 @@ export default {
     },
     toUserInfo() {
       //个人中心
-      console.log('个人中心')
+      // console.log('个人中心')
       this.$router.push('/blog/users/owner/info')
     }
   },
@@ -218,7 +226,9 @@ export default {
       getBaseUserInfo: 'getBaseUserInfoFun'
     }),
     getNavIcon() {
-      return this.getOpenDrawer ? 'fas fa-outdent' : 'fas fa-indent'
+      return this.getOpenDrawer
+        ? 'iconfont icon-document-layout-right'
+        : 'iconfont icon-document-layout-left'
     }
   },
   watch: {
@@ -244,12 +254,12 @@ export default {
 <style lang="scss" scoped>
 /*  */
 .nav-btn {
-  background-color: #f5f5f5 !important;
+  background-color: #fafafa !important;
   width: 40px !important;
   height: 40px !important;
 }
 .btn-logout {
-  background-color: #f5f5f5 !important;
+  background-color: #706161 !important;
   color: #6c6c6c;
 }
 

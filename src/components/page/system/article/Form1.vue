@@ -2,7 +2,15 @@
   <ValidationObserver ref="form">
     <v-form>
       <v-container>
-        <v-row>
+        <v-row class="justify-center">
+          <div style="width: calc(100% - 20px);">
+            <page-common-markdown
+              :formData.sync="formData"
+              ref="mdEditor"
+            ></page-common-markdown>
+          </div>
+        </v-row>
+        <v-row align="start" dense>
           <v-col cols="12" md="8">
             <ValidationProvider
               name="article_title"
@@ -11,8 +19,13 @@
             >
               <v-text-field
                 v-model="formData.title"
-                label="文章标题"
-                placeholder="标题内容"
+                solo
+                flat
+                background-color="#F5F5F5"
+                class="my-input"
+                label="标题内容"
+                hint="文章标题"
+                persistent-hint
                 :error-messages="errors[0]"
                 :disabled="!isEditing"
               ></v-text-field>
@@ -23,7 +36,7 @@
               <v-chip label outlined color="info" class="mr-2">文章类型</v-chip>
               <v-chip-group
                 v-model="formData.type"
-                active-class="deep-orange--text text--accent-4"
+                active-class="blue--text text--accent-4"
                 mandatory
               >
                 <v-chip value="原创">
@@ -39,7 +52,7 @@
             </v-row>
           </v-col>
         </v-row>
-        <v-row class="align-center">
+        <v-row align="start" dense>
           <v-col cols="12" md="4">
             <ValidationProvider
               name="article_cover_file"
@@ -49,15 +62,21 @@
               <v-file-input
                 v-model="otherData.file"
                 accept="image/png, image/jpeg, image/bmp"
-                prepend-icon="mdi-camera"
+                prepend-icon="far fa-image"
                 show-size
-                :error-messages="errors[0]"
-                label="文章封面"
-                placeholder="上传照片文件"
+                solo
+                flat
+                background-color="#F5F5F5"
+                class="my-input"
+                label="上传照片文件"
+                hint="文章封面"
+                persistent-hint
                 @change="validate"
+                :error-messages="errors[0]"
                 :disabled="!isEditing || uploadSelection == 1"
-              ></v-file-input> </ValidationProvider
-          ></v-col>
+              ></v-file-input>
+            </ValidationProvider>
+          </v-col>
           <v-col cols="12" md="4">
             <ValidationProvider
               name="article_cover"
@@ -66,9 +85,14 @@
             >
               <v-text-field
                 v-model="formData.cover"
-                label="文章封面"
-                placeholder="在线照片地址"
-                prepend-icon="mdi-camera"
+                prepend-icon="far fa-image"
+                solo
+                flat
+                background-color="#F5F5F5"
+                class="my-input"
+                label="在线照片地址"
+                hint="文章封面"
+                persistent-hint
                 :error-messages="errors[0]"
                 :disabled="!isEditing || uploadSelection == 0"
               ></v-text-field>
@@ -77,8 +101,9 @@
           <v-col cols="12" md="4">
             <v-chip-group
               v-model="uploadSelection"
-              active-class="deep-orange--text text--accent-4"
+              active-class="blue--text"
               mandatory
+              class=""
             >
               <v-chip label>上传文件</v-chip>
               <v-chip label>网络地址</v-chip>
@@ -86,30 +111,39 @@
           </v-col>
         </v-row>
 
-        <v-row class="align-center">
+        <v-row class="align-center" dense>
           <v-col cols="12">
             <ValidationProvider
               name="article_description"
               rules="required"
               v-slot="{ errors }"
             >
-              <v-text-field
+              <v-textarea
+                v-model="formData.description"
+                :counter="80"
+                solo
+                flat
+                no-resize
+                auto-grow
+                rows="3"
+                label="描述内容......"
+                hint="文章描述"
+                persistent-hint
+                background-color="#F5F5F5"
+                class="my-input"
+                :error-messages="errors[0]"
+                :disabled="!isEditing"
+              >
+              </v-textarea>
+              <!-- <v-text-field
                 v-model="formData.description"
                 label="文章描述"
                 placeholder="描述内容"
                 :error-messages="errors[0]"
                 :disabled="!isEditing"
-              ></v-text-field>
+              ></v-text-field> -->
             </ValidationProvider>
           </v-col>
-        </v-row>
-        <v-row class="justify-center">
-          <div style="width: calc(100% - 20px);">
-            <page-common-markdown
-              :formData.sync="formData"
-              ref="mdEditor"
-            ></page-common-markdown>
-          </div>
         </v-row>
       </v-container>
     </v-form>

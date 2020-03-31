@@ -1,5 +1,5 @@
 <template>
-  <page-system-list-table
+  <page-system-table-list
     ref="listDisplay"
     :tableData.sync="tableData"
     :pageParams.sync="pageParams"
@@ -9,15 +9,23 @@
 
       <div class="d-flex flex-row flex-stretch align-center">
         <v-btn
-          class="mr-1"
+          class="mr-3"
           depressed
-          color="primary"
-          dark
-          @click="showArticleCondition = !showArticleCondition"
+          color="blue lighten-5 blue--text"
+          @click="showCondition = !showCondition"
         >
-          条件筛选<v-icon ref="statusArrowIcon" right small
-            >fas fa-chevron-bottom</v-icon
-          >
+          条件筛选
+          <v-scale-transition mode="out-in" origin="center center">
+            <v-icon
+              ref="statusArrowIcon"
+              right
+              small
+              :key="showCondition"
+              v-text="
+                showCondition ? 'fas fa-chevron-left' : 'fas fa-chevron-right'
+              "
+            ></v-icon>
+          </v-scale-transition>
         </v-btn>
       </div>
     </template>
@@ -25,13 +33,13 @@
       <!--  -->
 
       <helper-dialog
-        :show.sync="showArticleCondition"
+        :show.sync="showCondition"
         width="600"
         headerTitle="条件筛选"
         headerColor="info"
         :limitCardTextHeight="false"
         :persistent="false"
-        @cancel="showArticleCondition = !showArticleCondition"
+        @cancel="showCondition = !showCondition"
       >
         <template slot="content.card-text">
           <!--  -->
@@ -276,7 +284,7 @@
         </template>
       </helper-dialog>
     </template>
-  </page-system-list-table>
+  </page-system-table-list>
 </template>
 
 <script>
@@ -287,7 +295,7 @@ export default {
   data() {
     return {
       pageParams: {
-        size: 5,
+        size: 8,
         current: 1,
         sorts: [],
         orders: [],
@@ -298,9 +306,9 @@ export default {
         //文章类型
         type: '',
         // 文章分类Id
-        cid: 0,
+        cid: '',
         // 文章标签Id
-        tid: 0,
+        tid: '',
         admirationStatus: '',
         copyrightStatus: '',
         reprintStatus: '',
@@ -334,7 +342,7 @@ export default {
       //
       //===========文章状态筛选
       //是否展开文章状态筛选
-      showArticleCondition: false,
+      showCondition: false,
       conditionObject: {
         type: {
           key: 'type',
@@ -443,9 +451,9 @@ export default {
           let data = res.data.extend
           data.records.forEach(el => {
             if (el.status === '启用') {
-              el.status = '所有人可见'
+              el.status = '共享'
             } else {
-              el.status = '仅自己可见'
+              el.status = '私密'
             }
           })
           vm.tableData.records = data.records

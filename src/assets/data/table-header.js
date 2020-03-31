@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-21 12:25:08
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-30 11:02:13
+ * @LastEditTime : 2020-03-31 15:18:41
  * @FilePath     : \VueProjects\my-blog\src\assets\data\table-header.js
  * @Description  : 系统展示表格头部数据
  */
@@ -10,69 +10,72 @@
 export const user = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'userId'
+    value: 'userId',
+    align: 'center',
+    width: 70
   },
-  { text: '账号', value: 'userName' },
-  { text: '昵称', value: 'nickName' },
+  { text: '账号', value: 'userName', align: 'center', width: 120 },
+  { text: '昵称', value: 'nickName', align: 'center', width: 120 },
   // { text: '用户头像地址', value: 'avatar' },
   // { text: '个性签名', value: 'autograph' },
-  { text: '性别', value: 'gender' },
-  { text: '手机号码', value: 'phone' },
-  { text: '邮箱', value: 'email' },
-  { text: '上次登录时间', value: 'loginedTime' },
+  { text: '性别', value: 'gender', align: 'center', width: 70 },
+  { text: '手机号码', value: 'phone', align: 'center', width: 170 },
+  { text: '邮箱', value: 'email', align: 'center', width: 170 },
+  { text: '上次登录时间', value: 'loginedTime', align: 'center', width: 170 },
   // { text: '明文密码', value: 'pwd' },
-  { text: '用户状态', value: 'state' },
-  // { text: '创建时间', value: 'createdTime' },
-  // { text: '更新时间', value: 'updatedTime' },
-  { text: '状态标记', value: 'status' },
+  { text: '用户状态', value: 'state', align: 'center', width: 70 },
+  { text: '创建时间', value: 'createdTime', align: 'center', width: 170 },
+  { text: '更新时间', value: 'updatedTime', align: 'center', width: 170 },
+  { text: '状态标记', value: 'status', align: 'center', width: 70 },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]
 
 export const role = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'roleId'
+    align: 'center',
+    value: 'roleId',
+    width: 70
   },
-  { text: '代码', value: 'code' },
-  { text: '名称', value: 'name' },
-  { text: '描述', value: 'description' },
-  { text: '状态', value: 'status' },
+  { text: '代码', value: 'code', align: 'center', width: 170 },
+  { text: '名称', value: 'name', align: 'center', width: 170 },
+  { text: '描述', value: 'description', align: 'center', width: 250 },
+  { text: '状态', value: 'status', align: 'center', width: 70 },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]
 export const permission = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'permissionId'
+    value: 'permissionId',
+    align: 'center',
+    width: 70
   },
-  { text: '接口链接', value: 'url' },
-  { text: '接口路径', value: 'path' },
-  { text: '接口类型', value: 'type' },
-  { text: '名称', value: 'name' },
-  { text: '状态', value: 'status' },
+  { text: '接口链接', value: 'url', align: 'center', width: 170 },
+  { text: '接口路径', value: 'path', align: 'center', width: 170 },
+  { text: '接口类型', value: 'type', align: 'center', width: 100 },
+  { text: '名称', value: 'name', align: 'center', width: 170 },
+  { text: '状态', value: 'status', align: 'center', width: 70 },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]
 
@@ -113,7 +116,7 @@ export const file = [
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180,
+    width: 170,
     show: false
   }
 ]
@@ -121,14 +124,15 @@ export const file = [
 export const tag = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'tagId'
+    value: 'tagId',
+    align: 'center',
+    width: 70
   },
-  { text: '标签名称', value: 'tagName' },
-  { text: '标签状态', value: 'status' },
-  { text: '创建时间', value: 'createdTime' },
-  { text: '更新时间', value: 'updatedTime' },
+  { text: '标签名称', value: 'tagName', align: 'center', width: 250 },
+  { text: '标签状态', value: 'status', align: 'center', width: 70 },
+  { text: '创建时间', value: 'createdTime', align: 'center', width: 170 },
+  { text: '更新时间', value: 'updatedTime', align: 'center', width: 170 },
   {
     text: '可用操作',
     value: 'action',
@@ -141,20 +145,21 @@ export const tag = [
 export const category = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'categoryId'
+    value: 'categoryId',
+    align: 'center',
+    width: 70
   },
-  { text: '分类名称', value: 'categoryName' },
-  { text: '分类状态', value: 'status' },
-  { text: '创建时间', value: 'createdTime' },
-  { text: '更新时间', value: 'updatedTime' },
+  { text: '分类名称', value: 'categoryName', align: 'center', width: 250 },
+  { text: '分类状态', value: 'status', align: 'center', width: 70 },
+  { text: '创建时间', value: 'createdTime', align: 'center', width: 170 },
+  { text: '更新时间', value: 'updatedTime', align: 'center', width: 170 },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]
 export const article = [
@@ -162,101 +167,111 @@ export const article = [
     text: '',
     align: 'center',
     sortable: false,
-    value: 'articleId'
+    value: 'articleId',
+    width: 70
   },
-  { text: '文章标题', value: 'title' },
-  { text: '文章类型', value: 'type' },
-  { text: '赞赏功能', value: 'admirationStatus' },
-  { text: '版权声明', value: 'copyrightStatus' },
-  { text: '转载声明', value: 'reprintStatus' },
-  { text: '评论功能', value: 'commentStatus' },
-  { text: '发布状态', value: 'publishedStatus' },
-  { text: '推荐状态', value: 'recommendStatus' },
-  { text: '状态标记', value: 'status' },
-  { text: '创建时间', value: 'createdTime' },
-  { text: '更新时间', value: 'updatedTime' },
+  { text: '文章标题', value: 'title', align: 'center', width: 200 },
+  { text: '文章类型', value: 'type', align: 'center', width: 70 },
+  { text: '赞赏功能', value: 'admirationStatus', align: 'center', width: 70 },
+  { text: '版权声明', value: 'copyrightStatus', align: 'center', width: 70 },
+  { text: '转载声明', value: 'reprintStatus', align: 'center', width: 70 },
+  { text: '评论功能', value: 'commentStatus', align: 'center', width: 70 },
+  { text: '发布状态', value: 'publishedStatus', align: 'center', width: 70 },
+  { text: '推荐状态', value: 'recommendStatus', align: 'center', width: 70 },
+  { text: '状态标记', value: 'status', align: 'center', width: 70 },
+  { text: '创建时间', value: 'createdTime', align: 'center', width: 170 },
+  {
+    text: '更新时间',
+    value: 'updatedTime',
+    align: 'center',
+    width: 170
+  },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]
 export const comment = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'commentId'
+    value: 'commentId',
+    align: 'center',
+    width: 70
   },
   {
-    text: '被评论的资源id',
-    align: 'center',
+    text: '所属资源id',
     sortable: false,
-    value: 'ownerId'
+    value: 'ownerId',
+    align: 'center',
+    width: 120
   },
-  { text: '评论类型', value: 'type' },
-  { text: '发布评论的用户ID', value: 'fromUid' },
-  { text: '发布评论的用户帐号', value: 'fromUserName' },
-  { text: '发布评论的用户的昵称', value: 'fromNickName' },
-  { text: '被评论的用户ID', value: 'toUid' },
-  { text: '被评论的用户帐号', value: 'toUserName' },
-  { text: '被评论的用户的昵称', value: 'toNickName' },
-  { text: '评论内容', value: 'content' },
-  { text: '评论状态', value: 'status' },
-  { text: '创建时间', value: 'createdTime' },
-  { text: '更新时间', value: 'updatedTime' },
+  // { text: '类型', value: 'type' },
+  { text: '发布人ID', value: 'fromUid', align: 'center', width: 70 },
+  { text: '发布人帐号', value: 'fromUserName', align: 'center', width: 120 },
+  // { text: '发布人昵称', value: 'fromNickName' },
+  { text: '被回复人ID', value: 'toUid', align: 'center', width: 120 },
+  { text: '被回复人帐号', value: 'toUserName', align: 'center', width: 120 },
+  // { text: '被回复人昵称', value: 'toNickName' },
+  { text: '内容', value: 'content', align: 'center', width: 200 },
+  { text: '状态', value: 'status', align: 'center', width: 70 },
+  { text: '创建时间', value: 'createdTime', align: 'center', width: 170 },
+  { text: '更新时间', value: 'updatedTime', align: 'center', width: 170 },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]
 
 export const announcement = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'id'
+    value: 'id',
+    align: 'center',
+    width: 70
   },
-  { text: '标题', value: 'title' },
-  { text: '内容', value: 'content' },
-  { text: '封面链接', value: 'url' },
-  { text: '创建时间', value: 'createdTime' },
-  { text: '更新时间', value: 'updatedTime' },
-  { text: '状态', value: 'status' },
+  { text: '标题', value: 'title', align: 'center', width: 200 },
+  { text: '内容', value: 'content', align: 'center', width: 200 },
+  // { text: '封面链接', value: 'url', align: 'center', width: 120 },
+  { text: '创建时间', value: 'createdTime', align: 'center', width: 170 },
+  { text: '更新时间', value: 'updatedTime', align: 'center', width: 170 },
+  { text: '状态', value: 'status', align: 'center', width: 70 },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]
 
 export const report = [
   {
     text: '',
-    align: 'center',
     sortable: false,
-    value: 'id'
+    value: 'id',
+    align: 'center',
+    width: 70
   },
-  { text: '举报人', value: 'reporter' },
-  { text: '被举报人', value: 'accusedUser' },
-  { text: '举报理由', value: 'reason' },
-  { text: '处理状态', value: 'handledStatus' },
-  { text: '创建时间', value: 'createdTime' },
-  { text: '更新时间', value: 'updatedTime' },
-  { text: '状态', value: 'status' },
+  { text: '举报人', value: 'reporter', align: 'center', width: 70 },
+  { text: '被举报人', value: 'accusedUser', align: 'center', width: 70 },
+  { text: '举报理由', value: 'reason', align: 'center', width: 200 },
+  { text: '处理状态', value: 'handledStatus', align: 'center', width: 70 },
+  { text: '创建时间', value: 'createdTime', align: 'center', width: 170 },
+  { text: '更新时间', value: 'updatedTime', align: 'center', width: 170 },
+  { text: '状态', value: 'status', align: 'center', width: 70 },
   {
     text: '可用操作',
     value: 'action',
     sortable: false,
     align: 'center',
-    width: 180
+    width: 170
   }
 ]

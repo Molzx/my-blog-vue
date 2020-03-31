@@ -8,6 +8,16 @@
     "#text": "当前项或列表头的文字",
     "#content": "当前有子列表时的列表内容（当isMain为true时，该项无效）",
 
+    "header": "主页",
+    "isActive": false,
+    "isMain": true,
+    "hasSub": false,
+    "to": "/system",
+    "icon": "fas fa-feather-alt",
+    "text": "信息卡",
+    "content": []
+  },
+  {
     "header": "博客相关",
     "isActive": false,
     "isMain": true,

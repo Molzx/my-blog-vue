@@ -1,5 +1,7 @@
 //===========覆盖样式
-
+.v-app-bar.v-app-bar--fixed {
+  z-index: 801;
+}
 //===================字体
 .v-application {
   font-family: $body-font-family;
@@ -64,6 +66,10 @@
 .v-timeline-item__dot {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
 }
+//===================Menu 菜单
+.v-menu__content {
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.07);
+}
 //===================对话框
 .v-dialog__content {
   // z-index: 1601 !important;
@@ -71,6 +77,11 @@
 //===================覆盖层
 .v-overlay--active {
   // z-index: 1600 !important;
+}
+//===================table 表格
+.v-data-table td,
+.v-data-table th {
+  padding: 0 6px;
 }
 //===================分页
 $trans-props: all 0.3s ease;

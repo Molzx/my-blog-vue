@@ -20,6 +20,7 @@
           link
           active-class="active-list"
           :ripple="{ class: 'side-ripple-color' }"
+          exact
         >
           <v-list-item-icon ref="icon">
             <v-icon class="drawer-icon" size="18" v-text="item.icon"></v-icon>
@@ -52,6 +53,7 @@
             link
             active-class="active-list"
             :ripple="{ class: 'side-ripple-color' }"
+            exact
           >
             <v-list-item-icon ref="group_icon">
               <v-icon size="18" v-text="content.icon"></v-icon>

@@ -7,11 +7,11 @@
  * @Description  : 这是一些注释
  -->
 <template>
-  <page-system-list-table
+  <page-system-table-list
     ref="listDisplay"
     :tableData.sync="tableData"
     :pageParams.sync="pageParams"
-  ></page-system-list-table>
+  ></page-system-table-list>
 </template>
 
 <script>
@@ -21,12 +21,12 @@ export default {
   data() {
     return {
       pageParams: {
-        size: 5,
+        size: 8,
         current: 1,
         sorts: [],
         orders: [],
         search: '',
-        status: 'all'
+        status: ''
       },
       tableData: {
         name: 'role',

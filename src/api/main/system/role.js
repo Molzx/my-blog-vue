@@ -111,9 +111,16 @@ const role = {
   toGetPageListInfo: params => {
     let obj = JSON.parse(JSON.stringify(params))
 
-    obj.status == 'all' ? delete obj.status : obj.status
-    obj.search == '' ? delete obj.search : obj.search
+    // obj.status == 'all' ? delete obj.status : obj.status
+    // obj.search == '' ? delete obj.search : obj.search
 
+    //如果是查询所有，即状态是 all 或者 id等于 0的，把参数删除，不上传到后台
+    for (let key in obj) {
+      // console.log(key + '---' + obj[key])
+      if (obj[key] == 'all' || obj[key] == 0 || obj[key] == '' || !obj[key]) {
+        delete obj[key]
+      }
+    }
     let url = UrlPrefix + 'page-list'
     return getRequest(url, obj)
   },

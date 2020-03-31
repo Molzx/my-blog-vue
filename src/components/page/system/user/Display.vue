@@ -36,13 +36,13 @@ export default {
   data() {
     return {
       pageParams: {
-        size: 5,
+        size: 8,
         current: 1,
         sorts: [],
         orders: [],
         search: '',
-        state: 'all',
-        status: 'all'
+        state: '',
+        status: ''
       },
       tableData: {
         name: 'user',
