@@ -85,5 +85,7 @@ export default {
   //侧边栏的标签数据
   tagItems: [],
   //侧边栏的最新发布文章数据
-  newArticleItems: []
+  newArticleItems: [],
+  //侧边栏的浏览量最高的文章数据
+  topViewArticleItems: []
 }

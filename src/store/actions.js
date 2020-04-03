@@ -87,6 +87,10 @@ export default {
   setNewArticleItemsFun(context, items) {
     context.commit('setNewArticleItems', items)
   },
+  //设置  侧边栏的最新发布文章数据
+  setTopViewArticleItemsFun(context, items) {
+    context.commit('setTopViewArticleItems', items)
+  },
   //设置所查看用户信息的用户id
   setUseUserIdFun(context, userId) {
     context.commit('setUseUserId', userId)

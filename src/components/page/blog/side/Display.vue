@@ -18,11 +18,11 @@
         ></page-blog-side-catolog>
       </v-slide-y-transition>
 
-      <page-blog-side-rec-article
+      <page-blog-side-article
         type="recommand"
-        :sideRecArticleItems="sideRecArticleItems"
-        :otherData="otherData"
-      ></page-blog-side-rec-article>
+        :sideArticleItems="sideRecArticleItems"
+        :loading="otherData.sideRecArticleLoading"
+      ></page-blog-side-article>
     </v-col>
     <!-- ====推荐文章内容开始== -->
     <v-col
@@ -30,11 +30,11 @@
       v-if="sideListShow[0]"
       :order="otherData.sideListOrder[0]"
     >
-      <page-blog-side-rec-article
+      <page-blog-side-article
         type="recommand"
-        :sideRecArticleItems="sideRecArticleItems"
-        :otherData="otherData"
-      ></page-blog-side-rec-article>
+        :sideArticleItems="sideRecArticleItems"
+        :loading="otherData.sideRecArticleLoading"
+      ></page-blog-side-article>
     </v-col>
     <!-- 分类内容开始 -->
     <v-col
@@ -68,11 +68,11 @@
       ref="sideRecArticle"
       :class="fixedRecArticle ? 'js-fixed' : ''"
     >
-      <page-blog-side-rec-article
+      <page-blog-side-article
         type="new"
-        :sideRecArticleItems="sideNewArticleItems"
-        :otherData="otherData"
-      ></page-blog-side-rec-article>
+        :sideArticleItems="sideNewArticleItems"
+        :loading="otherData.sideNewArticleLoading"
+      ></page-blog-side-article>
       <!-- <page-blog-side-new-article></page-blog-side-new-article> -->
     </v-col>
     <!-- ====公告内容开始== -->
@@ -84,6 +84,19 @@
       <page-blog-side-announcement
         type="announcement"
       ></page-blog-side-announcement>
+    </v-col>
+
+    <!-- ====最高浏览量文章内容开始== -->
+    <v-col
+      class="px-0"
+      v-if="sideListShow[5]"
+      :order="otherData.sideListOrder[5]"
+    >
+      <page-blog-side-article
+        type="top-view"
+        :sideArticleItems="sideTopViewArticleItems"
+        :loading="otherData.sideTopViewArticleLoading"
+      ></page-blog-side-article>
     </v-col>
   </v-row>
 </template>
@@ -110,6 +123,9 @@ export default {
     sideNewArticleItems: {
       type: Array
     },
+    sideTopViewArticleItems: {
+      type: Array
+    },
     otherData: {
       type: Object,
       default: () => {
@@ -118,10 +134,12 @@ export default {
           sideCategoryLoading: true,
           sideTagLoading: true,
           sideNewArticleLoading: true,
+          sideTopViewArticleLoading: true,
+
           //展示顺序
-          sideListOrder: [2, 3, 4, 5, 1],
+          sideListOrder: [5, 10, 15, 20, 2, 1],
           //展示的组件
-          sideListShow: [true, true, true, true, true]
+          sideListShow: [true, true, true, true, true, true]
         }
       }
     }

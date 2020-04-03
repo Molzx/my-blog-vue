@@ -122,6 +122,9 @@ const blog = {
   //获取最新--推荐--的文章列表
   toGetSideRecArticles: () => getRequest(prefix + 'side/articles-recommend'),
 
+  //获取浏览量--最高的--文章列表
+  toGetSideTopViewArticles: () => getRequest(prefix + 'side/articles-top-view'),
+
   //获取分类
   toGetSideCategories: () => getRequest(prefix + 'side/categories'),
 

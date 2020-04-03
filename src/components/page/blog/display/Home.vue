@@ -29,6 +29,7 @@
         :sideCategoryItems="sideCategoryItems"
         :sideTagItems="sideTagItems"
         :sideNewArticleItems="sideNewArticleItems"
+        :sideTopViewArticleItems="sideTopViewArticleItems"
         :otherData="otherData"
       ></page-blog-side-display>
     </v-col>
@@ -44,7 +45,8 @@ import {
   reqSideRecArticleData,
   reqSideCategoryData,
   reqSideTagData,
-  reqSideNewArticleData
+  reqSideNewArticleData,
+  reqSideTopViewArticleData
 } from '@/assets/js/blog'
 export default {
   data() {
@@ -63,6 +65,7 @@ export default {
       sideCategoryItems: [],
       sideTagItems: [],
       sideNewArticleItems: [],
+      sideTopViewArticleItems: [],
       otherData: {
         articleListLoading: true,
         articleInfoLoading: true,
@@ -72,11 +75,12 @@ export default {
         sideCategoryLoading: true,
         sideTagLoading: true,
         sideNewArticleLoading: true,
+        sideTopViewArticleLoading: true,
 
         //展示顺序
-        sideListOrder: [2, 3, 4, 5, 1],
+        sideListOrder: [5, 10, 15, 20, 2, 1],
         //展示的组件
-        sideListShow: [true, true, true, true, true]
+        sideListShow: [true, true, true, true, true, true]
       },
       items: testData.article.items
     }
@@ -108,6 +112,7 @@ export default {
       reqSideCategoryData(this)
       reqSideTagData(this)
       reqSideNewArticleData(this)
+      reqSideTopViewArticleData(this)
     },
     selfReqData() {
       this.otherData.articleListLoading = true

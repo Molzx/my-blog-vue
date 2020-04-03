@@ -70,6 +70,10 @@ const article = {
   //   return getRequest(UrlPrefix + 'users/item/all-info', obj)
   // },
 
+  //获取浏览量--最高的--文章列表
+  toGetListLessInfoByTopView: () =>
+    getRequest(articlePrefix + 'list/less-info/top-view'),
+
   //获取最新--发布--文章列表
   toGetListLessInfoByNew: () =>
     getRequest(articlePrefix + 'list/less-info/new'),
@@ -84,6 +88,13 @@ const article = {
     let url = articlePrefix + 'page-list/less-info'
     return getRequest(url, obj)
   },
+  //获取  搜索下的  文章列表分页数据
+  toGetPageListForSearch: params => {
+    let obj = JSON.parse(JSON.stringify(params))
+    let url = articlePrefix + 'page-list/blog/search'
+    return getRequest(url, obj)
+  },
+
   //获取文章列表分页数据，按时间线
   toGetPageListLessInfoByTimeline: params => {
     // let obj = JSON.parse(JSON.stringify(params))
@@ -132,7 +143,7 @@ const article = {
     // obj.pubStatus = pubStatus
     // obj.recStatus = recStatus
     // obj.status = status
-    let url = articlePrefix + 'page-list/some-info'
+    let url = articlePrefix + 'page-list/sys/some-info'
     return getRequest(url, obj)
   }
 }

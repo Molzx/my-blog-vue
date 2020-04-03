@@ -8,7 +8,7 @@
       </v-row>
     </v-card>
 
-    <div class="" v-if="otherData.sideRecArticleLoading">
+    <div class="" v-if="loading">
       <v-card
         v-for="(item, i) in 5"
         :key="i"
@@ -39,7 +39,7 @@
     </div>
     <div class="" v-else>
       <v-card
-        v-for="(item, i) in sideRecArticleItems"
+        v-for="(item, i) in sideArticleItems"
         :key="item.articleId + 'article' + i"
         class="shadow-1  mb-3 b-card-content "
         height="68"
@@ -128,39 +128,24 @@ export default {
       type: String,
       default: 'recommand'
     },
-    sideRecArticleItems: {
+    sideArticleItems: {
       type: Array
     },
-    otherData: {
-      type: Object,
-      default: () => {
-        return {
-          sideRecArticleLoading: false
-        }
-      }
-    }
+    loading: {
+      type: Boolean
+    },
+    // otherData: {
+    //   type: Object,
+    //   default: () => {
+    //     return {
+    //       sideArticleLoading: false
+    //     }
+    //   }
+    // }
   },
   data() {
     return {
       //
-      items: [
-        {
-          color: '#1F7087',
-          src:
-            'https://edyoda.s3.amazonaws.com/media/blog-images/learn-artificial-intelligence_E1bep5u.jpeg',
-          title: 'gradle环境搭建',
-          artist:
-            '你总是要我演绎虐到你心痛，然后又要感动到你心碎，似是换了一颗心。其实我只不过是你的左手，在你的情感世间里陪你左右互搏，打到天花乱坠，黯然神伤。'
-        },
-        {
-          color: '#952175',
-          src:
-            'https://edyoda.s3.amazonaws.com/media/blog-images/data-mining-an-overview_8O9fl2t.jpg',
-          title: '耐人寻味的CSS属性font-family',
-          artist:
-            '伤的跌跌撞撞，像折翼的自由，一跳跃就触碰那条条框框，触碰那相思交织的忆中人。你总是让人印象深刻，出其不意，染指你的染指。第一次见到你，我就趣味的告白，“我喜欢你”，而你却对我说“相见恨晚”'
-        }
-      ]
     }
   },
   mounted() {
@@ -191,6 +176,8 @@ export default {
           return '推荐文章'
         case 'new':
           return '最新文章'
+        case 'top-view':
+          return '浏览热榜'
         default:
           return ''
       }
@@ -198,8 +185,8 @@ export default {
   },
   watch: {
     //
-    sideRecArticleItems() {
-      console.log(this.sideRecArticleItems)
+    sideArticleItems() {
+      console.log(this.sideArticleItems)
     }
   },
   components: {

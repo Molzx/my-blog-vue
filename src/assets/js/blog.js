@@ -81,6 +81,7 @@ export function reqTagData(vm) {
 export function reqSideAllData(vm) {
   // const vm = this
   //如果没有数据，则发送请求
+  // let flag = vm.$store.getters.getRecArticleItemsFun
   let flag = vm.getRecArticleItems
   if (flag == false) {
     setTimeout(() => {
@@ -111,8 +112,9 @@ export function reqSideAllData(vm) {
 export function reqSideRecArticleData(vm) {
   // const vm = this
   //如果没有数据，则发送请求
-  let flag = vm.getRecArticleItems
-  if (flag == false) {
+  let records = vm.$store.getters.getRecArticleItemsFun
+  // let flag = vm.getRecArticleItems
+  if (!records) {
     setTimeout(() => {
       vm.$api.blog.toGetSideRecArticles().then(res => {
         console.log('send require recommend article')
@@ -120,13 +122,14 @@ export function reqSideRecArticleData(vm) {
         let data = res.data.extend
         vm.sideRecArticleItems = data.records
         //保存数据
-        vm.setRecArticleItems(vm.sideRecArticleItems)
+        vm.$store.dispatch('setRecArticleItemsFun', vm.sideRecArticleItems)
+        // vm.setRecArticleItems(vm.sideRecArticleItems)
         vm.otherData.sideRecArticleLoading = false
       })
     }, 0)
   } else {
     console.log('innn')
-    vm.sideRecArticleItems = vm.getRecArticleItems
+    vm.sideRecArticleItems = records
     vm.otherData.sideRecArticleLoading = false
   }
 }
@@ -135,8 +138,9 @@ export function reqSideRecArticleData(vm) {
 export function reqSideCategoryData(vm) {
   // const vm = this
   //如果没有数据，则发送请求
-  let flag = vm.getCategoryItems
-  if (flag == false) {
+  let records = vm.$store.getters.getCategoryItemsFun
+  // let flag = vm.getCategoryItems
+  if (!records) {
     setTimeout(() => {
       vm.$api.blog.toGetSideCategories().then(res => {
         console.log('send require category')
@@ -144,12 +148,13 @@ export function reqSideCategoryData(vm) {
         let data = res.data.extend
         vm.sideCategoryItems = data.data
         //保存数据
-        vm.setCategoryItems(vm.sideCategoryItems)
+        vm.$store.dispatch('setCategoryItemsFun', vm.sideCategoryItems)
+        // vm.setCategoryItems(vm.sideCategoryItems)
         vm.otherData.sideCategoryLoading = false
       })
     }, 0)
   } else {
-    vm.sideCategoryItems = vm.getCategoryItems
+    vm.sideCategoryItems = records
     vm.otherData.sideCategoryLoading = false
   }
 }
@@ -158,8 +163,9 @@ export function reqSideCategoryData(vm) {
 export function reqSideTagData(vm) {
   // const vm = this
   //如果没有数据，则发送请求
-  let flag = vm.getTagItems
-  if (flag == false) {
+  let records = vm.$store.getters.getTagItemsFun
+  // let flag = vm.getTagItems
+  if (!records) {
     setTimeout(() => {
       vm.$api.blog.toGetSideTags().then(res => {
         console.log('send require tag')
@@ -167,12 +173,13 @@ export function reqSideTagData(vm) {
         let data = res.data.extend
         vm.sideTagItems = data.data
         //保存数据
-        vm.setTagItems(vm.sideTagItems)
+        vm.$store.dispatch('setTagItemsFun', vm.sideTagItems)
+        // vm.setTagItems(vm.sideTagItems)
         vm.otherData.sideTagLoading = false
       })
     }, 0)
   } else {
-    vm.sideTagItems = vm.getTagItems
+    vm.sideTagItems = records
     vm.otherData.sideTagLoading = false
   }
 }
@@ -181,8 +188,9 @@ export function reqSideTagData(vm) {
 export function reqSideNewArticleData(vm) {
   // const vm = this
   //如果没有数据，则发送请求
-  let flag = vm.getNewArticleItems
-  if (flag == false) {
+  let records = vm.$store.getters.getNewArticleItemsFun
+  // let flag = vm.getNewArticleItems
+  if (!records) {
     setTimeout(() => {
       vm.$api.blog.toGetSideNewArticles().then(res => {
         console.log('send require new article')
@@ -190,13 +198,41 @@ export function reqSideNewArticleData(vm) {
         let data = res.data.extend
         vm.sideNewArticleItems = data.records
         //保存数据
-        vm.setNewArticleItems(vm.sideNewArticleItems)
+        vm.$store.dispatch('setNewArticleItemsFun', vm.sideNewArticleItems)
+        // vm.setNewArticleItems(vm.sideNewArticleItems)
         vm.otherData.sideNewArticleLoading = false
       })
     }, 0)
   } else {
-    vm.sideNewArticleItems = vm.getNewArticleItems
+    vm.sideNewArticleItems = records
     vm.otherData.sideNewArticleLoading = false
+  }
+}
+
+//侧边栏浏览量最高的文章信息
+export function reqSideTopViewArticleData(vm) {
+  // const vm = this
+  //如果没有数据，则发送请求
+  let records = vm.$store.getters.getTopViewArticleItemsFun
+  // let flag = vm.getNewArticleItems
+  if (!records) {
+    setTimeout(() => {
+      vm.$api.blog.toGetSideTopViewArticles().then(res => {
+        console.log('send require top view article')
+
+        let data = res.data.extend
+        vm.sideTopViewArticleItems = data.records
+        //保存数据
+        vm.$store.dispatch(
+          'setTopViewArticleItemsFun',
+          vm.sideTopViewArticleItems
+        )
+        vm.otherData.sideTopViewArticleLoading = false
+      })
+    }, 0)
+  } else {
+    vm.sideTopViewArticleItems = records
+    vm.otherData.sideTopViewArticleLoading = false
   }
 }
 

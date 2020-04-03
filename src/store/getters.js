@@ -49,6 +49,8 @@ export default {
   getTagItemsFun: state => state.tagItems,
   //获取  侧边栏的最新发布文章数据
   getNewArticleItemsFun: state => state.newArticleItems,
+  //获取  侧边栏的浏览量最高的文章数据
+  getTopViewArticleItemsFun: state => state.topViewArticleItems,
 
   //设置所查看用户信息的用户id
   getUseUserIdFun: state => state.useUserId
