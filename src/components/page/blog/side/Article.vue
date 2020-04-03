@@ -133,7 +133,7 @@ export default {
     },
     loading: {
       type: Boolean
-    },
+    }
     // otherData: {
     //   type: Object,
     //   default: () => {

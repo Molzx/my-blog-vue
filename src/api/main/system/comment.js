@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-24 20:06:06
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 13:46:33
+ * @LastEditTime : 2020-04-03 19:46:59
  * @FilePath     : \VueProjects\my-blog\src\api\main\system\comment.js
  * @Description  : 这是一些注释
  */
@@ -107,6 +107,12 @@ const comment = {
     delete obj.index
     delete obj.showSubMore
     let url = commentPrefix + 'page-list/sub'
+    return getRequest(url, obj)
+  },
+  //获取用户评论列表分页数据
+  toGetPageListInfoForUser: params => {
+    let obj = JSON.parse(JSON.stringify(params))
+    let url = commentPrefix + 'page-list/user'
     return getRequest(url, obj)
   }
 }

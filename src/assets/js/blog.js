@@ -114,7 +114,7 @@ export function reqSideRecArticleData(vm) {
   //如果没有数据，则发送请求
   let records = vm.$store.getters.getRecArticleItemsFun
   // let flag = vm.getRecArticleItems
-  if (!records) {
+  if (!records || records.length < 1) {
     setTimeout(() => {
       vm.$api.blog.toGetSideRecArticles().then(res => {
         console.log('send require recommend article')
@@ -139,8 +139,11 @@ export function reqSideCategoryData(vm) {
   // const vm = this
   //如果没有数据，则发送请求
   let records = vm.$store.getters.getCategoryItemsFun
+  console.log('records')
+  console.log(records)
+  console.log('ecd')
   // let flag = vm.getCategoryItems
-  if (!records) {
+  if (!records || records.length < 1) {
     setTimeout(() => {
       vm.$api.blog.toGetSideCategories().then(res => {
         console.log('send require category')
@@ -165,7 +168,7 @@ export function reqSideTagData(vm) {
   //如果没有数据，则发送请求
   let records = vm.$store.getters.getTagItemsFun
   // let flag = vm.getTagItems
-  if (!records) {
+  if (!records || records.length < 1) {
     setTimeout(() => {
       vm.$api.blog.toGetSideTags().then(res => {
         console.log('send require tag')
@@ -190,7 +193,7 @@ export function reqSideNewArticleData(vm) {
   //如果没有数据，则发送请求
   let records = vm.$store.getters.getNewArticleItemsFun
   // let flag = vm.getNewArticleItems
-  if (!records) {
+  if (!records || records.length < 1) {
     setTimeout(() => {
       vm.$api.blog.toGetSideNewArticles().then(res => {
         console.log('send require new article')
@@ -215,7 +218,7 @@ export function reqSideTopViewArticleData(vm) {
   //如果没有数据，则发送请求
   let records = vm.$store.getters.getTopViewArticleItemsFun
   // let flag = vm.getNewArticleItems
-  if (!records) {
+  if (!records || records.length < 1) {
     setTimeout(() => {
       vm.$api.blog.toGetSideTopViewArticles().then(res => {
         console.log('send require top view article')
@@ -241,7 +244,7 @@ export function like(vm, params) {
   //点赞
   // let vm = this
   setTimeout(() => {
-    this.$api.like
+    vm.$api.like
       .toLiked(params)
       .then(res => {
         let data = res.data.extend.data
@@ -259,7 +262,7 @@ export function unlike(vm, params) {
   //取消点赞
   // let vm = this
   setTimeout(() => {
-    this.$api.like
+    vm.$api.like
       .toUnliked(params)
       .then(res => {
         let data = res.data.extend.data
@@ -277,7 +280,7 @@ export function collect(vm, params) {
   //收藏
   // let vm = this
   setTimeout(() => {
-    this.$api.collect
+    vm.$api.collect
       .toCollected(params)
       .then(res => {
         let data = res.data.extend.data
@@ -295,7 +298,7 @@ export function uncollect(vm, params) {
   //取消收藏
   // let vm = this
   setTimeout(() => {
-    this.$api.collect
+    vm.$api.collect
       .toUncollected(params)
       .then(res => {
         let data = res.data.extend.data

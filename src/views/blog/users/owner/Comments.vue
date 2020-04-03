@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  title: '评论记录 - Naicha博客',
-  name: 'blog-user-comments',
+  title: '我的评论 - Naicha博客',
+  name: 'blog-user-owner-comments',
   props: {
     //
   },

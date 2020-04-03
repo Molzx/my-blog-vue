@@ -5,7 +5,7 @@
     v-scroll="onScroll"
     v-resize="onResize"
   >
-    <!-- ====推荐文章内容开始== -->
+    <!-- ====文章详情侧边内容开始== -->
     <v-col
       class="px-0"
       v-if="isArticleDetailPage"
@@ -66,8 +66,8 @@
       :order="otherData.sideListOrder[3]"
       class="px-0"
       ref="sideRecArticle"
-      :class="fixedRecArticle ? 'js-fixed' : ''"
     >
+      <!-- :class="fixedRecArticle ? 'js-fixed' : ''" -->
       <page-blog-side-article
         type="new"
         :sideArticleItems="sideNewArticleItems"
@@ -322,6 +322,14 @@ export default {
     },
     fixedRecArticle() {
       return this.isfixed['sideRecArticle']
+    },
+    getFixClass() {
+      return function(order) {
+        let max = this.otherData.sideListOrder.Math(
+          ...this.otherData.sideListOrder
+        )
+        return order == max
+      }
     }
   },
   watch: {

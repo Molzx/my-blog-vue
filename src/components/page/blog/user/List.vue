@@ -148,15 +148,15 @@
                                   class="b-a"
                                 >
                                   {{ item.categoryName | textLengthFormat(18) }}
-                                </router-link></span
-                              >
+                                </router-link>
+                              </span>
                             </v-col>
                           </v-col>
                         </v-row>
-                      </v-container></v-sheet
-                    >
-                  </v-alert></v-col
-                >
+                      </v-container>
+                    </v-sheet>
+                  </v-alert>
+                </v-col>
               </template>
             </v-scroll-y-transition>
           </v-row>
@@ -278,7 +278,7 @@ export default {
 .b-c-desc {
   color: #7a7a7a;
   font-size: 0.88rem;
-  width: 700px;
+  width: 500px;
   overflow: hidden; /*超出部分隐藏*/
   white-space: nowrap; /*不换行*/
   text-overflow: ellipsis; /*超出部分文字以...显示*/

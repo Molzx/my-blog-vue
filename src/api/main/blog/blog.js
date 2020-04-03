@@ -42,6 +42,12 @@ const blog = {
     let url = prefix + 'articles'
     return getRequest(url, obj)
   },
+  //获取搜索情况下的文章列表分页数据
+  toGetSearchArticles: params => {
+    let obj = JSON.parse(JSON.stringify(params))
+    let url = prefix + 'articles/search'
+    return getRequest(url, obj)
+  },
   //获取文章列表分页数据，按时间线
   toGetTimelineArticles: params => {
     // let obj = JSON.parse(JSON.stringify(params))
@@ -106,6 +112,13 @@ const blog = {
       obj = params
     }
     let url = prefix + 'user-info'
+    return getRequest(url, obj)
+  },
+
+  //获取用户评论列表分页数据
+  toGetUserComments: params => {
+    let obj = JSON.parse(JSON.stringify(params))
+    let url = prefix + 'user-comments'
     return getRequest(url, obj)
   },
   //=====================侧边=====================

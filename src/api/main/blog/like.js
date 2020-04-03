@@ -47,8 +47,10 @@ const like = {
     //   //当前已显示的点赞记录的数目，用与缓存区没有数据时，计算偏移量
     //   showSize: showSize
     // }
+    let obj = JSON.parse(JSON.stringify(params))
+    params.userId == 0 ? delete obj.userId : params.state
     let url = UrlPrefix + 'page-list/articles'
-    return getRequest(url, params)
+    return getRequest(url, obj)
   }
 }
 //导出接口方法

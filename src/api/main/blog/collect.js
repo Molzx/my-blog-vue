@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-13 22:53:39
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 21:09:54
+ * @LastEditTime : 2020-04-03 21:37:42
  * @FilePath     : \VueProjects\my-blog\src\api\main\blog\collect.js
  * @Description  : 这是一些注释
  */
@@ -55,8 +55,10 @@ const collect = {
     //   //当前已显示的点赞记录的数目，用与缓存区没有数据时，计算偏移量
     //   showSize: showSize
     // }
+    let obj = JSON.parse(JSON.stringify(params))
+    params.userId == 0 ? delete obj.userId : params.state
     let url = UrlPrefix + 'page-list/articles'
-    return getRequest(url, params)
+    return getRequest(url, obj)
   }
 }
 //导出接口方法

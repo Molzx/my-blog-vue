@@ -1,15 +1,13 @@
 <template>
-  <v-card style="border-radius:8px" class="shadow-1  mb-6">
-    <page-blog-user-list
-      title="点赞"
-      :icon="icon"
-      :loading="loading"
-      :records="dataItems"
-      :showMoreBtn="showMoreBtn"
-      @nextPage="nextPage"
-      @deleteItems="deleteItems(arguments)"
-    ></page-blog-user-list>
-  </v-card>
+  <page-blog-user-comment-detail
+    title="评论"
+    :icon="icon"
+    :loading="loading"
+    :records="dataItems"
+    :showMoreBtn="showMoreBtn"
+    @nextPage="nextPage"
+    @deleteItems="deleteItems(arguments)"
+  ></page-blog-user-comment-detail>
 </template>
 
 <script>
@@ -29,11 +27,7 @@ export default {
         //当前页数
         current: 0,
         //用户id
-        userId: '',
-        //数据库分页查询，页面偏移量，用在分页查询点赞量、阅读量等
-        offset: 0,
-        //当前已显示的点赞记录的数目，用与缓存区没有数据时，计算偏移量
-        showSize: 0
+        userId: ''
       },
       recordItems: [],
       dataItems: [],
@@ -41,7 +35,7 @@ export default {
 
       icon: {
         size: 20,
-        text: 'mdi-heart'
+        text: 'iconfont icon-trash-alt'
       },
       showMoreBtn: false,
       loading: true
@@ -64,10 +58,10 @@ export default {
       let vm = this
       vm.changeBeforeRequire()
       setTimeout(() => {
-        this.$api.like
-          .toGetLikedArticles(this.pageParams)
+        this.$api.blog
+          .toGetUserComments(this.pageParams)
           .then(res => {
-            let data = res.data.extend.data
+            let data = res.data.extend
             // console.log(data)
             vm.changeAfterRequire(data)
           })
@@ -77,13 +71,12 @@ export default {
       }, 0)
     },
     changeBeforeRequire() {
-      if (this.isOwnerSpace) {
+      if (this.selfUser) {
         this.pageParams.userId = 0
       } else {
         this.pageParams.userId = this.getUseUserId
       }
       this.pageParams.current++
-      this.pageParams.showSize = this.dataItems.length
     },
     changeAfterRequire(data) {
       this.total = data.total
@@ -98,30 +91,21 @@ export default {
       } else {
         this.showMoreBtn = false
       }
-      //设置偏移量为返回的size
-      this.pageParams.offset = data.size
       this.recordItems = data.records
     },
-    unLike(item, index) {
+    deleteComment(item, index) {
       //取消收藏
       let vm = this
 
-      let params = {
-        //资源类型
-        ownerType: '文章',
-        //资源id
-        ownerId: item.articleId
-        //用户id
-        // userId: userId
-      }
+      let params = item.commentId
       setTimeout(() => {
-        this.$api.like
-          .toUnliked(params)
+        this.$api.comment
+          .toDeleteById(params)
           .then(res => {
             // eslint-disable-next-line no-unused-vars
             let data = res.data.extend.data
             // console.log(data)
-            this.$toast.success('取消收藏成功')
+            this.$toast.success('删除评论成功')
             //在下标处开始删除,删除一位，删除取消点赞的记录
             //不必重新拉取数据
             vm.dataItems.splice(index, 1)
@@ -138,7 +122,7 @@ export default {
     },
     deleteItems(args) {
       //父组件以数组形式接收，deleteItems(args)
-      this.unLike(args[0], args[1])
+      this.deleteComment(args[0], args[1])
       // this.dataItems.splice(args[1], 1)
     }
   },
@@ -148,10 +132,13 @@ export default {
       //获取  其他用户id
       getUseUserId: 'getUseUserIdFun'
     }),
-    //是否为个人信息
-    isOwnerSpace() {
-      let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1
-      return flag
+    selfUser() {
+      var path = this.$route.fullPath
+      if (path.indexOf('users/info/owner') != -1) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   watch: {

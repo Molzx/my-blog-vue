@@ -1,13 +1,15 @@
 <template>
-  <page-blog-user-list
-    title="收藏"
-    :icon="icon"
-    :loading="loading"
-    :records="dataItems"
-    :showMoreBtn="showMoreBtn"
-    @nextPage="nextPage"
-    @deleteItems="deleteItems(arguments)"
-  ></page-blog-user-list>
+  <v-card style="border-radius:8px" class="shadow-1  mb-6">
+    <page-blog-user-list
+      title="收藏"
+      :icon="icon"
+      :loading="loading"
+      :records="dataItems"
+      :showMoreBtn="showMoreBtn"
+      @nextPage="nextPage"
+      @deleteItems="deleteItems(arguments)"
+    ></page-blog-user-list>
+  </v-card>
 </template>
 
 <script>
@@ -75,7 +77,7 @@ export default {
       }, 0)
     },
     changeBeforeRequire() {
-      if (this.selfUser) {
+      if (this.isOwnerSpace) {
         this.pageParams.userId = 0
       } else {
         this.pageParams.userId = this.getUseUserId
@@ -146,13 +148,10 @@ export default {
       //获取  其他用户id
       getUseUserId: 'getUseUserIdFun'
     }),
-    selfUser() {
-      var path = this.$route.fullPath
-      if (path.indexOf('users/info/owner') != -1) {
-        return true
-      } else {
-        return false
-      }
+    //是否为个人信息
+    isOwnerSpace() {
+      let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1
+      return flag
     }
   },
   watch: {

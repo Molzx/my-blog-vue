@@ -78,7 +78,7 @@ export default {
         sideTopViewArticleLoading: true,
 
         //展示顺序
-        sideListOrder: [5, 10, 15, 20, 2, 1],
+        sideListOrder: [3, 4, 5, 6, 1, 2],
         //展示的组件
         sideListShow: [true, true, true, true, true, true]
       },

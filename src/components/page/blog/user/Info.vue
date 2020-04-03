@@ -1,103 +1,106 @@
 <template>
-  <v-container class="px-8" style="min-height: 450px;">
-    <p class="b-title my-6">
-      {{ isOwnerSpace ? '我的资料' : info.nickName + '的资料' }}
-    </p>
-    <v-divider class="mx-0"></v-divider>
-    <page-blog-user-base-form
-      ref="baseForm"
-      :info.sync="info"
-    ></page-blog-user-base-form>
-    <page-blog-user-bind-form
-      ref="bindForm"
-      :info.sync="info"
-    ></page-blog-user-bind-form>
-    <page-blog-user-step-form
-      ref="stepForm"
-      :info.sync="info"
-    ></page-blog-user-step-form>
-    <page-blog-user-unbind-form
-      ref="unbindForm"
-      :info.sync="info"
-    ></page-blog-user-unbind-form>
-    <v-row>
-      <v-col>
-        <page-blog-user-avatar-form
-          ref="avatarForm"
-          :info.sync="info"
-          :edited="isOwnerSpace"
-        ></page-blog-user-avatar-form>
-        <div v-if="loading">
-          <template v-for="i in 2">
-            <v-skeleton-loader
-              :key="i"
-              type="card-heading"
-              width="220"
-            ></v-skeleton-loader>
-            <v-skeleton-loader
-              :key="i + '1'"
-              type="list-item-three-line"
-              width="420"
-            ></v-skeleton-loader>
-          </template>
-        </div>
-        <div v-else>
-          <a
-            class="info-a  d-flex justify-end mt-0"
-            v-if="isOwnerSpace"
-            @click="updateInfo"
-            >修改资料</a
-          >
-          <p class="info-title-p mt-0">信息资料</p>
-          <p class="info-p ">昵称：{{ info.nickName }}</p>
-          <p class="info-p ">性别：{{ info.gender }}</p>
-          <p class="info-p ">年龄：{{ info.age == 0 ? '未知' : info.age }}</p>
-          <p class="info-title-p ">个性签名</p>
-          <p class="info-p">{{ info.autograph ? info.autograph : '无' }}</p>
-          <p class="info-title-p ">注册时长</p>
-          <p class="info-p">
-            加入博客已经{{ getDiffDate(info.createdTime) }}天了
-          </p>
-          <p class="info-title-p ">
-            {{ isOwnerSpace ? '上次登录时间' : '活跃时间' }}
-          </p>
-          <p class="info-p">
-            <Timeago :datetime="info.loginedTime" :autoUpdate="true"> </Timeago>
-          </p>
-          <div v-if="isOwnerSpace">
-            <v-divider class="mt-4"></v-divider>
-            <p class="info-title-p ">私密信息（仅个人可见）</p>
-
-            <p class="info-p ">
-              用户帐号：{{ info.userName }}
-              <a class="float-right" @click="stepData(3)">修改密码</a>
-            </p>
-            <p class="info-p ">
-              手机号码：{{ alreadyBindPhone ? info.phone : '未绑定' }}
-              <span class="float-right" v-if="alreadyBindPhone">
-                <a @click="unbindData(1)">解绑手机号</a>
-                <a class="ml-2" @click="stepData(1)">换绑手机号</a>
-              </span>
-              <span class="float-right" v-else>
-                <a class="" @click="bindData(1)">绑定手机号</a>
-              </span>
-            </p>
-            <p class="info-p ">
-              邮箱帐号：{{ alreadyBindEmail ? info.email : '未绑定' }}
-
-              <span class="float-right" v-if="alreadyBindEmail">
-                <a @click="unbindData(2)">解绑邮箱</a>
-                <a class="ml-2" @click="stepData(2)">换绑邮箱</a>
-              </span>
-              <span class="float-right" v-else>
-                <a class="" @click="bindData(2)">绑定邮箱</a>
-              </span>
-            </p>
+  <v-card style="border-radius:8px" class="shadow-1  mb-6">
+    <v-container class="px-8" style="min-height: 450px;">
+      <p class="b-title my-6">
+        {{ isOwnerSpace ? '我的资料' : info.nickName + '的资料' }}
+      </p>
+      <v-divider class="mx-0"></v-divider>
+      <page-blog-user-base-form
+        ref="baseForm"
+        :info.sync="info"
+      ></page-blog-user-base-form>
+      <page-blog-user-bind-form
+        ref="bindForm"
+        :info.sync="info"
+      ></page-blog-user-bind-form>
+      <page-blog-user-step-form
+        ref="stepForm"
+        :info.sync="info"
+      ></page-blog-user-step-form>
+      <page-blog-user-unbind-form
+        ref="unbindForm"
+        :info.sync="info"
+      ></page-blog-user-unbind-form>
+      <v-row>
+        <v-col>
+          <page-blog-user-avatar-form
+            ref="avatarForm"
+            :info.sync="info"
+            :edited="isOwnerSpace"
+          ></page-blog-user-avatar-form>
+          <div v-if="loading">
+            <template v-for="i in 2">
+              <v-skeleton-loader
+                :key="i"
+                type="card-heading"
+                width="220"
+              ></v-skeleton-loader>
+              <v-skeleton-loader
+                :key="i + '1'"
+                type="list-item-three-line"
+                width="420"
+              ></v-skeleton-loader>
+            </template>
           </div>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+          <div v-else>
+            <a
+              class="info-a  d-flex justify-end mt-0"
+              v-if="isOwnerSpace"
+              @click="updateInfo"
+              >修改资料</a
+            >
+            <p class="info-title-p mt-0">信息资料</p>
+            <p class="info-p ">昵称：{{ info.nickName }}</p>
+            <p class="info-p ">性别：{{ info.gender }}</p>
+            <p class="info-p ">年龄：{{ info.age == 0 ? '未知' : info.age }}</p>
+            <p class="info-title-p ">个性签名</p>
+            <p class="info-p">{{ info.autograph ? info.autograph : '无' }}</p>
+            <p class="info-title-p ">注册时长</p>
+            <p class="info-p">
+              加入博客已经{{ getDiffDate(info.createdTime) }}天了
+            </p>
+            <p class="info-title-p ">
+              {{ isOwnerSpace ? '上次登录时间' : '活跃时间' }}
+            </p>
+            <p class="info-p">
+              <Timeago :datetime="info.loginedTime" :autoUpdate="true">
+              </Timeago>
+            </p>
+            <div v-if="isOwnerSpace">
+              <v-divider class="mt-4"></v-divider>
+              <p class="info-title-p ">私密信息（仅个人可见）</p>
+
+              <p class="info-p ">
+                用户帐号：{{ info.userName }}
+                <a class="float-right" @click="stepData(3)">修改密码</a>
+              </p>
+              <p class="info-p ">
+                手机号码：{{ alreadyBindPhone ? info.phone : '未绑定' }}
+                <span class="float-right" v-if="alreadyBindPhone">
+                  <a @click="unbindData(1)">解绑手机号</a>
+                  <a class="ml-2" @click="stepData(1)">换绑手机号</a>
+                </span>
+                <span class="float-right" v-else>
+                  <a class="" @click="bindData(1)">绑定手机号</a>
+                </span>
+              </p>
+              <p class="info-p ">
+                邮箱帐号：{{ alreadyBindEmail ? info.email : '未绑定' }}
+
+                <span class="float-right" v-if="alreadyBindEmail">
+                  <a @click="unbindData(2)">解绑邮箱</a>
+                  <a class="ml-2" @click="stepData(2)">换绑邮箱</a>
+                </span>
+                <span class="float-right" v-else>
+                  <a class="" @click="bindData(2)">绑定邮箱</a>
+                </span>
+              </p>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
