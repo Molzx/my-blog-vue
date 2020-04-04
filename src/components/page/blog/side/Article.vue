@@ -21,6 +21,7 @@
               class="mx-auto"
               max-width="80"
               max-height="68"
+              flat
               style="border-radius:4px"
             >
               <v-skeleton-loader type="image" width="80px" height="68px">
@@ -92,25 +93,19 @@
               </template>
               <span class="grey--text text--darken-3">{{ item.title }}</span>
             </v-tooltip>
-            <p class="d-flex text-no-wrap d-inline-block text-truncate mb-0">
-              <span class="footer-bg">
-                <span>
-                  <v-icon size="12" class="mr-1">mdi-calendar-clock</v-icon>
-                  <Timeago
-                    class=""
-                    :datetime="item.createdTime"
-                    :autoUpdate="true"
-                  >
-                  </Timeago>
-                </span>
-                <span class="mx-1">·</span>
-                <span>
-                  <v-icon size="12" class="mx-1">mdi-comment-text</v-icon>
-                  <span class="mx-1">{{
-                    item.commentTotal | getMaxNum(3)
-                  }}</span>
-                </span>
-              </span>
+            <p
+              class="d-flex align-center text-no-wrap d-inline-block text-truncate mb-0 footer-bg"
+            >
+              <v-icon size="13" class="mr-1"
+                >iconfont icon-weibiaoti4fuzhi</v-icon
+              >
+              <Timeago class="" :datetime="item.createdTime" :autoUpdate="true">
+              </Timeago>
+              <span class="mx-1">·</span>
+              <v-icon size="13" class="mx-1"
+                >iconfont icon-Commentquantity</v-icon
+              >
+              <span class="mx-1">{{ item.commentTotal | getMaxNum(3) }}</span>
             </p>
           </div>
         </div>
@@ -203,8 +198,8 @@ export default {
 .footer-bg {
   color: #6a6a6a;
   font-size: 12px;
-  padding: 0 8px;
-  background: #f5f5f5;
-  border-radius: 8px;
+  // padding: 0 8px;
+  // background: #f5f5f5;
+  // border-radius: 8px;
 }
 </style>

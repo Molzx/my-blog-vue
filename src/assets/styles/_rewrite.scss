@@ -158,13 +158,20 @@ $trans-props: all 0.3s ease;
     color: #4d4d4d;
   }
   code {
-    font-size: 90%;
+    // color: #4f4f4f;
+    // font-size: 90%;
+    // padding: 0;
+    // padding-top: 2px;
+    // padding-bottom: 2px;
+    // margin: 0;
+    // background-color: rgba(27, 31, 35, 0.05);
+    // border-radius: 3px;
   }
   .hljs code {
     font-size: 100%;
   }
   .highlight pre,
-  .markdown-body pre {
+  pre {
     padding: 16px;
     overflow: auto;
     font-size: 100%;

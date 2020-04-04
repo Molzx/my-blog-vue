@@ -1,11 +1,7 @@
 <template>
   <v-container class="pa-0">
-    <v-row dense class="justify-center" v-if="showBreadcrumbs">
-      <v-col cols="auto">
-        <page-blog-breadcrumbs
-          :items="breadcrumbsItems"
-        ></page-blog-breadcrumbs>
-      </v-col>
+    <v-row no-gutters class="justify-center" v-if="showBreadcrumbs">
+      <page-blog-breadcrumbs :items="breadcrumbsItems"></page-blog-breadcrumbs>
     </v-row>
     <v-row dense class="justify-center">
       <v-scale-transition hide-on-leave>
@@ -428,8 +424,8 @@ export default {
           this.optArticleArr.forEach(i => {
             let arr = this.optBtnItems
             i.opt = JSON.parse(JSON.stringify(arr))
-            i.opt[this.optViewIndex].count = 99999
-            // i.opt[this.optViewIndex].count = i.view
+            // i.opt[this.optViewIndex].count = 99999
+            i.opt[this.optViewIndex].count = i.view
             i.opt[this.optLikeIndex].count = i.liked
             i.opt[this.optLikeIndex].selected = i.likedStatus
             i.opt[this.optCollectIndex].count = i.collected

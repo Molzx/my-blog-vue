@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { scrollToTop } from '@/assets/js/scrolling'
+// import { scrollToTop } from '@/assets/js/scrolling'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {
@@ -135,7 +135,7 @@ export default {
   mounted() {
     //
     //回到顶部
-    scrollToTop(this)
+    // scrollToTop(this)
     this.requireData()
   },
   methods: {

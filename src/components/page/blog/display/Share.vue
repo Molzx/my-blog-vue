@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 16:20:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-30 13:42:19
+ * @LastEditTime : 2020-04-04 17:01:00
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\Share.vue
  * @Description  : 这是一些注释
  -->
@@ -11,7 +11,7 @@
     <v-row v-if="loading">
       <v-col v-for="i in 4" :key="i" cols="3">
         <v-card
-          :class="hover ? 'on-hover' : 'shadow-1'"
+          class="shadow-1"
           style="border-radius: 8px !important;"
           min-width="240px"
         >

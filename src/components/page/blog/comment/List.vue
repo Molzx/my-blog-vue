@@ -15,7 +15,7 @@
               :key="comment.commentId + 'comment1' + commentIndex"
             >
               <template v-slot:icon>
-                <a @click="toUserInfo(comment.fromUid)">
+                <a @click="toUserInfo(comment.fromUid, children.fromNickName)">
                   <v-avatar>
                     <img :src="$avatar(comment.fromAvatar)" />
                   </v-avatar>
@@ -33,9 +33,13 @@
                 <v-col>
                   <v-col cols="12" class="comment-meta pa-0">
                     <span class="comment-author d-flex align-center mr-5">
-                      <a class="users" @click="toUserInfo(comment.fromUid)">{{
-                        comment.fromNickName
-                      }}</a>
+                      <a
+                        class="users"
+                        @click="
+                          toUserInfo(comment.fromUid, children.fromNickName)
+                        "
+                        >{{ comment.fromNickName }}</a
+                      >
                       <span class="ml-2" v-if="comment.fromUid == 1">
                         <v-chip
                           label
@@ -194,7 +198,14 @@
                         >
                           <v-col cols="12" md="auto" sm="auto" class="pb-0">
                             <div class="avatar-bg">
-                              <a @click="toUserInfo(children.fromUid)">
+                              <a
+                                @click="
+                                  toUserInfo(
+                                    children.fromUid,
+                                    children.fromNickName
+                                  )
+                                "
+                              >
                                 <v-avatar size="40">
                                   <img :src="$avatar(children.fromAvatar)" />
                                 </v-avatar>
@@ -206,7 +217,12 @@
                               <span class="comment-author">
                                 <a
                                   class="users"
-                                  @click="toUserInfo(children.fromUid)"
+                                  @click="
+                                    toUserInfo(
+                                      children.fromUid,
+                                      children.fromNickName
+                                    )
+                                  "
                                   >{{ children.fromNickName }}</a
                                 >
                                 <span class="ml-2" v-if="children.fromUid == 1">
@@ -223,7 +239,12 @@
                                 <span class="comment_at">@</span>
                                 <a
                                   class="users"
-                                  @click="toUserInfo(children.toUid)"
+                                  @click="
+                                    toUserInfo(
+                                      children.toUid,
+                                      children.toNickName
+                                    )
+                                  "
                                   >{{ children.toNickName }}</a
                                 >
                                 <span></span>
@@ -442,7 +463,7 @@
 
 <script>
 import { scrollToComment } from '@/assets/js/scrolling'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 // import testData from '@/assets/data/article'
 export default {
   props: {
@@ -531,10 +552,14 @@ export default {
       //设置使用的用户id
       setUseUserId: 'setUseUserIdFun'
     }),
-    toUserInfo(userId) {
+    toUserInfo(userId, nickName) {
       //
-      this.setUseUserId(userId)
-      this.$router.push('/blog/users/other/info')
+      if (this.getBaseUserInfo.nickName == nickName) {
+        this.$router.push('/blog/users/own/info')
+      } else {
+        this.setUseUserId(userId)
+        this.$router.push('/blog/users/other/info')
+      }
     },
     //加载更多子评论
     loadingMore(commentId) {
@@ -639,6 +664,10 @@ export default {
   },
   computed: {
     //
+    ...mapGetters({
+      //获取基础头像，昵称
+      getBaseUserInfo: 'getBaseUserInfoFun'
+    }),
     isContentNull() {
       // let content = this.replyContent
       return this.replyContent === ''

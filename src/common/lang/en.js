@@ -138,7 +138,10 @@ export default {
     reportAccusedUser: 'AccusedUser',
     reportReason: 'ReportReason',
     reportHandledStatus: 'ReportHandledStatus',
-    reportStatus: 'ReportStatus'
+    reportStatus: 'ReportStatus',
+
+    //======
+    search: 'Search'
   },
   // validation: en.messages
   validation: {

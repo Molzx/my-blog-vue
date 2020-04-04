@@ -143,7 +143,10 @@ export default {
     reportAccusedUser: '被举报人ID',
     reportReason: '举报理由',
     reportHandledStatus: '举报信息处理状态',
-    reportStatus: '举报信息记录状态'
+    reportStatus: '举报信息记录状态',
+
+    //======
+    search: '搜索内容'
   },
   // validation: zh_CN.messages
   validation: {

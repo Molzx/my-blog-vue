@@ -10,6 +10,16 @@
     >
       <!-- 时间线归档详情 -->
       <v-card class="shadow-1 fill-width">
+        <!-- <v-img :src="spaceBg" :aspect-ratio="16 / 9">
+          <v-card-title>空间</v-card-title>
+        </v-img> -->
+        <v-card-text class="pt-6">
+          <v-row class="justify-center align-center no-gutters">
+            <v-col cols="12" class="justify-center align-center">
+              <v-img :src="spaceBg" height="200" contain></v-img>
+            </v-col>
+          </v-row>
+        </v-card-text>
         <v-tabs optional centered slider-size="2" v-model="tab" class="mb-3">
           <v-tab
             class="left-tab"
@@ -82,7 +92,8 @@ import {
   reqSideTagData,
   reqSideNewArticleData
 } from '@/assets/js/blog'
-import { mapGetters } from 'vuex'
+// eslint-disable-next-line no-unused-vars
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {
     //
@@ -112,8 +123,8 @@ export default {
         {
           toOwner: '/blog/users/owner/info',
           toOther: '/blog/users/other/info',
-          iconNormal: 'iconfont icon-user',
-          iconSelected: 'iconfont icon-user',
+          iconNormal: 'iconfont icon-user1',
+          iconSelected: 'iconfont icon-user1',
           iconSize: 20,
           textOwner: '我的资料',
           textOther: 'ta的资料'
@@ -121,8 +132,8 @@ export default {
         {
           toOwner: '/blog/users/owner/likes',
           toOther: '/blog/users/other/likes',
-          iconNormal: 'iconfont icon-thumbs-up',
-          iconSelected: 'iconfont icon-thumbs-up',
+          iconNormal: 'iconfont icon-hand-like',
+          iconSelected: 'iconfont icon-hand-like',
           iconSize: 20,
           textOwner: '我的点赞',
           textOther: 'ta的点赞'
@@ -130,8 +141,8 @@ export default {
         {
           toOwner: '/blog/users/owner/collects',
           toOther: '/blog/users/other/collects',
-          iconNormal: 'iconfont icon-heart',
-          iconSelected: 'iconfont icon-heart',
+          iconNormal: 'iconfont icon-star',
+          iconSelected: 'iconfont icon-star',
           iconSize: 20,
           textOwner: '我的收藏',
           textOther: 'ta的收藏'
@@ -139,14 +150,16 @@ export default {
         {
           toOwner: '/blog/users/owner/comments',
           toOther: '/blog/users/other/comments',
-          iconNormal: 'iconfont icon-comment-message',
-          iconSelected: 'iconfont icon-comment-message',
+          iconNormal: 'iconfont icon-message1',
+          iconSelected: 'iconfont icon-message1',
           iconSize: 20,
           textOwner: '我的评论',
           textOther: 'ta的评论'
         }
       ],
-      bottomNav: 3
+
+      // spaceBg: require('@/assets/images/bg/wallhaven-yjeo2d.jpg')
+      spaceBg: require('@/assets/images/workspace.svg')
     }
   },
   mounted() {
@@ -166,9 +179,10 @@ export default {
   computed: {
     //
     ...mapGetters({
-      getUseUserId: 'getUseUserIdFun'
+      getUseUserId: 'getUseUserIdFun',
+      //获取基础头像，昵称
+      getBaseUserInfo: 'getBaseUserInfoFun'
     }),
-
     //是否为个人信息
     isOwnerSpace() {
       let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1

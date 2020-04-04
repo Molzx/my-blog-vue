@@ -39,7 +39,7 @@ export default {
 
       icon: {
         size: 20,
-        text: 'iconfont icon-heart',
+        text: 'iconfont icon-bin',
         color: 'deep orange--text'
       },
       showMoreBtn: false,

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-15 17:35:35
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 16:40:48
+ * @LastEditTime : 2020-04-04 16:06:47
  * @FilePath     : \VueProjects\my-blog\src\store\mutations.js
  * @Description  : 这是一些注释
  */
@@ -55,7 +55,6 @@ export default {
       state.Authorization = info.Authorization
       //判断是否记住我，如果为1保存token7天，否则为当次浏览器会话
       if (info.type) {
-        console.log('in')
         storage.setItem({
           name: 'Authorization',
           value: info.Authorization,
@@ -98,10 +97,8 @@ export default {
   //=====================================system=============================
   setUseRecordId(state, useRecordId) {
     if (state.useRecordId == useRecordId) {
-      // console.log('yes')
       state.refresh = true
     } else {
-      // console.log('no')
       state.refresh = false
     }
     state.useRecordId = useRecordId

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 20:09:16
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-04 15:15:55
+ * @LastEditTime : 2020-04-04 16:53:21
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\Article.vue
  * @Description  : 这是一些注释
  -->
@@ -32,7 +32,6 @@
         </template>
         <p class="article-tip">
           <span class="">{{ articleInfo.type }}</span>
-          <!-- 原创 诗渊 最后发布于2016-07-04 14:10:07 阅读数 124072 收藏 -->
           <span class="ml-2">最后发布于{{ articleInfo.updatedTime }}</span>
           <span class="ml-2">阅读数 {{ articleInfo.view }}</span>
         </p>
@@ -56,14 +55,14 @@
           <mavon-editor
             v-if="article"
             v-model="article.mdContent"
-            :subfield="false"
             :defaultOpen="'preview'"
             :toolbarsFlag="false"
             :editable="false"
             :scrollStyle="true"
-            :ishljs="true"
             :boxShadow="false"
-            codeStyle="atom-one-light"
+            :subfield="false"
+            :ishljs="true"
+            codeStyle="github"
             previewBackground="#fff"
             @change="change"
             class="article-wrapper"
@@ -98,6 +97,7 @@
 <script>
 import { mapActions } from 'vuex'
 
+// import { TweenMax, Power2, Bounce } from '@common/tweenmax/all'
 //加载toc-helper
 import 'toc-helper/css/toc-helper.min.css'
 import TocHelper from 'toc-helper'

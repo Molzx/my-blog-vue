@@ -167,6 +167,10 @@
     }
     .b-card-content {
       border-radius: 8px !important;
+      .side-card__img {
+        border-top-left-radius: 6px !important;
+        border-bottom-left-radius: 6px !important;
+      }
       .v-card__text {
         padding-top: 28px !important;
       }

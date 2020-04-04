@@ -64,6 +64,11 @@ export default {
           text: 'Java',
           disabled: true,
           to: '/blog/tags/tag'
+        },
+        {
+          text: '文章',
+          disabled: true,
+          to: ''
         }
       ],
 

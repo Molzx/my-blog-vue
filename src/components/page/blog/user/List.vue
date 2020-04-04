@@ -1,12 +1,12 @@
 <template>
-  <v-container class="" style="min-height:500px">
-    <v-row class="mb-0">
+  <v-container class="pt-0" style="min-height:500px">
+    <!-- <v-row class="mb-0">
       <v-card class="shadow-1 fill-width">
         <v-card-text>
           <p class="b-title my-0 mx-8">{{ getTitle }}</p>
         </v-card-text>
       </v-card>
-    </v-row>
+    </v-row> -->
     <v-row
       v-if="records.length == 0 && !loading"
       class="justify-center align-center"
@@ -27,7 +27,7 @@
           <v-col
             cols="12"
             :key="i + 'collects'"
-            class="px-0 pt-8 pb-0"
+            class="px-0 pt-0 pb-8"
             :class="i == records.length - 1 ? 'mb-3' : ''"
           >
             <v-card class="mb-0 pa-0 shadow-1">
@@ -59,11 +59,17 @@
             <v-col
               cols="12"
               :key="i + 'collects'"
-              class="px-0 pt-8 pb-0"
+              class="px-0 pt-0 pb-8"
               :class="i == records.length - 1 ? 'mb-3' : ''"
             >
               <v-card class="mb-0 pa-0 shadow-1">
-                <v-tooltip top content-class="b-tooltip" color="white" light>
+                <v-tooltip
+                  v-if="isOwnerSpace"
+                  top
+                  content-class="b-tooltip"
+                  color="white"
+                  light
+                >
                   <template v-slot:activator="{ on }">
                     <v-btn
                       class="opt-btn"
@@ -75,7 +81,7 @@
                       <v-icon :size="icon.size" v-text="icon.text"></v-icon>
                     </v-btn>
                   </template>
-                  <span class="grey--text text--darken-3">取消{{ title }}</span>
+                  <span class="color-sub">取消{{ title }}</span>
                 </v-tooltip>
                 <v-container>
                   <v-row dense align="center">
@@ -174,7 +180,7 @@
             </div>
           </div>
         </template>
-        <span class="grey--text text--darken-3">加载更多</span>
+        <span class="color-sub">加载更多</span>
       </v-tooltip>
     </v-row>
   </v-container>
@@ -223,8 +229,10 @@ export default {
       this.$emit('nextPage')
     },
     deleteItems(item, i) {
-      //父组件以数组形式接收，deleteItems(args)
-      this.$emit('deleteItems', item, i)
+      if (this.isOwnerSpace) {
+        //父组件以数组形式接收，deleteItems(args)
+        this.$emit('deleteItems', item, i)
+      }
     }
   },
   computed: {
@@ -280,7 +288,8 @@ export default {
 }
 .opt-btn {
   position: absolute;
-  top: -20px;
+  // top: -20px;
+  bottom: -18px;
   right: 10px;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);

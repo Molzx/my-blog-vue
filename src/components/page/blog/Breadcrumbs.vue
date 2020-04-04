@@ -1,8 +1,16 @@
+<!--
+ * @Author       : xuzhenghao
+ * @Date         : 2020-02-15 17:44:43
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-04-04 21:58:55
+ * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Breadcrumbs.vue
+ * @Description  : 这是一些注释
+ -->
 <template>
   <div>
     <!-- Something -->
 
-    <v-card class="b-card-breadcrumbs mb-2">
+    <v-card class="b-card-breadcrumbs">
       <v-breadcrumbs :items="items">
         <template v-slot:divider>
           <v-icon>fas fa-angle-right</v-icon>

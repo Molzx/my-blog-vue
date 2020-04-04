@@ -1,12 +1,12 @@
 <template>
-  <v-container class="" style="min-height:500px">
-    <v-row class="mb-4">
+  <v-container class="pt-0" style="min-height:500px">
+    <!-- <v-row class="mb-4">
       <v-card class="shadow-1 fill-width">
         <v-card-text>
           <p class="b-title my-0 mx-8">{{ getTitle }}</p>
         </v-card-text>
       </v-card>
-    </v-row>
+    </v-row> -->
     <!-- records.length == 0 && !loading -->
     <v-row
       v-if="records.length == 0 && !loading"
@@ -125,7 +125,7 @@
                             </v-col>
                           </v-row>
                         </v-col>
-                        <v-col cols="auto">
+                        <v-col cols="auto" v-if="isOwnerSpace">
                           <v-tooltip
                             top
                             content-class="b-tooltip"
@@ -145,9 +145,7 @@
                                 ></v-icon>
                               </v-btn>
                             </template>
-                            <span class="grey--text text--darken-3"
-                              >删除{{ title }}</span
-                            >
+                            <span class="color-sub">删除{{ title }}</span>
                           </v-tooltip>
                         </v-col>
                       </v-row>
@@ -240,7 +238,7 @@
             </div>
           </div>
         </template>
-        <span class="grey--text text--darken-3">加载更多</span>
+        <span class="color-sub">加载更多</span>
       </v-tooltip>
     </v-row>
   </v-container>
@@ -293,8 +291,10 @@ export default {
       this.$emit('nextPage')
     },
     deleteItems(item, i) {
-      //父组件以数组形式接收，deleteItems(args)
-      this.$emit('deleteItems', item, i)
+      if (this.isOwnerSpace) {
+        //父组件以数组形式接收，deleteItems(args)
+        this.$emit('deleteItems', item, i)
+      }
     },
     toUserInfo(userId) {
       //

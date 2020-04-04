@@ -3,7 +3,7 @@
 $a-color-dark: #ffffff;
 $a-color-light: #8d8b8b;
 $a-color-dark-hover: white;
-$a-color-light-hover: #00796b;
+$a-color-light-hover: #f57c00;
 
 @mixin a-color($color) {
   color: $color !important;
@@ -28,7 +28,7 @@ $a-color-light-hover: #00796b;
   }
   //左右两边  横向向指示条
   .menu-bar-1 {
-    $border-color: #00796b;
+    $border-color: #ffcc80;
 
     * {
       -webkit-box-sizing: border-box;

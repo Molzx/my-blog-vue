@@ -71,13 +71,20 @@
       v-for="(item, i) in getTimelineData"
       :key="'card' + i"
     >
-      <v-timeline class="pt-0 mt-2" dense>
-        <v-timeline-item class="mb-2">
-          <v-chip class="mt-1 b-chip-count" text-color="blue " color="white">
-            <v-icon dense left color="blue ">mdi-clock-fast</v-icon
-            >{{ item.year }}
-            <!-- 2020-20-12 -->
-          </v-chip>
+      <v-timeline class="pt-0 mt-0" dense>
+        <v-timeline-item class="mb-0">
+          <div>
+            <v-card class="mb-0 pa-0 shadow-1">
+              <div class="d-flex justify-center">
+                <v-chip class="ma-1 " text-color="blue " color="white">
+                  <v-icon dense left color="blue "
+                    >iconfont icon-clock-seven</v-icon
+                  >{{ item.year }}
+                  <!-- 2020-20-12 -->
+                </v-chip>
+              </div>
+            </v-card>
+          </div>
         </v-timeline-item>
         <v-scroll-y-transition class="py-0" group>
           <v-timeline-item
@@ -89,7 +96,6 @@
             right
           >
             <v-card class="mb-0 pa-0 shadow-1">
-              <v-divider></v-divider>
               <v-container>
                 <v-row dense>
                   <v-col cols="auto" class="mr-1">
@@ -102,15 +108,49 @@
                       ></v-img>
                     </v-card>
                   </v-col>
-                  <v-col class="justify-center">
+                  <v-col cols="10" class="justify-center">
+                    <v-col cols="12" class="pa-0">
+                      <p class="b-title--small mb-0 one-line">
+                        <router-link
+                          :to="{
+                            path: linkToArticle,
+                            query: { q: record.articleId }
+                          }"
+                          class="b-a one-line"
+                        >
+                          {{ record.title }}
+                        </router-link>
+                      </p>
+                      <p class="mb-0 a-desc">
+                        {{ record.description }}
+                      </p>
+                    </v-col>
                     <v-col cols="12" class="pa-0">
                       <!-- <span class="b-span--time"
                         >{{ record.createdTime }}
                       </span> -->
 
-                      <span class="b-span--time"> | </span>
+                      <!-- <span class="b-span--time"> | </span> -->
 
-                      <span class="b-span--time">
+                      <v-chip
+                        small
+                        class="mr-1"
+                        text-color="#7a7a7a "
+                        color="grey lighten-5"
+                        >{{ record.createdTime }}
+                      </v-chip>
+                      <v-chip
+                        class="category-bg"
+                        label
+                        small
+                        color="blue--text"
+                        :to="{
+                          path: linkToCategory,
+                          query: { q: record.categoryName }
+                        }"
+                        >{{ record.categoryName | textLengthFormat(18) }}
+                      </v-chip>
+                      <!-- <span class="b-span--time">
                         <router-link
                           :to="{
                             path: linkToCategory,
@@ -120,37 +160,29 @@
                         >
                           {{ record.categoryName | textLengthFormat(18) }}
                         </router-link></span
-                      >
+                      > -->
                     </v-col>
-                    <v-col cols="12" class="pa-0">
-                      <p class="b-title--small mb-0">
-                        <router-link
-                          :to="{
-                            path: linkToArticle,
-                            query: { q: record.articleId }
-                          }"
-                          class="b-a"
-                        >
-                          {{ record.title }}
-                        </router-link>
-                      </p>
-                    </v-col>
-                    <v-col cols="12" class="pa-0" v-if="record.tags.length > 0">
-                      <!-- <v-icon size="10" left color="light-blue darken-2"
+                    <!-- <v-col cols="12" class="pa-0">
+                  </v-col> -->
+                  </v-col>
+                </v-row>
+                <v-row dense justify="end">
+                  <v-col cols="12" class="pa-0" v-if="record.tags.length > 0">
+                    <!-- <v-icon size="10" left color="light-blue darken-2"
                           >fas fa-tags</v-icon
                         > -->
-                      <span class="b-span--time">
-                        <v-chip
-                          v-for="tag in record.tags"
-                          :key="tag.tagId + tag.tagName"
-                          class="ma-1"
-                          small
-                          color="cyan lighten-5 cyan--text"
-                          @click="filterTag(tag)"
-                        >
-                          {{ tag.tagName }}
-                        </v-chip>
-                        <!-- <router-link
+                    <span class="b-span--time float-right">
+                      <v-chip
+                        v-for="tag in record.tags"
+                        :key="tag.tagId + tag.tagName"
+                        class="ma-1"
+                        small
+                        color="cyan lighten-5 cyan--text"
+                        @click="filterTag(tag)"
+                      >
+                        {{ tag.tagName }}
+                      </v-chip>
+                      <!-- <router-link
                             :to="
                               record.tags
                                 ? {
@@ -163,18 +195,8 @@
                           >
                             {{ record.tags[0].tagName | textLengthFormat(18) }}
                           </router-link> -->
-                        <!-- {{ record.tags }} -->
-                      </span>
-                    </v-col>
-                    <v-col cols="12" class="pa-0">
-                      <v-chip
-                        small
-                        class="mr-1 float-right"
-                        text-color="grey "
-                        color="grey lighten-5"
-                        >{{ record.createdTime }}
-                      </v-chip>
-                    </v-col>
+                      <!-- {{ record.tags }} -->
+                    </span>
                   </v-col>
                 </v-row>
               </v-container>
@@ -388,32 +410,30 @@ export default {
   },
   //截断超出一定数量的字符
   filters: {
-    textLengthFormat(value, num) {
-      // let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    },
-    subTitleFormat(value) {
-      let num = 18
-      if (!value) return ''
-      if (value.length > num) {
-        return value.slice(0, num) + '...'
-      }
-      return value
-    }
+    //
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.one-line {
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
+}
+.a-desc {
+  color: #7a7a7a;
+  font-size: 0.86rem;
+  // width: 480px;
+  overflow: hidden; /*超出部分隐藏*/
+  white-space: nowrap; /*不换行*/
+  text-overflow: ellipsis; /*超出部分文字以...显示*/
+}
 /deep/ .theme--light.v-timeline .v-timeline-item .v-card::before {
   border-right-color: white;
 }
 /deep/ .v-timeline::before {
-  height: calc(100% - 52px) !important;
+  height: calc(100% - 95px) !important;
 }
 // /deep/ .v-timeline::before {
 //   left: calc(20% - 1px) !important;

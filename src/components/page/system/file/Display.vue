@@ -93,7 +93,7 @@
       </v-menu>
     </template>
     <!-- val接收到的值为一个对象 -->
-    <template slot="card-content" scope="val">
+    <template slot="card-content" slot-scope="val">
       <!-- <li>{{ val.item }}</li> -->
       <v-card-title class="color-title">{{ val.item['name'] }}</v-card-title>
       <v-card-text>

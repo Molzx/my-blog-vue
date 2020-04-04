@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 16:36:02
+ * @LastEditTime : 2020-04-04 17:18:13
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -25,7 +25,7 @@
         :active="activeNavMenu"
       ></core-navmenu> -->
         <div class="menu-bar light">
-          <ul class="menu-bar-4" ref="menuBar">
+          <ul class="menu-bar-1" ref="menuBar">
             <li
               v-for="(item, i) in links"
               :key="i"

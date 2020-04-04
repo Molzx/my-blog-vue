@@ -35,7 +35,8 @@ export default {
 
       icon: {
         size: 20,
-        text: 'iconfont icon-trash-alt'
+        text: 'iconfont icon-bin',
+        color: 'deep orange--text'
       },
       showMoreBtn: false,
       loading: true
@@ -96,7 +97,8 @@ export default {
     deleteComment(item, index) {
       //取消收藏
       let vm = this
-
+      console.log(item)
+      console.log(index)
       let params = item.commentId
       setTimeout(() => {
         this.$api.comment
