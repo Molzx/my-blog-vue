@@ -2,7 +2,13 @@
   * {
     text-shadow: silver 1px 1px 2px !important;
   }
-
+  &.flat {
+    .shadow-nav__top,
+    .shadow-1,
+    .shadow-timeline__dot {
+      box-shadow: none !important;
+    }
+  }
   .appbar {
     .v-toolbar__content {
       padding: 0 0;
@@ -21,6 +27,15 @@
 
     .b-chip-count {
       box-shadow: inset 0px 0px 0px 1px #bab3b33d;
+    }
+
+    .type-bg {
+      background-color: #f4f8fe !important;
+      border-color: #f4f8fe !important;
+    }
+    .category-bg {
+      background-color: #e3f2fd47 !important;
+      border-color: #e3f2fd47 !important;
     }
 
     //============appbar==========
@@ -53,7 +68,7 @@
 
     //=====index
     .b-a {
-      // color: #242424;
+      color: #4d4d4d;
       text-decoration: none;
       &:hover {
         text-decoration: underline;
@@ -192,6 +207,15 @@
       font-size: 14px;
       box-shadow: 0 4px 12px 0 rgba(7, 17, 27, 0.1);
       color: #4a4a4a;
+    }
+    .main-card__img {
+      //
+      box-shadow: none !important;
+    }
+    .side-card__img {
+      box-shadow: none !important;
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
     }
     //================text============
     .b-title {

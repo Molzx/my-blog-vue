@@ -222,6 +222,8 @@ export default {
           border-color: #d6d6d6;
         }
         &:after {
+          // content: '\e824';
+          // font-family: 'iconfont';
           content: '\f303';
           font-family: 'Font Awesome 5 Free';
           font-weight: 900;

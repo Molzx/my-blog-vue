@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 20:09:16
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-28 18:47:11
+ * @LastEditTime : 2020-04-04 15:15:55
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\Article.vue
  * @Description  : 这是一些注释
  -->
@@ -30,6 +30,12 @@
             ></v-progress-circular>
           </v-row>
         </template>
+        <p class="article-tip">
+          <span class="">{{ articleInfo.type }}</span>
+          <!-- 原创 诗渊 最后发布于2016-07-04 14:10:07 阅读数 124072 收藏 -->
+          <span class="ml-2">最后发布于{{ articleInfo.updatedTime }}</span>
+          <span class="ml-2">阅读数 {{ articleInfo.view }}</span>
+        </p>
       </v-img>
       <v-card-text :class="loading ? '' : 'pt-0'">
         <div v-if="loading">
@@ -257,25 +263,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.article-tip {
+  background: #0000003d;
+  font-size: 0.85rem;
+  padding: 6px;
+  margin-bottom: 0px;
+}
 .v-note-wrapper {
   border: none;
   z-index: 800 !important;
-}
-/deep/ .markdown-body {
-  color: #4f4f4f;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    color: #4d4d4d;
-  }
-  code {
-    font-size: 90%;
-  }
-  .hljs code {
-    font-size: 100%;
-  }
 }
 /deep/ .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
 .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {

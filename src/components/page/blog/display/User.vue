@@ -9,20 +9,21 @@
       order-sm="1"
     >
       <!-- 时间线归档详情 -->
-
-      <v-tabs optional slider-size="3" v-model="tab" class="mb-3">
-        <v-tab
-          class="left-tab"
-          v-for="(item, i) in tabItems"
-          :key="i"
-          :to="isOwnerSpace ? item.toOwner : item.toOther"
-        >
-          <v-icon left :size="item.iconSize">{{
-            item.to == tab ? item.iconSelected : item.iconNormal
-          }}</v-icon>
-          {{ isOwnerSpace ? item.textOwner : item.textOther }}
-        </v-tab>
-      </v-tabs>
+      <v-card class="shadow-1 fill-width">
+        <v-tabs optional centered slider-size="2" v-model="tab" class="mb-3">
+          <v-tab
+            class="left-tab"
+            v-for="(item, i) in tabItems"
+            :key="i"
+            :to="isOwnerSpace ? item.toOwner : item.toOther"
+          >
+            <v-icon left :size="item.iconSize">{{
+              item.to == tab ? item.iconSelected : item.iconNormal
+            }}</v-icon>
+            {{ isOwnerSpace ? item.textOwner : item.textOther }}
+          </v-tab>
+        </v-tabs>
+      </v-card>
       <v-scale-transition mode="out-in" origin="center center">
         <router-view></router-view>
       </v-scale-transition>
@@ -111,8 +112,8 @@ export default {
         {
           toOwner: '/blog/users/owner/info',
           toOther: '/blog/users/other/info',
-          iconNormal: 'mdi-account-settings-outline',
-          iconSelected: 'mdi-account-settings',
+          iconNormal: 'iconfont icon-user',
+          iconSelected: 'iconfont icon-user',
           iconSize: 20,
           textOwner: '我的资料',
           textOther: 'ta的资料'
@@ -120,8 +121,8 @@ export default {
         {
           toOwner: '/blog/users/owner/likes',
           toOther: '/blog/users/other/likes',
-          iconNormal: 'mdi-account-heart-outline',
-          iconSelected: 'mdi-account-heart',
+          iconNormal: 'iconfont icon-thumbs-up',
+          iconSelected: 'iconfont icon-thumbs-up',
           iconSize: 20,
           textOwner: '我的点赞',
           textOther: 'ta的点赞'
@@ -129,8 +130,8 @@ export default {
         {
           toOwner: '/blog/users/owner/collects',
           toOther: '/blog/users/other/collects',
-          iconNormal: 'mdi-account-star-outline',
-          iconSelected: 'mdi-account-star',
+          iconNormal: 'iconfont icon-heart',
+          iconSelected: 'iconfont icon-heart',
           iconSize: 20,
           textOwner: '我的收藏',
           textOther: 'ta的收藏'
@@ -138,8 +139,8 @@ export default {
         {
           toOwner: '/blog/users/owner/comments',
           toOther: '/blog/users/other/comments',
-          iconNormal: 'mdi-account-star-outline',
-          iconSelected: 'mdi-account-star',
+          iconNormal: 'iconfont icon-comment-message',
+          iconSelected: 'iconfont icon-comment-message',
           iconSize: 20,
           textOwner: '我的评论',
           textOther: 'ta的评论'
@@ -219,8 +220,8 @@ export default {
 }
 //选中
 .v-tab--active.v-tab:not(:focus)::before {
-  opacity: 0.12;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  // opacity: 0.12;
+  // border-top-right-radius: 6px;
+  // border-bottom-right-radius: 6px;
 }
 </style>

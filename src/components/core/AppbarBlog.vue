@@ -10,7 +10,7 @@
   <v-scale-transition>
     <v-app-bar
       color="white"
-      class="navShadow mx-auto b-appbar"
+      class="shadow-nav__top mx-auto b-appbar"
       light
       absolute
       app

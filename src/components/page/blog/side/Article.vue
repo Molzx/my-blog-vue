@@ -46,7 +46,7 @@
       >
         <div class="d-flex flex-no-wrap">
           <div>
-            <v-card class="mx-auto" max-height="68" style="border-radius:4px">
+            <v-card class="mx-auto side-card__img" max-height="68">
               <v-img
                 height="68"
                 width="80"

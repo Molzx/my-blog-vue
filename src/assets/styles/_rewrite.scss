@@ -68,7 +68,11 @@
 }
 //===================时间线
 .v-timeline-item__dot {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  @extend .shadow-timeline__dot;
+}
+//竖线
+.theme--light.v-timeline::before {
+  background: #0000000d;
 }
 //===================Menu 菜单
 .v-menu__content {
@@ -144,7 +148,7 @@ $trans-props: all 0.3s ease;
   border: none;
   z-index: 800 !important;
 }
-/deep/ .markdown-body {
+.markdown-body {
   color: #4f4f4f;
   h1,
   h2,
@@ -158,5 +162,14 @@ $trans-props: all 0.3s ease;
   }
   .hljs code {
     font-size: 100%;
+  }
+  .highlight pre,
+  .markdown-body pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 100%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
   }
 }

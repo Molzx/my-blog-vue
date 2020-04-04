@@ -4,7 +4,7 @@
     </v-col> -->
     <v-slide-y-transition>
       <page-blog-article-float-group
-        v-show="getArticleFloatGroup"
+        v-show="getArticleFloatGroup && floatGroupReady"
         :floatGroupData.sync="floatGroupData"
       ></page-blog-article-float-group>
     </v-slide-y-transition>
@@ -134,7 +134,8 @@ export default {
         isLiked: false,
         isCollected: false,
         isShared: false
-      }
+      },
+      floatGroupReady: false
     }
   },
   mounted() {
@@ -184,7 +185,10 @@ export default {
       //获取  侧边栏的标签数据
       getTagItems: 'getTagItemsFun',
       //获取  侧边栏的最新发布文章数据
-      getNewArticleItems: 'getNewArticleItemsFun'
+      getNewArticleItems: 'getNewArticleItemsFun',
+
+      //文章是否加载完毕
+      isArticleLoadingSuccess: 'getArticlePreviewSuccessFun'
     })
   },
   watch: {
@@ -206,6 +210,12 @@ export default {
         }
 
         console.log(this.floatGroupData)
+      }
+    },
+    isArticleLoadingSuccess(newVal) {
+      if (newVal) {
+        //文章内容渲染完成，显示浮动按钮组
+        this.floatGroupReady = true
       }
     }
   },

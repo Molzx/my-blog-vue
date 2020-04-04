@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 22:54:52
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 23:13:35
+ * @LastEditTime : 2020-04-04 14:57:15
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\article\Footer.vue
  * @Description  : 这是一些注释
  -->
@@ -27,10 +27,20 @@
 
       <v-row class="justify-start align-center">
         <p class="mb-0 color-sub">
-          分类专栏：<a @click="filterCategory(categoryInfo)">{{
+          分类专栏：
+
+          <!-- <a @click="filterCategory(categoryInfo)">{{
             categoryInfo.categoryName
-          }}</a>
+          }}</a> -->
         </p>
+        <v-chip
+          class="category-bg"
+          label
+          small
+          color="blue--text"
+          @click="filterCategory(categoryInfo)"
+          >{{ categoryInfo.categoryName | textLengthFormat(18) }}
+        </v-chip>
       </v-row>
       <v-row class="justify-center align-center">
         <v-avatar size="96" color="grey lighten-4">

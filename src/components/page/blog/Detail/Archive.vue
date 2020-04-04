@@ -65,104 +65,92 @@
   </div>
   <div v-else>
     <v-card
-      class="shadow-1 mb-4"
-      style="border-radius:12px"
+      flat
+      class="transparent mb-4"
+      style="border-radius:0px"
       v-for="(item, i) in getTimelineData"
       :key="'card' + i"
     >
-      <v-container>
-        <v-timeline class="pt-0 mt-2" dense>
-          <v-timeline-item class="mb-2">
-            <v-chip
-              class="mt-1 b-chip-count"
-              text-color="blue "
-              color="blue lighten-5"
-            >
-              <v-icon dense left color="blue ">mdi-clock-fast</v-icon
-              >{{ item.year }}
-              <!-- 2020-20-12 -->
-            </v-chip>
-          </v-timeline-item>
-          <v-scroll-y-transition class="py-0" group>
-            <v-timeline-item
-              v-for="(record, i) in item.records"
-              :key="'record' + i"
-              :color="record.color"
-              class="pb-0"
-              small
-              right
-            >
-              <v-alert text color="#F5F5F5" class="mb-0 pa-0">
-                <v-divider></v-divider>
-                <v-container>
-                  <v-row dense>
-                    <v-col cols="auto" class="mr-1">
-                      <v-card
-                        class="mx-auto"
-                        max-height="68"
-                        style="border-radius:4px"
-                      >
-                        <v-img
-                          height="68"
-                          width="80"
-                          class=" grey lighten-5"
-                          :src="$cover(record.cover)"
-                        ></v-img>
-                      </v-card>
-                    </v-col>
-                    <v-col class="justify-center">
-                      <v-col cols="12" class="pa-0">
-                        <span class="b-span--time"
-                          >{{ record.createdTime }}
-                        </span>
+      <v-timeline class="pt-0 mt-2" dense>
+        <v-timeline-item class="mb-2">
+          <v-chip class="mt-1 b-chip-count" text-color="blue " color="white">
+            <v-icon dense left color="blue ">mdi-clock-fast</v-icon
+            >{{ item.year }}
+            <!-- 2020-20-12 -->
+          </v-chip>
+        </v-timeline-item>
+        <v-scroll-y-transition class="py-0" group>
+          <v-timeline-item
+            v-for="(record, i) in item.records"
+            :key="'record' + i"
+            :color="record.color"
+            class=""
+            small
+            right
+          >
+            <v-card class="mb-0 pa-0 shadow-1">
+              <v-divider></v-divider>
+              <v-container>
+                <v-row dense>
+                  <v-col cols="auto" class="mr-1">
+                    <v-card class="mx-auto main-card__img" max-height="68">
+                      <v-img
+                        height="68"
+                        width="80"
+                        class=" grey lighten-5"
+                        :src="$cover(record.cover)"
+                      ></v-img>
+                    </v-card>
+                  </v-col>
+                  <v-col class="justify-center">
+                    <v-col cols="12" class="pa-0">
+                      <!-- <span class="b-span--time"
+                        >{{ record.createdTime }}
+                      </span> -->
 
-                        <span class="b-span--time"> | </span>
+                      <span class="b-span--time"> | </span>
 
-                        <span class="b-span--time">
-                          <router-link
-                            :to="{
-                              path: linkToCategory,
-                              query: { q: record.categoryName }
-                            }"
-                            class="b-a"
-                          >
-                            {{ record.categoryName | textLengthFormat(18) }}
-                          </router-link></span
+                      <span class="b-span--time">
+                        <router-link
+                          :to="{
+                            path: linkToCategory,
+                            query: { q: record.categoryName }
+                          }"
+                          class="b-a"
                         >
-                      </v-col>
-                      <v-col cols="12" class="pa-0">
-                        <p class="b-title--small mb-0">
-                          <router-link
-                            :to="{
-                              path: linkToArticle,
-                              query: { q: record.articleId }
-                            }"
-                            class="b-a"
-                          >
-                            {{ record.title }}
-                          </router-link>
-                        </p>
-                      </v-col>
-                      <v-col
-                        cols="12"
-                        class="pa-0"
-                        v-if="record.tags.length > 0"
+                          {{ record.categoryName | textLengthFormat(18) }}
+                        </router-link></span
                       >
-                        <!-- <v-icon size="10" left color="light-blue darken-2"
+                    </v-col>
+                    <v-col cols="12" class="pa-0">
+                      <p class="b-title--small mb-0">
+                        <router-link
+                          :to="{
+                            path: linkToArticle,
+                            query: { q: record.articleId }
+                          }"
+                          class="b-a"
+                        >
+                          {{ record.title }}
+                        </router-link>
+                      </p>
+                    </v-col>
+                    <v-col cols="12" class="pa-0" v-if="record.tags.length > 0">
+                      <!-- <v-icon size="10" left color="light-blue darken-2"
                           >fas fa-tags</v-icon
                         > -->
-                        <span class="b-span--time">
-                          <v-chip
-                            v-for="tag in record.tags"
-                            :key="tag.tagId + tag.tagName"
-                            class="ma-1"
-                            small
-                            color="cyan lighten-5 cyan--text"
-                            @click="filterTag(tag)"
-                          >
-                            {{ tag.tagName }}
-                          </v-chip>
-                          <!-- <router-link
+                      <span class="b-span--time">
+                        <v-chip
+                          v-for="tag in record.tags"
+                          :key="tag.tagId + tag.tagName"
+                          class="ma-1"
+                          small
+                          color="cyan lighten-5 cyan--text"
+                          @click="filterTag(tag)"
+                        >
+                          {{ tag.tagName }}
+                        </v-chip>
+                        <!-- <router-link
                             :to="
                               record.tags
                                 ? {
@@ -175,17 +163,25 @@
                           >
                             {{ record.tags[0].tagName | textLengthFormat(18) }}
                           </router-link> -->
-                          <!-- {{ record.tags }} -->
-                        </span>
-                      </v-col>
+                        <!-- {{ record.tags }} -->
+                      </span>
                     </v-col>
-                  </v-row>
-                </v-container>
-              </v-alert>
-            </v-timeline-item>
-          </v-scroll-y-transition>
-        </v-timeline>
-      </v-container>
+                    <v-col cols="12" class="pa-0">
+                      <v-chip
+                        small
+                        class="mr-1 float-right"
+                        text-color="grey "
+                        color="grey lighten-5"
+                        >{{ record.createdTime }}
+                      </v-chip>
+                    </v-col>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-timeline-item>
+        </v-scroll-y-transition>
+      </v-timeline>
     </v-card>
     <div
       v-if="showMoreBtn"
@@ -255,7 +251,7 @@ export default {
           year: '2000'
         }
       ],
-      colors: ['cyan', 'green', 'pink', 'amber', 'orange'],
+      colors: ['grey', 'grey', 'grey', 'grey', 'grey'],
       timelineArray: [],
       showMoreBtn: false
     }
@@ -413,6 +409,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/deep/ .theme--light.v-timeline .v-timeline-item .v-card::before {
+  border-right-color: white;
+}
 /deep/ .v-timeline::before {
   height: calc(100% - 52px) !important;
 }

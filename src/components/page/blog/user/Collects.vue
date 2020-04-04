@@ -1,15 +1,13 @@
 <template>
-  <v-card style="border-radius:8px" class="shadow-1  mb-6">
-    <page-blog-user-list
-      title="收藏"
-      :icon="icon"
-      :loading="loading"
-      :records="dataItems"
-      :showMoreBtn="showMoreBtn"
-      @nextPage="nextPage"
-      @deleteItems="deleteItems(arguments)"
-    ></page-blog-user-list>
-  </v-card>
+  <page-blog-user-list
+    title="收藏"
+    :icon="icon"
+    :loading="loading"
+    :records="dataItems"
+    :showMoreBtn="showMoreBtn"
+    @nextPage="nextPage"
+    @deleteItems="deleteItems(arguments)"
+  ></page-blog-user-list>
 </template>
 
 <script>
@@ -41,7 +39,8 @@ export default {
 
       icon: {
         size: 20,
-        text: 'mdi-heart'
+        text: 'iconfont icon-heart',
+        color: 'deep orange--text'
       },
       showMoreBtn: false,
       loading: true

@@ -1,20 +1,25 @@
 <template>
   <v-container class="" style="min-height:500px">
-    <v-row>
-      <v-col cols="12">
-        <p class="b-title my-3 mx-8">{{ getTitle }}</p>
-      </v-col>
+    <v-row class="mb-4">
+      <v-card class="shadow-1 fill-width">
+        <v-card-text>
+          <p class="b-title my-0 mx-8">{{ getTitle }}</p>
+        </v-card-text>
+      </v-card>
     </v-row>
+    <!-- records.length == 0 && !loading -->
     <v-row
       v-if="records.length == 0 && !loading"
-      class="mt-8 justify-center align-center"
+      class="justify-center align-center"
     >
-      <v-img :src="$global.emptyBg" height="300" contain></v-img>
-      <v-col cols="12">
-        <p class="text-center" style="color:#bababa;">
-          暂时木有内容呀～～
-        </p>
-      </v-col>
+      <v-card class="shadow-1 fill-width">
+        <v-card-text class="pt-8">
+          <v-img :src="$global.emptyBg" height="300" contain></v-img>
+          <p class="text-center mt-2" style="color:#bababa;">
+            暂时木有内容呀～～
+          </p>
+        </v-card-text>
+      </v-card>
     </v-row>
     <!-- <v-divider class="mx-0"></v-divider> -->
     <v-row v-else :key="`icon-${loading}`">
@@ -23,25 +28,45 @@
           <v-col
             cols="12"
             :key="i + 'collects'"
-            class="px-6 mt-7 py-0"
-            :class="i == 4 ? 'mb-3' : ''"
+            class="px-0 pt-0 pb-5"
+            :class="i == records.length - 1 ? 'mb-3' : ''"
           >
-            <v-alert text color="#F5F5F5" class="mb-0 pa-0">
-              <v-sheet>
-                <v-container>
-                  <v-row dense>
+            <v-card class="mb-0 pa-0 shadow-1">
+              <!-- <v-divider v-if="i != 0"></v-divider> -->
+
+              <v-container>
+                <v-row dense>
+                  <v-col class="align-center">
+                    <v-row
+                      class="mb-2 mx-0 no-gutters c-content align-center justify-space-between"
+                    >
+                      <v-col>
+                        <v-row class="mr-2 no-gutters c-content align-center">
+                          <v-col cols="auto" class="mr-3">
+                            <v-skeleton-loader type="avatar">
+                            </v-skeleton-loader>
+                          </v-col>
+                          <v-col>
+                            <v-skeleton-loader type="chip"> </v-skeleton-loader>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+                    </v-row>
+                    <p class="mb-1 c-content">
+                      <v-skeleton-loader type="list-item" width="100%">
+                      </v-skeleton-loader>
+                    </p>
+                  </v-col>
+                </v-row>
+                <v-sheet color="grey lighten-5">
+                  <v-row dense align="center" class="px-2 py-1">
                     <v-col cols="auto" class="mr-1">
-                      <v-card
-                        class="mx-auto"
-                        max-height="68"
-                        flat
-                        style="border-radius:0px"
-                      >
-                        <v-skeleton-loader type="image" width="80" height="68">
+                      <v-card class="mx-auto  main-card__img" max-height="50">
+                        <v-skeleton-loader type="image" width="64" height="50">
                         </v-skeleton-loader>
                       </v-card>
                     </v-col>
-                    <v-col class="justify-center">
+                    <v-col cols="10" class="pa-0">
                       <v-skeleton-loader
                         type="paragraph"
                         class="mt-3"
@@ -50,9 +75,9 @@
                       </v-skeleton-loader>
                     </v-col>
                   </v-row>
-                </v-container>
-              </v-sheet>
-            </v-alert>
+                </v-sheet>
+              </v-container>
+            </v-card>
           </v-col>
         </template>
       </template>
@@ -62,7 +87,7 @@
             <v-col
               cols="12"
               :key="i + 'collects'"
-              class="px-0 py-5"
+              class="px-0 pt-0 pb-5"
               :class="i == records.length - 1 ? 'mb-3' : ''"
             >
               <v-card class="mb-0 pa-0 shadow-1">
@@ -77,11 +102,7 @@
                         <v-col>
                           <v-row class="mr-2 no-gutters c-content align-center">
                             <v-col cols="auto" class="mr-3">
-                              <v-avatar
-                                size="38"
-                                class="avatar-shadow"
-                                v-on="on"
-                              >
+                              <v-avatar size="38" class="avatar-shadow">
                                 <img :src="$avatar(item.fromAvatar)" />
                                 <!-- :alt="isLogin ? getBaseUserInfo.nickName : '奶茬-未登录用户'" -->
                               </v-avatar>
@@ -90,12 +111,17 @@
                               <p class="mb-0 c-h-user">
                                 {{ item.fromNickName }}
                               </p>
-                              <Timeago
-                                class="c-h-time"
-                                :datetime="item.createdTime"
-                                :autoUpdate="true"
-                              >
-                              </Timeago>
+                              <span class="c-h-time">
+                                <Timeago
+                                  class="c-h-time"
+                                  :datetime="item.createdTime"
+                                  :autoUpdate="true"
+                                >
+                                </Timeago>
+                                <span class="ml-2">
+                                  {{ isReply(item) ? '回复' : '评论' }}
+                                </span>
+                              </span>
                             </v-col>
                           </v-row>
                         </v-col>
@@ -108,7 +134,7 @@
                           >
                             <template v-slot:activator="{ on }">
                               <v-btn
-                                class="opt-btn red--text"
+                                class="opt-btn deep orange--text"
                                 icon
                                 @click="deleteItems(item, i)"
                                 v-on="on"
@@ -120,32 +146,49 @@
                               </v-btn>
                             </template>
                             <span class="grey--text text--darken-3"
-                              >取消{{ title }}</span
+                              >删除{{ title }}</span
                             >
                           </v-tooltip>
                         </v-col>
                       </v-row>
                       <p class="mb-1 c-content">
-                        <span v-if="item.parent">
-                          回复
-                          <a class="users" @click="toUserInfo(item.toUid)">{{
-                            item.toNickName
-                          }}</a>
-                          ：
-                        </span>
-                        {{ item.content }}
+                        <v-avatar
+                          v-if="isReply(item)"
+                          color="grey lighten-3"
+                          class="mr-1"
+                          size="28"
+                        >
+                          <v-icon size="16" class="icon-color"
+                            >iconfont icon-message</v-icon
+                          >
+                        </v-avatar>
+                        <v-chip
+                          v-if="isReply(item)"
+                          class=""
+                          small
+                          text-color="green"
+                          color="green lighten-5"
+                          style="vertical-align: middle;"
+                          @click="toUserInfo(item.toUid)"
+                          >{{ item.toNickName }}
+                        </v-chip>
+                        <span
+                          v-if="isReply(item)"
+                          class="mx-2"
+                          style="vertical-align: middle;"
+                          >:</span
+                        >
+
+                        <span style="vertical-align: middle;">{{
+                          item.content
+                        }}</span>
                       </p>
                     </v-col>
                   </v-row>
                   <v-sheet color="grey lighten-5">
                     <v-row dense align="center" class="px-2 py-1">
                       <v-col cols="auto" class="mr-1">
-                        <v-card
-                          class="mx-auto"
-                          max-height="50"
-                          flat
-                          style="border-radius:4px"
-                        >
+                        <v-card class="mx-auto  main-card__img" max-height="50">
                           <v-img
                             height="50"
                             width="64"
@@ -204,7 +247,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {
     //
@@ -241,6 +284,10 @@ export default {
   },
   methods: {
     //
+    ...mapActions({
+      //设置使用的用户id
+      setUseUserId: 'setUseUserIdFun'
+    }),
     nextPage() {
       //
       this.$emit('nextPage')
@@ -284,6 +331,11 @@ export default {
     linkToTag() {
       let path = '/blog/tags/tag'
       return path
+    },
+    isReply() {
+      return function(item) {
+        return item.parent
+      }
     }
   },
   watch: {
@@ -326,7 +378,7 @@ export default {
 .c-a-desc {
   color: #7a7a7a;
   font-size: 0.81rem;
-  width: 480px;
+  // width: 480px;
   overflow: hidden; /*超出部分隐藏*/
   white-space: nowrap; /*不换行*/
   text-overflow: ellipsis; /*超出部分文字以...显示*/

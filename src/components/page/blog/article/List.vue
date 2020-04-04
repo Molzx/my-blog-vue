@@ -456,14 +456,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.type-bg {
-  background-color: #f4f8fe !important;
-  border-color: #f4f8fe !important;
-}
-.category-bg {
-  background-color: #e3f2fd47 !important;
-  border-color: #e3f2fd47 !important;
-}
 .b-footer--opt {
   font-size: 13px;
   color: hsl(212, 16%, 48%);

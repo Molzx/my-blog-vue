@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-14 14:09:25
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-28 20:06:30
+ * @LastEditTime : 2020-04-04 15:07:35
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\article\Author.vue
  * @Description  : 这是一些注释
  -->
@@ -11,7 +11,7 @@
     <!-- Something -->
     <!-- <v-btn depressed @click="show = true">hh</v-btn> -->
     <!-- 个人信息 -->
-    <v-alert text dense color="teal">
+    <v-alert dense class="grey lighten-5" color="color-sub">
       <template v-slot:prepend>
         <v-tooltip
           top

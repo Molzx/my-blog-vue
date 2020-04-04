@@ -1,167 +1,161 @@
 <template>
   <v-container class="" style="min-height:500px">
-    <v-row>
-      <v-col cols="12">
-        <p class="b-title my-3 mx-8">{{ getTitle }}</p>
-      </v-col>
+    <v-row class="mb-0">
+      <v-card class="shadow-1 fill-width">
+        <v-card-text>
+          <p class="b-title my-0 mx-8">{{ getTitle }}</p>
+        </v-card-text>
+      </v-card>
     </v-row>
     <v-row
       v-if="records.length == 0 && !loading"
-      class="mt-8 justify-center align-center"
+      class="justify-center align-center"
     >
-      <v-img :src="$global.emptyBg" height="300" contain></v-img>
-      <v-col cols="12">
-        <p class="text-center" style="color:#bababa;">
-          暂时木有内容呀～～
-        </p>
-      </v-col>
+      <v-card class="shadow-1 fill-width">
+        <v-card-text class="pt-8">
+          <v-img :src="$global.emptyBg" height="300" contain></v-img>
+          <p class="text-center mt-2" style="color:#bababa;">
+            暂时木有内容呀～～
+          </p>
+        </v-card-text>
+      </v-card>
     </v-row>
     <!-- <v-divider class="mx-0"></v-divider> -->
     <v-row v-else :key="`icon-${loading}`">
-      <v-container>
-        <v-sheet class="" color="grey lighten-4">
-          <v-row v-if="loading">
-            <template v-for="i in 3">
-              <v-col
-                cols="12"
-                :key="i + 'collects'"
-                class="px-6 mt-7 py-0"
-                :class="i == 4 ? 'mb-3' : ''"
-              >
-                <v-alert text color="#F5F5F5" class="mb-0 pa-0">
-                  <v-sheet>
-                    <v-container>
-                      <v-row dense>
-                        <v-col cols="auto" class="mr-1">
-                          <v-card
-                            class="mx-auto"
-                            max-height="68"
-                            flat
-                            style="border-radius:0px"
-                          >
-                            <v-skeleton-loader
-                              type="image"
-                              width="80"
-                              height="68"
-                            >
-                            </v-skeleton-loader>
-                          </v-card>
-                        </v-col>
-                        <v-col class="justify-center">
-                          <v-skeleton-loader
-                            type="paragraph"
-                            class="mt-3"
-                            width="100%"
-                          >
-                          </v-skeleton-loader>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-sheet>
-                </v-alert>
-              </v-col>
-            </template>
-          </v-row>
-          <v-row v-else>
-            <v-scroll-y-transition class="py-0" group style="width:100%">
-              <template v-for="(item, i) in records">
-                <v-col
-                  cols="12"
-                  :key="i + 'collects'"
-                  class="px-6 mt-7 py-0"
-                  :class="i == records.length - 1 ? 'mb-3' : ''"
-                >
-                  <v-alert text color="#F5F5F5" class="mb-0 pa-0">
-                    <!-- <v-divider v-if="i != 0"></v-divider> -->
-
-                    <v-tooltip
-                      top
-                      content-class="b-tooltip"
-                      color="white"
-                      light
+      <template v-if="loading">
+        <template v-for="i in 3">
+          <v-col
+            cols="12"
+            :key="i + 'collects'"
+            class="px-0 pt-8 pb-0"
+            :class="i == records.length - 1 ? 'mb-3' : ''"
+          >
+            <v-card class="mb-0 pa-0 shadow-1">
+              <v-container>
+                <v-row dense align="center">
+                  <v-col cols="auto" class="mr-1">
+                    <v-card class="mx-auto  main-card__img" max-height="68">
+                      <v-skeleton-loader type="image" width="80" height="68">
+                      </v-skeleton-loader>
+                    </v-card>
+                  </v-col>
+                  <v-col class="justify-center" cols="10">
+                    <v-skeleton-loader
+                      type="paragraph"
+                      class="mt-3"
+                      width="100%"
                     >
-                      <template v-slot:activator="{ on }">
-                        <v-btn
-                          class="opt-btn red--text"
-                          icon
-                          @click="deleteItems(item, i)"
-                          v-on="on"
+                    </v-skeleton-loader>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-col>
+        </template>
+      </template>
+      <template v-else>
+        <v-scroll-y-transition class="py-0" group style="width:100%">
+          <template v-for="(item, i) in records">
+            <v-col
+              cols="12"
+              :key="i + 'collects'"
+              class="px-0 pt-8 pb-0"
+              :class="i == records.length - 1 ? 'mb-3' : ''"
+            >
+              <v-card class="mb-0 pa-0 shadow-1">
+                <v-tooltip top content-class="b-tooltip" color="white" light>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      class="opt-btn"
+                      :class="icon.color"
+                      icon
+                      @click="deleteItems(item, i)"
+                      v-on="on"
+                    >
+                      <v-icon :size="icon.size" v-text="icon.text"></v-icon>
+                    </v-btn>
+                  </template>
+                  <span class="grey--text text--darken-3">取消{{ title }}</span>
+                </v-tooltip>
+                <v-container>
+                  <v-row dense align="center">
+                    <v-col cols="auto" class="mr-1">
+                      <v-card class="mx-auto  main-card__img" max-height="68">
+                        <v-img
+                          height="68"
+                          width="80"
+                          class=" grey lighten-5"
+                          :src="$cover(item.cover)"
+                        ></v-img>
+                      </v-card>
+                    </v-col>
+                    <v-col class="justify-center" cols="10">
+                      <v-col cols="12" class="pa-0">
+                        <p class="b-title--small mb-1">
+                          <router-link
+                            :to="{
+                              path: linkToArticle,
+                              query: { q: item.articleId }
+                            }"
+                            class="b-a"
+                          >
+                            {{ item.title }}
+                          </router-link>
+                          <!-- <a class="float-right b-a" @click="item, i">取消收藏</a> -->
+                        </p>
+                      </v-col>
+                      <v-col cols="12" class="pa-0 ">
+                        <p class="mb-0 b-c-desc">
+                          {{ item.description }}
+                        </p>
+                      </v-col>
+                      <v-col cols="12" class="pa-0">
+                        <v-chip
+                          small
+                          class="float-right"
+                          text-color="grey "
+                          color="grey lighten-5"
                         >
-                          <v-icon :size="icon.size" v-text="icon.text"></v-icon>
-                        </v-btn>
-                      </template>
-                      <span class="grey--text text--darken-3"
-                        >取消{{ title }}</span
-                      >
-                    </v-tooltip>
-                    <v-sheet>
-                      <v-container>
-                        <v-row dense>
-                          <v-col cols="auto" class="mr-1">
-                            <v-card
-                              class="mx-auto"
-                              max-height="68"
-                              flat
-                              style="border-radius:0px"
-                            >
-                              <v-img
-                                height="68"
-                                width="80"
-                                class=" grey lighten-5"
-                                :src="$cover(item.cover)"
-                              ></v-img>
-                            </v-card>
-                          </v-col>
-                          <v-col class="justify-center">
-                            <v-col cols="12" class="pa-0">
-                              <p class="b-title--small mb-1">
-                                <router-link
-                                  :to="{
-                                    path: linkToArticle,
-                                    query: { q: item.articleId }
-                                  }"
-                                  class="b-a"
-                                >
-                                  {{ item.title }}
-                                </router-link>
-                                <!-- <a class="float-right b-a" @click="item, i">取消收藏</a> -->
-                              </p>
-                            </v-col>
-                            <v-col cols="2" class="pa-0 ">
-                              <p class="mb-0 b-c-desc">
-                                {{ item.description }}
-                              </p>
-                            </v-col>
-                            <v-col cols="12" class="pa-0">
-                              <span class="b-span--time"
-                                >{{ item.createdTime }}
-                              </span>
+                          <Timeago
+                            class="b-span--time"
+                            :datetime="item.createdTime"
+                            :autoUpdate="true"
+                          >
+                          </Timeago>
+                        </v-chip>
+                        <!-- <span class="b-span--time mr-2">分类</span> -->
 
-                              <span class="b-span--time mx-2"> | </span>
-
-                              <span class="b-span--time">
-                                <router-link
-                                  :to="{
-                                    path: linkToCategory,
-                                    query: { q: item.categoryName }
-                                  }"
-                                  class="b-a"
-                                >
-                                  {{ item.categoryName | textLengthFormat(18) }}
-                                </router-link>
-                              </span>
-                            </v-col>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-sheet>
-                  </v-alert>
-                </v-col>
-              </template>
-            </v-scroll-y-transition>
-          </v-row>
-        </v-sheet>
-      </v-container>
+                        <v-chip
+                          class="category-bg"
+                          label
+                          small
+                          color="blue--text"
+                          :to="{
+                            path: linkToCategory,
+                            query: { q: item.categoryName }
+                          }"
+                          >{{ item.categoryName | textLengthFormat(18) }}
+                        </v-chip>
+                        <span class="b-span--time">
+                          <!-- <router-link
+                            :to="{
+                              path: linkToCategory,
+                              query: { q: item.categoryName }
+                            }"
+                            class="b-a"
+                          >
+                            {{ item.categoryName | textLengthFormat(18) }}
+                          </router-link> -->
+                        </span>
+                      </v-col>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card>
+            </v-col>
+          </template>
+        </v-scroll-y-transition>
+      </template>
     </v-row>
     <!-- <div v-if="showMoreBtn" class="loading-more">
     </!-->
@@ -278,7 +272,8 @@ export default {
 .b-c-desc {
   color: #7a7a7a;
   font-size: 0.88rem;
-  width: 500px;
+  padding-bottom: 2px;
+  // width: 500px;
   overflow: hidden; /*超出部分隐藏*/
   white-space: nowrap; /*不换行*/
   text-overflow: ellipsis; /*超出部分文字以...显示*/
