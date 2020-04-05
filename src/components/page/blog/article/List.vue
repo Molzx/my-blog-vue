@@ -409,7 +409,11 @@ export default {
     page(newVal) {
       //更新地址栏分页参数
       let page = parseInt(newVal)
-      this.$router.replace({ path: this.$route.fullPath, query: { p: page } }) // 这样页面就跳转到相应的路由了。
+      //获取原有的路由参数
+      let param = this.$route.query
+      param.p = page
+      this.$router.replace({ path: this.$route.fullPath, query: param }) // 这样页面就跳转到相应的路由了。
+      // this.$router.replace({ path: this.$route.fullPath, query: { p: page } }) // 这样页面就跳转到相应的路由了。
       // console.log(this.$route)
       // this.pageParams.current = this.page
       // this.$emit('update:pageParams', this.pageParams)

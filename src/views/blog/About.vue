@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <page-blog-profile-card></page-blog-profile-card>
-  </div>
+  <page-blog-display-about></page-blog-display-about>
 </template>
 
 <script>

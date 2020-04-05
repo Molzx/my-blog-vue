@@ -1,9 +1,9 @@
 <!--
  * @Author       : xuzhenghao
- * @Date         : 2020-04-04 22:17:46
+ * @Date         : 2020-04-05 21:56:35
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-05 17:43:29
- * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\Search.vue
+ * @LastEditTime : 2020-04-05 22:02:44
+ * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\About.vue
  * @Description  : 这是一些注释
  -->
 <template>
@@ -17,7 +17,8 @@
       order-sm="1"
     >
       <!-- 搜索条件下的博客列表 -->
-      <page-blog-search-card> </page-blog-search-card>
+      <page-blog-detail-about> </page-blog-detail-about>
+      <page-blog-profile-card></page-blog-profile-card>
     </v-col>
     <v-col
       class="wrapper-col"

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-04 17:18:13
+ * @LastEditTime : 2020-04-05 23:46:20
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -58,6 +58,8 @@
             background-color="#f5f5f5"
             @focus="searchWidth = 200"
             @blur="searchWidth = 130"
+            @click:append="startSearch"
+            @keydown.enter="startSearch"
           ></v-text-field>
         </v-responsive>
         <div class=" ml-5">
@@ -178,7 +180,7 @@ export default {
           link: '/blog/test'
         },
         {
-          text: '关于我',
+          text: '关于',
           link: '/blog/about'
         }
       ],
@@ -261,6 +263,16 @@ export default {
           break
         default:
           break
+      }
+    },
+    startSearch() {
+      if (this.search) {
+        //搜索
+        let param = {
+          search: this.search
+        }
+        this.$router.push({ path: '/blog/search', query: param })
+        this.search = ''
       }
     },
     toLoginIn() {

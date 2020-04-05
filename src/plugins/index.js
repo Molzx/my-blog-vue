@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 14:21:12
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-28 22:02:07
+ * @LastEditTime : 2020-04-05 20:08:34
  * @FilePath     : \VueProjects\my-blog\src\plugins\index.js
  * @Description  : 这是一些注释
  */
@@ -22,3 +22,6 @@ import './vue-timeago'
 
 //自定义全局方法
 import './blog/index'
+
+// import './lodash' JavaScript 实用工具库。
+import './lodash'

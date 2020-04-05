@@ -121,6 +121,10 @@ const blog = {
     let url = prefix + 'user-comments'
     return getRequest(url, obj)
   },
+
+  //获取关于我有关的信息
+  toGetAuthorInfo: () => getRequest(prefix + 'author'),
+
   //=====================侧边=====================
 
   //获取侧边栏所有数据

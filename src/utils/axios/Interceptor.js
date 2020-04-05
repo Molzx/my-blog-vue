@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:12:44
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-07 14:24:27
+ * @LastEditTime : 2020-04-05 20:11:13
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\Interceptor.js
  * @Description  : 拦截器配置，请求拦截器，响应拦截器
  */
@@ -10,6 +10,29 @@ import axios from 'axios'
 import store from '@/store'
 import judgeErrorCode from './errorCode.js'
 import NProgress from '../../plugins/nprogress'
+import _ from 'lodash'
+//========进度条相关
+let needLoadingRequestCount = 0
+function showLoading() {
+  if (needLoadingRequestCount === 0) {
+    // 设置加载进度条(开始..)
+    NProgress.start()
+  }
+  needLoadingRequestCount++
+}
+function closeLoading() {
+  needLoadingRequestCount--
+  needLoadingRequestCount = Math.max(needLoadingRequestCount, 0) // 保证大于等于0
+  if (needLoadingRequestCount === 0) {
+    hideLoading()
+  }
+}
+//防抖：将 300ms 间隔内的关闭 loading 便合并为一次。防止连续请求时， loading闪烁的问题。
+//因为有时会碰到在一次请求完毕后又立刻又发起一个新的请求的情况（比如删除一个表格一行后立刻进行刷新）
+//这种情况会造成连续 loading 两次，并且中间有一次极短的闪烁。通过防抖可以让 300ms 间隔内的 loading 便合并为一次，避免闪烁的情况。
+var hideLoading = _.debounce(() => {
+  NProgress.done()
+}, 300)
 
 // axios配置
 let config = {
@@ -30,7 +53,7 @@ instance.interceptors.request.use(
   // 在响应拦截器里面去判断返回状态码，进行相应的操作
   config => {
     // 设置加载进度条(开始..)
-    NProgress.start()
+    showLoading()
 
     let defaultParams = {
       // hotel_id: store.state.hotel_id,
@@ -54,7 +77,7 @@ instance.interceptors.request.use(
   },
   function(error) {
     // 设置加载进度条(结束..)
-    NProgress.done()
+    closeLoading()
     // 对请求错误做些什么
     return Promise.reject(error)
   }
@@ -70,7 +93,7 @@ instance.interceptors.response.use(
     // console.log(res)
 
     // 设置加载进度条(结束..)
-    NProgress.done()
+    closeLoading()
 
     let isBlob = res.data instanceof Blob
     // console.log(isBlob)
@@ -88,7 +111,7 @@ instance.interceptors.response.use(
     // return Promise.reject(error)
 
     // 设置加载进度条(结束..)
-    NProgress.done()
+    closeLoading()
     // console.log('error')
     // console.log(error)
     const { response } = error
