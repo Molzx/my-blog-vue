@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-05 23:46:20
+ * @LastEditTime : 2020-04-07 00:00:20
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -24,7 +24,29 @@
         :shadow="navMenuShadow"
         :active="activeNavMenu"
       ></core-navmenu> -->
-        <div class="menu-bar light">
+
+        <section class="menu-bar">
+          <nav
+            class="link-effect-14 light ml-3"
+            id="link-effect-14"
+            ref="menuBar"
+          >
+            <template v-for="(item, i) in links">
+              <router-link
+                :key="i"
+                :class="activeIndex === i ? 'current' : ''"
+                style="opacity:0;"
+                :to="item.link"
+                :data-hover="item.text"
+              >
+                <span>
+                  {{ item.text }}
+                </span>
+              </router-link>
+            </template>
+          </nav>
+        </section>
+        <!-- <div class="menu-bar light">
           <ul class="menu-bar-1" ref="menuBar">
             <li
               v-for="(item, i) in links"
@@ -37,7 +59,7 @@
               }}</router-link>
             </li>
           </ul>
-        </div>
+        </div> -->
         <!-- <v-btn @click="switchTheme" ref="switch">theme</v-btn> -->
         <v-spacer></v-spacer>
         <v-responsive
@@ -176,12 +198,12 @@ export default {
           link: '/blog/announcements'
         },
         {
-          text: '测试',
-          link: '/blog/test'
-        },
-        {
           text: '关于',
           link: '/blog/about'
+        },
+        {
+          text: '测试',
+          link: '/blog/test'
         }
       ],
       activeIndex: 0,
@@ -204,7 +226,10 @@ export default {
     }
   },
   created() {
-    this.activeIndex = this.getActiveBlogPageIndex
+    // this.activeIndex = this.getActiveBlogPageIndex
+
+    let linkTo = this.$route.fullPath
+    this.setActiveMenuBar(linkTo)
   },
   mounted() {
     this.initMenuBarAnim()
@@ -229,7 +254,7 @@ export default {
 
       tl.staggerFromTo(
         menuList,
-        0.4,
+        0.2,
         { autoAlpha: 0 },
         { autoAlpha: 1, ease: Sine.easeInOut },
         0.2
@@ -309,6 +334,16 @@ export default {
             //
           })
       }, 0)
+    },
+    setActiveMenuBar(linkTo) {
+      this.activeIndex = -1
+      for (var i = 0, len = this.links.length; i < len; i++) {
+        let item = this.links[i]
+        if (item.link === linkTo) {
+          this.activeIndex = i
+          break
+        }
+      }
     }
   },
   components: {},
@@ -331,14 +366,15 @@ export default {
       // let linkFrom = from.fullPath
       // console.log(linkTo)
       // console.log(from)
-      this.activeIndex = -1
-      for (var i = 0, len = this.links.length; i < len; i++) {
-        let item = this.links[i]
-        if (item.link === linkTo) {
-          this.activeIndex = i
-          break
-        }
-      }
+      // this.activeIndex = -1
+      // for (var i = 0, len = this.links.length; i < len; i++) {
+      //   let item = this.links[i]
+      //   if (item.link === linkTo) {
+      //     this.activeIndex = i
+      //     break
+      //   }
+      // }
+      this.setActiveMenuBar(linkTo)
       this.setActiveBlogPageIndex(this.activeIndex)
     },
 
@@ -355,9 +391,10 @@ export default {
     }
   }
 }
+// <style lang="scss" scoped src="@styles/blog/_menu_bar.scss"></style>
 </script>
 
-<style lang="scss" scoped src="@styles/blog/_menu_bar.scss"></style>
+<style lang="scss" scoped src="@styles/blog/link_hover.scss"></style>
 
 <style lang="scss" scoped>
 .avatar-shadow {

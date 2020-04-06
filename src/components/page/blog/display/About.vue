@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-05 21:56:35
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-05 22:02:44
+ * @LastEditTime : 2020-04-06 16:33:09
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\About.vue
  * @Description  : 这是一些注释
  -->
@@ -18,7 +18,7 @@
     >
       <!-- 搜索条件下的博客列表 -->
       <page-blog-detail-about> </page-blog-detail-about>
-      <page-blog-profile-card></page-blog-profile-card>
+      <!-- <page-blog-profile-card></page-blog-profile-card> -->
     </v-col>
     <v-col
       class="wrapper-col"

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-17 23:31:22
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-19 16:03:55
+ * @LastEditTime : 2020-04-06 20:11:44
  * @FilePath     : \VueProjects\my-blog\src\utils\sensitive-word\index.js
  * @Description  : 这是一些注释
 //  */
@@ -19,6 +19,9 @@ import SensitiveSearch from './sensitive-search'
 // let filePath = './../../assets/data/dictionaries/chinese_dictionary.txt'
 // let data = loadFile(filePath)
 // console.log(data)
-let word = ['诱惑']
+//导入敏感词
+
+import word from '@/assets/data/dictionaries/dictionary'
+// let word = ['诱惑']
 let instance = new SensitiveSearch(word)
 export default instance

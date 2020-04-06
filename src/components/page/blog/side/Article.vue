@@ -18,11 +18,10 @@
         <div class="d-flex flex-no-wrap">
           <div>
             <v-card
-              class="mx-auto"
+              class="mx-auto side-card__img"
               max-width="80"
               max-height="68"
               flat
-              style="border-radius:4px"
             >
               <v-skeleton-loader type="image" width="80px" height="68px">
               </v-skeleton-loader>
