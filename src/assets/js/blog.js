@@ -128,7 +128,6 @@ export function reqSideRecArticleData(vm) {
       })
     }, 0)
   } else {
-    console.log('innn')
     vm.sideRecArticleItems = records
     vm.otherData.sideRecArticleLoading = false
   }
@@ -139,9 +138,6 @@ export function reqSideCategoryData(vm) {
   // const vm = this
   //如果没有数据，则发送请求
   let records = vm.$store.getters.getCategoryItemsFun
-  console.log('records')
-  console.log(records)
-  console.log('ecd')
   // let flag = vm.getCategoryItems
   if (!records || records.length < 1) {
     setTimeout(() => {

@@ -31,6 +31,7 @@ export function afterLoginSuccess(vm, data) {
   let userInfo = data.userInfo
   let storeData = {
     Authorization: userToken,
+    isAdmin: data.isAdmin,
     BaseUserInfo: userInfo,
     type: vm.remember
   }

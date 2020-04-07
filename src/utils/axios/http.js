@@ -6,7 +6,7 @@
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\http.js
  * @Description  : 这是一些注释
  */
-import axios from './index'
+import axios from './Interceptor'
 
 // 用于一般场景下的post请求
 export const postRequest = (

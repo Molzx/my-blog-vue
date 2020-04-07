@@ -57,7 +57,19 @@ const comment = {
     }
     return deleteRequest(commentPrefix + 'item', obj)
   },
-
+  // 根据记录ID和用户id删除记录，前台用户删除评论使用
+  toDeleteByUid: params => {
+    let isObj = Object.prototype.toString.call(params) === '[object Object]'
+    let obj
+    if (!isObj) {
+      // obj = { commentId: params }
+      console.log('error')
+      return
+    } else {
+      obj = params
+    }
+    return deleteRequest(commentPrefix + 'item', obj)
+  },
   //=====================查询=====================
   //获取系统管理可供展示的数据
   toGetOneInfo: params => {

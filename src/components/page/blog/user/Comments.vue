@@ -99,10 +99,13 @@ export default {
       let vm = this
       console.log(item)
       console.log(index)
-      let params = item.commentId
+      let params = {
+        commentId: item.commentId,
+        userId: item.fromUid
+      }
       setTimeout(() => {
         this.$api.comment
-          .toDeleteById(params)
+          .toDeleteByUid(params)
           .then(res => {
             // eslint-disable-next-line no-unused-vars
             let data = res.data.extend.data

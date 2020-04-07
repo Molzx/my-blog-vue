@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-12 20:09:16
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-04 16:53:21
+ * @LastEditTime : 2020-04-07 15:17:42
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\Article.vue
  * @Description  : 这是一些注释
  -->
@@ -33,7 +33,9 @@
         <p class="article-tip">
           <span class="">{{ articleInfo.type }}</span>
           <span class="ml-2">最后发布于{{ articleInfo.updatedTime }}</span>
-          <span class="ml-2">阅读数 {{ articleInfo.view }}</span>
+          <span class="ml-2" v-format="'#,###'"
+            >阅读数 {{ articleInfo.view }}</span
+          >
         </p>
       </v-img>
       <v-card-text :class="loading ? '' : 'pt-0'">

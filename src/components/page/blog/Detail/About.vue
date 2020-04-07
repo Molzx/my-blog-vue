@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-05 22:01:36
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-06 23:53:04
+ * @LastEditTime : 2020-04-07 21:39:27
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\Detail\About.vue
  * @Description  : 这是一些注释
  -->
@@ -196,48 +196,56 @@
 </template>
 
 <script>
+import { TweenMax } from '@common/tweenmax/all'
 export default {
-  name: 'temp',
   props: {
     //
+    info: {
+      type: Object
+    }
   },
   data() {
     return {
       //
       countItems: [
         {
+          name: 'article',
           bgColor: 'grey lighten-4',
           icon: 'iconfont icon-shuben',
           iconColor: 'rgb(170, 148, 148)',
-          count: '12',
+          count: '0',
           text: '文章'
         },
         {
+          name: 'category',
           bgColor: 'grey lighten-4',
           icon: 'iconfont icon-fenlei',
           iconColor: 'rgb(170, 148, 148)',
-          count: '12',
+          count: '0',
           text: '分类'
         },
         {
+          name: 'tag',
           bgColor: 'grey lighten-4',
           icon: 'iconfont icon-jiagebiaoqian',
           iconColor: 'rgb(170, 148, 148)',
-          count: '34',
+          count: '0',
           text: '标签'
         },
         {
+          name: 'parentComment',
           bgColor: 'grey lighten-4',
           icon: 'iconfont icon-xiaoxi',
           iconColor: 'rgb(170, 148, 148)',
-          count: '24',
+          count: '0',
           text: '评论'
         },
         {
+          name: 'childrenComment',
           bgColor: 'grey lighten-4',
           icon: 'iconfont icon-liaotian',
           iconColor: 'rgb(170, 148, 148)',
-          count: '142',
+          count: '0',
           text: '回复'
         }
       ],
@@ -297,6 +305,21 @@ export default {
     toWebSite(link) {
       window.open(link, '_blank').location
       // window.location.href = link
+    },
+    set() {
+      this.setLite(this.plist[0], this.plist[0].value)
+      this.setLite(this.plist[1], this.plist[1].value)
+      this.setLite(this.plist[2], this.plist[2].value)
+    },
+    setLite(obj, val) {
+      TweenMax.fromTo(
+        obj,
+        2,
+        {
+          count: 0
+        },
+        { count: val, roundProps: ['count'] }
+      )
     }
   },
   computed: {
@@ -304,6 +327,18 @@ export default {
   },
   watch: {
     //
+    //监听父组件传来的信息
+    info: {
+      handler(newVal) {
+        if (newVal) {
+          this.countItems.forEach((item, i) => {
+            this.setLite(this.countItems[i], newVal[item.name])
+            // this.countItems[i].count = newVal[item.name]
+          })
+        }
+      },
+      deep: true
+    }
   },
   filters: {
     //

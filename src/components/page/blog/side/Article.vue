@@ -180,7 +180,7 @@ export default {
   watch: {
     //
     sideArticleItems() {
-      console.log(this.sideArticleItems)
+      // console.log(this.sideArticleItems)
     }
   },
   components: {

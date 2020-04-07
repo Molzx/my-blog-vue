@@ -2,15 +2,32 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:12:44
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-05 20:11:13
+ * @LastEditTime : 2020-04-07 23:24:37
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\Interceptor.js
  * @Description  : 拦截器配置，请求拦截器，响应拦截器
  */
+import Vue from 'vue'
+import vueAxios from 'vue-axios'
 import axios from 'axios'
 import store from '@/store'
 import judgeErrorCode from './errorCode.js'
 import NProgress from '../../plugins/nprogress'
 import _ from 'lodash'
+//加密解密相关
+import cryptoJs from 'crypto-js'
+import JSEncrypt from 'jsencrypt'
+import { uuid } from '@/utils/utils'
+
+Vue.use(vueAxios, axios)
+Vue.use(cryptoJs)
+
+const u32 = uuid(32)
+const u16 = uuid(16)
+const key = cryptoJs.enc.Latin1.parse(u32)
+const iv = cryptoJs.enc.Latin1.parse(u16)
+//是否开启加密
+const isEncode = true
+
 //========进度条相关
 let needLoadingRequestCount = 0
 function showLoading() {
@@ -71,8 +88,46 @@ instance.interceptors.request.use(
     // 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token
     // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码
     // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
-    const token = store.state.Authorization
+    const token = store.getters.getTokenFun
+    // store.state.Authorization
     token && (config.headers.Authorization = token)
+    console.log('start')
+    console.log(JSON.parse(JSON.stringify(config.data)))
+    //加密解密相关
+    if (isEncode) {
+      // data加密
+      // data数据加密
+      if (typeof config.data === 'object') {
+        config.data = JSON.stringify(config.data)
+      }
+      const encrypted = cryptoJs.AES.encrypt(config.data, key, {
+        iv: iv,
+        mode: cryptoJs.mode.CBC,
+        padding: cryptoJs.pad.ZeroPadding
+      })
+
+      // ras 数据加密
+      var publicKey =
+        // '123456'
+        'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4980WaNEWI4Wc/Brzc8XsFq7EViD2tgOWjZjEZHh+0/EEzs9zTd08n87YG1S3mTsZNFc9cBgEZAQSmzDwSIElqvp2Gu8qwgt4mzNe2cGXAILtV8FZP8//QFq5WCBucJZcgyx3oPzTiHoZ2uHCsnlHRKc3Fxe4TF1ClJ97BX4B1wIDAQAB'
+      const jsencrypt = new JSEncrypt()
+      jsencrypt.setPublicKey(publicKey)
+      const ras = jsencrypt.encrypt(u32 + ';' + u16)
+
+      if (config.method === 'post' || config.method === 'POST') {
+        config.headers['Content-Type'] = 'application/json; charset=utf-8'
+        config.data = ras + ';' + encrypted.toString()
+      } else if (config.method === 'get' || config.method === 'GET') {
+        config.headers['Content-Type'] =
+          'application/x-www-form-urlencoded;charset=UTF-8'
+        const params = ras + ';' + encrypted.toString()
+
+        console.log(params)
+        config.params = { params }
+      }
+      console.log('out')
+      console.log(config.params)
+    }
     return config
   },
   function(error) {
@@ -94,7 +149,20 @@ instance.interceptors.response.use(
 
     // 设置加载进度条(结束..)
     closeLoading()
-
+    //加密解密相关
+    if (isEncode) {
+      console.log(res.data)
+      // 数据解密
+      // 方式1 aes 解密
+      const decrypt = cryptoJs.AES.decrypt(res.data, key, {
+        iv: iv,
+        mode: cryptoJs.mode.CBC,
+        padding: cryptoJs.pad.ZeroPadding
+      })
+      res.data = cryptoJs.enc.Utf8.stringify(decrypt).toString()
+      res.data = JSON.parse(res.data)
+      console.log(res.data)
+    }
     let isBlob = res.data instanceof Blob
     // console.log(isBlob)
     if (res.data.code == '200' || isBlob) {

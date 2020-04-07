@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 15:13:35
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-08 16:35:42
+ * @LastEditTime : 2020-04-07 16:28:36
  * @FilePath     : \VueProjects\my-blog\src\store\getters.js
  * @Description  : 这是一些注释
  */
@@ -18,13 +18,18 @@ export default {
   getUserInfoFun: state => state.userInfo,
   //本地是否有token，有返回true，代表已登录
   getLoginStatusFun: state => {
-    let status = state.Authorization
+    let status = state.Authorization.token
     if (status) {
       return true
     } else {
       return false
     }
   },
+  //获取token
+  getTokenFun: state => state.Authorization.token,
+  //判断用户是否为管理员
+  isAdminFun: state =>
+    state.Authorization.isAdmin ? state.Authorization.isAdmin : false,
   getBaseUserInfoFun: state => state.BaseUserInfo,
   isFirstInitSubPageFun: state => state.firstInitSubPage,
   getCurrentSubPageFun: function(state) {

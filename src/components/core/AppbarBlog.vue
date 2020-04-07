@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-07 00:00:20
+ * @LastEditTime : 2020-04-07 17:58:15
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -29,12 +29,12 @@
           <nav
             class="link-effect-14 light ml-3"
             id="link-effect-14"
-            ref="menuBar"
+            ref="navBar"
           >
-            <template v-for="(item, i) in links">
+            <template v-for="(item, i) in navLinks">
               <router-link
                 :key="i"
-                :class="activeIndex === i ? 'current' : ''"
+                :class="activeNavIndex === i ? 'current' : ''"
                 style="opacity:0;"
                 :to="item.link"
                 :data-hover="item.text"
@@ -49,9 +49,9 @@
         <!-- <div class="menu-bar light">
           <ul class="menu-bar-1" ref="menuBar">
             <li
-              v-for="(item, i) in links"
+              v-for="(item, i) in navLinks"
               :key="i"
-              :class="activeIndex === i ? 'current' : ''"
+              :class="activeNavIndex === i ? 'current' : ''"
               style="opacity:0;"
             >
               <router-link :to="item.link" :data-hover="item.text">{{
@@ -112,7 +112,7 @@
                   <template v-for="(item, i) in menuItems">
                     <v-list-item
                       :key="i"
-                      v-if="$isLogin() == item.isLogin && item.to"
+                      v-if="showMenuItem(item) && item.to"
                       :to="item.to"
                     >
                       <v-list-item-icon>
@@ -127,7 +127,7 @@
                     </v-list-item>
                     <v-list-item
                       :key="i"
-                      v-if="$isLogin() == item.isLogin && !item.to"
+                      v-if="showMenuItem(item) && !item.to"
                       @click="clickMenu(item.name)"
                     >
                       <v-list-item-icon>
@@ -172,7 +172,7 @@ export default {
       search: '',
       searchWidth: 130,
 
-      links: [
+      navLinks: [
         {
           text: '首页',
           link: '/blog/home'
@@ -206,7 +206,7 @@ export default {
           link: '/blog/test'
         }
       ],
-      activeIndex: 0,
+      activeNavIndex: 0,
       unloginAvatar: require('@/assets/images/avatar/unlogin_avatar_32.svg'),
       previewAvatar: require('@/assets/images/avatar/avatar.svg'),
 
@@ -215,24 +215,32 @@ export default {
         {
           name: 'userInfo',
           //是否登录后才显示
-          isLogin: true,
+          needLogin: true,
           text: '个人中心',
           icon: 'mdi-account',
           to: '/blog/users/owner'
         },
-        { name: 'login', isLogin: false, text: '登录', icon: 'mdi-login' },
-        { name: 'logout', isLogin: true, text: '注销', icon: 'mdi-logout' }
+        {
+          name: 'system',
+          needLogin: true,
+          needAdmin: true,
+          text: '后台管理',
+          icon: 'mdi-login',
+          to: '/system'
+        },
+        { name: 'login', needLogin: false, text: '登录', icon: 'mdi-login' },
+        { name: 'logout', needLogin: true, text: '注销', icon: 'mdi-logout' }
       ]
     }
   },
   created() {
-    // this.activeIndex = this.getActiveBlogPageIndex
+    // this.activeNavIndex = this.getActiveBlogPageIndex
 
     let linkTo = this.$route.fullPath
-    this.setActiveMenuBar(linkTo)
+    this.setActiveNavBarItem(linkTo)
   },
   mounted() {
-    this.initMenuBarAnim()
+    this.initNavBarAnim()
     this.initBaseUserInfo()
   },
   methods: {
@@ -247,13 +255,13 @@ export default {
       //设置登录状态token
       setLoginStatus: 'setLoginStatusFun'
     }),
-    initMenuBarAnim() {
-      let menuList = this.$refs.menuBar.children
+    initNavBarAnim() {
+      let navList = this.$refs.navBar.children
 
       let tl = new TimelineLite()
 
       tl.staggerFromTo(
-        menuList,
+        navList,
         0.2,
         { autoAlpha: 0 },
         { autoAlpha: 1, ease: Sine.easeInOut },
@@ -321,26 +329,25 @@ export default {
       }
     },
     requireBaseUserInfo() {
-      let vm = this
-      setTimeout(() => {
-        this.$api.user
-          .toGetLessInfo()
-          .then(res => {
-            let data = res.data.extend.data
-
-            vm.setBaseUserInfo(data)
-          })
-          .catch(() => {
-            //
-          })
-      }, 0)
+      // let vm = this
+      // setTimeout(() => {
+      //   this.$api.user
+      //     .toGetLessInfo()
+      //     .then(res => {
+      //       let data = res.data.extend.data
+      //       vm.setBaseUserInfo(data)
+      //     })
+      //     .catch(() => {
+      //       //
+      //     })
+      // }, 0)
     },
-    setActiveMenuBar(linkTo) {
-      this.activeIndex = -1
-      for (var i = 0, len = this.links.length; i < len; i++) {
-        let item = this.links[i]
+    setActiveNavBarItem(linkTo) {
+      this.activeNavIndex = -1
+      for (var i = 0, len = this.navLinks.length; i < len; i++) {
+        let item = this.navLinks[i]
         if (item.link === linkTo) {
-          this.activeIndex = i
+          this.activeNavIndex = i
           break
         }
       }
@@ -358,6 +365,24 @@ export default {
     isOwnerSpace() {
       let flag = this.$route.fullPath.indexOf('/blog/users/owner') != -1
       return flag
+    },
+    //计算展示的菜单选项
+    showMenuItem() {
+      return function(item) {
+        let show = true
+        //判断是否需要管理员才显示
+        if (item.needAdmin) {
+          //只有当登录了，而且是管理员才显示
+          show = this.$isLogin() && this.$isAdmin()
+        } else {
+          //判断是否需要登录才显示
+          if (item.needLogin) {
+            //只有当登录了才显示
+            show = this.$isLogin()
+          }
+        }
+        return show
+      }
     }
   },
   watch: {
@@ -366,16 +391,16 @@ export default {
       // let linkFrom = from.fullPath
       // console.log(linkTo)
       // console.log(from)
-      // this.activeIndex = -1
-      // for (var i = 0, len = this.links.length; i < len; i++) {
-      //   let item = this.links[i]
+      // this.activeNavIndex = -1
+      // for (var i = 0, len = this.navLinks.length; i < len; i++) {
+      //   let item = this.navLinks[i]
       //   if (item.link === linkTo) {
-      //     this.activeIndex = i
+      //     this.activeNavIndex = i
       //     break
       //   }
       // }
-      this.setActiveMenuBar(linkTo)
-      this.setActiveBlogPageIndex(this.activeIndex)
+      this.setActiveNavBarItem(linkTo)
+      this.setActiveBlogPageIndex(this.activeNavIndex)
     },
 
     'getBaseUserInfo.avatar': {

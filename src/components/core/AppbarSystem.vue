@@ -162,16 +162,22 @@ export default {
       this.changeOpenDrawer()
     },
     initBaseUserInfo() {
-      //如果用户已登录
-      if (this.$isLogin()) {
+      //如果用户已登录且是管理员
+      if (this.$isLogin() && this.$isAdmin()) {
         //如果头像信息为空
         let info = this.getBaseUserInfo
         if (!info) {
           this.requireBaseUserInfo()
         }
       } else {
-        //如果用户未登录，跳转到登陆
-        this.$toLogin()
+        if (!this.$isLogin()) {
+          //如果用户未登录，跳转到登陆
+          this.$toLogin()
+        } else {
+          //如果用户不是管理员，提示，跳到博客首页
+          this.$toast.info('非法操作，非管理员，禁止入内！')
+          this.goToHome()
+        }
       }
     },
     requireBaseUserInfo() {

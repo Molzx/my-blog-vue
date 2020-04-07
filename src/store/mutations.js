@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-15 17:35:35
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-04 16:06:47
+ * @LastEditTime : 2020-04-07 16:47:30
  * @FilePath     : \VueProjects\my-blog\src\store\mutations.js
  * @Description  : 这是一些注释
  */
@@ -52,16 +52,22 @@ export default {
   setLoginStatus(state, info) {
     //如果info不为空
     if (typeof info != undefined) {
-      state.Authorization = info.Authorization
+      state.Authorization = {
+        token: info.Authorization
+      }
+      //只有是管理员的情况，才存储
+      if (info.isAdmin) {
+        state.Authorization.isAdmin = info.isAdmin
+      }
       //判断是否记住我，如果为1保存token7天，否则为当次浏览器会话
       if (info.type) {
         storage.setItem({
           name: 'Authorization',
-          value: info.Authorization,
+          value: state.Authorization,
           expires: '604800000'
         })
       } else {
-        sessionStorage.setItem('Authorization', info.Authorization)
+        sessionStorage.setItem('Authorization', state.Authorization)
       }
     } else {
       state.Authorization = ''

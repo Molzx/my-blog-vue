@@ -1,13 +1,13 @@
 <template>
   <div
     class="comment pt-9 pb-6 mt-3"
-    :class="commentList.length == 0 ? '' : 'active'"
+    :class="selfCommentList.length == 0 ? '' : 'active'"
   >
     <!-- Something -->
     <v-container>
       <v-timeline class="pt-0" align-top dense>
         <v-scroll-y-transition class="py-0" group>
-          <template v-for="(comment, commentIndex) in commentList">
+          <template v-for="(comment, commentIndex) in selfCommentList">
             <v-timeline-item
               class="pb-0"
               large
@@ -85,10 +85,12 @@
                         :ripple="false"
                         x-small
                         @click="replyParent(comment, commentIndex)"
-                        ><v-icon size="13" style="padding-right:2px"
-                          >far fa-thumbs-up</v-icon
-                        >喜欢</v-btn
                       >
+                        <v-icon size="13" style="padding-right:2px">
+                          far fa-thumbs-up
+                        </v-icon>
+                        喜欢
+                      </v-btn>
                       <v-btn
                         class="comment-btn"
                         text
@@ -96,10 +98,12 @@
                         :ripple="false"
                         x-small
                         @click="replyParent(comment, commentIndex)"
-                        ><v-icon size="13" style="padding-right:2px"
-                          >far fa-thumbs-down</v-icon
-                        >反对</v-btn
                       >
+                        <v-icon size="13" style="padding-right:2px">
+                          far fa-thumbs-down
+                        </v-icon>
+                        反对
+                      </v-btn>
                       <v-btn
                         class="comment-btn"
                         text
@@ -107,10 +111,25 @@
                         :ripple="false"
                         x-small
                         @click="replyParent(comment, commentIndex)"
-                        ><v-icon size="13" style="padding-right:2px"
-                          >far fa-comment-dots</v-icon
-                        >回复</v-btn
                       >
+                        <v-icon size="13" style="padding-right:2px">
+                          far fa-comment-dots
+                        </v-icon>
+                        回复
+                      </v-btn>
+                      <v-btn
+                        class="comment-btn"
+                        text
+                        retain-focus-on-click
+                        :ripple="false"
+                        x-small
+                        @click="deleteComment(comment, commentIndex)"
+                      >
+                        <v-icon size="13" style="padding-right:2px">
+                          far fa-comment-dots
+                        </v-icon>
+                        删除
+                      </v-btn>
                     </div>
                   </v-col>
 
@@ -281,10 +300,12 @@
                                       childrenIndex
                                     )
                                   "
-                                  ><v-icon size="13" style="padding-right:2px"
-                                    >far fa-thumbs-up</v-icon
-                                  >喜欢</v-btn
                                 >
+                                  <v-icon size="13" style="padding-right:2px">
+                                    far fa-thumbs-up
+                                  </v-icon>
+                                  喜欢
+                                </v-btn>
                                 <v-btn
                                   class="comment-btn"
                                   text
@@ -298,10 +319,12 @@
                                       childrenIndex
                                     )
                                   "
-                                  ><v-icon size="13" style="padding-right:2px"
-                                    >far fa-thumbs-down</v-icon
-                                  >反对</v-btn
                                 >
+                                  <v-icon size="13" style="padding-right:2px">
+                                    far fa-thumbs-down
+                                  </v-icon>
+                                  反对
+                                </v-btn>
                                 <v-btn
                                   class="comment-btn"
                                   text
@@ -315,10 +338,31 @@
                                       childrenIndex
                                     )
                                   "
-                                  ><v-icon size="13" style="padding-right:2px"
-                                    >far fa-comment-dots</v-icon
-                                  >回复</v-btn
                                 >
+                                  <v-icon size="13" style="padding-right:2px">
+                                    far fa-comment-dots
+                                  </v-icon>
+                                  回复
+                                </v-btn>
+                                <v-btn
+                                  class="comment-btn"
+                                  text
+                                  retain-focus-on-click
+                                  :ripple="false"
+                                  x-small
+                                  @click="
+                                    deleteComment(
+                                      children,
+                                      commentIndex,
+                                      childrenIndex
+                                    )
+                                  "
+                                >
+                                  <v-icon size="13" style="padding-right:2px">
+                                    far fa-comment-dots
+                                  </v-icon>
+                                  删除
+                                </v-btn>
                               </div>
                             </v-col>
 
@@ -519,7 +563,8 @@ export default {
   },
   data() {
     return {
-      //
+      //评论数组
+      selfCommentList: [],
       //页数，第几页
       page: 1,
       //回复内容
@@ -553,7 +598,7 @@ export default {
       setUseUserId: 'setUseUserIdFun'
     }),
     toUserInfo(userId, nickName) {
-      //
+      //跳转到用户个人信息界面
       if (this.getBaseUserInfo.nickName == nickName) {
         this.$router.push('/blog/users/own/info')
       } else {
@@ -566,15 +611,37 @@ export default {
       this.$emit('loadingMore', commentId)
     },
 
-    checkLoginStatus(item) {
-      //
-      if (this.$isLogin()) {
-        this.downloadFile(item)
-      } else {
-        this.showLoginTip = true
-      }
-    },
     //==========
+    //删除评论
+    deleteComment(item, commentIndex, childrenIndex) {
+      let vm = this
+      // console.log(item)
+      // console.log(index)
+      let params = {
+        commentId: item.commentId,
+        userId: item.fromUid
+      }
+      setTimeout(() => {
+        this.$api.comment
+          .toDeleteByUid(params)
+          .then(res => {
+            // eslint-disable-next-line no-unused-vars
+            let data = res.data.extend.data
+            // console.log(data)
+            this.$toast.success('删除评论成功')
+            //在下标处开始删除,删除一位，删除 删除成功的记录
+            //不必重新拉取数据
+            if (childrenIndex) {
+              vm.selfCommentList[commentIndex].splice(childrenIndex, 1)
+            } else {
+              vm.selfCommentList.splice(commentIndex, 1)
+            }
+          })
+          .catch(() => {
+            // vm.loading = false
+          })
+      }, 0)
+    },
     //回复主评论
     replyParent(parentComment, parentIndex) {
       //判断是否已登录，未登录，展开提示框
@@ -620,13 +687,14 @@ export default {
         this.showChildrenReply = childrenIndex
       }
     },
+    //提交数据到父组件，发布评论
     postComment() {
       this.replyLoading = true
       this.formData.content = this.replyContent
       this.$emit('update:formData', this.formData)
       this.$emit('postComment')
     },
-
+    //校验表单
     validate() {
       let vm = this
       this.$refs.replyForm[0].validate().then(success => {
@@ -639,6 +707,7 @@ export default {
     reset() {
       this.$refs.replyForm.reset()
     },
+    //关闭回复框
     closeReply() {
       //关闭提交按钮动画
       this.closeReplyLoading()
@@ -692,7 +761,22 @@ export default {
     }
   },
   watch: {
-    //
+    //把父组件传来的评论列表复制到子组件
+    commentList: {
+      handler(newVal) {
+        if (newVal) {
+          this.selfCommentList = JSON.parse(JSON.stringify(newVal))
+        }
+      },
+      deep: true
+    },
+
+    // 判断是否为自己发布的评论
+    isOwner() {
+      return function(value) {
+        return this.getBaseUserInfo.nickName == value
+      }
+    },
     //监听表单内容，内容为空，采用懒加载，提交再验证，如果内容不为空，采用立即校验
     replyContent() {
       if (this.replyContent == '') {

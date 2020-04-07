@@ -130,4 +130,10 @@ exports.install = function(Vue, router, store, TweenMaxObject) {
     //获取是否登录，已登录返回true
     return store.getters.getLoginStatusFun
   }
+  Vue.prototype.$isAdmin = function() {
+    //获取是否为管理员，是管理员返回true
+    return (
+      store.getters.isAdminFun == true || store.getters.isAdminFun == 'true'
+    )
+  }
 }
