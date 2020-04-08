@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:12:44
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-07 23:24:37
+ * @LastEditTime : 2020-04-08 23:51:18
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\Interceptor.js
  * @Description  : 拦截器配置，请求拦截器，响应拦截器
  */
@@ -13,18 +13,10 @@ import store from '@/store'
 import judgeErrorCode from './errorCode.js'
 import NProgress from '../../plugins/nprogress'
 import _ from 'lodash'
-//加密解密相关
-import cryptoJs from 'crypto-js'
-import JSEncrypt from 'jsencrypt'
-import { uuid } from '@/utils/utils'
+import { Decrypt } from '../secret'
 
 Vue.use(vueAxios, axios)
-Vue.use(cryptoJs)
 
-const u32 = uuid(32)
-const u16 = uuid(16)
-const key = cryptoJs.enc.Latin1.parse(u32)
-const iv = cryptoJs.enc.Latin1.parse(u16)
 //是否开启加密
 const isEncode = true
 
@@ -91,43 +83,24 @@ instance.interceptors.request.use(
     const token = store.getters.getTokenFun
     // store.state.Authorization
     token && (config.headers.Authorization = token)
-    console.log('start')
-    console.log(JSON.parse(JSON.stringify(config.data)))
     //加密解密相关
-    if (isEncode) {
-      // data加密
-      // data数据加密
-      if (typeof config.data === 'object') {
-        config.data = JSON.stringify(config.data)
-      }
-      const encrypted = cryptoJs.AES.encrypt(config.data, key, {
-        iv: iv,
-        mode: cryptoJs.mode.CBC,
-        padding: cryptoJs.pad.ZeroPadding
-      })
+    // if (isEncode) {
+    //   // data加密
 
-      // ras 数据加密
-      var publicKey =
-        // '123456'
-        'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4980WaNEWI4Wc/Brzc8XsFq7EViD2tgOWjZjEZHh+0/EEzs9zTd08n87YG1S3mTsZNFc9cBgEZAQSmzDwSIElqvp2Gu8qwgt4mzNe2cGXAILtV8FZP8//QFq5WCBucJZcgyx3oPzTiHoZ2uHCsnlHRKc3Fxe4TF1ClJ97BX4B1wIDAQAB'
-      const jsencrypt = new JSEncrypt()
-      jsencrypt.setPublicKey(publicKey)
-      const ras = jsencrypt.encrypt(u32 + ';' + u16)
+    //   console.log(JSON.parse(JSON.stringify(config.data)))
+    //   let encryptData = Encrypt(config.data)
+    //   if (config.method === 'post' || config.method === 'POST') {
+    //     config.headers['Content-Type'] = 'application/json; charset=utf-8'
+    //     config.data = encryptData
+    //   } else if (config.method === 'get' || config.method === 'GET') {
+    //     config.headers['Content-Type'] =
+    //       'application/x-www-form-urlencoded;charset=UTF-8'
+    //     const params = encryptData
 
-      if (config.method === 'post' || config.method === 'POST') {
-        config.headers['Content-Type'] = 'application/json; charset=utf-8'
-        config.data = ras + ';' + encrypted.toString()
-      } else if (config.method === 'get' || config.method === 'GET') {
-        config.headers['Content-Type'] =
-          'application/x-www-form-urlencoded;charset=UTF-8'
-        const params = ras + ';' + encrypted.toString()
-
-        console.log(params)
-        config.params = { params }
-      }
-      console.log('out')
-      console.log(config.params)
-    }
+    //     // console.log(params)
+    //     config.params = { params }
+    //   }
+    // }
     return config
   },
   function(error) {
@@ -149,21 +122,14 @@ instance.interceptors.response.use(
 
     // 设置加载进度条(结束..)
     closeLoading()
-    //加密解密相关
-    if (isEncode) {
-      console.log(res.data)
-      // 数据解密
-      // 方式1 aes 解密
-      const decrypt = cryptoJs.AES.decrypt(res.data, key, {
-        iv: iv,
-        mode: cryptoJs.mode.CBC,
-        padding: cryptoJs.pad.ZeroPadding
-      })
-      res.data = cryptoJs.enc.Utf8.stringify(decrypt).toString()
-      res.data = JSON.parse(res.data)
-      console.log(res.data)
-    }
     let isBlob = res.data instanceof Blob
+    if (!isBlob) {
+      //加密解密相关
+      if (isEncode) {
+        // 数据解密
+        res.data = Decrypt(res.data)
+      }
+    }
     // console.log(isBlob)
     if (res.data.code == '200' || isBlob) {
       return Promise.resolve(res)

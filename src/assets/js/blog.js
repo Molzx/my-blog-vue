@@ -17,6 +17,20 @@ export function reqArticleData(vm) {
   }, 0)
 }
 
+//搜索文章列表信息
+export function reqSearchArticleData(vm) {
+  // console.log(this.pageParams)
+  setTimeout(() => {
+    vm.$api.blog.toGetSearchArticles(vm.pageParams).then(res => {
+      console.log('send require search article')
+      let data = res.data.extend
+      vm.pageParams.total = data.total
+      vm.articleList = data.records
+      vm.otherData.articleListLoading = false
+    })
+  }, 0)
+}
+
 //详情页文章信息
 export function reqArticleDetailData(vm) {
   // const vm = this

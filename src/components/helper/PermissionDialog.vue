@@ -13,6 +13,7 @@
     headerTitle="登录提示"
     headerColor="info"
     cardTextHeight="280"
+    :persistent="false"
     @cancel="cancel"
   >
     <template slot="content.card-text">

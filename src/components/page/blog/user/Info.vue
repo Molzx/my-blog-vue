@@ -2,7 +2,8 @@
   <v-card style="border-radius:8px" class="shadow-1  mb-6">
     <v-container class="px-8" style="min-height: 450px;">
       <p class="b-title my-6">
-        {{ isOwnerSpace ? '我的资料' : info.nickName + '的资料' }}
+        {{ info.nickName + '  的资料' }}
+        <!-- {{ isOwnerSpace ? '我的资料' : info.nickName + '  的资料' }} -->
       </p>
       <v-divider class="mx-0"></v-divider>
       <page-blog-user-base-form
@@ -115,7 +116,7 @@ export default {
       //
       info: {
         userName: '',
-        nickName: '',
+        nickName: '用户',
         avatar: '',
         autograph: '',
 

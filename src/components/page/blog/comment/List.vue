@@ -15,7 +15,7 @@
               :key="comment.commentId + 'comment1' + commentIndex"
             >
               <template v-slot:icon>
-                <a @click="toUserInfo(comment.fromUid, children.fromNickName)">
+                <a @click="toUserInfo(comment.fromUid, comment.fromNickName)">
                   <v-avatar>
                     <img :src="$avatar(comment.fromAvatar)" />
                   </v-avatar>
@@ -36,7 +36,7 @@
                       <a
                         class="users"
                         @click="
-                          toUserInfo(comment.fromUid, children.fromNickName)
+                          toUserInfo(comment.fromUid, comment.fromNickName)
                         "
                         >{{ comment.fromNickName }}</a
                       >
@@ -52,13 +52,7 @@
                         </v-chip>
                       </span>
                       <v-spacer></v-spacer>
-                      <span class=""
-                        >#{{
-                          pageParams.total -
-                            (pageParams.current - 1) * pageParams.size -
-                            commentIndex
-                        }}</span
-                      >
+                      <span class="">{{ getCommentFloor(commentIndex) }}</span>
                     </span>
                   </v-col>
 
@@ -559,6 +553,10 @@ export default {
           content: ''
         }
       }
+    },
+    loading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -758,7 +756,23 @@ export default {
       } else {
         return Math.ceil(this.pageParams.total / this.pageParams.size)
       }
+    },
+    getCommentFloor() {
+      return commentIndex => {
+        let total = this.pageParams.total
+        let current = this.pageParams.current
+        let size = this.pageParams.size
+        let floor = total - (current - 1) * size - commentIndex
+        if (this.loading) {
+          return '...'
+        }
+        return floor + 'F'
+      }
     }
+    // getCommentList() {
+    //   this.selfCommentList = JSON.parse(JSON.stringify(this.commentList))
+    //   return this.selfCommentList
+    // }
   },
   watch: {
     //把父组件传来的评论列表复制到子组件
@@ -768,9 +782,8 @@ export default {
           this.selfCommentList = JSON.parse(JSON.stringify(newVal))
         }
       },
-      deep: true
+      immediate: true
     },
-
     // 判断是否为自己发布的评论
     isOwner() {
       return function(value) {

@@ -195,6 +195,7 @@
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
 import { like, unlike, collect, uncollect } from '@/assets/js/blog'
+import merge from 'webpack-merge'
 export default {
   props: {
     showBreadcrumbs: {
@@ -410,9 +411,12 @@ export default {
       //更新地址栏分页参数
       let page = parseInt(newVal)
       //获取原有的路由参数
-      let param = this.$route.query
-      param.p = page
-      this.$router.replace({ path: this.$route.fullPath, query: param }) // 这样页面就跳转到相应的路由了。
+      // let param = this.$route.query
+      // param.p = page
+      this.$router.replace({
+        path: this.$route.fullPath,
+        query: merge(this.$route.query, { p: page })
+      }) // 这样页面就跳转到相应的路由了。
       // this.$router.replace({ path: this.$route.fullPath, query: { p: page } }) // 这样页面就跳转到相应的路由了。
       // console.log(this.$route)
       // this.pageParams.current = this.page
@@ -425,20 +429,22 @@ export default {
       handler(newVal) {
         if (newVal) {
           this.optArticleArr = JSON.parse(JSON.stringify(newVal))
-          this.optArticleArr.forEach(i => {
+          this.optArticleArr.forEach(item => {
             let arr = this.optBtnItems
-            i.opt = JSON.parse(JSON.stringify(arr))
-            // i.opt[this.optViewIndex].count = 99999
-            i.opt[this.optViewIndex].count = i.view
-            i.opt[this.optLikeIndex].count = i.liked
-            i.opt[this.optLikeIndex].selected = i.likedStatus
-            i.opt[this.optCollectIndex].count = i.collected
-            i.opt[this.optCollectIndex].selected = i.collectedStatus
-            i.opt[this.optShareIndex].count = i.shared
+            let opt = JSON.parse(JSON.stringify(arr))
+            // item.opt[this.optViewIndex].count = 99999
+            opt[this.optViewIndex].count = item.view
+            opt[this.optLikeIndex].count = item.liked
+            opt[this.optLikeIndex].selected = item.likedStatus === true
+            opt[this.optCollectIndex].count = item.collected
+            opt[this.optCollectIndex].selected = item.collectedStatus === true
+            opt[this.optShareIndex].count = item.shared
+            item.opt = opt
           })
         }
       },
-      deep: true
+      immediate: true
+      // deep: true
     }
     // optArticleArr: {
     //   handler(newVal) {

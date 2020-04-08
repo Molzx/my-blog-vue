@@ -79,16 +79,24 @@
               max-width="280"
             >
               <template v-slot:activator="{ on }">
-                <p
+                <a
+                  v-on="on"
+                  @click="toDetail(item.articleId)"
+                  class=" text-no-wrap d-inline-block text-truncate mb-2
+                    b-sub-title b-a"
+                >
+                  {{ item.title }}
+                </a>
+                <!-- <p
                   v-on="on"
                   class=" text-no-wrap d-inline-block text-truncate mb-2
                     b-sub-title
                     "
                 >
                   <a @click="toDetail(item.articleId)" class="b-a">
-                    {{ item.title }}</a
-                  >
-                </p>
+                    {{ item.title }}
+                    </a>
+                </p> -->
               </template>
               <span class="grey--text text--darken-3">{{ item.title }}</span>
             </v-tooltip>

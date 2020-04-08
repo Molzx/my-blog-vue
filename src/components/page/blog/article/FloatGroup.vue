@@ -403,13 +403,13 @@ export default {
       // return this.refixCountData(data)
     },
     isLikedClass() {
-      if (this.optData.isLiked) {
+      if (this.optData.isLiked === true) {
         return 'active'
       }
       return ''
     },
     isCollectedClass() {
-      if (this.optData.isCollected) {
+      if (this.optData.isCollected === true) {
         return 'active'
       }
       return ''

@@ -6,7 +6,7 @@
     :records="dataItems"
     :showMoreBtn="showMoreBtn"
     @nextPage="nextPage"
-    @deleteItems="deleteItems(arguments)"
+    @deleteItems="deleteItems"
   ></page-blog-user-list>
 </template>
 

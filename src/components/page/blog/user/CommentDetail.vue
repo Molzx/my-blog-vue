@@ -293,7 +293,11 @@ export default {
     deleteItems(item, i) {
       if (this.isOwnerSpace) {
         //父组件以数组形式接收，deleteItems(args)
-        this.$emit('deleteItems', item, i)
+        // this.$emit('deleteItems', item, i)
+        let data = []
+        data.push(item)
+        data.push(i)
+        this.$emit('deleteItems', data)
       }
     },
     toUserInfo(userId) {

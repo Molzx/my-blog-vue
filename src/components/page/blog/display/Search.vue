@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-04 22:17:46
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-05 17:43:29
+ * @LastEditTime : 2020-04-08 23:48:21
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\Search.vue
  * @Description  : 这是一些注释
  -->
@@ -17,7 +17,20 @@
       order-sm="1"
     >
       <!-- 搜索条件下的博客列表 -->
-      <page-blog-search-card> </page-blog-search-card>
+      <page-blog-search-card
+        :loading="otherData.articleListLoading"
+        :noRecord="articleList && articleList.length < 1"
+      >
+      </page-blog-search-card>
+
+      <!-- 标签条件下的博客列表 -->
+      <page-blog-article-list
+        v-if="articleList.length > 0"
+        :articleList="articleList"
+        :otherData="otherData"
+        :pageParams="pageParams"
+        @changePage="requireSearchData"
+      ></page-blog-article-list>
     </v-col>
     <v-col
       class="wrapper-col"
@@ -41,6 +54,7 @@
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
 import {
+  reqSearchArticleData,
   reqSideRecArticleData,
   reqSideTagData,
   reqSideNewArticleData
@@ -60,6 +74,8 @@ export default {
 
         //搜索内容
         search: '',
+        // 文章分类ID
+        cid: '',
         // 文章分类名
         cName: ''
       },
@@ -90,24 +106,32 @@ export default {
   methods: {
     //
     getUrlParams() {
+      let currentPage = this.$route.query.p
       let search = this.$route.query.search
-      this.pageParams.search = search
-
-      //请求后台数据
-      // this.requireData()
+      if (search) {
+        this.pageParams.current = currentPage || 1
+        this.pageParams.search = search
+        //请求后台数据
+        this.requireData()
+      } else {
+        //如果没有搜索关键字
+        this.otherData.articleListLoading = false
+      }
     },
     requireData() {
       reqSideRecArticleData(this)
       reqSideTagData(this)
       reqSideNewArticleData(this)
+      reqSearchArticleData(this)
     },
     requireSearchData() {
       //
-      console.log('send')
-    },
-    toSearch(args) {
-      this.pageParams = args
-      console.log(args)
+      this.otherData.articleListLoading = true
+      //回到顶部
+      this.$scrollTop(this)
+      //获取分页参数
+      this.getUrlParams()
+      reqSearchArticleData(this)
     }
   },
   computed: {

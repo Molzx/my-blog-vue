@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-04 22:31:38
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-05 21:53:43
+ * @LastEditTime : 2020-04-08 23:28:08
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\SearchCard.vue
  * @Description  : 这是一些注释
  -->
@@ -65,7 +65,22 @@
       </v-container>
     </v-card>
 
-    <v-card class="shadow-1 fill-width">
+    <v-card v-if="loading" class="shadow-1 fill-width mb-4">
+      <v-card-text class="py-12">
+        <v-row class="justify-center align-center">
+          <v-col cols="12" class="justify-center align-center">
+            <v-img :src="startSearchBg" height="200" contain></v-img>
+          </v-col>
+          <v-col cols="12">
+            <p class="mb-0 mt-2 text-center" style="color:#9a9a9a;">
+              正在搜索中呀！
+            </p>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <v-card v-else-if="!pageParams.search" class="shadow-1 fill-width mb-4">
       <v-card-text class="py-12">
         <v-row class="justify-center align-center">
           <v-col cols="12" class="justify-center align-center">
@@ -80,7 +95,7 @@
       </v-card-text>
     </v-card>
 
-    <!-- <v-card class="shadow-1 fill-width">
+    <v-card v-else-if="noRecord" class="shadow-1 fill-width mb-4">
       <v-card-text class="py-6">
         <v-row class="justify-center align-center">
           <v-col cols="12" class="justify-center align-center">
@@ -93,14 +108,21 @@
           </v-col>
         </v-row>
       </v-card-text>
-    </v-card> -->
+    </v-card>
   </div>
 </template>
 
 <script>
+import merge from 'webpack-merge'
 export default {
   props: {
     //
+    loading: {
+      type: Boolean
+    },
+    noRecord: {
+      type: Boolean
+    }
   },
   data() {
     return {
@@ -146,6 +168,7 @@ export default {
         this.pageParams.search = search
         this.searchStr = search
       } else {
+        this.pageParams.search = ''
         this.searchStr = ''
       }
       console.log(this.searchStr)
@@ -153,17 +176,20 @@ export default {
       // this.requireData()
     },
     toSearch() {
-      // console.log('param')
-      //获取原有的路由参数
-      let param = {
-        //重置为第一页
-        p: 1,
-        searchr: this.searchStr
+      if (this.searchStr) {
+        //获取原有的路由参数
+        let params = {
+          //重置为第一页
+          p: 1,
+          search: this.searchStr
+        }
+        console.log(params)
+
+        this.$router.replace({
+          path: this.$route.fullPath,
+          query: merge(this.$route.query, params)
+        })
       }
-      console.log(param)
-      this.$router.replace({ path: this.$route.fullPath, query: param }) // 这样页面就跳转到相应的路由了。
-      //父组件以数组形式接收，deleteItems(args)
-      // this.$emit('toSearch', this.pageParams)
     }
   },
   computed: {

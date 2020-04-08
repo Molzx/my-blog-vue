@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:33:54
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-27 10:36:59
+ * @LastEditTime : 2020-04-08 16:10:30
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\filters.js
  * @Description  : 这是一些注释
  */
@@ -42,7 +42,25 @@ const filters = {
         )
     return fmtExp
   },
+  removeNullProps(obj) {
+    //
+    for (let [key, value] of Object.entries(obj)) {
+      console.log([key, value]) // ['a', 1], ['b', 2], ['c', 3]
 
+      //获取是否为对象
+      if (Object.prototype.toString.call(value) == '[object Object]') {
+        if (Object.keys(value).length === 0) {
+          obj[key] = null
+        }
+      }
+      //获取是否为数组
+      if (Object.prototype.toString.call(value) == '[object Array]') {
+        if (value.length < 1) {
+          obj[key] = null
+        }
+      }
+    }
+  },
   textLengthFormat(value, num) {
     // let num = 18
     if (!value) return ''

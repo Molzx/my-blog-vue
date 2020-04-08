@@ -67,14 +67,57 @@
     }
 
     //=====index
+
     .b-a {
+      $hover-color: $light-green-700;
       color: #4d4d4d;
+      //去除文字下划线
       text-decoration: none;
+      // margin: 0 20px;
+      // padding: 0 0 4px;
+      position: relative;
+      -moz-transition: ease-out 0.3s 0.1s;
+      -o-transition: ease-out 0.3s 0.1s;
+      -webkit-transition: ease-out 0.3s;
+      -webkit-transition-delay: 0.1s;
+      transition: ease-out 0.3s 0.1s;
+      &::after {
+        height: 2px;
+        width: 100%;
+        background: $hover-color;
+        border-radius: 100px;
+        content: '';
+        position: absolute;
+        left: 0px;
+        bottom: 0;
+        -moz-transform: scaleX(0);
+        -ms-transform: scaleX(0);
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+      }
       &:hover {
-        text-decoration: underline;
-        color: $teal-700;
+        color: $hover-color !important;
+      }
+      &:hover::after {
+        -moz-transform: scaleX(1);
+        -ms-transform: scaleX(1);
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
       }
     }
+
+    // .b-a {
+    //   color: #4d4d4d;
+    //   text-decoration: none;
+    //   &:hover {
+    //     text-decoration: underline;
+    //     color: $teal-700;
+    //   }
+    // }
     //==============card==========
     .b-card-breadcrumbs {
       border-radius: 6px;

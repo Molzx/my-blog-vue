@@ -49,3 +49,47 @@ export function uuid(len, radix) {
 
   return uuid.join('')
 }
+//清空空属性
+export function removeEmpty(obj, parent, parentKey) {
+  Object.keys(obj).forEach(key => {
+    if (obj[key] && typeof obj[key] === 'object') {
+      removeEmpty(obj[key], obj, key)
+    }
+    if (
+      obj[key] === undefined ||
+      obj[key] === null ||
+      (obj[key] !== null && obj[key].length === 0)
+    ) {
+      //   delete obj[key];
+      obj[key] = 'hhhssg'
+    }
+  })
+  if (Object.keys(obj).length === 0) {
+    parent[parentKey] = 'hhhssg'
+    // delete parent[parentKey]
+  }
+
+  return obj
+}
+//空对象置为null
+export function changeEmptyObject(obj, parent, parentKey) {
+  Object.keys(obj).forEach(key => {
+    if (obj[key] && typeof obj[key] === 'object') {
+      changeEmptyObject(obj[key], obj, key)
+    }
+    if (
+      obj[key] === undefined ||
+      obj[key] === null ||
+      (obj[key] !== null && obj[key].length === 0)
+    ) {
+      //   delete obj[key];
+      obj[key] = null
+    }
+  })
+  if (Object.keys(obj).length === 0) {
+    parent[parentKey] = null
+    // delete parent[parentKey]
+  }
+
+  return obj
+}

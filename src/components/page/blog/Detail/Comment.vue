@@ -21,6 +21,7 @@
         :formData.sync="formData"
         :commentList="commentList"
         :showData="showData"
+        :loading="commentLoading"
         :pageParams.sync="pageParams"
         @loadingMore="loadingMore"
         @postComment="postComment"
@@ -51,6 +52,8 @@ export default {
       },
       //存放评论的列表
       commentList: [],
+      //评论的loading状态
+      commentLoading: true,
       showData: {
         //专门用来存储是否有子评论，是否可以加载更多，当前操作的是那一条评论等相关信息
         subCommentData: {},
@@ -115,6 +118,7 @@ export default {
     },
     //请求总评论数据，
     requireParentComment() {
+      this.commentLoading = true
       const vm = this
       setTimeout(() => {
         vm.$api.blog.toGetComments(vm.pageParams).then(res => {
@@ -170,7 +174,16 @@ export default {
       let obj = {}
       newArr.forEach((el, i) => {
         let item = {}
-        //
+        //如果count为空对象，重新设置值为0
+        if (!this.$isNumber(el.count)) {
+          // console.log('空count')
+          el.count = 0
+        }
+        //如果children为空对象，重新设置值为空数组
+        if (!this.$isArray(el.childrens)) {
+          // console.log('空children')
+          el.childrens = []
+        }
         // let size=this.refreshChildrenComment?10:2
         if (parseInt(el.count) > 2) {
           item = {
@@ -197,10 +210,13 @@ export default {
         obj[el.commentId] = item
       })
       //根据获取到的评论列表信息，重新设置子评论数据
+      this.showData.subCommentData = ''
       this.showData.subCommentData = obj
       // console.log(this.showData.subCommentData)
       //更新评论信息
-      this.commentList = commentList
+      this.commentList = newArr
+      this.commentLoading = false
+      // console.log(this.commentList)
     },
     //添加评论后更新评论列表
     updateDataAfterAdd(parentId) {

@@ -2,11 +2,15 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:27:42
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 21:28:59
+ * @LastEditTime : 2020-04-09 00:22:14
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\http.js
  * @Description  : 这是一些注释
  */
 import axios from './Interceptor'
+
+import { Encrypt } from '../secret'
+
+import { remGetEmpParam } from '@/utils/removeEmpty'
 
 // 用于一般场景下的post请求
 export const postRequest = (
@@ -38,10 +42,18 @@ export const getRequest = (
   params,
   headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
 ) => {
+  let obj
+  if (params) {
+    obj = JSON.parse(JSON.stringify(params))
+    console.log(obj)
+    remGetEmpParam(obj)
+  }
+  //en_data此名称要与后端分隔名称一致
+  let en_data = Encrypt(obj)
   return axios({
     method: 'get',
     url,
-    params: params,
+    params: { en_data },
     headers
   })
 }
@@ -75,12 +87,15 @@ export const filesPutRequest = (
 export const jsonPostRequest = (
   url,
   params,
-  headers = { 'Content-Type': 'application/json' }
+  headers = { 'Content-Type': 'application/json; charset=utf-8' }
 ) => {
+  //en_data此名称要与后端分隔名称一致
+  let en_data = Encrypt(params)
+  console.log(en_data)
   return axios({
     method: 'post',
     url,
-    data: params,
+    data: en_data,
     headers
   })
 }
@@ -103,10 +118,12 @@ export const deleteRequest = (
   params,
   headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
 ) => {
+  //en_data此名称要与后端分隔名称一致
+  let en_data = Encrypt(params)
   return axios({
     method: 'delete',
     url,
-    params: params,
+    params: { en_data },
     headers
   })
 }

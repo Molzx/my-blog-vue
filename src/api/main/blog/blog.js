@@ -55,6 +55,7 @@ const blog = {
     let obj = {
       current: params.current
     }
+    console.log(obj)
     let url = prefix + 'articles-timeline'
     return getRequest(url, obj)
   },

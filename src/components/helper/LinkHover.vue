@@ -7,7 +7,7 @@
  * @Description  : 这是一些注释
  -->
 <template>
-  <div class="social-buttons">
+  <!-- <div class="social-buttons">
     <a
       href="#"
       class="social-buttons__button social-button social-button--facebook"
@@ -53,9 +53,9 @@
         <i class="fab fa-codepen"></i>
       </span>
     </a>
-  </div>
+  </div> -->
   <!-- 测试linkhover效果 -->
-  <!-- <div id="content">
+  <div id="content">
     <section class="links">
       <nav class="link-effect-1">
         <a href="#"><span data-hover="Ironman">Ironman</span></a>
@@ -184,7 +184,7 @@
         <a href="#link-effect-14"><span>Superman</span></a>
       </nav>
     </section>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -217,10 +217,10 @@ export default {
     //
   }
 }
-// <style lang="scss" scoped src="@styles/blog/link_hover.scss"></style>
+// <style lang="scss" scoped src="@styles/blog/social_icon_2.scss"></style>
 </script>
+<style lang="scss" scoped src="@styles/blog/link_hover.scss"></style>
 
-<style lang="scss" scoped src="@styles/blog/social_icon_2.scss"></style>
 <style>
 /*  */
 </style>

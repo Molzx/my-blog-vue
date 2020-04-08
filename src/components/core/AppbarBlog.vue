@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-07 17:58:15
+ * @LastEditTime : 2020-04-08 23:43:09
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -407,7 +407,6 @@ export default {
       // eslint-disable-next-line no-unused-vars
       handler(newVal) {
         //头像修改
-        console.log(newVal)
         if (newVal) {
           this.previewAvatar = this.$avatar(newVal)
         }

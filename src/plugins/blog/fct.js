@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:59:39
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-30 13:24:33
+ * @LastEditTime : 2020-04-08 13:58:39
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\fct.js
  * @Description  : 这是一些注释
  */
@@ -135,5 +135,25 @@ exports.install = function(Vue, router, store, TweenMaxObject) {
     return (
       store.getters.isAdminFun == true || store.getters.isAdminFun == 'true'
     )
+  }
+  Vue.prototype.$isObject = value => {
+    //获取是否为Object
+    // if (JSON.stringify(value) === '{}') {
+    //   return false // 如果为空,返回false
+    // }
+    // return true
+    if (Object.keys(value).length === 0) {
+      return false // 如果为空,返回false
+    }
+    return true // 如果不为空，则会执行到这一步，返回true
+  }
+  Vue.prototype.$isArray = value => {
+    //获取是否为数组
+    return Object.prototype.toString.call(value) == '[object Array]'
+  }
+  Vue.prototype.$isNumber = value => {
+    //获取是否为数字
+
+    return Object.prototype.toString.call(value) == '[object Number]'
   }
 }

@@ -6,7 +6,7 @@
     :records="dataItems"
     :showMoreBtn="showMoreBtn"
     @nextPage="nextPage"
-    @deleteItems="deleteItems(arguments)"
+    @deleteItems="deleteItems"
   ></page-blog-user-comment-detail>
 </template>
 
@@ -27,7 +27,7 @@ export default {
         //当前页数
         current: 0,
         //用户id
-        userId: ''
+        fromUid: ''
       },
       recordItems: [],
       dataItems: [],
@@ -73,9 +73,9 @@ export default {
     },
     changeBeforeRequire() {
       if (this.selfUser) {
-        this.pageParams.userId = 0
+        this.pageParams.fromUid = 0
       } else {
-        this.pageParams.userId = this.getUseUserId
+        this.pageParams.fromUid = this.getUseUserId
       }
       this.pageParams.current++
     },
@@ -101,7 +101,7 @@ export default {
       console.log(index)
       let params = {
         commentId: item.commentId,
-        userId: item.fromUid
+        fromUid: item.fromUid
       }
       setTimeout(() => {
         this.$api.comment

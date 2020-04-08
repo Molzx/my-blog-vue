@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-19 21:36:51
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-30 17:47:01
+ * @LastEditTime : 2020-04-08 14:12:04
  * @FilePath     : \VueProjects\my-blog\src\components\helper\Dialog.vue
  * @Description  : 这是一些注释
  -->
@@ -15,6 +15,7 @@
     :transition="transition"
     :origin="origin"
     :persistent="persistent"
+    @click:outside="clickOutside"
     overlay-opacity="1"
     overlay-color="hsla(0, 0%, 100%, 0.9)"
     content-class="b-dialog"
@@ -121,6 +122,11 @@ export default {
       // this.$emit('update:show', this.show)
       // this.show = false
       this.$emit('cancel')
+    },
+    clickOutside() {
+      if (!this.persistent) {
+        this.$emit('cancel')
+      }
     }
   },
   computed: {
