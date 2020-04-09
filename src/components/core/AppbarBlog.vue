@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-08 23:43:09
+ * @LastEditTime : 2020-04-09 17:50:18
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -217,7 +217,7 @@ export default {
           //是否登录后才显示
           needLogin: true,
           text: '个人中心',
-          icon: 'mdi-account',
+          icon: 'iconfont icon-user1',
           to: '/blog/users/owner'
         },
         {
@@ -225,11 +225,21 @@ export default {
           needLogin: true,
           needAdmin: true,
           text: '后台管理',
-          icon: 'mdi-login',
+          icon: 'iconfont icon-dashboard',
           to: '/system'
         },
-        { name: 'login', needLogin: false, text: '登录', icon: 'mdi-login' },
-        { name: 'logout', needLogin: true, text: '注销', icon: 'mdi-logout' }
+        {
+          name: 'login',
+          needLogin: false,
+          text: '登录',
+          icon: 'iconfont icon-login'
+        },
+        {
+          name: 'logout',
+          needLogin: true,
+          text: '注销',
+          icon: 'iconfont icon-loguot'
+        }
       ]
     }
   },

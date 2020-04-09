@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const dictionary1 = [
   '习近平',
   '习仲勋',
@@ -4216,6 +4217,7 @@ const dictionary2 = [
   '姬胜德 总参',
   '廖伯年 北京'
 ]
+// const data = dictionary2
 const data = dictionary2.concat(dictionary1)
 // 导出数据
 export default data

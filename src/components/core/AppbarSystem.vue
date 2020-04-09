@@ -27,7 +27,7 @@
         color="light-blue lighten-5 blue--text"
         @click="goToHome"
       >
-        <v-icon left>iconfont icon-home-alt</v-icon>
+        <v-icon left>iconfont icon-home</v-icon>
         主页
       </v-btn>
     </div>
@@ -138,10 +138,10 @@ export default {
         {
           name: 'userInfo',
           text: '个人中心',
-          icon: 'fas fa-house-user',
+          icon: 'iconfont icon-home',
           to: '/blog/users/owner'
         },
-        { name: 'logout', text: '注销', icon: 'fas fa-sign-out-alt' }
+        { name: 'logout', text: '注销', icon: 'iconfont icon-loguot' }
       ]
     }
   },

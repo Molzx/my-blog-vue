@@ -16,7 +16,21 @@
         <v-card-text class="pt-6">
           <v-row class="justify-center align-center no-gutters">
             <v-col cols="12" class="justify-center align-center">
-              <v-img :src="spaceBg" height="200" contain></v-img>
+              <v-img :src="spaceBg" height="200" contain> </v-img>
+              <v-tooltip top content-class="b-tooltip" color="white" light>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    class="opt-btn deep orange--text"
+                    icon
+                    @click="reportUser"
+                    v-on="on"
+                  >
+                    <v-icon size="20">mdi-info</v-icon>
+                  </v-btn>
+                </template>
+                <span class="color-sub">举报用户</span>
+              </v-tooltip>
+              <page-blog-user-report ref="reportForm"></page-blog-user-report>
             </v-col>
           </v-row>
         </v-card-text>
@@ -174,6 +188,9 @@ export default {
       reqSideCategoryData(this)
       reqSideTagData(this)
       reqSideNewArticleData(this)
+    },
+    reportUser() {
+      this.$refs.reportForm.openDialog(this.getUseUserId)
     }
   },
   computed: {
@@ -217,6 +234,14 @@ export default {
 
 <style lang="scss" scoped>
 /*  */
+
+.opt-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
 /deep/ .theme--light.v-tabs > .v-tabs-bar .v-tab--disabled,
 .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active),
 .theme--light.v-tabs > .v-tabs-bar .v-tab:not(.v-tab--active) > .v-icon {

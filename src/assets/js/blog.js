@@ -261,6 +261,7 @@ export function like(vm, params) {
         // console.log(data)
         //设置状态
         vm.setOptStatus(data)
+        vm.$toast('点赞成功~~')
       })
       .catch(() => {
         // vm.loading = false
@@ -279,6 +280,7 @@ export function unlike(vm, params) {
         // console.log(data)
         //设置状态
         vm.setOptStatus(data)
+        // vm.$toast('已取消点赞')
       })
       .catch(() => {
         // vm.loading = false
@@ -297,6 +299,7 @@ export function collect(vm, params) {
         // console.log(data)
         //设置状态
         vm.setOptStatus(data)
+        vm.$toast('收藏成功~~')
       })
       .catch(() => {
         // vm.loading = false
@@ -315,6 +318,23 @@ export function uncollect(vm, params) {
         // console.log(data)
         //设置状态
         vm.setOptStatus(data)
+      })
+      .catch(() => {
+        // vm.loading = false
+      })
+  }, 0)
+}
+//分享
+export function share(vm, params) {
+  //分享
+  // let vm = this
+  setTimeout(() => {
+    vm.$api.blog
+      .toShared(params)
+      .then(res => {
+        let data = res.data.extend.data
+        console.log('分享成功')
+        console.log(data)
       })
       .catch(() => {
         // vm.loading = false

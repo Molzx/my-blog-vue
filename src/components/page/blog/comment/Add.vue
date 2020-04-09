@@ -41,6 +41,7 @@
                   >
                     <v-textarea
                       v-model="formData.content"
+                      @input="formatContent"
                       :disabled="addCommentLoading || !isLogin"
                       solo
                       :placeholder="
@@ -92,6 +93,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
+import SensitiveSearch from '@/utils/sensitive-word/index'
 export default {
   props: {
     formData: {
@@ -163,6 +165,14 @@ export default {
     },
     reset() {
       this.$refs.form.reset()
+    },
+    //修改敏感词
+    formatContent(newVal) {
+      let changeContent = SensitiveSearch.search(newVal)
+      //必须放在这里面，实体才会实时更新
+      this.$nextTick(() => {
+        this.formData.content = changeContent
+      })
     }
   },
   components: {},

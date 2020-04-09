@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-19 23:21:01
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-01-20 18:11:40
+ * @LastEditTime : 2020-04-09 13:31:13
  * @FilePath     : \VueProjects\my-blog\src\components\toast.js
  * @Description  : 这是一些注释
  */
@@ -55,6 +55,7 @@ const TOAST = {
       let alwaysShow = false
       if (data) {
         if (data.timeout != null) {
+          console.log('timeout')
           timeout = data.timeout
           alwaysShow = true
         }

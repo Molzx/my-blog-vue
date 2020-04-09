@@ -3,12 +3,23 @@ import base from '../../base'
 
 // http.js中创建的axios 方法实例
 // eslint-disable-next-line no-unused-vars
-import { getRequest, jsonPostRequest } from '@/utils/axios/http'
+import { getRequest, postRequest, jsonPostRequest } from '@/utils/axios/http'
 const UrlPrefix = base.baseUrl
 const prefix = UrlPrefix + 'blog/'
 const blog = {
   //=====================添加=====================
 
+  // 分享
+  toShared: params => {
+    // params: {
+    //   //资源类型
+    //   ownerType: ownerType,
+    //   //资源id
+    //   ownerId: ownerId
+    // }
+    let url = prefix + 'share'
+    return postRequest(url, params)
+  },
   //添加评论
   // toAddComment: params => {
   //   // let params1 = {

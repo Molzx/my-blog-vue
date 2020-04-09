@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-30 10:04:15
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 18:07:23
+ * @LastEditTime : 2020-04-09 17:50:36
  * @FilePath     : \VueProjects\my-blog\src\components\page\system\DeleteDialog.vue
  * @Description  : 这是一些注释
  -->
@@ -27,14 +27,14 @@
           </p>
         </v-col>
       </v-row>
-      <v-row align="center" justify="center" v-else>
-        <v-progress-circular
-          class="mt-6"
-          :size="150"
-          :width="7"
-          color="orange"
-          indeterminate
-        ></v-progress-circular>
+      <!-- <v-row align="center" justify="center"> -->
+      <v-row align="center" justify="center" v-else height="160">
+        <div style="height:230px">
+          <div id="loader-wrapper">
+            <div id="loader"></div>
+            <span>正在删除...</span>
+          </div>
+        </div>
       </v-row>
     </template>
     <template slot="footer">
@@ -80,6 +80,11 @@ export default {
       //
       this.loading = true
       //
+      // setTimeout(() => {
+      //   this.loading = false
+
+      //   // vm.closeDialog()
+      // }, 5000)
       this.getParentRefs().delete()
     },
     cancel() {
@@ -98,4 +103,5 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped src="@styles/blog/loading2.scss"></style>
 <style></style>

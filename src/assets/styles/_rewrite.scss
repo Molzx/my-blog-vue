@@ -27,6 +27,19 @@
 .theme--light.v-messages {
   color: #6c6c6c;
 }
+.my-input {
+  &.v-textarea.v-text-field--box.v-text-field--outlined:not(.v-input--dense)
+    .v-label,
+  &.v-textarea.v-text-field--box.v-text-field--single-line:not(.v-input--dense)
+    .v-label,
+  &.v-textarea.v-text-field--enclosed.v-text-field--outlined:not(.v-input--dense)
+    .v-label,
+  &.v-textarea.v-text-field--enclosed.v-text-field--single-line:not(.v-input--dense)
+    .v-label {
+    //label文字距离顶部的距离
+    top: 14px;
+  }
+}
 //===================单选框
 .v-input--selection-controls {
   margin-top: 0px;

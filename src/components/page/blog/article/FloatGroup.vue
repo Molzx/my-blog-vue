@@ -164,16 +164,28 @@
             <v-slide-y-transition>
               <div v-show="showShareGroup">
                 <div class="social-share" ref="social" data-initialized="true">
-                  <a class="social-icon twitter icon-twitter" href="">
+                  <a
+                    class="social-icon twitter icon-twitter"
+                    href=""
+                    @click="toShare"
+                  >
                     <i class="fab fa-twitter"></i>
                   </a>
-                  <a class="social-icon facebook icon-facebook" href="">
+                  <a
+                    class="social-icon facebook icon-facebook"
+                    href=""
+                    @click="toShare"
+                  >
                     <i class="fab fa-facebook-f"></i>
                   </a>
-                  <a class="social-icon google icon-google" href="">
+                  <a
+                    class="social-icon google icon-google"
+                    href=""
+                    @click="toShare"
+                  >
                     <i class="fab fa-google"></i>
                   </a>
-                  <a class="social-icon qq icon-qq" href="">
+                  <a class="social-icon qq icon-qq" href="" @click="toShare">
                     <i class="fab fa-qq"></i>
                   </a>
 
@@ -212,10 +224,18 @@
                       </v-col>
                     </v-row>
                   </v-tooltip>
-                  <a class="social-icon weibo icon-weibo" href="">
+                  <a
+                    class="social-icon weibo icon-weibo"
+                    href=""
+                    @click="toShare"
+                  >
                     <i class="fab fa-weibo"></i>
                   </a>
-                  <a class="social-icon qzone icon-qzone" href="">
+                  <a
+                    class="social-icon qzone icon-qzone"
+                    href=""
+                    @click="toShare"
+                  >
                     <i class="social-qzone"></i>
                   </a>
 
@@ -246,7 +266,7 @@
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
 import { scrollToComment } from '@/assets/js/scrolling'
-import { like, unlike, collect, uncollect } from '@/assets/js/blog'
+import { like, unlike, collect, uncollect,share } from '@/assets/js/blog'
 //分享
 import '../../../../../node_modules/social-share.js/dist/js/social-share.min.js'
 //生成二维码
@@ -346,6 +366,11 @@ export default {
       } else {
         return false
       }
+    },
+    toShare() {
+      //分享加一
+      console.log('share')
+      share(this, this.optParams)
     },
     // 展示二维码
     showQrCode() {

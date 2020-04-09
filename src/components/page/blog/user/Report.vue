@@ -4,8 +4,8 @@
     width="500"
     headerTitle="举报用户"
     headerColor="info"
-    cardTextHeight="180"
-    @cancel="cancel"
+    :limitCardTextHeight="false"
+    @cancel="closeDialog"
   >
     <template slot="content.card-text">
       <v-row justify="space-around">
@@ -21,6 +21,24 @@
                   >
                     <v-textarea
                       v-model="formData.reason"
+                      @input="formatContent"
+                      :disabled="loading"
+                      :counter="150"
+                      solo
+                      flat
+                      label="举报理由......"
+                      no-resize
+                      auto-grow
+                      hint="举报理由"
+                      background-color="#F5F5F5"
+                      class="my-input"
+                      persistent-hint
+                      :error-messages="errors[0]"
+                    >
+                    </v-textarea>
+                    <!-- <v-textarea
+                      v-model="formData.reason"
+                      @input="formatContent"
                       class="textarea-report"
                       :disabled="loading"
                       filled
@@ -32,12 +50,13 @@
                       persistent-hint
                       :error-messages="errors[0]"
                     >
-                    </v-textarea>
+                    </v-textarea> -->
                   </ValidationProvider>
                 </v-col>
               </v-row>
-            </v-container> </v-form
-        ></ValidationObserver>
+            </v-container>
+          </v-form></ValidationObserver
+        >
       </v-row>
     </template>
     <template slot="footer">
@@ -59,7 +78,7 @@
 
 <script>
 // import { AwesomeHelp } from 'awesome-js'
-import SensitiveSearch from '../../../../utils/sensitive-word/index'
+import SensitiveSearch from '@/utils/sensitive-word/index'
 // import testData from '@/assets/data/dictionaries/chinese_dictionary.txt'
 import { mapGetters } from 'vuex'
 export default {
@@ -76,7 +95,6 @@ export default {
         accusedUser: 0,
         reason: ''
       },
-      search: '',
       changeFlag: false
       // ppath: require('../../../../assets/data/dictionaries/chinese_dictionary.txt')
     }
@@ -115,10 +133,7 @@ export default {
     // },
 
     closeDialog() {
-      this.loading = false
-      this.show = false
-      //重设校验状态
-      this.reset()
+      this.cancel()
       // 重置表单数据
       Object.assign(this.$data.formData, this.$options.data().formData)
     },
@@ -136,10 +151,12 @@ export default {
     },
     save() {
       this.loading = true
-      // let vm = this
+      let vm = this
       setTimeout(() => {
+        vm.loading = false
+
         // vm.closeDialog()
-      }, 10000)
+      }, 1000)
       // setTimeout(() => {
       //   this.$api.report
       //     .toAddition(this.formData)
@@ -158,6 +175,14 @@ export default {
       //
       // let filePath =
       //   '../../../../assets/data/dictionaries/chinese_dictionary.txt'
+    },
+    //修改敏感词
+    formatContent(newVal) {
+      let changeContent = SensitiveSearch.search(newVal)
+      //必须放在这里面，实体才会实时更新
+      this.$nextTick(() => {
+        this.formData.reason = changeContent
+      })
     }
   },
   computed: {
@@ -165,29 +190,6 @@ export default {
   },
   watch: {
     //
-    'formData.reason': {
-      // eslint-disable-next-line no-unused-vars
-      handler(newVal) {
-        //替换敏感字
-        // console.log(newVal)
-        // console.log(this.changeFlag)
-        if (this.changeFlag) {
-          // console.log('in')
-          this.changeFlag = false
-          // console.log(this.changeFlag)
-        } else {
-          let changeContent = SensitiveSearch.search(newVal)
-          // console.log('flag')
-          // console.log(changeContent)
-          if (changeContent && changeContent.indexOf('*') != -1) {
-            this.$set(this.formData, 'reason', changeContent)
-            // this.formData.reason = changeContent
-            this.changeFlag = true
-          }
-        }
-      },
-      immediate: true
-    }
   },
   components: {
     //

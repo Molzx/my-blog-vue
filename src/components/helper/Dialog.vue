@@ -84,7 +84,7 @@ export default {
     },
     cardTextHeight: {
       type: [Number, String],
-      default: 300
+      default: 400
     },
     transition: {
       type: String,

@@ -58,7 +58,7 @@
           >
             <v-text-field
               v-model="search"
-              append-icon="iconfont icon-search-alt"
+              append-icon="iconfont icon-search"
               @click:append="startSearch"
               @keydown.enter="startSearch"
               label="搜索..."

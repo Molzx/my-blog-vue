@@ -1,6 +1,10 @@
 <template>
   <div>
     <!-- Something -->
+
+    <div class="loader">
+      <div v-for="i in 10" :key="i" class="d"></div>
+    </div>
     <v-dialog
       v-model="show"
       width="500"

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:27:42
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-09 00:22:14
+ * @LastEditTime : 2020-04-09 20:27:09
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\http.js
  * @Description  : 这是一些注释
  */
@@ -24,13 +24,19 @@ export const postRequest = (
     data: params,
     transformRequest: [
       function(data) {
-        let req = ''
-        for (const key in data) {
-          req +=
-            encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) + '&'
-        }
-        req = req.substring(0, req.length - 1)
-        return req
+        // let req = ''
+        // for (const key in data) {
+        //   req +=
+        //     encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) + '&'
+        // }
+        // req = req.substring(0, req.length - 1)
+
+        // return req
+        //en_data 加密后的数据
+        // req = JSON.stringify(req)
+        let en_data = Encrypt(data)
+        console.log(en_data)
+        return en_data
       }
     ],
     headers
@@ -44,6 +50,7 @@ export const getRequest = (
 ) => {
   let obj
   if (params) {
+    //复制一份新的参数，去除其中的空参数
     obj = JSON.parse(JSON.stringify(params))
     console.log(obj)
     remGetEmpParam(obj)
@@ -89,7 +96,7 @@ export const jsonPostRequest = (
   params,
   headers = { 'Content-Type': 'application/json; charset=utf-8' }
 ) => {
-  //en_data此名称要与后端分隔名称一致
+  //en_data 加密后的数据
   let en_data = Encrypt(params)
   console.log(en_data)
   return axios({
@@ -105,10 +112,13 @@ export const jsonPutRequest = (
   params,
   headers = { 'Content-Type': 'application/json' }
 ) => {
+  //en_data 加密后的数据
+  let en_data = Encrypt(params)
+  console.log(en_data)
   return axios({
     method: 'put',
     url,
-    data: params,
+    data: en_data,
     headers
   })
 }
@@ -136,11 +146,12 @@ export const getFileRequest = (
   //服务器返回的数据类型
   responseType = 'blob'
 ) => {
-  console.log('inni')
+  //en_data此名称要与后端分隔名称一致
+  let en_data = Encrypt(params)
   return axios({
     method: 'get',
     url,
-    params: params,
+    params: { en_data },
     headers,
     responseType
   })

@@ -6,6 +6,7 @@
       <!-- <v-divider></v-divider> -->
       <page-blog-comment-add
         ref="addComment"
+        v-if="commentData.commentStatus"
         :formData.sync="formData"
         @postComment="postComment"
       ></page-blog-comment-add>

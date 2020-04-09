@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-04 22:31:38
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-08 23:28:08
+ * @LastEditTime : 2020-04-09 12:53:21
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\SearchCard.vue
  * @Description  : 这是一些注释
  -->
@@ -65,8 +65,10 @@
       </v-container>
     </v-card>
 
+    <!-- <v-card class="shadow-1 fill-width mb-4"> -->
     <v-card v-if="loading" class="shadow-1 fill-width mb-4">
-      <v-card-text class="py-12">
+      <helper-loading loadingText="正在搜索中"></helper-loading>
+      <!-- <v-card-text class="py-12">
         <v-row class="justify-center align-center">
           <v-col cols="12" class="justify-center align-center">
             <v-img :src="startSearchBg" height="200" contain></v-img>
@@ -77,7 +79,7 @@
             </p>
           </v-col>
         </v-row>
-      </v-card-text>
+      </v-card-text> -->
     </v-card>
 
     <v-card v-else-if="!pageParams.search" class="shadow-1 fill-width mb-4">
@@ -95,6 +97,7 @@
       </v-card-text>
     </v-card>
 
+    <!-- <v-card class="shadow-1 fill-width mb-4"> -->
     <v-card v-else-if="noRecord" class="shadow-1 fill-width mb-4">
       <v-card-text class="py-6">
         <v-row class="justify-center align-center">

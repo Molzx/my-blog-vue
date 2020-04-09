@@ -41,7 +41,8 @@ export default {
       // 记录状态 { 0：待处理，1：处理中，2：已解决 }
       handledStatus: '待处理',
       // 状态标记 { 0：启用，1：禁用 }，前台新增不传
-      status: '启用'
+      status: '启用',
+      reason: ''
     },
     otherData: {
       validateSuccess: false,

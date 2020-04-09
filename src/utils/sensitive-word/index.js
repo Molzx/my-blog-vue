@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-17 23:31:22
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-06 20:11:44
+ * @LastEditTime : 2020-04-09 15:21:41
  * @FilePath     : \VueProjects\my-blog\src\utils\sensitive-word\index.js
  * @Description  : 这是一些注释
 //  */
@@ -22,6 +22,7 @@ import SensitiveSearch from './sensitive-search'
 //导入敏感词
 
 import word from '@/assets/data/dictionaries/dictionary'
-// let word = ['诱惑']
+// let word = ['fuck']
+// console.log(word)
 let instance = new SensitiveSearch(word)
 export default instance

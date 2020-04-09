@@ -144,6 +144,7 @@
                           >
                             <v-textarea
                               v-model="replyContent"
+                              @input="formatContent"
                               :disabled="replyLoading"
                               solo
                               placeholder="想说什么呢......"
@@ -380,6 +381,7 @@
                                     >
                                       <v-textarea
                                         v-model="replyContent"
+                                        @input="formatContent"
                                         :disabled="replyLoading"
                                         solo
                                         placeholder="想说什么呢......"
@@ -502,6 +504,7 @@
 <script>
 import { scrollToComment } from '@/assets/js/scrolling'
 import { mapActions, mapGetters } from 'vuex'
+import SensitiveSearch from '@/utils/sensitive-word/index'
 // import testData from '@/assets/data/article'
 export default {
   props: {
@@ -566,7 +569,7 @@ export default {
       //页数，第几页
       page: 1,
       //回复内容
-      replyContent: 'Nihaonhao',
+      replyContent: '',
       //内容表单校验规则
       contentRules: '',
       showParentReply: -1,
@@ -610,6 +613,15 @@ export default {
     },
 
     //==========
+
+    //修改敏感词
+    formatContent(newVal) {
+      let changeContent = SensitiveSearch.search(newVal)
+      //必须放在这里面，实体才会实时更新
+      this.$nextTick(() => {
+        this.replyContent = changeContent
+      })
+    },
     //删除评论
     deleteComment(item, commentIndex, childrenIndex) {
       let vm = this

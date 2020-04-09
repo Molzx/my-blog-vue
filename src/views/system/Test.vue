@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 21:52:07
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-02-08 19:50:31
+ * @LastEditTime : 2020-04-09 17:06:26
  * @FilePath     : \VueProjects\my-blog\src\views\system\Test.vue
  * @Description  : 这是一些注释
  -->
@@ -16,6 +16,8 @@
         </div>
       </div>
     </material-card>
+
+    <div class="gear"></div>
   </div>
 </template>
 
@@ -29,4 +31,5 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped src="@styles/blog/loading_gear.scss"></style>
 <style></style>

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:02:27
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-29 10:44:30
+ * @LastEditTime : 2020-04-09 13:54:15
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\errorCode.js
  * @Description  : 错误统一处理
  */
@@ -19,6 +19,7 @@ const judgeErrorCode = (code, message) => {
     // 调用该函数
     errorCode[code](message)
   } else {
+    // console.log('error')
     toast.error(message)
   }
 }
