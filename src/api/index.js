@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 14:39:21
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 23:12:45
+ * @LastEditTime : 2020-04-10 11:04:54
  * @FilePath     : \VueProjects\my-blog\src\api\index.js
  * @Description  : api接口的统一出口
  */
@@ -20,11 +20,13 @@ import tag from './main/system/tag'
 import category from './main/system/category'
 import article from './main/system/article'
 import comment from './main/system/comment'
-import blog from './main/blog/blog'
-import like from './main/blog/like'
-import collect from './main/blog/collect'
+import like from './main/system/like'
+import collect from './main/system/collect'
 import announcement from './main/system/announcement'
 import report from './main/system/user-report'
+
+import blog from './main/blog'
+import system from './main/system'
 
 // 其他模块的接口……
 
@@ -41,6 +43,7 @@ export default {
   article,
   comment,
   blog,
+  system,
   like,
   collect,
   announcement,

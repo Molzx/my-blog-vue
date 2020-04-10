@@ -159,11 +159,15 @@ export default {
       setNewArticleItems: 'setNewArticleItemsFun'
     }),
     getUrlParams() {
-      let params = this.$route.query.q
-      this.articleId = params
+      let params = this.$global.GetQueryParamOfObjEntry()
 
-      //请求后台数据
-      this.requireData()
+      if (params && params.q) {
+        this.articleId = params.q
+        //请求后台数据
+        this.requireData()
+      } else {
+        this.$router.push('/blog/home')
+      }
     },
     requireData() {
       reqArticleDetailData(this)

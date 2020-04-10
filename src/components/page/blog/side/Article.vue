@@ -163,10 +163,11 @@ export default {
     //   console.log(pd)
     // }
     toDetail(articleId) {
-      this.$router.push({
-        path: '/blog/articles',
-        query: { q: articleId }
-      })
+      let path = '/blog/articles'
+      let params = {
+        q: articleId
+      }
+      this.$toUrl(path, params, 'push')
       this.routerRefresh() //调用app.vue里面的routerRefresh()方法，完成摧毁和重建过程
     }
   },

@@ -83,7 +83,7 @@ export default {
       let path = this.$route.fullPath + '/category'
       let params = category.categoryName
       // console.log(path)
-      this.$router.push({ path: path, query: { q: params } })
+      this.$toUrl(path, params, 'push')
     }
   },
   components: {},

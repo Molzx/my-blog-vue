@@ -114,7 +114,7 @@ export default {
       let path = '/blog/categories/category'
       let params = category.categoryName
       // console.log(path)
-      this.$router.push({ path: path, query: { q: params } })
+      this.$toUrl(path, params, 'push')
     },
     toMore() {
       let path = '/blog/categories'

@@ -2,11 +2,36 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-07 12:43:34
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-07 17:57:18
+ * @LastEditTime : 2020-04-10 13:29:07
  * @FilePath     : \VueProjects\my-blog\src\utils\utils.js
  * @Description  : 这是一些注释
  */
 
+export const isEmptyObject = value => {
+  if (Object.keys(value).length === 0) {
+    return false // 如果为空,返回false
+  }
+  return true // 如果不为空，则会执行到这一步，返回true
+}
+
+export const isObject = value => {
+  //获取是否为对象
+  return Object.prototype.toString.call(value) == '[object Object]'
+}
+
+export const isArray = value => {
+  //获取是否为数组
+  return Object.prototype.toString.call(value) == '[object Array]'
+}
+export const isNumber = value => {
+  //获取是否为数字
+  return Object.prototype.toString.call(value) == '[object Number]'
+}
+
+export const isString = value => {
+  //获取是否为数字
+  return Object.prototype.toString.call(value) == '[object String]'
+}
 /**
  * @description: 指定长度和基数
  * 如// 8 character ID (base=2)

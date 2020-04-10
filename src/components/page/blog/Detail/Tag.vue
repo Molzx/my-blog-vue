@@ -70,7 +70,7 @@ export default {
       let path = this.$route.fullPath + '/tag'
       let params = tag.tagName
       // console.log(path)
-      this.$router.push({ path: path, query: { q: params } })
+      this.$toUrl(path, params, 'push')
     }
   },
   components: {

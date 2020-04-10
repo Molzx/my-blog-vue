@@ -101,9 +101,9 @@ export default {
       setNewArticleItems: 'setNewArticleItemsFun'
     }),
     getUrlParams() {
-      let params = this.$route.query.p
-      if (params) {
-        this.pageParams.current = params
+      let params = this.$global.GetQueryParamOfObjEntry()
+      if (params && params.p) {
+        this.pageParams.current = parseInt(params.p)
       }
     },
     requireData() {

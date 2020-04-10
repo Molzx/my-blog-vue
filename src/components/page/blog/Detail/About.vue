@@ -306,11 +306,6 @@ export default {
       window.open(link, '_blank').location
       // window.location.href = link
     },
-    set() {
-      this.setLite(this.plist[0], this.plist[0].value)
-      this.setLite(this.plist[1], this.plist[1].value)
-      this.setLite(this.plist[2], this.plist[2].value)
-    },
     setLite(obj, val) {
       TweenMax.fromTo(
         obj,

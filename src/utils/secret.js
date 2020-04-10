@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-08 09:32:13
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-09 18:49:36
+ * @LastEditTime : 2020-04-10 14:28:29
  * @FilePath     : \VueProjects\my-blog\src\utils\secret.js
  * @Description  : 这是一些注释
  */
@@ -72,5 +72,37 @@ export function Decrypt(data) {
   ///由于解密后，属性为null的，全被变为Object类型，{"$ref":"$.extend.records[0].parent"}，
   //需要修改回来，如本来应该是id:null的，解密后变为id:{"$ref":"$.extend.records[0].parent"}，
   setEmpObjToNull(newData)
+  return newData
+}
+
+const URLKEY = 'wahahanaichabloggoodgoodgoodgood'
+const URLIV = 'wojuedemeicuowa'
+//url地址加密方法
+export function AESUrlEncrypt(data) {
+  // data数据加密
+  if (typeof data === 'object') {
+    data = JSON.stringify(data)
+    // console.log('data')
+    // console.log(JSON.parse(JSON.stringify(data)))
+  }
+  const encrypted = cryptoJs.AES.encrypt(data, URLKEY, {
+    iv: URLIV,
+    mode: cryptoJs.mode.CBC,
+    padding: cryptoJs.pad.ZeroPadding
+  })
+
+  return encrypted.toString()
+}
+//url地址解密方法
+export function AESUrlDecrypt(data) {
+  // 数据解密
+  // 方式1 aes 解密
+  const decrypt = cryptoJs.AES.decrypt(data, URLKEY, {
+    iv: URLIV,
+    mode: cryptoJs.mode.CBC,
+    padding: cryptoJs.pad.ZeroPadding
+  })
+  let newData = cryptoJs.enc.Utf8.stringify(decrypt).toString()
+  newData = JSON.parse(newData)
   return newData
 }

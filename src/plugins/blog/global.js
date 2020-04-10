@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-23 15:22:48
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-03-26 20:57:30
+ * @LastEditTime : 2020-04-10 13:04:07
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\global.js
  * @Description  : 这是一些注释
  */
@@ -41,6 +41,9 @@ const searchArticleUrl = '/blog/articles'
 const searchCategoryUrl = '/blog/categories/categoryg'
 const searchTagUrl = '/blog/tags/tag'
 
+//导入url解密获取
+import { GetQueryParamOfObjEntry } from '@/utils/secretUrl'
+
 export default {
   home,
   remoteHost,
@@ -52,5 +55,6 @@ export default {
   preview,
   searchArticleUrl,
   searchCategoryUrl,
-  searchTagUrl
+  searchTagUrl,
+  GetQueryParamOfObjEntry
 }

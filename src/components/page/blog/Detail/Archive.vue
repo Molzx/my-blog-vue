@@ -111,15 +111,18 @@
                   <v-col cols="10" class="justify-center">
                     <v-col cols="12" class="pa-0">
                       <p class="b-title--small mb-0 one-line">
-                        <router-link
-                          :to="{
-                            path: linkToArticle,
-                            query: { q: record.articleId }
-                          }"
+                        <a
+                          @click="
+                            $toUrl(
+                              linkToArticle,
+                              { q: record.articleId },
+                              'push'
+                            )
+                          "
                           class="b-a one-line"
                         >
                           {{ record.title }}
-                        </router-link>
+                        </a>
                       </p>
                       <p class="mb-0 a-desc">
                         {{ record.description }}
@@ -144,10 +147,13 @@
                         label
                         small
                         color="blue--text"
-                        :to="{
-                          path: linkToCategory,
-                          query: { q: record.categoryName }
-                        }"
+                        @click="
+                          $toUrl(
+                            linkToCategory,
+                            { q: record.categoryName },
+                            'push'
+                          )
+                        "
                         >{{ record.categoryName | textLengthFormat(18) }}
                       </v-chip>
                       <!-- <span class="b-span--time">
@@ -354,7 +360,7 @@ export default {
       let path = '/blog/tags/tag'
       let params = tag.tagName
       // console.log(path)
-      this.$router.push({ path: path, query: { q: params } })
+      this.$toUrl(path, params, 'push')
     }
   },
   computed: {

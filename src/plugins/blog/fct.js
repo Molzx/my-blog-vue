@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-16 10:59:39
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-08 13:58:39
+ * @LastEditTime : 2020-04-10 14:52:42
  * @FilePath     : \VueProjects\my-blog\src\plugins\blog\fct.js
  * @Description  : 这是一些注释
  */
@@ -136,24 +136,35 @@ exports.install = function(Vue, router, store, TweenMaxObject) {
       store.getters.isAdminFun == true || store.getters.isAdminFun == 'true'
     )
   }
-  Vue.prototype.$isObject = value => {
-    //获取是否为Object
-    // if (JSON.stringify(value) === '{}') {
-    //   return false // 如果为空,返回false
-    // }
-    // return true
-    if (Object.keys(value).length === 0) {
-      return false // 如果为空,返回false
-    }
-    return true // 如果不为空，则会执行到这一步，返回true
-  }
-  Vue.prototype.$isArray = value => {
-    //获取是否为数组
-    return Object.prototype.toString.call(value) == '[object Array]'
-  }
-  Vue.prototype.$isNumber = value => {
-    //获取是否为数字
 
-    return Object.prototype.toString.call(value) == '[object Number]'
+  Vue.prototype.$toUrl = (url, value, type) => {
+    //获取跳转类型
+    if (type == 'push') {
+      router.push(
+        { path: url, query: value },
+        // eslint-disable-next-line no-unused-vars
+        onComplete => {},
+        // eslint-disable-next-line no-unused-vars
+        onAbort => {}
+      )
+    } else if (type == 'replace') {
+      router.replace(
+        { path: url, query: value },
+        // eslint-disable-next-line no-unused-vars
+        onComplete => {},
+        // eslint-disable-next-line no-unused-vars
+        onAbort => {}
+      )
+    }
+  }
+  Vue.prototype.$toPageUrl = value => {
+    //分页跳转url，设置参数
+    router.replace(
+      { path: router.currentRoute.path, query: value },
+      // eslint-disable-next-line no-unused-vars
+      onComplete => {},
+      // eslint-disable-next-line no-unused-vars
+      onAbort => {}
+    )
   }
 }

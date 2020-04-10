@@ -62,16 +62,15 @@
                 </v-card>
                 <div class="b-card-image--content" style="width:100%">
                   <p class="b-title">
-                    <router-link
-                      :to="{
-                        path: linkToArticle,
-                        query: { q: item.articleId }
-                      }"
+                    <a
+                      @click="
+                        $toUrl(linkToArticle, { q: item.articleId }, 'push')
+                      "
                       class="b-a text-no-wrap d-inline-block text-truncate "
                       style="max-width:520px"
                     >
                       {{ item.title }}
-                    </router-link>
+                    </a>
                   </p>
 
                   <p class="b-sub-title text-justify">
@@ -195,7 +194,7 @@
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
 import { like, unlike, collect, uncollect } from '@/assets/js/blog'
-import merge from 'webpack-merge'
+// import merge from 'webpack-merge'
 export default {
   props: {
     showBreadcrumbs: {
@@ -362,9 +361,9 @@ export default {
       //
     },
     getUrlParams() {
-      let params = parseInt(this.$route.query.p)
-      if (params) {
-        this.page = params
+      let params = this.$global.GetQueryParamOfObjEntry()
+      if (params && params.p) {
+        this.page = parseInt(params.p)
       }
     }
   },
@@ -411,14 +410,17 @@ export default {
       //更新地址栏分页参数
       let page = parseInt(newVal)
       //获取原有的路由参数
-      // let param = this.$route.query
-      // param.p = page
-      this.$router.replace({
-        path: this.$route.fullPath,
-        query: merge(this.$route.query, { p: page })
-      }) // 这样页面就跳转到相应的路由了。
-      // this.$router.replace({ path: this.$route.fullPath, query: { p: page } }) // 这样页面就跳转到相应的路由了。
-      // console.log(this.$route)
+
+      let param = this.$global.GetQueryParamOfObjEntry()
+      console.log(param)
+      if (param && param.p) {
+        param.p = page
+      } else {
+        param = {
+          p: page
+        }
+      }
+      this.$toPageUrl(param)
       // this.pageParams.current = this.page
       // this.$emit('update:pageParams', this.pageParams)
       // //调用父类方法获取数据

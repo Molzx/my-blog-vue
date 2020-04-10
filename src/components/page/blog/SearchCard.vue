@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import merge from 'webpack-merge'
+// import merge from 'webpack-merge'
 export default {
   props: {
     //
@@ -166,8 +166,9 @@ export default {
       this.getUrlParams()
     },
     getUrlParams() {
-      let search = this.$route.query.search
-      if (search) {
+      let params = this.$global.GetQueryParamOfObjEntry()
+      if (params && params.search) {
+        let search = params.search
         this.pageParams.search = search
         this.searchStr = search
       } else {
@@ -187,11 +188,7 @@ export default {
           search: this.searchStr
         }
         console.log(params)
-
-        this.$router.replace({
-          path: this.$route.fullPath,
-          query: merge(this.$route.query, params)
-        })
+        this.$toPageUrl(params)
       }
     }
   },

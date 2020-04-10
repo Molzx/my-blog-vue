@@ -106,9 +106,10 @@ export default {
   methods: {
     //
     getUrlParams() {
-      let currentPage = this.$route.query.p
-      let search = this.$route.query.search
-      if (search) {
+      let params = this.$global.GetQueryParamOfObjEntry()
+      if (params && params.search) {
+        let currentPage = params.p
+        let search = params.search
         this.pageParams.current = currentPage || 1
         this.pageParams.search = search
         //请求后台数据

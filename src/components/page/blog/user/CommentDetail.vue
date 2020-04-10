@@ -197,15 +197,18 @@
                       </v-col>
                       <v-col cols="10" class="pa-0">
                         <p class="c-a-title mb-1">
-                          <router-link
-                            :to="{
-                              path: linkToArticle,
-                              query: { q: item.article.articleId }
-                            }"
+                          <a
+                            @click="
+                              $toUrl(
+                                linkToArticle,
+                                { q: item.article.articleId },
+                                'push'
+                              )
+                            "
                             class="b-a"
                           >
                             {{ item.article.title }}
-                          </router-link>
+                          </a>
                           <!-- <a class="float-right b-a" @click="item, i">取消收藏</a> -->
                         </p>
                         <p class="mb-0 c-a-desc">

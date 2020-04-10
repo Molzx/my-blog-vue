@@ -88,9 +88,13 @@ export default {
       // this.updateParentComment(testData.comment.records)
     },
     getUrlParams() {
-      let params = this.$route.query.q
-      this.formData.ownerId = params
-      this.pageParams.ownerId = params
+      let params = this.$global.GetQueryParamOfObjEntry()
+
+      if (params && params.q) {
+        let id = params.q
+        this.formData.ownerId = id
+        this.pageParams.ownerId = id
+      }
     },
     //加载更多子评论
     loadingMore(parentId) {
@@ -170,21 +174,14 @@ export default {
       }, 0)
     },
     updateParentComment(commentList) {
-      let newArr = JSON.parse(JSON.stringify(commentList))
+      let newArr = []
+      if (commentList && commentList.length > 0) {
+        newArr = JSON.parse(JSON.stringify(commentList))
+      }
       //找出可以显示更多的子评论
       let obj = {}
       newArr.forEach((el, i) => {
         let item = {}
-        //如果count为空对象，重新设置值为0
-        if (!this.$isNumber(el.count)) {
-          // console.log('空count')
-          el.count = 0
-        }
-        //如果children为空对象，重新设置值为空数组
-        if (!this.$isArray(el.childrens)) {
-          // console.log('空children')
-          el.childrens = []
-        }
         // let size=this.refreshChildrenComment?10:2
         if (parseInt(el.count) > 2) {
           item = {

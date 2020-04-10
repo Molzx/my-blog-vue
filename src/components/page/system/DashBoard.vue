@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-09 20:44:59
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-09 22:22:17
+ * @LastEditTime : 2020-04-10 11:22:36
  * @FilePath     : \VueProjects\my-blog\src\components\page\system\DashBoard.vue
  * @Description  : 这是一些注释
  -->
@@ -37,13 +37,13 @@
               </div>
               <div
                 class="d-flex justify-center item__title mb-4"
-                v-format="parseInt(item.count) > 999 ? '#,###' : '###'"
+                v-format="parseInt(item.count) > 999 ? '#,###' : '0'"
               >
                 {{ item.count }}
               </div>
               <div
                 class="d-flex justify-center item__txt"
-                v-format="parseInt(item.newCount) > 999 ? '#,###' : '###'"
+                v-format="parseInt(item.newCount) > 999 ? '#,###' : '0'"
               >
                 {{ item.newCount }}
               </div>
@@ -57,15 +57,14 @@
 </template>
 
 <script>
+import { TweenMax } from '@common/tweenmax/all'
 export default {
-  name: 'temp',
   props: {
     //
   },
   data() {
     return {
       //
-
       countItems: [
         {
           name: 'article',
@@ -95,7 +94,7 @@ export default {
           text: '标签'
         },
         {
-          name: 'parentComment',
+          name: 'pComment',
           bgColor: 'grey lighten-4',
           icon: 'iconfont icon-xiaoxi',
           iconColor: 'rgb(170, 148, 148)',
@@ -104,7 +103,7 @@ export default {
           text: '评论'
         },
         {
-          name: 'childrenComment',
+          name: 'cComment',
           bgColor: 'grey lighten-4',
           icon: 'iconfont icon-liaotian',
           iconColor: 'rgb(170, 148, 148)',
@@ -113,67 +112,111 @@ export default {
           text: '回复'
         },
         {
-          name: 'childrenComment',
+          name: 'like',
           bgColor: 'grey lighten-4',
-          icon: 'iconfont icon-liaotian',
+          icon: 'iconfont icon-shoucang',
           iconColor: 'rgb(170, 148, 148)',
           count: '14120',
           newCount: '122',
           text: '点赞'
         },
         {
-          name: 'childrenComment',
+          name: 'collect',
           bgColor: 'grey lighten-4',
-          icon: 'iconfont icon-liaotian',
+          icon: 'iconfont icon-shoucangxihuan',
           iconColor: 'rgb(170, 148, 148)',
           count: '14120',
           newCount: '122',
           text: '收藏'
         },
         {
-          name: 'childrenComment',
+          name: 'share',
           bgColor: 'grey lighten-4',
-          icon: 'iconfont icon-liaotian',
+          icon: 'iconfont icon-fenxiang',
           iconColor: 'rgb(170, 148, 148)',
           count: '14120',
           newCount: '122',
           text: '分享'
         },
         {
-          name: 'childrenComment',
+          name: 'view',
           bgColor: 'grey lighten-4',
-          icon: 'iconfont icon-liaotian',
+          icon: 'iconfont icon-xiuxiankafeiyule',
           iconColor: 'rgb(170, 148, 148)',
           count: '14120',
           newCount: '122',
           text: '浏览'
         },
         {
-          name: 'childrenComment',
+          name: 'user',
           bgColor: 'grey lighten-4',
-          icon: 'iconfont icon-liaotian',
+          icon: 'iconfont icon-iconfuzhi',
           iconColor: 'rgb(170, 148, 148)',
           count: '14120',
           newCount: '122',
           text: '用户'
         },
         {
-          name: 'childrenComment',
+          name: 'report',
           bgColor: 'grey lighten-4',
-          icon: 'iconfont icon-liaotian',
+          icon: 'iconfont icon-bangzhuyufankui',
           iconColor: 'rgb(170, 148, 148)',
           count: '14120',
           newCount: '122',
           text: '举报信息'
         }
-      ]
+      ],
+      loading: true
     }
   },
   mounted() {
     //
+    this.requireData()
   },
   methods: {
     //
+    requireData() {
+      //
+      let vm = this
+      this.$api.system.toGetIndex().then(res => {
+        let data = res.data.extend.data
+        console.log(data)
+        vm.changeAfterRequire(data)
+        vm.loading = false
+      })
+    },
+    changeAfterRequire(data) {
+      //
+      // eslint-disable-next-line no-unused-vars
+      this.countItems.forEach((el, i) => {
+        // el.count = data[el.name]
+        // el.newCount = data[el.name + 'New']
+
+        this.setLite(el, data[el.name], 1)
+        this.setLite(el, data[el.name + 'New'])
+      })
+    },
+    setLite(obj, val, type) {
+      if (type == 1) {
+        TweenMax.fromTo(
+          obj,
+          2,
+          {
+            count: 0
+          },
+          { count: val, roundProps: ['count'] }
+        )
+      } else {
+        TweenMax.fromTo(
+          obj,
+          2,
+          {
+            newCount: 0
+          },
+          { newCount: val, roundProps: ['newCount'] }
+        )
+      }
+    }
   },
   computed: {
     //
@@ -197,7 +240,8 @@ export default {
 
 <style lang="scss" scoped>
 /*  */
-/deep/ .system .app-content .main-container .main-body .v-alert__border {
+
+/deep/ .v-alert__border {
   border-radius: 4px !important;
 }
 .count_info {

@@ -4,14 +4,11 @@
     align="center"
     v-scroll="onScroll"
     v-resize="onResize"
+    ref="sideCol"
   >
     <!-- ====文章详情侧边内容开始== -->
-    <v-col
-      class="px-0"
-      v-if="isArticleDetailPage"
-      ref="sideCatolog"
-      :class="isfixed['sideCatolog'] ? 'js-fixed' : ''"
-    >
+    <v-col class="px-0" v-if="isArticleDetailPage" ref="sideCatolog">
+      <!-- :class="isfixed['sideCatolog'] ? 'js-fixed' : ''" -->
       <v-slide-y-transition>
         <page-blog-side-catolog
           v-show="getArticleFloatGroup"
@@ -178,11 +175,25 @@ export default {
   mounted() {
     //
     this.onResize()
+    console.log(this.$refs.sideCol)
   },
   methods: {
     //屏幕窗口大小变化
     onResize() {
       this.windowSize = { x: window.innerWidth, y: window.innerHeight }
+    },
+    getMaxIndex() {
+      //获取侧边显示在最下面的组件的index
+      let newArr = JSON.parse(JSON.stringify(this.otherData.sideListOrder))
+      this.otherData.sideListShow.forEach((item, i) => {
+        if (!item) {
+          delete newArr[i]
+        }
+      })
+
+      var max = Math.max.apply(null, newArr)
+      var index = this.otherData.sideListOrder.indexOf(max)
+      return index
     },
     //屏幕滚动方法
     // eslint-disable-next-line no-unused-vars
@@ -196,7 +207,8 @@ export default {
         // console.log(optEl)
         optFixed = 'sideCatolog'
       } else {
-        optEl = this.$refs.sideRecArticle
+        let index = this.getMaxIndex()
+        optEl = this.$refs.sideCol.children[index]
         optFixed = 'sideRecArticle'
       }
       let pd =
@@ -206,6 +218,7 @@ export default {
       if (this.isfixed[optFixed] == false) {
         if (top < pd) {
           this.isfixed[optFixed] = false
+          optEl.classList.toggle('js-fixed', false)
           // console.log('pd')
         } else {
           // console.log('hh')
@@ -214,69 +227,71 @@ export default {
           optEl.style.width = this.width + 'px'
           // this.$refs.sideRecArticle.style.width = this.width + 'px'
           this.isfixed[optFixed] = true
+          optEl.classList.toggle('js-fixed', true)
           // console.log(ths.isfixed)
         }
       } else {
         // console.log('innn')
         if (top < this.top) {
           this.isfixed[optFixed] = false
+          optEl.classList.toggle('js-fixed', false)
         }
       }
-    },
+    }
 
     //评论区域位置监听
     // eslint-disable-next-line no-unused-vars
-    onWaypoint({ el, going, direction, _entry }) {
-      // going: in, out
-      // direction: top, right, bottom, left
-      if (going === this.$waypointMap.GOING_IN) {
-        console.log('waypoint going in!') //激活-出现了
-      }
-      if (going === this.$waypointMap.GOING_OUT) {
-        console.log('waypoint going out!')
-      }
-      if (direction === this.$waypointMap.DIRECTION_TOP) {
-        // console.log('waypoint going top!')
-        let count = ++this.pointTopCount
-        console.log('top:' + count)
+    // onWaypoint({ el, going, direction, _entry }) {
+    //   // going: in, out
+    //   // direction: top, right, bottom, left
+    //   if (going === this.$waypointMap.GOING_IN) {
+    //     console.log('waypoint going in!') //激活-出现了
+    //   }
+    //   if (going === this.$waypointMap.GOING_OUT) {
+    //     console.log('waypoint going out!')
+    //   }
+    //   if (direction === this.$waypointMap.DIRECTION_TOP) {
+    //     // console.log('waypoint going top!')
+    //     let count = ++this.pointTopCount
+    //     console.log('top:' + count)
 
-        //第一次出现隐藏
-        // this.setArticleFloatGroup(false)
-        if (count == 1) {
-          //第一次出现隐藏
-          this.pointBottomCount = 1
+    //     //第一次出现隐藏
+    //     // this.setArticleFloatGroup(false)
+    //     if (count == 1) {
+    //       //第一次出现隐藏
+    //       this.pointBottomCount = 1
 
-          let optEl = this.$refs.sideCatolog
-          let optFixed = 'sideCatolog'
+    //       let optEl = this.$refs.sideCatolog
+    //       let optFixed = 'sideCatolog'
 
-          this.width = optEl.offsetWidth
-          optEl.style.width = this.width + 'px'
-          this.isfixed[optFixed] = true
-        } else {
-          this.pointTopCount = count % 2
-          this.pointBottomCount = 0
-        }
-      }
-      if (direction === this.$waypointMap.DIRECTION_BOTTOM) {
-        // console.log('waypoint going bottom!')
-        // this.setArticleFloatGroup(true)
-        let count = ++this.pointBottomCount
-        console.log('bottom:' + count)
-        //第二次出现显示
-        // this.setArticleFloatGroup(true)
-        if (count == 2) {
-          //第二次出现显示
+    //       this.width = optEl.offsetWidth
+    //       optEl.style.width = this.width + 'px'
+    //       this.isfixed[optFixed] = true
+    //     } else {
+    //       this.pointTopCount = count % 2
+    //       this.pointBottomCount = 0
+    //     }
+    //   }
+    //   if (direction === this.$waypointMap.DIRECTION_BOTTOM) {
+    //     // console.log('waypoint going bottom!')
+    //     // this.setArticleFloatGroup(true)
+    //     let count = ++this.pointBottomCount
+    //     console.log('bottom:' + count)
+    //     //第二次出现显示
+    //     // this.setArticleFloatGroup(true)
+    //     if (count == 2) {
+    //       //第二次出现显示
 
-          this.isfixed['sideCatolog'] = false
+    //       this.isfixed['sideCatolog'] = false
 
-          this.pointBottomCount = count % 2
-          this.pointTopCount = 0
-        }
-      }
-      // if (direction === this.$waypointMap.DIRECTION_LEFT) {
-      //   console.log('waypoint going left!')
-      // }
-    }
+    //       this.pointBottomCount = count % 2
+    //       this.pointTopCount = 0
+    //     }
+    //   }
+    //   // if (direction === this.$waypointMap.DIRECTION_LEFT) {
+    //   //   console.log('waypoint going left!')
+    //   // }
+    // }
   },
   computed: {
     //
@@ -342,8 +357,8 @@ export default {
       immediate: true
     },
     mainSize(newVal) {
-      console.log(newVal)
-      console.log('newVal:' + this.windowSize.x)
+      // console.log(newVal)
+      // console.log('newVal:' + this.windowSize.x)
       if (newVal) {
         //
         if (this.windowSize.x > 1111) {

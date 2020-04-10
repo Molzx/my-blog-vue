@@ -98,15 +98,18 @@
                     <v-col class="justify-center" cols="10">
                       <v-col cols="12" class="pa-0">
                         <p class="b-title--small mb-1">
-                          <router-link
-                            :to="{
-                              path: linkToArticle,
-                              query: { q: item.articleId }
-                            }"
+                          <a
+                            @click="
+                              $toUrl(
+                                linkToArticle,
+                                { q: item.articleId },
+                                'push'
+                              )
+                            "
                             class="b-a"
                           >
                             {{ item.title }}
-                          </router-link>
+                          </a>
                           <!-- <a class="float-right b-a" @click="item, i">取消收藏</a> -->
                         </p>
                       </v-col>
@@ -136,10 +139,13 @@
                           label
                           small
                           color="blue--text"
-                          :to="{
-                            path: linkToCategory,
-                            query: { q: item.categoryName }
-                          }"
+                          @click="
+                            $toUrl(
+                              linkToCategory,
+                              { q: item.categoryName },
+                              'push'
+                            )
+                          "
                           >{{ item.categoryName | textLengthFormat(18) }}
                         </v-chip>
                         <span class="b-span--time">

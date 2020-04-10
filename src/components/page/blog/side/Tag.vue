@@ -91,7 +91,7 @@ export default {
       let path = '/blog/tags/tag'
       let params = tag.tagName
       // console.log(path)
-      this.$router.push({ path: path, query: { q: params } })
+      this.$toUrl(path, params, 'push')
     },
     toMore() {
       let path = '/blog/tags'

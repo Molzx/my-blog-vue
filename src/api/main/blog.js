@@ -1,5 +1,5 @@
 // 导入接口域名列表
-import base from '../../base'
+import base from '../base'
 
 // http.js中创建的axios 方法实例
 // eslint-disable-next-line no-unused-vars

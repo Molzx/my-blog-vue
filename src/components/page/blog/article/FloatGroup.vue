@@ -266,7 +266,7 @@
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
 import { scrollToComment } from '@/assets/js/scrolling'
-import { like, unlike, collect, uncollect,share } from '@/assets/js/blog'
+import { like, unlike, collect, uncollect, share } from '@/assets/js/blog'
 //分享
 import '../../../../../node_modules/social-share.js/dist/js/social-share.min.js'
 //生成二维码
@@ -318,8 +318,10 @@ export default {
   },
   methods: {
     getUrlParams() {
-      let params = this.$route.query.q
-      this.optParams.ownerId = params
+      let params = this.$global.GetQueryParamOfObjEntry()
+      if (params && params.q) {
+        this.optParams.ownerId = params.q
+      }
     },
     changeShowShareGroup() {
       this.showShareGroup = !this.showShareGroup

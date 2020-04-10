@@ -123,11 +123,16 @@ export default {
       setNewArticleItems: 'setNewArticleItemsFun'
     }),
     getUrlParams() {
-      let params = this.$route.query.q
-      this.pageParams.cName = params
-      this.setBreadcrumbs(params)
-      //请求后台数据
-      this.requireData()
+      let params = this.$global.GetQueryParamOfObjEntry()
+
+      if (params && params.q) {
+        this.pageParams.cName = params.q
+        this.setBreadcrumbs(params)
+        //请求后台数据
+        this.requireData()
+      } else {
+        this.$router.push('/blog/tag')
+      }
     },
     setBreadcrumbs(tag) {
       this.breadcrumbsItems[1].text = tag

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-08 16:50:21
- * @LastEditTime : 2020-03-29 12:54:26
+ * @LastEditTime : 2020-04-10 14:16:09
  * @LastEditors  : xuzhenghao
  * @Description: In User Settings Edit
  * @FilePath     : \VueProjects\my-blog\src\router\index.js
@@ -75,10 +75,20 @@ const router = new VueRouter({
 })
 
 // import NProgress from '../plugins/nprogress'
-
+import { encryUrlOfRouter } from '@/utils/secretUrl'
+//导入url解密获取
+// import { GetQueryParamOfObjEntry } from '@/utils/secretUrl'
 router.beforeEach((to, from, next) => {
   // NProgress.start()
-  next()
+  // next()
+  console.log('hh')
+  let flag = encryUrlOfRouter(to, from, next)
+  console.log(flag)
+  if (flag) {
+    console.log('normal')
+    next()
+  }
+  // console.log('over')
 })
 
 router.afterEach(() => {
