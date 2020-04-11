@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-09 17:50:18
+ * @LastEditTime : 2020-04-10 16:24:26
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -326,8 +326,23 @@ export default {
     toLogOut() {
       //注销
       console.log('注销')
+
+      let vm = this
+      setTimeout(() => {
+        this.$api.login
+          .toLogOut()
+          .then(res => {
+            let data = res.data.extend.data
+            vm.$toast.success(data)
+            //注销后跳回首页
+            vm.$toLogout()
+          })
+          .catch(() => {
+            //
+          })
+      }, 0)
       //注销后跳回首页
-      this.$toLogout()
+      // this.$toLogout()
     },
     toUserInfo() {
       //个人中心
@@ -379,19 +394,19 @@ export default {
     //计算展示的菜单选项
     showMenuItem() {
       return function(item) {
-        let show = true
         //判断是否需要管理员才显示
         if (item.needAdmin) {
           //只有当登录了，而且是管理员才显示
-          show = this.$isLogin() && this.$isAdmin()
+          return this.$isLogin() && this.$isAdmin()
         } else {
           //判断是否需要登录才显示
           if (item.needLogin) {
             //只有当登录了才显示
-            show = this.$isLogin()
+            return this.$isLogin()
           }
+          //如果不需要登录显示，则登录了就隐藏
+          return this.$isLogin() ? false : true
         }
-        return show
       }
     }
   },

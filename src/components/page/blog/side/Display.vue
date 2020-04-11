@@ -191,6 +191,7 @@ export default {
         }
       })
 
+      //获取元素最大值下标，注意数组不能有重复元素
       var max = Math.max.apply(null, newArr)
       var index = this.otherData.sideListOrder.indexOf(max)
       return index

@@ -106,3 +106,44 @@ export function AESUrlDecrypt(data) {
   newData = JSON.parse(newData)
   return newData
 }
+
+const LOCALSTOREKEY = 'wahahanaichabloggoodgoodgoodgood'
+const LOCALSTOREIV = 'wojuedemeicuowa'
+//本地存储加密方法
+export function AESStoreEncrypt(data) {
+  // data数据加密
+  if (typeof data === 'object') {
+    data = JSON.stringify(data)
+    // console.log('data')
+    // console.log(JSON.parse(JSON.stringify(data)))
+  }
+  const encrypted = cryptoJs.AES.encrypt(data, LOCALSTOREKEY, {
+    iv: LOCALSTOREIV,
+    mode: cryptoJs.mode.CBC,
+    padding: cryptoJs.pad.ZeroPadding
+  })
+
+  return encrypted.toString()
+}
+//本地存储解密方法
+export function AESStoreDecrypt(data) {
+  // 数据解密
+  // 方式1 aes 解密
+  const decrypt = cryptoJs.AES.decrypt(data, LOCALSTOREKEY, {
+    iv: LOCALSTOREIV,
+    mode: cryptoJs.mode.CBC,
+    padding: cryptoJs.pad.ZeroPadding
+  })
+  let newData = cryptoJs.enc.Utf8.stringify(decrypt).toString()
+
+  let cpData = JSON.parse(JSON.stringify(newData))
+
+  //先将拿到的试着进行json转为对象的形式
+  try {
+    newData = JSON.parse(newData)
+  } catch (error) {
+    //如果不行就不是json的字符串，就直接返回
+    newData = cpData
+  }
+  return newData
+}

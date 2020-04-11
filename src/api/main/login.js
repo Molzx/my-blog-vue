@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-18 14:42:58
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-01-31 13:53:58
+ * @LastEditTime : 2020-04-11 23:05:25
  * @FilePath     : \VueProjects\my-blog\src\api\main\login.js
  * @Description  : 登录相关接口信息
  */
@@ -11,7 +11,7 @@
 import base from '../base'
 
 // 导入axios.js中创建的axios实例
-import { jsonPostRequest } from '@/utils/axios/http'
+import { jsonPostRequest, getRequest } from '@/utils/axios/http'
 const UrlPrefix = base.url
 
 const login = {
@@ -44,6 +44,9 @@ const login = {
     //   captcha: captcha
     // }
     return jsonPostRequest(UrlPrefix + 'auth/login/email', params)
+  },
+  toLogOut: () => {
+    return getRequest(UrlPrefix + 'auth/logout')
   }
 }
 //导出接口方法

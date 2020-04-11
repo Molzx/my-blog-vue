@@ -37,11 +37,11 @@
 import { scrollToTop } from '@/assets/js/scrolling'
 import { mapActions, mapGetters } from 'vuex'
 import {
-  reqTimelineArticleData
-  // reqSideRecArticleData,
-  // reqSideCategoryData,
-  // reqSideTagData,
-  // reqSideNewArticleData
+  reqTimelineArticleData,
+  reqSideRecArticleData,
+  reqSideCategoryData,
+  reqSideTagData,
+  reqSideNewArticleData
 } from '@/assets/js/blog'
 export default {
   props: {
@@ -96,10 +96,10 @@ export default {
     }),
     requireData() {
       reqTimelineArticleData(this)
-      // reqSideRecArticleData(this)
-      // reqSideCategoryData(this)
-      // reqSideTagData(this)
-      // reqSideNewArticleData(this)
+      reqSideRecArticleData(this)
+      reqSideCategoryData(this)
+      reqSideTagData(this)
+      reqSideNewArticleData(this)
     }
   },
   computed: {

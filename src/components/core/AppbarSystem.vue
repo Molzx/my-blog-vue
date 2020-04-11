@@ -214,8 +214,23 @@ export default {
     toLogOut() {
       //注销
       console.log('注销')
+
+      let vm = this
+      setTimeout(() => {
+        this.$api.login
+          .toLogOut()
+          .then(res => {
+            let data = res.data.extend.data
+            vm.$toast.success(data)
+            //注销后跳回首页
+            vm.$toLogout()
+          })
+          .catch(() => {
+            //
+          })
+      }, 0)
       //注销后跳回首页
-      this.$toLogout()
+      // this.$toLogout()
     },
     toUserInfo() {
       //个人中心

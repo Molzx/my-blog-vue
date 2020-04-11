@@ -8,6 +8,9 @@
     .shadow-timeline__dot {
       box-shadow: none !important;
     }
+    .b-card-image {
+      @extend .shadow-card;
+    }
   }
   .appbar {
     .v-toolbar__content {
