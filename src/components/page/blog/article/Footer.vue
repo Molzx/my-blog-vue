@@ -91,14 +91,18 @@ export default {
 
     filterCategory(category) {
       let path = '/blog/categories/category'
-      let params = category.categoryName
+      let params = {
+        q: category.categoryName
+      }
       // console.log(path)
 
       this.$toUrl(path, params, 'push')
     },
     filterTag(tag) {
       let path = '/blog/tags/tag'
-      let params = tag.tagName
+      let params = {
+        q: tag.tagName
+      }
       // console.log(path)
       this.$toUrl(path, params, 'push')
     }

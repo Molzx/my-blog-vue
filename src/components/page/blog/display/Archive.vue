@@ -23,11 +23,8 @@
       order-sm="2"
     >
       <page-blog-side-display
-        :sideRecArticleItems="sideRecArticleItems"
-        :sideCategoryItems="sideCategoryItems"
-        :sideTagItems="sideTagItems"
-        :sideNewArticleItems="sideNewArticleItems"
-        :otherData="otherData"
+        :mainSize="articleList.length"
+        :sideData="sideData"
       ></page-blog-side-display>
     </v-col>
   </v-row>
@@ -36,13 +33,7 @@
 <script>
 import { scrollToTop } from '@/assets/js/scrolling'
 import { mapActions, mapGetters } from 'vuex'
-import {
-  reqTimelineArticleData,
-  reqSideRecArticleData,
-  reqSideCategoryData,
-  reqSideTagData,
-  reqSideNewArticleData
-} from '@/assets/js/blog'
+import { reqTimelineArticleData, reqSideData } from '@/assets/js/blog'
 export default {
   props: {
     //
@@ -54,28 +45,26 @@ export default {
         current: 1
       },
       articleList: [],
-      articleInfo: '',
-      categoryInfo: [],
-      tagInfo: [],
-      sideRecArticleItems: [],
-      sideCategoryItems: [],
-      sideTagItems: [],
-      sideNewArticleItems: [],
-      otherData: {
-        articleListLoading: true,
-        articleInfoLoading: true,
-        categoryInfoLoading: true,
-        tagInfoLoading: true,
-        sideRecArticleLoading: true,
-        sideCategoryLoading: true,
-        sideTagLoading: true,
-        sideNewArticleLoading: true,
+
+      sideData: {
+        recArticleItems: [],
+        categoryItems: [],
+        tagItems: [],
+        newArticleItems: [],
+        topViewArticleItems: [],
+        recArticleLoading: true,
+        categoryLoading: true,
+        tagLoading: true,
+        newArticleLoading: true,
+        topViewArticleLoading: true,
 
         //展示顺序
-        sideListOrder: [1, 2, 3, 4],
+        listOrder: [1, 2, 3, 4, 5, 6],
         //展示的组件
-        sideListShow: [true, true, true, true],
-
+        listShow: [true, true, true, true, true, true]
+      },
+      otherData: {
+        articleListLoading: true,
         recordTotal: 0
       }
     }
@@ -89,30 +78,18 @@ export default {
   methods: {
     //
     ...mapActions({
-      setRecArticleItems: 'setRecArticleItemsFun',
-      setCategoryItems: 'setCategoryItemsFun',
-      setTagItems: 'setTagItemsFun',
-      setNewArticleItems: 'setNewArticleItemsFun'
+      //
     }),
     requireData() {
       reqTimelineArticleData(this)
-      reqSideRecArticleData(this)
-      reqSideCategoryData(this)
-      reqSideTagData(this)
-      reqSideNewArticleData(this)
+
+      reqSideData(this)
     }
   },
   computed: {
     //
     ...mapGetters({
-      //获取  侧边栏的最新推荐文章数据
-      getRecArticleItems: 'getRecArticleItemsFun',
-      //获取  侧边栏的分类数据
-      getCategoryItems: 'getCategoryItemsFun',
-      //获取  侧边栏的标签数据
-      getTagItems: 'getTagItemsFun',
-      //获取  侧边栏的最新发布文章数据
-      getNewArticleItems: 'getNewArticleItemsFun'
+      //
     })
   },
   watch: {

@@ -41,10 +41,7 @@
     <v-card class="shadow-1  mb-6 b-card-content">
       <v-card-text>
         <v-scale-transition hide-on-leave>
-          <v-skeleton-loader
-            v-if="otherData.sideCategoryLoading"
-            type="list-item@5"
-          >
+          <v-skeleton-loader v-if="loading" type="list-item@5">
           </v-skeleton-loader>
 
           <v-list nav dense class="pa-0" v-else>
@@ -95,13 +92,9 @@ export default {
     sideCategoryItems: {
       type: Array
     },
-    otherData: {
-      type: Object,
-      default: () => {
-        return {
-          sideCategoryLoading: false
-        }
-      }
+    loading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -112,8 +105,9 @@ export default {
   methods: {
     filterCategory(category) {
       let path = '/blog/categories/category'
-      let params = category.categoryName
-      // console.log(path)
+      let params = {
+        q: category.categoryName
+      }
       this.$toUrl(path, params, 'push')
     },
     toMore() {

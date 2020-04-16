@@ -535,7 +535,13 @@ export default {
     },
     displayItem(item) {
       this.setUseArticleId(item)
-      this.getParentRefs().goPageDetail()
+
+      let path = '/blog/articles'
+      let params = {
+        q: item.articleId
+      }
+      this.$toUrl(path, params, 'push')
+      // this.getParentRefs().goPageDetail()
     },
     editItem(item) {
       this.setUseArticleId(item)

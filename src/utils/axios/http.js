@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:27:42
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-09 20:27:09
+ * @LastEditTime : 2020-04-16 18:08:59
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\http.js
  * @Description  : 这是一些注释
  */
@@ -52,8 +52,8 @@ export const getRequest = (
   if (params) {
     //复制一份新的参数，去除其中的空参数
     obj = JSON.parse(JSON.stringify(params))
-    console.log(obj)
     remGetEmpParam(obj)
+    console.log(obj)
   }
   //en_data此名称要与后端分隔名称一致
   let en_data = Encrypt(obj)
@@ -98,7 +98,7 @@ export const jsonPostRequest = (
 ) => {
   //en_data 加密后的数据
   let en_data = Encrypt(params)
-  console.log(en_data)
+  // console.log(en_data)
   return axios({
     method: 'post',
     url,

@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-04 22:17:46
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-08 23:48:21
+ * @LastEditTime : 2020-04-16 15:17:12
  * @FilePath     : \VueProjects\my-blog\src\components\page\blog\display\Search.vue
  * @Description  : 这是一些注释
  -->
@@ -41,10 +41,8 @@
       order-sm="2"
     >
       <page-blog-side-display
-        :sideRecArticleItems="sideRecArticleItems"
-        :sideTagItems="sideTagItems"
-        :sideNewArticleItems="sideNewArticleItems"
-        :otherData="otherData"
+        :mainSize="articleList.length"
+        :sideData="sideData"
       ></page-blog-side-display>
     </v-col>
   </v-row>
@@ -53,12 +51,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
-import {
-  reqSearchArticleData,
-  reqSideRecArticleData,
-  reqSideTagData,
-  reqSideNewArticleData
-} from '@/assets/js/blog'
+import { reqSearchArticleData, reqSideData } from '@/assets/js/blog'
 export default {
   props: {
     //
@@ -80,21 +73,26 @@ export default {
         cName: ''
       },
       articleList: [],
-      sideRecArticleItems: [],
-      sideCategoryItems: [],
-      sideTagItems: [],
-      sideNewArticleItems: [],
       otherData: {
-        articleListLoading: true,
-        sideRecArticleLoading: true,
-        sideCategoryLoading: true,
-        sideTagLoading: true,
-        sideNewArticleLoading: true,
+        articleListLoading: true
+      },
+
+      sideData: {
+        recArticleItems: [],
+        categoryItems: [],
+        tagItems: [],
+        newArticleItems: [],
+        topViewArticleItems: [],
+        recArticleLoading: true,
+        categoryLoading: true,
+        tagLoading: true,
+        newArticleLoading: true,
+        topViewArticleLoading: true,
 
         //展示顺序
-        sideListOrder: [1, 2, 3, 4],
+        listOrder: [1, 2, 3, 4, 5, 6],
         //展示的组件
-        sideListShow: [true, false, true, true]
+        listShow: [true, true, true, true, true, true]
       }
     }
   },
@@ -120,9 +118,7 @@ export default {
       }
     },
     requireData() {
-      reqSideRecArticleData(this)
-      reqSideTagData(this)
-      reqSideNewArticleData(this)
+      reqSideData(this)
       reqSearchArticleData(this)
     },
     requireSearchData() {

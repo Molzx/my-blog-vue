@@ -81,7 +81,9 @@ export default {
   methods: {
     filterCategory(category) {
       let path = this.$route.fullPath + '/category'
-      let params = category.categoryName
+      let params = {
+        q: category.categoryName
+      }
       // console.log(path)
       this.$toUrl(path, params, 'push')
     }

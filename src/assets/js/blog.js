@@ -91,6 +91,26 @@ export function reqTagData(vm) {
 
 //================侧边栏数据====================
 
+//一个一个请求侧边栏数据
+export function reqSideData(vm) {
+  // eslint-disable-next-line no-unused-vars
+  let s5 = reqSideRecArticleData(vm)
+  // eslint-disable-next-line no-unused-vars
+  let s2 = reqSideCategoryData(vm)
+  // eslint-disable-next-line no-unused-vars
+  let s3 = reqSideTagData(vm)
+  // eslint-disable-next-line no-unused-vars
+  let s4 = reqSideNewArticleData(vm)
+  // eslint-disable-next-line no-unused-vars
+  let s1 = reqSideTopViewArticleData(vm)
+  vm.sideData.listShow.forEach((el, i) => {
+    if (i != 0) {
+      if (el) {
+        eval('s' + i)
+      }
+    }
+  })
+}
 //侧边栏所有信息
 export function reqSideAllData(vm) {
   // const vm = this
@@ -104,21 +124,21 @@ export function reqSideAllData(vm) {
 
         let data = res.data.extend
 
-        vm.sideRecArticleItems = data.recArticles.records
+        vm.sideData.recArticleItems = data.recArticles.records
         //保存数据
-        vm.setRecArticleItems(vm.sideRecArticleItems)
-        vm.otherData.sideRecArticleLoading = false
+        vm.setRecArticleItems(vm.sideData.recArticleItems)
+        vm.sideData.recArticleLoading = false
 
-        vm.sideCategoryItems = data.recArticles
+        vm.sideData.categoryItems = data.recArticles
         //保存数据
-        vm.setCategoryItems(vm.sideCategoryItems)
-        vm.otherData.sideCategoryLoading = false
+        vm.setCategoryItems(vm.categoryItems)
+        vm.sideData.categoryLoading = false
       })
     }, 0)
   } else {
     console.log('innn')
-    vm.sideRecArticleItems = vm.getRecArticleItems
-    vm.otherData.sideRecArticleLoading = false
+    vm.sideData.recArticleItems = vm.getRecArticleItems
+    vm.sideData.recArticleLoading = false
   }
 }
 
@@ -134,16 +154,16 @@ export function reqSideRecArticleData(vm) {
         console.log('send require recommend article')
 
         let data = res.data.extend
-        vm.sideRecArticleItems = data.records
+        vm.sideData.recArticleItems = data.records
         //保存数据
-        vm.$store.dispatch('setRecArticleItemsFun', vm.sideRecArticleItems)
+        vm.$store.dispatch('setRecArticleItemsFun', vm.sideData.recArticleItems)
         // vm.setRecArticleItems(vm.sideRecArticleItems)
-        vm.otherData.sideRecArticleLoading = false
+        vm.sideData.recArticleLoading = false
       })
     }, 0)
   } else {
-    vm.sideRecArticleItems = records
-    vm.otherData.sideRecArticleLoading = false
+    vm.sideData.recArticleItems = records
+    vm.sideData.recArticleLoading = false
   }
 }
 
@@ -159,16 +179,16 @@ export function reqSideCategoryData(vm) {
         console.log('send require category')
 
         let data = res.data.extend
-        vm.sideCategoryItems = data.data
+        vm.sideData.categoryItems = data.data
         //保存数据
-        vm.$store.dispatch('setCategoryItemsFun', vm.sideCategoryItems)
+        vm.$store.dispatch('setCategoryItemsFun', vm.sideData.categoryItems)
         // vm.setCategoryItems(vm.sideCategoryItems)
-        vm.otherData.sideCategoryLoading = false
+        vm.sideData.categoryLoading = false
       })
     }, 0)
   } else {
-    vm.sideCategoryItems = records
-    vm.otherData.sideCategoryLoading = false
+    vm.sideData.categoryItems = records
+    vm.sideData.categoryLoading = false
   }
 }
 
@@ -184,16 +204,16 @@ export function reqSideTagData(vm) {
         console.log('send require tag')
 
         let data = res.data.extend
-        vm.sideTagItems = data.data
+        vm.sideData.tagItems = data.data
         //保存数据
-        vm.$store.dispatch('setTagItemsFun', vm.sideTagItems)
+        vm.$store.dispatch('setTagItemsFun', vm.sideData.tagItems)
         // vm.setTagItems(vm.sideTagItems)
-        vm.otherData.sideTagLoading = false
+        vm.sideData.tagLoading = false
       })
     }, 0)
   } else {
-    vm.sideTagItems = records
-    vm.otherData.sideTagLoading = false
+    vm.sideData.tagItems = records
+    vm.sideData.tagLoading = false
   }
 }
 
@@ -209,16 +229,16 @@ export function reqSideNewArticleData(vm) {
         console.log('send require new article')
 
         let data = res.data.extend
-        vm.sideNewArticleItems = data.records
+        vm.sideData.newArticleItems = data.records
         //保存数据
-        vm.$store.dispatch('setNewArticleItemsFun', vm.sideNewArticleItems)
+        vm.$store.dispatch('setNewArticleItemsFun', vm.sideData.newArticleItems)
         // vm.setNewArticleItems(vm.sideNewArticleItems)
-        vm.otherData.sideNewArticleLoading = false
+        vm.sideData.newArticleLoading = false
       })
     }, 0)
   } else {
-    vm.sideNewArticleItems = records
-    vm.otherData.sideNewArticleLoading = false
+    vm.sideData.newArticleItems = records
+    vm.sideData.newArticleLoading = false
   }
 }
 
@@ -234,18 +254,19 @@ export function reqSideTopViewArticleData(vm) {
         console.log('send require top view article')
 
         let data = res.data.extend
-        vm.sideTopViewArticleItems = data.records
+        vm.sideData.topViewArticleItems = data.records
+        console.log(vm.sideData.topViewArticleItems)
         //保存数据
         vm.$store.dispatch(
           'setTopViewArticleItemsFun',
-          vm.sideTopViewArticleItems
+          vm.sideData.topViewArticleItems
         )
-        vm.otherData.sideTopViewArticleLoading = false
+        vm.sideData.topViewArticleLoading = false
       })
     }, 0)
   } else {
-    vm.sideTopViewArticleItems = records
-    vm.otherData.sideTopViewArticleLoading = false
+    vm.sideData.topViewArticleItems = records
+    vm.sideData.topViewArticleLoading = false
   }
 }
 

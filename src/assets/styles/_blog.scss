@@ -11,6 +11,9 @@
     .b-card-image {
       @extend .shadow-card;
     }
+    .login-container {
+      box-shadow: none !important;
+    }
   }
   .appbar {
     .v-toolbar__content {

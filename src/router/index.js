@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-08 16:50:21
- * @LastEditTime : 2020-04-10 14:16:09
+ * @LastEditTime : 2020-04-16 21:27:17
  * @LastEditors  : xuzhenghao
  * @Description: In User Settings Edit
  * @FilePath     : \VueProjects\my-blog\src\router\index.js
@@ -65,7 +65,8 @@ import RouteGenerator from '../utils/easy-router/index.js'
 let generator = new RouteGenerator(
   require.context('@views', true, /\.vue$/, 'lazy')
 )
-let routes = [generator.generate()].concat([{ path: '*', redirect: '/404' }])
+let routes = [generator.generate()]
+// .concat([{ path: '*', redirect: '/404' }])
 
 const router = new VueRouter({
   // 去掉url中的#
@@ -81,11 +82,9 @@ import { encryUrlOfRouter } from '@/utils/secretUrl'
 router.beforeEach((to, from, next) => {
   // NProgress.start()
   // next()
-  console.log('hh')
   let flag = encryUrlOfRouter(to, from, next)
-  console.log(flag)
+  // console.log(flag)
   if (flag) {
-    console.log('normal')
     next()
   }
   // console.log('over')

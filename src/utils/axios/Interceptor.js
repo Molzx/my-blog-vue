@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-31 10:12:44
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-09 13:23:57
+ * @LastEditTime : 2020-04-16 18:07:53
  * @FilePath     : \VueProjects\my-blog\src\utils\axios\Interceptor.js
  * @Description  : 拦截器配置，请求拦截器，响应拦截器
  */
@@ -125,11 +125,12 @@ instance.interceptors.response.use(
 
     let isBlob = res.data instanceof Blob
     if (!isBlob && !res.data.code) {
-      console.log('in')
       //加密解密相关
       if (isEncode) {
         // 数据解密
         res.data = Decrypt(res.data)
+
+        // console.log(res.data)
       }
     } else {
       // console.log(res.data)

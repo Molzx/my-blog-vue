@@ -1,3 +1,11 @@
+<!--
+ * @Author       : xuzhenghao
+ * @Date         : 2020-04-09 09:56:22
+ * @LastEditors  : xuzhenghao
+ * @LastEditTime : 2020-04-16 15:30:26
+ * @FilePath     : \VueProjects\my-blog\src\components\helper\Loading.vue
+ * @Description  : 这是一些注释
+ -->
 <template>
   <div class="loader-container">
     <!-- <div class="loader">
@@ -78,7 +86,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="@styles/blog/loading2.scss"></style>
+<style lang="scss" scoped src="@styles/blog/loader_cog.scss"></style>
 <style lang="scss" scoped>
 .loader-container {
   height: 400px;

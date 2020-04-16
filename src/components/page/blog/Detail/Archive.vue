@@ -358,7 +358,9 @@ export default {
 
     filterTag(tag) {
       let path = '/blog/tags/tag'
-      let params = tag.tagName
+      let params = {
+        q: tag.tagName
+      }
       // console.log(path)
       this.$toUrl(path, params, 'push')
     }

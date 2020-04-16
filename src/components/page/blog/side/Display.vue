@@ -17,82 +17,67 @@
 
       <page-blog-side-article
         type="recommand"
-        :sideArticleItems="sideRecArticleItems"
-        :loading="otherData.sideRecArticleLoading"
+        :sideArticleItems="sideData.recArticleItems"
+        :loading="sideData.recArticleLoading"
       ></page-blog-side-article>
-    </v-col>
-    <!-- ====推荐文章内容开始== -->
-    <v-col
-      class="px-0"
-      v-if="sideListShow[0]"
-      :order="otherData.sideListOrder[0]"
-    >
-      <page-blog-side-article
-        type="recommand"
-        :sideArticleItems="sideRecArticleItems"
-        :loading="otherData.sideRecArticleLoading"
-      ></page-blog-side-article>
-    </v-col>
-    <!-- 分类内容开始 -->
-    <v-col
-      class="px-0"
-      v-if="sideListShow[1]"
-      :order="otherData.sideListOrder[1]"
-    >
-      <page-blog-side-category
-        :sideCategoryItems="sideCategoryItems"
-        :otherData="otherData"
-      ></page-blog-side-category>
     </v-col>
 
-    <!-- ====分类结束，标签内容开始== -->
-    <v-col
-      class="px-0"
-      v-if="sideListShow[2]"
-      :order="otherData.sideListOrder[2]"
-    >
-      <page-blog-side-tag
-        :sideTagItems="sideTagItems"
-        :otherData="otherData"
-      ></page-blog-side-tag>
-    </v-col>
-
-    <!-- ====标签内容结束，最新文章内容开始== -->
-    <v-col
-      v-if="sideListShow[3]"
-      :order="otherData.sideListOrder[3]"
-      class="px-0"
-      ref="sideRecArticle"
-    >
-      <!-- :class="fixedRecArticle ? 'js-fixed' : ''" -->
-      <page-blog-side-article
-        type="new"
-        :sideArticleItems="sideNewArticleItems"
-        :loading="otherData.sideNewArticleLoading"
-      ></page-blog-side-article>
-      <!-- <page-blog-side-new-article></page-blog-side-new-article> -->
-    </v-col>
     <!-- ====公告内容开始== -->
-    <v-col
-      class="px-0"
-      v-if="sideListShow[4]"
-      :order="otherData.sideListOrder[4]"
-    >
+    <v-col class="px-0" v-if="sideListShow[0]" :order="sideData.listOrder[0]">
       <page-blog-side-announcement
         type="announcement"
       ></page-blog-side-announcement>
     </v-col>
 
     <!-- ====最高浏览量文章内容开始== -->
-    <v-col
-      class="px-0"
-      v-if="sideListShow[5]"
-      :order="otherData.sideListOrder[5]"
-    >
+    <v-col class="px-0" v-if="sideListShow[1]" :order="sideData.listOrder[1]">
       <page-blog-side-article
         type="top-view"
-        :sideArticleItems="sideTopViewArticleItems"
-        :loading="otherData.sideTopViewArticleLoading"
+        :sideArticleItems="sideData.topViewArticleItems"
+        :loading="sideData.topViewArticleLoading"
+      ></page-blog-side-article>
+    </v-col>
+    <!-- 分类内容开始 -->
+    <v-col class="px-0" v-if="sideListShow[2]" :order="sideData.listOrder[2]">
+      <page-blog-side-category
+        :sideCategoryItems="sideData.categoryItems"
+        :loading="sideData.categoryLoading"
+      ></page-blog-side-category>
+    </v-col>
+
+    <!-- ====分类结束，标签内容开始== -->
+    <v-col class="px-0" v-if="sideListShow[3]" :order="sideData.listOrder[3]">
+      <page-blog-side-tag
+        :sideTagItems="sideData.tagItems"
+        :loading="sideData.tagLoading"
+      ></page-blog-side-tag>
+    </v-col>
+
+    <!-- ====标签内容结束，最新文章内容开始== -->
+    <v-col
+      v-if="sideListShow[4]"
+      :order="sideData.listOrder[4]"
+      class="px-0"
+      ref="sideRecArticle"
+    >
+      <!-- :class="fixedRecArticle ? 'js-fixed' : ''" -->
+      <page-blog-side-article
+        type="new"
+        :sideArticleItems="sideData.newArticleItems"
+        :loading="sideData.newArticleLoading"
+      ></page-blog-side-article>
+      <!-- <page-blog-side-new-article></page-blog-side-new-article> -->
+    </v-col>
+    <!-- ====推荐文章内容开始== -->
+    <v-col
+      class="px-0"
+      v-if="sideListShow[5] && !isArticleDetailPage"
+      :order="sideData.listOrder[5]"
+    >
+      <page-blog-side-article
+        type="recommand"
+        :sideArticleItems="sideData.recArticleItems"
+        :loading="sideData.recArticleLoading"
       ></page-blog-side-article>
     </v-col>
   </v-row>
@@ -106,37 +91,29 @@ export default {
 
     //主栏当前页记录数
     mainSize: {
-      type: Number
+      type: Number,
+      default: 8
     },
-    sideRecArticleItems: {
-      type: Array
-    },
-    sideCategoryItems: {
-      type: Array
-    },
-    sideTagItems: {
-      type: Array
-    },
-    sideNewArticleItems: {
-      type: Array
-    },
-    sideTopViewArticleItems: {
-      type: Array
-    },
-    otherData: {
+    sideData: {
       type: Object,
       default: () => {
         return {
-          sideRecArticleLoading: true,
-          sideCategoryLoading: true,
-          sideTagLoading: true,
-          sideNewArticleLoading: true,
-          sideTopViewArticleLoading: true,
+          //
+          recArticleItems: [],
+          categoryItems: [],
+          tagItems: [],
+          newArticleItems: [],
+          topViewArticleItems: [],
+          recArticleLoading: true,
+          categoryLoading: true,
+          tagLoading: true,
+          newArticleLoading: true,
+          topViewArticleLoading: true,
 
           //展示顺序
-          sideListOrder: [5, 10, 15, 20, 2, 1],
+          listOrder: [1, 2, 3, 4, 5, 6],
           //展示的组件
-          sideListShow: [true, true, true, true, true, true]
+          listShow: [true, true, true, true, true, true]
         }
       }
     }
@@ -157,7 +134,7 @@ export default {
       width: 0,
 
       //展示的组件
-      sideListShow: [true, true, true, true],
+      sideListShow: [true, true, true, true, true, true],
 
       //waypoint 配置
       //默认waypoint 会触发两次
@@ -184,16 +161,18 @@ export default {
     },
     getMaxIndex() {
       //获取侧边显示在最下面的组件的index
-      let newArr = JSON.parse(JSON.stringify(this.otherData.sideListOrder))
-      this.otherData.sideListShow.forEach((item, i) => {
+      let newArr = JSON.parse(JSON.stringify(this.sideData.listOrder))
+      this.sideListShow.forEach((item, i) => {
         if (!item) {
-          delete newArr[i]
+          newArr[i] = -1
+          // delete newArr[i]
         }
       })
 
       //获取元素最大值下标，注意数组不能有重复元素
       var max = Math.max.apply(null, newArr)
-      var index = this.otherData.sideListOrder.indexOf(max)
+      // console.log(Math.max(...newArr))
+      var index = this.sideData.listOrder.indexOf(max)
       return index
     },
     //屏幕滚动方法
@@ -341,22 +320,21 @@ export default {
     },
     getFixClass() {
       return function(order) {
-        let max = this.otherData.sideListOrder.Math(
-          ...this.otherData.sideListOrder
-        )
+        let max = this.sideData.listOrder.Math(...this.sideData.listOrder)
         return order == max
       }
     }
   },
   watch: {
     //
-    'otherData.sideListShow': {
+    'sideData.listShow': {
       handler(newVal) {
         this.sideListShow = newVal
       },
 
       immediate: true
     },
+
     mainSize(newVal) {
       // console.log(newVal)
       // console.log('newVal:' + this.windowSize.x)
@@ -364,33 +342,19 @@ export default {
         //
         if (this.windowSize.x > 1111) {
           let count = 0
-          this.otherData.sideListShow.forEach(el => {
+          this.sideData.listShow.forEach(el => {
             if (el) {
               count = count + 1
             }
           })
-          let arr = this.otherData.sideListShow
+          let arr = this.sideData.listShow
           let length = arr.length
           this.sideListShow = arr
-          if (newVal < 3) {
-            //最多显示一个组件
+          if (newVal < 4) {
+            //最多显示3个组件
 
-            if (count > 1) {
-              this.sideListShow = [false, false, false, false]
-              let i
-              for (let j = 0; j < length; j++) {
-                if (arr[j]) {
-                  i = j
-                  break
-                }
-              }
-              this.sideListShow[i] = true
-            }
-          } else if (newVal < 4) {
-            //最多显示二个组件
-
-            if (count > 2) {
-              this.sideListShow = [false, false, false, false]
+            if (count > 3) {
+              this.sideListShow = [false, false, false, false, false, false]
               let i = []
               let tmp = 0
 
@@ -398,19 +362,20 @@ export default {
                 if (arr[j]) {
                   i[tmp] = j
                   tmp++
-                  if (tmp == 2) {
+                  if (tmp == 3) {
                     break
                   }
                 }
               }
               this.sideListShow[i[0]] = true
               this.sideListShow[i[1]] = true
+              this.sideListShow[i[2]] = true
             }
           } else if (newVal < 6) {
             //最多显示三个组件
 
             if (count > 3) {
-              this.sideListShow = [true, true, true, true]
+              this.sideListShow = [true, true, true, true, true, true]
               let i
 
               for (let j = 0; j < length; j++) {

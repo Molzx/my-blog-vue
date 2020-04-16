@@ -60,13 +60,7 @@
       order-md="2"
       order-sm="2"
     >
-      <page-blog-side-display
-        :sideRecArticleItems="sideRecArticleItems"
-        :sideCategoryItems="sideCategoryItems"
-        :sideTagItems="sideTagItems"
-        :sideNewArticleItems="sideNewArticleItems"
-        :otherData="otherData"
-      ></page-blog-side-display>
+      <page-blog-side-display :sideData="sideData"></page-blog-side-display>
     </v-col>
   </v-row>
   <!-- <v-row class="pa-4 fill-height">
@@ -100,12 +94,7 @@
 </template>
 
 <script>
-import {
-  reqSideRecArticleData,
-  reqSideCategoryData,
-  reqSideTagData,
-  reqSideNewArticleData
-} from '@/assets/js/blog'
+import { reqSideData } from '@/assets/js/blog'
 // eslint-disable-next-line no-unused-vars
 import { mapActions, mapGetters } from 'vuex'
 export default {
@@ -115,22 +104,23 @@ export default {
   data() {
     return {
       //
-      sideRecArticleItems: [],
-      sideCategoryItems: [],
-      sideTagItems: [],
-      sideNewArticleItems: [],
-      otherData: {
-        sideRecArticleLoading: true,
-        sideCategoryLoading: true,
-        sideTagLoading: true,
-        sideNewArticleLoading: true,
+
+      sideData: {
+        recArticleItems: [],
+        categoryItems: [],
+        tagItems: [],
+        newArticleItems: [],
+        topViewArticleItems: [],
+        recArticleLoading: true,
+        categoryLoading: true,
+        tagLoading: true,
+        newArticleLoading: true,
+        topViewArticleLoading: true,
 
         //展示顺序
-        sideListOrder: [1, 2, 3, 4],
+        listOrder: [1, 2, 3, 4, 5, 6],
         //展示的组件
-        sideListShow: [true, true, true, true],
-
-        recordTotal: 0
+        listShow: [true, true, true, true, true, true]
       },
       tab: '',
       tabItems: [
@@ -184,10 +174,7 @@ export default {
   methods: {
     //
     requireData() {
-      reqSideRecArticleData(this)
-      reqSideCategoryData(this)
-      reqSideTagData(this)
-      reqSideNewArticleData(this)
+      reqSideData(this)
     },
     reportUser() {
       this.$refs.reportForm.openDialog(this.getUseUserId)

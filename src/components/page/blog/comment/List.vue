@@ -599,6 +599,7 @@ export default {
       setUseUserId: 'setUseUserIdFun'
     }),
     toUserInfo(userId, nickName) {
+      console.log('hins')
       //跳转到用户个人信息界面
       if (this.getBaseUserInfo.nickName == nickName) {
         this.$router.push('/blog/users/own/info')

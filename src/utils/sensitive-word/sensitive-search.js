@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-03-17 23:05:34
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-09 15:19:25
+ * @LastEditTime : 2020-04-16 14:35:21
  * @FilePath     : \VueProjects\my-blog\src\utils\sensitive-word\sensitive-search.js
  * @Description  : 敏感词过滤，来源：https://blog.csdn.net/weixin_42453704/article/details/97629441
  */
@@ -43,7 +43,7 @@ class SensitiveSearch {
         }
       }
     }
-    console.log(result)
+    // console.log(result)
     return result
   }
   /**

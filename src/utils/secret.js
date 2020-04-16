@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-08 09:32:13
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-10 14:28:29
+ * @LastEditTime : 2020-04-16 16:26:29
  * @FilePath     : \VueProjects\my-blog\src\utils\secret.js
  * @Description  : 这是一些注释
  */
@@ -112,11 +112,13 @@ const LOCALSTOREIV = 'wojuedemeicuowa'
 //本地存储加密方法
 export function AESStoreEncrypt(data) {
   // data数据加密
-  if (typeof data === 'object') {
-    data = JSON.stringify(data)
-    // console.log('data')
-    // console.log(JSON.parse(JSON.stringify(data)))
-  }
+
+  data = JSON.stringify(data)
+  // if (typeof data === 'object') {
+  //   data = JSON.stringify(data)
+  //   // console.log('data')
+  //   // console.log(JSON.parse(JSON.stringify(data)))
+  // }
   const encrypted = cryptoJs.AES.encrypt(data, LOCALSTOREKEY, {
     iv: LOCALSTOREIV,
     mode: cryptoJs.mode.CBC,

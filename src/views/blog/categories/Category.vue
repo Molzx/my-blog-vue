@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  title: '分类',
+  title: '类别搜索',
   name: 'blog-category',
   data() {
     return {

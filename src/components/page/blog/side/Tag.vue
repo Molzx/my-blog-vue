@@ -26,7 +26,7 @@
     <v-card class="shadow-1  mb-6 b-card-content">
       <v-card-text>
         <v-scale-transition hide-on-leave>
-          <v-row align="center" justify="start" v-if="otherData.sideTagLoading">
+          <v-row align="center" justify="start" v-if="loading">
             <v-col v-for="i in 8" :key="i" class="shrink pb-2">
               <v-boilerplate class="" type="chip" max-width=""></v-boilerplate>
             </v-col>
@@ -62,13 +62,9 @@ export default {
     sideTagItems: {
       type: Array
     },
-    otherData: {
-      type: Object,
-      default: () => {
-        return {
-          sideTagLoading: false
-        }
-      }
+    loading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -89,7 +85,9 @@ export default {
   methods: {
     filterTag(tag) {
       let path = '/blog/tags/tag'
-      let params = tag.tagName
+      let params = {
+        q: tag.tagName
+      }
       // console.log(path)
       this.$toUrl(path, params, 'push')
     },

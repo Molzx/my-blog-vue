@@ -68,7 +68,9 @@ export default {
   methods: {
     filterTag(tag) {
       let path = this.$route.fullPath + '/tag'
-      let params = tag.tagName
+      let params = {
+        q: tag.tagName
+      }
       // console.log(path)
       this.$toUrl(path, params, 'push')
     }

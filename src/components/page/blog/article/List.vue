@@ -179,6 +179,7 @@
         class="mt-4"
         :length="getPageLength"
         total-visible="7"
+        @input="changePage"
       ></v-pagination>
     </v-row>
 
@@ -231,7 +232,7 @@ export default {
   data() {
     return {
       //页数，第几页
-      page: 1,
+      page: this.pageParams.current,
       dateBg: require('@/assets/images/date.svg'),
       optBtnItems: [
         {
@@ -362,9 +363,26 @@ export default {
     },
     getUrlParams() {
       let params = this.$global.GetQueryParamOfObjEntry()
+      console.log(params)
       if (params && params.p) {
         this.page = parseInt(params.p)
       }
+    },
+    changePage(newPage) {
+      //更新地址栏分页参数
+      let page = parseInt(newPage)
+      //获取原有的路由参数
+
+      let param = this.$global.GetQueryParamOfObjEntry()
+      if (param) {
+        param.p = page
+      } else {
+        param = {
+          p: page
+        }
+      }
+      // console.log(param)
+      this.$toPageUrl(param)
     }
   },
   components: {},
@@ -406,26 +424,12 @@ export default {
 
   watch: {
     //
-    page(newVal) {
-      //更新地址栏分页参数
-      let page = parseInt(newVal)
-      //获取原有的路由参数
-
-      let param = this.$global.GetQueryParamOfObjEntry()
-      console.log(param)
-      if (param && param.p) {
-        param.p = page
-      } else {
-        param = {
-          p: page
-        }
-      }
-      this.$toPageUrl(param)
-      // this.pageParams.current = this.page
-      // this.$emit('update:pageParams', this.pageParams)
-      // //调用父类方法获取数据
-      // this.$emit('changePage')
-    },
+    // page(newVal) {
+    //   // this.pageParams.current = this.page
+    //   // this.$emit('update:pageParams', this.pageParams)
+    //   // //调用父类方法获取数据
+    //   // this.$emit('changePage')
+    // },
 
     articleList: {
       handler(newVal) {

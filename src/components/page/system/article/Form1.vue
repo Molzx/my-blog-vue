@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver ref="form">
     <v-form>
-      <v-container>
+      <div>
         <v-row class="justify-center">
           <div style="width: calc(100% - 20px);">
             <page-common-markdown
@@ -147,7 +147,7 @@
             </ValidationProvider>
           </v-col>
         </v-row>
-      </v-container>
+      </div>
     </v-form>
   </ValidationObserver>
 </template>

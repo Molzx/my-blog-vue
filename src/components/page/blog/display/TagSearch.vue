@@ -27,10 +27,8 @@
       order-sm="2"
     >
       <page-blog-side-display
-        :sideRecArticleItems="sideRecArticleItems"
-        :sideCategoryItems="sideCategoryItems"
-        :sideNewArticleItems="sideNewArticleItems"
-        :otherData="otherData"
+        :mainSize="articleList.length"
+        :sideData="sideData"
       ></page-blog-side-display>
     </v-col>
   </v-row>
@@ -39,12 +37,7 @@
 <script>
 import { scrollToTop } from '@/assets/js/scrolling'
 import { mapActions, mapGetters } from 'vuex'
-import {
-  reqArticleData,
-  reqSideRecArticleData,
-  reqSideCategoryData,
-  reqSideNewArticleData
-} from '@/assets/js/blog'
+import { reqArticleData, reqSideData } from '@/assets/js/blog'
 export default {
   props: {
     //
@@ -83,27 +76,26 @@ export default {
         tName: ''
       },
       articleList: [],
-      articleInfo: '',
-      categoryInfo: [],
-      tagInfo: [],
-      sideRecArticleItems: [],
-      sideCategoryItems: [],
-      sideTagItems: [],
-      sideNewArticleItems: [],
       otherData: {
-        articleListLoading: true,
-        articleInfoLoading: true,
-        categoryInfoLoading: true,
-        tagInfoLoading: true,
-        sideRecArticleLoading: true,
-        sideCategoryLoading: true,
-        sideTagLoading: true,
-        sideNewArticleLoading: true,
+        articleListLoading: true
+      },
+
+      sideData: {
+        recArticleItems: [],
+        categoryItems: [],
+        tagItems: [],
+        newArticleItems: [],
+        topViewArticleItems: [],
+        recArticleLoading: true,
+        categoryLoading: true,
+        tagLoading: true,
+        newArticleLoading: true,
+        topViewArticleLoading: true,
 
         //展示顺序
-        sideListOrder: [1, 2, 3, 4],
+        listOrder: [1, 2, 3, 4, 5, 6],
         //展示的组件
-        sideListShow: [true, true, false, true]
+        listShow: [true, true, true, true, true, true]
       }
     }
   },
@@ -112,25 +104,34 @@ export default {
     //回到顶部
     scrollToTop(this)
     //获取地址栏的参数
-    this.getUrlParams()
+    let flag = this.getUrlParams()
+    if (flag) {
+      //请求后台数据
+      this.requireData()
+    } else {
+      this.$router.push('/blog/tags')
+    }
   },
   methods: {
     //
     ...mapActions({
-      setRecArticleItems: 'setRecArticleItemsFun',
-      setCategoryItems: 'setCategoryItemsFun',
-      setTagItems: 'setTagItemsFun',
-      setNewArticleItems: 'setNewArticleItemsFun'
+      //
     }),
     getUrlParams() {
       let params = this.$global.GetQueryParamOfObjEntry()
-      if (params && params.q) {
-        this.pageParams.tName = params.q
-        this.setBreadcrumbs(params)
-        //请求后台数据
-        this.requireData()
+      if (params) {
+        if (params.q) {
+          let query = params.q
+          this.pageParams.tName = query
+          this.setBreadcrumbs(query)
+        }
+        if (params.p) {
+          let page = params.p
+          this.pageParams.current = page
+        }
+        return true
       } else {
-        this.$router.push('/blog/tag')
+        return false
       }
     },
     setBreadcrumbs(tag) {
@@ -138,46 +139,48 @@ export default {
     },
 
     requireData() {
-      reqSideRecArticleData(this)
-      reqSideCategoryData(this)
-      reqSideNewArticleData(this)
+      reqSideData(this)
       reqArticleData(this)
     },
     selfReqData() {
+      this.otherData.articleListLoading = true
       //回到顶部
       scrollToTop(this)
-      reqArticleData(this)
+      //获取地址栏的参数
+      let flag = this.getUrlParams()
+      if (flag) {
+        //请求分页数据
+        reqArticleData(this)
+      } else {
+        this.$router.push('/blog/tags')
+      }
     }
   },
   computed: {
     //
     ...mapGetters({
-      //获取  侧边栏的最新推荐文章数据
-      getRecArticleItems: 'getRecArticleItemsFun',
-      //获取  侧边栏的分类数据
-      getCategoryItems: 'getCategoryItemsFun',
-      //获取  侧边栏的标签数据
-      getTagItems: 'getTagItemsFun',
-      //获取  侧边栏的最新发布文章数据
-      getNewArticleItems: 'getNewArticleItemsFun'
+      //
     })
   },
   watch: {
     //
     //监听路由传递的参数
-    params() {
-      console.log('params')
-      // console.log(this.params)
-      this.pageParams.tName = this.params
-      this.setBreadcrumbs(this.params)
-    },
+    // params() {
+    //   console.log('params')
+    //   // console.log(this.params)
+    //   this.pageParams.tName = this.params
+    //   this.setBreadcrumbs(this.params)
+    // },
     //监控分页参数
-    pageParams: {
-      handler() {
-        reqArticleData(this)
-      },
-      deep: true
-    }
+    // pageParams: {
+    //   handler() {
+    //     reqArticleData(this)
+    //   },
+    //   deep: true
+    // }
+
+    // 监听路由变化，随时获取新的列表信息
+    $route: 'selfReqData'
   },
   components: {
     //

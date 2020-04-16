@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-04-10 12:27:58
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-10 14:38:53
+ * @LastEditTime : 2020-04-16 18:11:02
  * @FilePath     : \VueProjects\my-blog\src\utils\secretUrl.js
  * @Description  : 这是一些注释
  */
@@ -91,7 +91,7 @@ export const GetQueryParamOfObjEntry = () => {
 
 // url参数加密
 export function encryUrlOfRouter(to, from, next) {
-  console.log(to)
+  // console.log(to)
   // 这里对路由参数key进行加密
   if (Object.keys(to.query).length > 0 && !to.query.key) {
     let urlEntry = EncryUrl(to.query)
