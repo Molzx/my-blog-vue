@@ -216,6 +216,8 @@ export default {
       console.log('注销')
 
       let vm = this
+      //注销后跳回首页
+      // vm.$toLogout()
       setTimeout(() => {
         this.$api.login
           .toLogOut()
@@ -229,8 +231,6 @@ export default {
             //
           })
       }, 0)
-      //注销后跳回首页
-      // this.$toLogout()
     },
     toUserInfo() {
       //个人中心

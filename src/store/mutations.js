@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-01-15 17:35:35
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-07 16:47:30
+ * @LastEditTime : 2020-04-24 20:11:13
  * @FilePath     : \VueProjects\my-blog\src\store\mutations.js
  * @Description  : 这是一些注释
  */
@@ -39,7 +39,7 @@ export default {
   // 修改用户信息，并将用户信息存入localStorage，当前浏览器未关闭有效
   setUserInfo(state, info) {
     //如果info不为空
-    if (typeof info != undefined) {
+    if (typeof info != 'undefined') {
       state.userInfo = info
       sessionStorage.setItem('userInfo', state.userInfo)
     } else {
@@ -51,7 +51,7 @@ export default {
   // 修改token，并将token存入localStorage
   setLoginStatus(state, info) {
     //如果info不为空
-    if (typeof info != undefined) {
+    if (typeof info != 'undefined') {
       state.Authorization = {
         token: info.Authorization
       }
@@ -69,17 +69,23 @@ export default {
       } else {
         sessionStorage.setItem('Authorization', state.Authorization)
       }
+
+      //设置基本用户信息
+      this.commit('setBaseUserInfo', info.BaseUserInfo, info.type)
     } else {
       state.Authorization = ''
       //info为空，即代表删除
       storage.removeItem('Authorization')
       sessionStorage.removeItem('Authorization')
+
+      //设置基本用户信息
+      this.commit('setBaseUserInfo')
     }
   },
   // 修改基础用户信息，并将信息存入localStorage
-  setBaseUserInfo(state, info) {
+  setBaseUserInfo(state, info, type) {
     //如果info不为空
-    if (typeof info != undefined) {
+    if (typeof info != 'undefined') {
       state.BaseUserInfo = info
       // let userInfo = info.BaseUserInfo
       // if (userInfo) {
@@ -93,7 +99,17 @@ export default {
       //     nickName: info.nickName
       //   }
       // }
-      storage.setItem({ name: 'BaseUserInfo', value: state.BaseUserInfo })
+      //判断是否记住我，如果为1保存7天，否则为当次浏览器会话
+      if (type) {
+        storage.setItem({
+          name: 'BaseUserInfo',
+          value: state.BaseUserInfo,
+          expires: '604800000'
+        })
+      } else {
+        sessionStorage.setItem('BaseUserInfo', state.BaseUserInfo)
+      }
+      // storage.setItem({ name: 'BaseUserInfo', value: state.BaseUserInfo })
     } else {
       state.BaseUserInfo = ''
       //info为空，即代表删除
@@ -193,7 +209,7 @@ export default {
   //设置所查看用户信息的用户id
   setUseUserId(state, userId) {
     //如果info不为空
-    if (typeof userId != undefined) {
+    if (typeof userId != 'undefined') {
       state.useUserId = userId
     } else {
       state.useUserId = ''

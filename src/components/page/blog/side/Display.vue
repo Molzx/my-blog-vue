@@ -152,7 +152,7 @@ export default {
   mounted() {
     //
     this.onResize()
-    console.log(this.$refs.sideCol)
+    // console.log(this.$refs.sideCol)
   },
   methods: {
     //屏幕窗口大小变化

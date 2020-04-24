@@ -2,7 +2,7 @@
  * @Author       : xuzhenghao
  * @Date         : 2020-02-08 10:44:30
  * @LastEditors  : xuzhenghao
- * @LastEditTime : 2020-04-10 16:24:26
+ * @LastEditTime : 2020-04-24 21:23:55
  * @FilePath     : \VueProjects\my-blog\src\components\core\AppbarBlog.vue
  * @Description  : 这是一些注释
  -->
@@ -200,11 +200,12 @@ export default {
         {
           text: '关于',
           link: '/blog/about'
-        },
-        {
-          text: '测试',
-          link: '/blog/test'
         }
+        // ,
+        // {
+        //   text: '测试',
+        //   link: '/blog/test'
+        // }
       ],
       activeNavIndex: 0,
       unloginAvatar: require('@/assets/images/avatar/unlogin_avatar_32.svg'),

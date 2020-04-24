@@ -37,11 +37,12 @@ exports.install = function(Vue, router, store, TweenMaxObject) {
     }
   }
   Vue.prototype.$toLogout = () => {
+    console.log('in')
     //全局函数，注销登录
     store.dispatch('setUseUserIdFun')
-    store.dispatch('setBaseUserInfoFun')
     store.dispatch('setUserInfoFun')
     store.dispatch('setLoginStatusFun')
+    // store.dispatch('setBaseUserInfoFun')
     //注销后跳回首页
     router.push('/blog/home')
   }

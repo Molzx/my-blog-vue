@@ -25,7 +25,7 @@
                     @click="reportUser"
                     v-on="on"
                   >
-                    <v-icon size="20">mdi-info</v-icon>
+                    <v-icon size="20">iconfont icon-info-</v-icon>
                   </v-btn>
                 </template>
                 <span class="color-sub">举报用户</span>
